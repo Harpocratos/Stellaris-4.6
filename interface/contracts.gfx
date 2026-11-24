@@ -1,0 +1,110 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_ph_contract"
+		texturefile = "gfx/interface/contracts/contract_placeholder_icon.dds"
+	}
+	spriteType = {
+		name = "GFX_diplomacy_contract_banner"
+		texturefile = "gfx/interface/contracts/diplomacy_banner_contract.dds"
+	}
+	spriteType = {
+		name = "GFX_resource_contract_banner"
+		texturefile = "gfx/interface/contracts/resources_banner_contract.dds"
+	}
+	spriteType = {
+		name = "GFX_military_contract_banner"
+		texturefile = "gfx/interface/contracts/military_banner_contract.dds"
+	}
+	spriteType = {
+		name = "GFX_science_contract_banner"
+		texturefile = "gfx/interface/contracts/science_banner_contract.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_harvest_resources_small"
+		texturefile = "gfx/interface/contracts/contract_harvest_resources_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_espionage_support_small"
+		texturefile = "gfx/interface/contracts/contract_espionage_support_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_deep_scan_small"
+		texturefile = "gfx/interface/contracts/contract_deep_scan_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_raid_planet_small"
+		texturefile = "gfx/interface/contracts/contract_raid_planet_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_megastructure_support_small"
+		texturefile = "gfx/interface/contracts/contract_megastructure_support_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_diplomatic_support_small"
+		texturefile = "gfx/interface/contracts/contract_diplomatic_support_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_prisoner_transport_small"
+		texturefile = "gfx/interface/contracts/contract_prisoner_transport_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_scan_debris_small"
+		texturefile = "gfx/interface/contracts/contract_scan_debris_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_clear_blockers_small"
+		texturefile = "gfx/interface/contracts/contract_clear_blockers_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_build_waystation_small"
+		texturefile = "gfx/interface/contracts/contract_build_waystation_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_pest_control_small"
+		texturefile = "gfx/interface/contracts/contract_pest_control_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_join_war_small"
+		texturefile = "gfx/interface/contracts/contract_join_war_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_colony_startup_small"
+		texturefile = "gfx/interface/contracts/contract_colony_startup_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_stellar_ignition_small"
+		texturefile = "gfx/interface/contracts/contract_stellar_ignition_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_host_cfl_tournament_small"
+		texturefile = "gfx/interface/contracts/contract_host_cfl_tournament_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_sightseeing_tour_small"
+		texturefile = "gfx/interface/contracts/contract_sightseeing_tour_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_onboard_physics_research_small"
+		texturefile = "gfx/interface/contracts/contract_onboard_physics_research_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_onboard_society_research_small"
+		texturefile = "gfx/interface/contracts/contract_onboard_society_research_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_onboard_engineering_research_small"
+		texturefile = "gfx/interface/contracts/contract_onboard_engineering_research_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_onboard_minerals_resource_small"
+		texturefile = "gfx/interface/contracts/contract_onboard_minerals_resource_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_onboard_energy_resource_small"
+		texturefile = "gfx/interface/contracts/contract_onboard_energy_resource_small.dds"
+	}
+	spriteType = {
+		name = "GFX_contract_onboard_food_resource_small"
+		texturefile = "gfx/interface/contracts/contract_onboard_food_resource_small.dds"
+	}
+}

@@ -1,0 +1,326 @@
+guiTypes = {
+
+	### Envoy selection dialog
+	containerWindowType = {
+		name = "contract_selection_window"
+		size = { width = 545 height = 680 }
+		orientation = center
+		origo = center
+		moveable = yes
+
+		background = {
+			name = "contract_selection_bg"
+			quadTextureSprite = "GFX_tile_outliner_bg"
+		}
+
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -10 y = -8 }
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close"
+			position = { x = -40 y = 11 }
+			orientation = "UPPER_RIGHT"
+			shortCut = "ESCAPE"
+			clicksound = "back_click"
+		}
+
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line_medium"
+			position = { x = 6 y = 28 }
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "contract_selection_title"
+			font = "malgun_goth_24"
+			text = "ISSUE_CONTRACT"
+			position = { x = 24 y = 8 }
+			maxWidth = 344
+			maxHeight = 40
+			fixedSize = yes
+			alwaysTransparent = yes
+		}
+
+		containerWindowType = {
+			name = "category_list_container"
+			position = { x = 0 y = 45 }
+			size = { width = 538 height = 50 }
+
+			smoothListBoxType = {
+				name = "categories_list"
+				position = { x = 0 y = 0 }
+				size = { x = 533 y = 50 }
+				borderSize = { x = 0 y = 0 }
+				spacing = 4
+				horizontal = 1
+			}
+		}
+
+		containerWindowType = {
+			name = "contract_list_container"
+			position = { x = 11 y = 100 }
+			size = { width = 524 height = 401 }
+
+			background = {
+				name = "contract_list_background"
+				quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+			}
+
+			smoothListBoxType = {
+				name = "contracts_list"
+				position = { x = 9 y = 5 }
+				size = { x = 495 y = 387 }
+				borderSize = { x = 0 y = 0 }
+				scrollbartype = "standardlistbox_slider"
+				spacing = 5
+			}
+		}
+
+		containerWindowType = {
+			name = "contractors"
+			position = { x = 0 y = 500 }
+			size = { width = 100% height = 120 }
+
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_hex_bg"
+				position = { x = -10 y = -8 }
+				alwaysTransparent = yes
+			}
+
+			iconType = {
+				name = "header_line"
+				spriteType = "GFX_line_short"
+				position = { x = 56 y = 28 }
+				alwaysTransparent = yes
+			}
+
+			instantTextBoxType = {
+				name = "contractors_title"
+				font = "malgun_goth_24"
+				text = "CONTRACTORS"
+				position = { x = 24 y = 8 }
+				maxWidth = 344
+				maxHeight = 40
+				fixedSize = yes
+				alwaysTransparent = yes
+			}
+
+			containerWindowType = {
+				name = "contractors_list_container"
+				position = { x = 11 y = 50 }
+				size = { width = 524 height = 71 }
+
+				background = {
+					name = "contractors_list_background"
+					quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+				}
+
+				smoothListBoxType = {
+					name = "contractors_list"
+					position = { x = 5 y = 0 }
+					size = { x = 505 y = 70 }
+					borderSize = { x = 0 y = 0 }
+					scrollbartype = "standardlistbox_slider_horizontal"
+					spacing = 5
+					horizontal = 1
+				}
+			}
+		}
+
+		buttonType = {
+			name = "accept"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x = 200 y = -57  }
+			font = "cg_16b"
+			text = "ISSUE_CONTRACT"
+			orientation = "LOWER_LEFT"
+			clicksound = "confirm_click"
+			shortCut = "RETURN"
+		}
+	}
+
+	### Category entry ###
+	containerWindowType = {
+		name = "contract_category_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 128 height = 38 }
+
+		buttonType = {
+			name = "category_button"
+			quadTextureSprite = "GFX_button_dark_job"
+			size = { x = 126 y = 38 }
+			position = { x = 10 y = 12  }
+			font = "cg_16b"
+			clicksound = "confirm_click"
+		}
+
+		containerWindowType = {
+			name = "selected_overlay"
+			position = { x = 12 y = 12 }
+
+			size = { width = 124 height = 100% }
+			background = {
+				name = "selected_bg"
+				spriteType = "GFX_glow_tile_orange_no_padding"
+				alwaysTransparent = yes
+			}
+		}
+
+		iconType = {
+			name = "category_icon"
+			position = { x = 12 y = 15}
+			spriteType = "GFX_nomad_contract_icon"
+			alwaysTransparent = yes
+			scale = 0.85
+		}
+
+		instantTextBoxType = {
+			name = "category_name"
+			font = "cg_16b"
+			text = "NAME"
+			position = { x = 52 y = 13 }
+			maxWidth = 80
+			maxHeight = 34
+			fixedSize = yes
+			alwaysTransparent = yes
+			vertical_alignment = center
+		}
+	}
+
+	### Contract selection entry ###
+	containerWindowType = {
+		name = "contract_selection_entry"
+		position = { x = 10 y = 0 }
+		size = { width = 504 height = 105 }
+
+		background = {
+			name = "contract_selection_entry_background"
+			quadTextureSprite = "GFX_black_box_planet_view"
+		}
+
+		buttonType = {
+			name = "contract_button"
+			spriteType = "GFX_tiles_frame_light"
+			size = { x = 505 y = 115 }
+			position = { x = -5 y = -5 }
+			clicksound = "select_click"
+		}
+
+		containerWindowType = {
+			name = "header_bg"
+			position = { x = 0 y = 0 }
+			size = { width = 496 height = 35 }
+
+			background = {
+				name = "selected_bg"
+				spriteType = "GFX_diplomacy_contract_banner"
+				alwaysTransparent = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "selected_overlay"
+			position = { x = 0 y = 0 }
+
+			size = { width = 495 height = 105 }
+			background = {
+				name = "selected_bg"
+				spriteType = "GFX_glow_tile_orange_no_padding"
+				alwaysTransparent = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "contract_icon_window"
+			position = { x = -1 y = 24 }
+			size = { width = 82 height = 82 }
+
+			background = {
+				name = "contract_icon_background"
+				quadTextureSprite = "GFX_tiles_frame_light"
+				alwaysTransparent = yes
+			}
+		}
+
+		iconType = {
+			name = "contract_icon"
+			position = { x = 5 y = 30 }
+			spriteType = "GFX_ph_contract"
+			alwaysTransparent = yes
+		}
+
+		containerWindowType = {
+			name = "contract_info_header"
+			position = { x = -5 y = -5 }
+			size = { width = 505 height = 35 }
+
+			iconType = {
+				name = "category_icon"
+				position = { x = 10 y = 6 }
+				spriteType = "GFX_nomad_contract_icon"
+				alwaysTransparent = yes
+			}
+
+			instantTextBoxType = {
+				name = "contract_name"
+				font = "cg_16b"
+				text = "NAME"
+				position = { x = 35 y = 10 }
+				maxWidth = 344
+				maxHeight = 40
+				fixedSize = yes
+				text_color_code = "H"
+				alwaysTransparent = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "contract_info_container"
+			position = { x = 80 y = 0 }
+
+			instantTextBoxType = {
+				name = "contract_desc"
+				font = "cg_16b"
+				text = "DESC"
+				position = { x = 5 y = 27 }
+				maxWidth = 344
+				maxHeight = 60
+				fixedSize = yes
+				alwaysTransparent = yes
+			}
+
+			instantTextBoxType = {
+				name = "contract_cost"
+				font = "cg_16b"
+				text = "COST_VALUE"
+				position = { x = 5 y = 83 }
+				maxWidth = 344
+				maxHeight = 40
+				fixedSize = yes
+				alwaysTransparent = yes
+			}
+		}
+	}
+
+	### Contractor entry ###
+	containerWindowType = {
+		name = "contractor_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 64 height = 64 }
+
+		buttonType = {
+			name = "empire_flag"
+			quadTextureSprite = "GFX_empire_flag_64"
+			position = { x = 0 y = 1 }
+			orientation = UPPER_LEFT
+			oversound = no_sound
+		}
+	}
+}

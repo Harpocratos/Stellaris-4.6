@@ -1,0 +1,242 @@
+guiTypes = {
+	containerWindowType = {
+		name = "contract_accept_view"
+		orientation = center
+		origo = center
+		size = { width = 670 height = 450 }
+
+		moveable = yes
+
+		background = {
+			name = "contract_accept_view_background"
+			spriteType = "GFX_tile_outliner_bg"
+		}
+
+		# Header
+
+		containerWindowType = {
+			name = "contract_accept_header"
+			position = { x = 0 y = 0 }
+			size = { width = 100% height = 80 }
+
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_hex_bg"
+				position = { x = 35 y = -3 }
+				alwaysTransparent = yes
+			}
+
+			iconType = {
+				name = "header_line"
+				quadTextureSprite = "GFX_line"
+				position = { x = 10 y = 42 }
+			}
+
+			iconType = {
+				name = "contract_icon"
+				spriteType = "GFX_nomad_contract_icon"
+				position = { x = 10 y = 8 }
+				alwaysTransparent = yes
+			}
+
+			instantTextBoxType = {
+				name = "header_title"
+				font = "malgun_goth_24"
+				position = { x = 50 y = 14 }
+				text = "Placeholder Contract"
+				format = left
+				maxWidth = 375
+				maxHeight = 25
+			}
+
+			buttonType = {
+				name = "focus_button"
+				orientation = UPPER_RIGHT
+				position = { x = -78 y = 12 }
+				spriteType = "GFX_fleetview_focus"
+				shortcut = "q"
+			}
+
+			buttonType = {
+				name = "close"
+				orientation = "UPPER_RIGHT"
+				position = { x = -42 y = 12 }
+				quadTextureSprite = "GFX_close_button_galaxy"
+				shortcut = "ESCAPE"
+				clicksound = "back_click"
+				actionShortcut = "cancel"
+				pdx_tooltip = "CLOSE_TITLE"
+			}
+		}
+
+		# Main content
+
+		containerWindowType = {
+			name = "contract_info_container"
+			position = { x = 14 y = 65 }
+			size = { width = 640 height = 195 }
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+				alwaysTransparent = yes
+			}
+
+			containerWindowType = {
+				name = "portrait_container"
+				position = { x = 10 y = 20 }
+
+				containerWindowType = {
+					name = "leader_portrait_window"
+					position = { x = 0 y = 0 }
+					size = { width = 135 height = 160 }
+					clipping = yes
+
+					iconType = {
+						name = "leader_portrait"
+						spriteType = "GFX_portrait_character_close_up"
+						position = { x = -40 y = 0 }
+						scale = 0.4
+						alwaysTransparent = yes
+					}
+				}
+
+				containerWindowType = {
+					name = "flag_container"
+					position = { x = 0 y = 80 }
+					size = { width = 65 height = 65 }
+
+					buttonType = {
+						name = "flag_button"
+						position = { x = 0 y = 0 }
+						spriteType = "GFX_empire_flag_64"
+					}
+				}
+			}
+
+			containerWindowType = {
+				name = "contract_details_container"
+				position = { x = 165 y = 20 }
+				size = { width = 370 height = 160 }
+
+				instantTextBoxType = {
+					name = "contract_title"
+					position = { x = 10 y = 0 }
+					font = "malgun_goth_24"
+					text_color_code = "E"
+					maxHeight = 24
+					maxWidth = 390
+				}
+
+				instantTextBoxType = {
+					name = "contract_issuer"
+					position = { x = 10 y = 25 }
+					font = "cg_16b"
+					maxHeight = 16
+					maxWidth = 390
+				}
+
+				instantTextBoxType = {
+					name = "contract_time_limit"
+					position = { x = 10 y = 42 }
+					font = "cg_16b"
+					maxHeight = 16
+					text_color_code = "H"
+				}
+
+				instantTextBoxType = {
+					name = "contract_desc"
+					position = { x = 10 y = 70 }
+					font = "cg_16b"
+					maxWidth = 385
+					maxHeight = 96
+					scrollbartype = "standardtext_slider_small"
+
+				}
+			}
+		}
+
+		containerWindowType = {
+			name = "contract_location_container"
+			position = { x = 15 y = 270 }
+			size = { width = 140 height = 105 }
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+				alwaysTransparent = yes
+			}
+
+			instantTextBoxType = {
+				name = "contract_location_title"
+				position = { x = 15 y = 10 }
+				font = "cg_16b"
+				text = "LOCATION"
+				text_color_code = "E"
+				maxHeight = 16
+			}
+
+			instantTextBoxType = {
+				name = "contract_location"
+				position = { x = 15 y = 30 }
+				font = "cg_16b"
+				text = "Empire of Cool's playground"
+				text_color_code = "Y"
+				maxHeight = 16
+				maxWidth = 120
+			}
+		}
+
+		containerWindowType = {
+			name = "contract_reward_container"
+			position = { x = 165 y = 270 }
+			size = { width = 490 height = 105 }
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+				alwaysTransparent = yes
+			}
+
+			instantTextBoxType = {
+				name = "contract_reward_title"
+				position = { x = 15 y = 10 }
+				font = "cg_16b"
+				text = "CONTRACT_REWARD"
+				text_color_code = "E"
+				maxHeight = 16
+			}
+
+			instantTextBoxType = {
+				name = "contract_reward"
+				position = { x = 15 y = 30 }
+				font = "cg_16b"
+				text = "+ 1000 (T)"
+				text_color_code = "W"
+				maxHeight = 65
+				maxWidth = 450
+				scrollbartype = "standardtext_slider_small"
+			}
+		}
+
+		# Bottom row
+
+		containerWindowType = {
+			name = "accept_button_container"
+			position = { x = 0 y = 150 }
+			size = { width = 100% height = 30 }
+			orientation = center
+
+			buttonType = {
+				name = "accept"
+				quadTextureSprite = "GFX_standard_button_142_34_button"
+				position = { x = -76 y = 6 }
+				text = "ACCEPT"
+				#Orientation = "LOWER_RIGHT"
+				font = "cg_16b"
+				clicksound = "confirm_click"
+				shortCut = "RETURN"
+			}
+		}
+	}
+}
