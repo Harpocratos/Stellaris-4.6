@@ -1,0 +1,166 @@
+## Categories used in this file must have use_for_ai_budget = yes defined in economic_categories ##
+## It is possible to have multiple entries with the same category and resource ##
+
+#################
+## Expenditure ##
+#################
+
+living_metal_expenditure_planets = {
+	resource = sr_living_metal
+	type = expenditure
+	category = planets
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.2
+	}
+}
+
+living_metal_expenditure_ships = {
+	resource = sr_living_metal
+	type = expenditure
+	category = ships
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.1
+		modifier = {
+			factor = 5
+			is_dragon_breeder_country = yes
+		}
+	}
+}
+
+living_metal_expenditure_upgrade = {
+	resource = sr_living_metal
+	type = expenditure
+	category = ship_upgrades
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		base = 0.1
+	}
+}
+
+living_metal_expenditure_trade = {
+	resource = sr_living_metal
+	type = expenditure
+	category = trade
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}
+
+living_metal_expenditure_starbases = {
+	resource = sr_living_metal
+	type = expenditure
+	category = starbases
+
+	potential = {
+		is_nomadic = yes
+		is_galvanic_empire = yes
+	}
+
+	weight = {
+		weight = 0.2
+	}
+}
+
+# Upkeep -----------------------------------------------------------------
+
+living_metal_upkeep_planets = {
+	resource = sr_living_metal
+	type = upkeep
+	category = planets
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.9
+	}
+}
+
+living_metal_upkeep_ships = {
+	resource = sr_living_metal
+	type = upkeep
+	category = ships
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}
+
+living_metal_upkeep_edicts = {
+	resource = sr_living_metal
+	type = upkeep
+	category = edicts
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		base = 0.25
+	}
+}
+
+living_metal_expenditure_armies = {
+	resource = sr_living_metal
+	type = expenditure
+	category = armies
+
+	potential = {
+		is_galvanic_empire = yes
+	}
+
+	weight = {
+		weight = 0.1
+
+		modifier = {
+			factor = 2
+			OR = {
+				any_neighbor_country = {
+					has_ascension_perk = ap_become_the_crisis
+				}
+				any_country = {
+					is_crisis_faction = yes
+				}
+			}
+		}
+	}
+}
+
+living_metal_expenditure_armies_threatened = {
+	resource = sr_living_metal
+	type = expenditure
+	category = armies
+
+	potential = {
+		is_galvanic_empire = yes
+		highest_threat > 20
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}

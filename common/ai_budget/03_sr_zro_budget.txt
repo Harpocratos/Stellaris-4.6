@@ -1,0 +1,153 @@
+## Categories used in this file must have use_for_ai_budget = yes defined in economic_categories ##
+## It is possible to have multiple entries with the same category and resource ##
+
+#################
+## Expenditure ##
+#################
+
+
+zro_expenditure_planets = {
+	resource = sr_zro
+	type = expenditure
+	category = planets
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.2
+	}
+}
+
+zro_expenditure_ships = {
+	resource = sr_zro
+	type = expenditure
+	category = ships
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}
+
+zro_expenditure_upgrade = {
+	resource = sr_zro
+	type = expenditure
+	category = ship_upgrades
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		base = 0.1
+	}
+}
+
+zro_expenditure_trade = {
+	resource = sr_zro
+	type = expenditure
+	category = trade
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}
+
+zro_expenditure_starbases = {
+	resource = sr_zro
+	type = expenditure
+	category = starbases
+
+	potential = {
+		OR = {
+			has_technology = tech_secrets_zroni
+			AND = {
+				is_nomadic = yes
+				OR = {
+					has_technology = tech_psionic_bombers
+					has_technology = tech_psionic_lightning
+					has_technology = tech_zro_launcher
+					has_technology = tech_psionic_shield
+				}
+			}
+		}
+	}
+
+	weight = {
+		weight = 0.2
+		modifier = {
+			factor = 3
+			is_nomadic = yes
+		}
+	}
+}
+
+# Upkeep --------------------------------------------------------
+
+zro_upkeep_planets = {
+	resource = sr_zro
+	type = upkeep
+	category = planets
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.9
+	}
+}
+
+zro_upkeep_ships = {
+	resource = sr_zro
+	type = upkeep
+	category = ships
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}
+
+zro_upkeep_edicts = {
+	resource = sr_zro
+	type = upkeep
+	category = edicts
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		base = 0.25
+	}
+}
+
+zro_upkeep_starbases = {
+	resource = sr_zro
+	type = upkeep
+	category = starbases
+
+	potential = {
+		OR = {
+			has_technology = tech_aura_resonation
+			has_technology = tech_secrets_zroni
+		}
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}

@@ -1,0 +1,101 @@
+## Categories used in this file must have use_for_ai_budget = yes defined in economic_categories ##
+## It is possible to have multiple entries with the same category and resource ##
+
+#################
+## Expenditure ##
+#################
+astral_threads_expenditure_buffer = { # Buffer, will not be spent
+	resource = astral_threads
+	type = expenditure
+	category = buffer
+
+	potential = {
+		always = no
+	}
+
+	weight = {
+		weight = 0.0
+	}
+}
+
+astral_threads_expenditure_edicts = {
+	resource = astral_threads
+	type = expenditure
+	category = edicts
+
+	potential = {
+		OR = {
+			has_country_flag = action_planar_mastery_activated
+			has_country_flag = astral_cloaking_available
+		}
+	}
+
+	weight = {
+		weight = 0.2
+	}
+}
+
+astral_threads_upkeep_edicts = {
+	resource = astral_threads
+	type = upkeep
+	category = edicts
+
+	potential = {
+		OR = {
+			has_country_flag = action_planar_mastery_activated
+			has_country_flag = astral_cloaking_available
+		}
+	}
+	weight = {
+		weight = 0.1
+	}
+}
+
+astral_threads_expenditure_armies = {
+	resource = astral_threads
+	type = expenditure
+	category = armies
+
+	potential = {
+		has_astral_planes_dlc = yes
+		OR = {
+			has_country_flag = unlocked_warplings
+			has_country_flag = unlocked_flamestorm_troopers
+		}
+	}
+
+	weight = {
+		weight = 0.1
+
+		modifier = {
+			factor = 2
+			OR = {
+				any_neighbor_country = {
+					has_ascension_perk = ap_become_the_crisis
+				}
+				any_country = {
+					is_crisis_faction = yes
+				}
+			}
+		}
+	}
+}
+
+astral_threads_expenditure_armies_threatened = {
+	resource = astral_threads
+	type = expenditure
+	category = armies
+
+	potential = {
+		has_astral_planes_dlc = yes
+		OR = {
+			has_country_flag = unlocked_warplings
+			has_country_flag = unlocked_flamestorm_troopers
+		}
+		highest_threat > 20
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}

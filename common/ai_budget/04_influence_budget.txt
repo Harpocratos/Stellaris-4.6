@@ -1,0 +1,650 @@
+## Categories used in this file must have use_for_ai_budget = yes defined in economic_categories ##
+## It is possible to have multiple entries with the same category and resource ##
+
+#################
+## Expenditure ##
+#################
+influence_expenditure_buffer = { # Buffer, will not be spent
+	resource = influence
+	type = expenditure
+	category = buffer
+
+	potential = {
+		always = no
+	}
+
+	weight = {
+		weight = 0.0
+	}
+}
+
+influence_expenditure_decisions = {
+	resource = influence
+	type = expenditure
+	category = decisions
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.50
+		modifier = {
+			factor = 2
+			OR = {
+				AND = {
+					has_technology = tech_housing_2
+					any_owned_planet = {
+						is_planet_class = pc_relic
+						num_uncleared_blockers < 1
+					}
+				}
+				AND = {
+					has_ascension_perk = ap_arcology_project
+					any_owned_planet = {
+						is_artificial = no
+						NOR = {
+							is_planet_class = pc_city
+							is_planet_class = pc_relic
+							has_modifier = resort_colony
+							has_modifier = penal_colony
+							has_modifier = slave_colony
+							has_modifier = pm_wenkwort_custodian
+						}
+						num_uncleared_blockers < 1
+						free_district_slots < 1
+						OR = {
+							pop_amount >= 7000
+							is_capital = yes
+						}
+					}
+				}
+			}
+		}
+	}
+
+	# this is the cost of the arcology project decision
+	desired_max = {
+		base = 200
+	}
+}
+
+influence_expenditure_resolutions = {
+	resource = influence
+	type = expenditure
+	category = resolutions
+
+	potential = {
+		is_galactic_community_member = yes
+		NOT = { is_proposing_resolution = "any" }
+	}
+
+	weight = {
+		weight = 0.30
+	}
+
+	# min/max resolution proposal costs defined in resolutions.txt
+	desired_min = {
+		base = 100
+	}
+	desired_max = {
+		base = 300
+	}
+}
+
+influence_expenditure_agreement_proposals = {
+	resource = influence
+	type = expenditure
+	category = agreement_proposals
+
+	potential = {
+		is_overlord = yes
+		ai_wants_to_negotiate_agreement = yes
+	}
+
+	weight = {
+		weight = 20
+	}
+}
+
+influence_expenditure_edicts = {
+	resource = influence
+	type = expenditure
+	category = edicts
+
+	potential = {
+		is_sovereign_guardianship_empire = yes
+		NOT = { has_edict = inner_focus }
+	}
+
+	weight = {
+		weight = 0.25
+	}
+
+	desired_min = {
+		base = 100
+	}
+
+	desired_max = {
+		base = 100
+	}
+}
+
+influence_upkeep_edicts = {
+	resource = influence
+	type = upkeep
+	category = edicts
+	potential = {
+		has_edict = inner_focus
+		has_resource = {
+			type = influence
+			amount > 300
+		}
+	}
+	weight = {
+		weight = 0.5
+	}
+	desired_max = {
+		base = 3
+	}
+}
+
+influence_expenditure_stations = {
+	resource = influence
+	type = expenditure
+	category = stations
+
+	potential = {
+		is_nomadic = no
+		has_ai_expansion_plan = yes
+	}
+
+	weight = {
+		weight = 0.50
+	}
+
+	# min is 1 jump away
+	desired_min = {
+		base = 75
+	}
+
+	# max is 2 jumps away
+	desired_max = {
+		base = 150
+	}
+}
+
+influence_expenditure_ships = {
+	resource = influence
+	type = expenditure
+	category = ships
+
+	# Cultural Envoys are the only buildable in the ships category costing influence (orbital rings and waystations cost it too, but are funded from the starbases categories)
+	potential = {
+		has_technology = tech_cultural_envoys
+	}
+
+	weight = {
+		weight = 0.15
+	}
+
+	desired_min = {
+		base = @cultural_envoy_cost_influence
+	}
+
+	desired_max = {
+		base = @[ cultural_envoy_cost_influence * 2 ]
+	}
+}
+
+influence_expenditure_claims = {
+	resource = influence
+	type = expenditure
+	category = claims
+
+	potential = {
+		is_nomadic = no
+		NOT = {
+			OR = {
+				is_pacifist = yes
+				has_crisis_level = crisis_level_2
+			}
+		}
+		has_potential_claims = yes
+	}
+
+	weight = {
+		weight = 0.15
+	}
+}
+
+influence_expenditure_claims_militarist = {
+	resource = influence
+	type = expenditure
+	category = claims
+
+	potential = {
+		is_nomadic = no
+		has_ethic = ethic_militarist
+		has_potential_claims = yes
+	}
+
+	weight = {
+		weight = 0.05
+	}
+}
+
+influence_expenditure_claims_fanatic_militarist = {
+	resource = influence
+	type = expenditure
+	category = claims
+
+	potential = {
+		is_nomadic = no
+		has_ethic = ethic_fanatic_militarist
+		has_potential_claims = yes
+	}
+
+	weight = {
+		weight = 0.10
+	}
+}
+
+influence_expenditure_claims_absolute_militarist = {
+	resource = influence
+	type = expenditure
+	category = claims
+
+	potential = {
+		is_nomadic = no
+		has_ethic = ethic_absolute_militarist
+		has_potential_claims = yes
+	}
+
+	weight = {
+		weight = 0.15
+	}
+}
+
+influence_expenditure_megastructures = {
+	resource = influence
+	type = expenditure
+	category = megastructures
+
+	potential = {
+		is_at_war = no
+		has_resource = {
+			type = influence
+			amount > 500
+		}
+		can_build_megastructures = yes
+	}
+
+	weight = {
+		weight = 0.1
+	}
+
+	# only used by construction sites, base cost is 300
+	desired_min = {
+		base = 75
+		modifier = {
+			add = 225
+			has_technology = tech_ring_world
+			NOT = {
+				any_owned_planet = { is_planet_class = pc_ringworld_habitable }
+			}
+		}
+	}
+	desired_max = {
+		base = 75
+		modifier = {
+			add = 225
+			has_technology = tech_ring_world
+		}
+	}
+}
+
+influence_expenditure_megastructures_waystations = {
+	resource = influence
+	type = expenditure
+	category = megastructures_waystations
+
+	potential = {
+		is_nomadic = yes
+		highest_threat < 50
+		has_technology = tech_waystation_1
+	}
+
+	weight = {
+		weight = 0.3
+
+		# Waystations use starbase capacity. Reduce budget when over capacity.
+		modifier = {
+			factor = 0.5
+			used_starbase_capacity_percent >= 1
+		}
+		modifier = {
+			factor = 0.1
+			used_starbase_capacity_percent >= 1.25
+		}
+		modifier = {
+			factor = 0
+			used_starbase_capacity_percent >= 2.0
+		}
+	}
+
+	desired_min = {
+		base = @waystation_cost_influence_100
+	}
+
+	desired_max = {
+		base = @waystation_cost_influence_100
+	}
+}
+
+influence_expenditure_megastructures_arkships = {
+	resource = influence
+	type = expenditure
+	category = megastructures_arkships
+
+	potential = {
+		is_nomadic = yes
+		has_technology = tech_arkship_construction
+		# Stop reserving once at the build cap, or the floor locks influence away from decisions forever.
+		count_owned_fleet = {
+			limit = { is_arkship_fleet = yes }
+			count < @ai_arkship_build_cap
+		}
+		# An arkship in hand is worth more than one on order, so fund the upgrade first.
+		has_upgradable_arkship = no
+	}
+
+	weight = {
+		weight = 0.3
+	}
+
+	desired_min = {
+		base = @arkship_cost_influence_500
+	}
+
+	desired_max = {
+		base = @arkship_cost_influence_500
+	}
+}
+
+influence_expenditure_habitats = {
+	resource = influence
+	type = expenditure
+	category = megastructures_habitat
+
+	potential = { ai_should_build_habitats = yes }
+
+	weight = {
+		weight = 0.1
+		modifier = {
+			factor = 10
+			is_void_dweller_empire = yes
+		}
+		modifier = {
+			factor = 10
+			is_void_dweller_empire = yes
+			count_owned_planet = {
+				limit = { is_planet_class = pc_habitat }
+				count < 4
+			}
+		}
+		modifier = {
+			factor = 10
+			is_void_dweller_empire = yes
+			count_owned_planet = {
+				limit = { is_planet_class = pc_habitat }
+				count < 6
+			}
+		}
+		modifier = {
+			factor = 5
+			mid_game_years_passed > 0
+			num_owned_colonies < 12
+		}
+		modifier = {
+			factor = 0.5
+			has_aquatic_trait = yes
+		}
+		modifier = { #Build fortress habitats
+			factor = 2
+			used_naval_capacity_percent > 0.95
+			used_starbase_capacity_percent >= 1
+		}
+	}
+
+	desired_min = {
+		base = 150
+	}
+	desired_max = {
+		base = 150
+	}
+}
+
+influence_expenditure_starbases = {
+	resource = influence
+	type = expenditure
+	category = starbases
+
+	potential = {
+		count_owned_nonprimary_starbase = {
+			count > 0
+		}
+	}
+
+	weight = {
+		base = 0
+
+		modifier = {
+			add = 0.2
+			has_technology = tech_housing_2
+			any_owned_nonprimary_starbase = {
+				exists = planet
+				OR = {
+					AND = {
+						has_starbase_size = orbital_ring_tier_1
+						count_starbase_modules = { count < 2 }
+					}
+					AND = {
+						has_starbase_size = orbital_ring_tier_2
+						count_starbase_modules = { count < 3 }
+					}
+					AND = {
+						has_starbase_size = orbital_ring_tier_3
+						count_starbase_modules = { count < 4 }
+					}
+				}
+			}
+		}
+		modifier = {
+			add = 0.3
+			has_technology = tech_starbase_4
+			any_owned_nonprimary_starbase = {
+				has_starbase_size = orbital_ring_tier_1
+				exists = planet
+			}
+		}
+		modifier = {
+			add = 0.3
+			has_technology = tech_starbase_5
+			any_owned_nonprimary_starbase = {
+				has_starbase_size = orbital_ring_tier_2
+				exists = planet
+				planet = {
+					OR = {
+						has_planetary_ascension_tier >= 3
+						has_major_upgraded_capital = yes
+					}
+				}
+				OR = {
+					count_starbase_modules = {
+						count = 3
+					}
+					count_starbase_buildings = {
+						count = 1
+					}
+				}
+			}
+		}
+	}
+	desired_min = {
+		base = 50
+	}
+	desired_max = {
+		base = 100
+		modifier = {
+			factor = 1.5
+			has_technology = tech_starbase_5
+			any_owned_nonprimary_starbase = {
+				has_starbase_size = orbital_ring_tier_2
+				exists = planet
+				planet = {
+					OR = {
+						has_planetary_ascension_tier >= 3
+						has_major_upgraded_capital = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+influence_expenditure_starbases_nomadic = {
+	resource = influence
+	type = expenditure
+	category = starbases
+
+	potential = {
+		is_nomadic = yes
+	}
+
+	weight = {
+		weight = 0.3
+	}
+
+	# Waystation tier upgrade = 50 influence. The arkship tier upgrade adds its 250 while one is available,
+	# so the upgrade is funded before a new arkship is.
+	desired_min = {
+		base = @waystation_cost_influence_50
+		modifier = {
+			add = @arkship_cost_influence_250
+			has_upgradable_arkship = yes
+		}
+	}
+
+	# An Arkship tier upgrade and the Exodus Jump module each cost 250 influence in this category.
+	# Reserve while either is still available to buy, and release once neither is.
+	desired_max = {
+		base = @waystation_cost_influence_50
+		modifier = {
+			add = @arkship_cost_influence_250
+			OR = {
+				AND = {
+					has_technology = tech_arkship_tier_2
+					any_owned_fleet = {
+						starbase? = {
+							is_arkship_starbase = yes
+							can_be_upgraded = yes
+						}
+					}
+				}
+				AND = {
+					has_technology = tech_arkship_exodus_jump
+					any_owned_fleet = {
+						starbase? = {
+							arkship_spinal_slot_free = yes
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+influence_expenditure_operations = {
+	resource = influence
+	type = expenditure
+	category = operations
+
+	potential = {
+		# only allocate influence for operations if we can afford them
+		has_resource = {
+			type = influence
+			amount > 250
+		}
+
+		# and if we have a spy network to use them in!
+		any_spynetwork = {
+			owner = { is_same_value = root }
+			is_spynetwork_level >= 20
+		}
+	}
+
+	weight = {
+		weight = 0.05
+
+		modifier = {
+			factor = 2
+			has_tradition = tr_subterfuge_finish
+		}
+
+		modifier = {
+			factor = 2
+			any_spynetwork = {
+				owner = { is_same_value = root }
+				is_spynetwork_level >= 40
+			}
+		}
+
+		modifier = {
+			factor = 1.5
+			any_spynetwork = {
+				owner = { is_same_value = root }
+				is_spynetwork_level >= 60
+			}
+		}
+
+		modifier = {
+			factor = 1.5
+			any_spynetwork = {
+				owner = { is_same_value = root }
+				is_spynetwork_level >= 80
+			}
+		}
+	}
+
+	# based on gather information op
+	desired_min = {
+		base = 20
+	}
+
+	# based on crisis beacon op
+	desired_max = {
+		base = 320
+	}
+}
+
+influence_expenditure_planets = {
+	resource = influence
+	type = expenditure
+	category = planets
+
+	potential = {
+		OR = {
+			is_megacorp = yes
+			has_civic = civic_galactic_sovereign_megacorp
+		}
+	}
+
+	desired_min = {
+		base = 50
+	}
+
+	desired_max = {
+		base = 100
+	}
+}

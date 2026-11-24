@@ -1,0 +1,274 @@
+## Categories used in this file must have use_for_ai_budget = yes defined in economic_categories ##
+## It is possible to have multiple entries with the same category and resource ##
+
+#################
+## Expenditure ##
+#################
+
+volatile_motes_expenditure_planets = {
+	resource = volatile_motes
+	type = expenditure
+	category = planets
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.2
+		modifier = {
+			factor = 3
+			is_nomadic = yes
+		}
+	}
+	desired_min = {
+		base = 0
+		modifier = {
+			add = @ai_nomad_strategic_planet_desired_min
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 1
+			}
+		}
+		modifier = {
+			add = @ai_nomad_strategic_planet_desired_min
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 2
+			}
+		}
+		modifier = {
+			add = @ai_nomad_strategic_planet_desired_min
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 3
+			}
+		}
+	}
+	desired_max = {
+		base = 0
+		modifier = {
+			add = @ai_nomad_strategic_planet_desired_max
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 1
+			}
+		}
+		modifier = {
+			add = @ai_nomad_strategic_planet_desired_max
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 2
+			}
+		}
+		modifier = {
+			add = @ai_nomad_strategic_planet_desired_max
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 3
+			}
+		}
+	}
+}
+
+volatile_motes_expenditure_ships = {
+	resource = volatile_motes
+	type = expenditure
+	category = ships
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}
+
+volatile_motes_expenditure_upgrade = {
+	resource = volatile_motes
+	type = expenditure
+	category = ship_upgrades
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		base = 0.1
+	}
+}
+
+volatile_motes_expenditure_trade = {
+	resource = volatile_motes
+	type = expenditure
+	category = trade
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}
+
+volatile_motes_expenditure_starbases = {
+	resource = volatile_motes
+	type = expenditure
+	category = starbases
+
+	potential = {
+		OR = {
+			is_nomadic = yes
+			any_owned_nonprimary_starbase = {
+				has_starbase_size >= orbital_ring_tier_2
+				exists = planet
+			}
+		}
+	}
+
+	weight = {
+		weight = 0.2
+
+		modifier = {
+			factor = 0
+			is_nomadic = no
+			NOT = { has_orbital_ring_with_empty_building_slots = yes }
+		}
+		modifier = {
+			factor = 3
+			is_nomadic = yes
+		}
+	}
+	desired_min = {
+		base = 0
+		modifier = {
+			add = @ai_nomad_strategic_starbase_desired_min
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 1
+			}
+		}
+		modifier = {
+			add = @ai_nomad_strategic_starbase_desired_min
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 2
+			}
+		}
+		modifier = {
+			add = @ai_nomad_strategic_starbase_desired_min
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 3
+			}
+		}
+	}
+	desired_max = {
+		base = 0
+		modifier = {
+			add = @ai_nomad_strategic_starbase_desired_max
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 1
+			}
+		}
+		modifier = {
+			add = @ai_nomad_strategic_starbase_desired_max
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 2
+			}
+		}
+		modifier = {
+			add = @ai_nomad_strategic_starbase_desired_max
+			is_nomadic = yes
+			owns_arkship_fleets_at_least = {
+				COUNT = 3
+			}
+		}
+	}
+}
+
+# Upkeep -----------------------------------------------------------
+
+volatile_motes_upkeep_planets = {
+	resource = volatile_motes
+	type = upkeep
+	category = planets
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.9
+	}
+}
+
+volatile_motes_upkeep_ships = {
+	resource = volatile_motes
+	type = upkeep
+	category = ships
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}
+
+volatile_motes_upkeep_edicts = {
+	resource = volatile_motes
+	type = upkeep
+	category = edicts
+
+	potential = {
+		always = yes
+	}
+
+	weight = {
+		base = 0.25
+	}
+}
+
+volatile_motes_upkeep_hyper_relays = {
+	resource = volatile_motes
+	type = upkeep
+	category = megastructures_hyper_relay
+
+	potential = {
+		has_technology = tech_hyper_relays
+	}
+
+	weight = {
+		weight = 0.1
+	}
+}
+
+volatile_motes_upkeep_starbases = {
+	resource = volatile_motes
+	type = upkeep
+	category = starbases
+
+	potential = {
+		OR = {
+			is_nomadic = yes
+			any_owned_nonprimary_starbase = {
+				has_starbase_size >= orbital_ring_tier_2
+				exists = planet
+			}
+		}
+	}
+
+	weight = {
+		weight = 0.1
+		modifier = {
+			factor = 3
+			is_nomadic = yes
+		}
+	}
+}
