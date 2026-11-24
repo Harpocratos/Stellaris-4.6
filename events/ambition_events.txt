@@ -1,0 +1,1817 @@
+############################
+# Ambition Events
+############################
+
+namespace = ambition
+
+# Defenders of the Galaxy Ambition
+### Level events
+country_event = { # Taking the AP - Start level 1
+	id = ambition.100
+	title = "ambition.100.name"
+	desc = ambition.100.desc
+	picture = GFX_evt_crisis_declared
+	show_sound = event_hand_shake
+	is_triggered_only = yes
+
+	option = {
+		name = ambition.100.a
+		begin_event_chain = {
+			event_chain = defender_of_the_galaxy_chain
+			target = root
+		}
+		add_event_chain_counter = {
+			event_chain = "defender_of_the_galaxy_chain"
+			counter = "ambition_level_reached"
+			amount = 1
+		}
+	}
+
+	after = {
+		enable_special_project = {
+			name = DEFENDER_CRISIS_SPECIAL_PROJECT_1
+			owner = root
+			location = capital_scope
+		}
+		enable_mission = {
+			name = MISSION_JOIN_GALACTIC_COMMUNITY
+		}
+		hidden_effect = {
+			country_event = { id = ambition.330 }
+		}
+	}
+}
+
+country_event = { # Reaching Level 2
+	id = ambition.105
+	title = "ambition.105.name"
+	desc = ambition.105.desc
+	picture = GFX_evt_enclave_overlord
+	show_sound = event_hand_shake
+	event_chain = defender_of_the_galaxy_chain
+
+	is_triggered_only = yes
+
+	immediate = {
+		add_event_chain_counter = {
+			event_chain = "defender_of_the_galaxy_chain"
+			counter = "ambition_level_reached"
+			amount = 1
+		}
+	}
+
+	option = {
+		name = ambition.105.a
+	}
+
+	after = {
+		enable_special_project = {
+			name = DEFENDER_CRISIS_SPECIAL_PROJECT_2
+			owner = root
+			location = capital_scope
+		}
+		enable_mission = {
+			name = MISSION_BE_ON_GALACTIC_COUNCIL
+		}
+		hidden_effect = {
+			country_event = { id = ambition.335 }
+		}
+	}
+}
+
+country_event = { # Reaching Level 3
+	id = ambition.110
+	title = "ambition.110.name"
+	desc = ambition.110.desc
+	picture = GFX_evt_grand_speech
+	show_sound = event_hand_shake
+	event_chain = defender_of_the_galaxy_chain
+
+	is_triggered_only = yes
+
+	immediate = {
+		add_event_chain_counter = {
+			event_chain = "defender_of_the_galaxy_chain"
+			counter = "ambition_level_reached"
+			amount = 1
+		}
+	}
+
+	option = {
+		name = ambition.110.a
+	}
+	after = {
+		enable_mission = {
+			name = MISSION_BE_CUSTODIAN
+		}
+		hidden_effect = {
+			country_event = { id = ambition.340 }
+		}
+	}
+}
+
+country_event = { # Reaching Level 4
+	id = ambition.115
+	title = "ambition.115.name"
+	desc = ambition.115.desc
+	picture = GFX_evt_defender_of_the_galaxy
+	show_sound = event_hand_shake
+	event_chain = defender_of_the_galaxy_chain
+
+	is_triggered_only = yes
+
+	immediate = {
+		add_event_chain_counter = {
+			event_chain = "defender_of_the_galaxy_chain"
+			counter = "ambition_level_reached"
+			amount = 1
+		}
+	}
+
+	option = {
+		name = ambition.115.a
+	}
+
+	after = {
+		enable_special_project = {
+			name = DEFENDER_CRISIS_SPECIAL_PROJECT_4
+			owner = root
+			location = capital_scope
+		}
+	}
+}
+
+country_event = { # Reaching Level 5
+	id = ambition.120
+	title = "ambition.120.name"
+	desc = ambition.120.desc
+	picture = GFX_evt_salute
+	show_sound = event_hand_shake
+	event_chain = defender_of_the_galaxy_chain
+
+	is_triggered_only = yes
+
+	immediate = {
+		add_event_chain_counter = {
+			event_chain = "defender_of_the_galaxy_chain"
+			counter = "ambition_level_reached"
+			amount = 1
+		}
+		begin_event_chain = {
+			event_chain = defender_of_the_galaxy_ending_chain
+			target = root
+		}
+		if = {
+			limit = { has_global_flag = prethoryn_invasion_defeated }
+			add_event_chain_counter = {
+				event_chain = "defender_of_the_galaxy_ending_chain"
+				counter = "crisis_defeated"
+				amount = 1
+			}
+		}
+		if = {
+			limit = { has_global_flag = extradimensional_invasion_defeated }
+			add_event_chain_counter = {
+				event_chain = "defender_of_the_galaxy_ending_chain"
+				counter = "crisis_defeated"
+				amount = 1
+			}
+		}
+		if = {
+			limit = { has_global_flag = ai_invasion_defeated }
+			add_event_chain_counter = {
+				event_chain = "defender_of_the_galaxy_ending_chain"
+				counter = "crisis_defeated"
+				amount = 1
+			}
+		}
+		if = {
+			limit = { has_global_flag = synth_queen_defeated }
+			add_event_chain_counter = {
+				event_chain = "defender_of_the_galaxy_ending_chain"
+				counter = "crisis_defeated"
+				amount = 1
+			}
+		}
+	}
+
+	option = {
+		name = ambition.120.a
+	}
+
+	after = {
+	}
+}
+
+# Special Project Completed
+
+#125 - Embassies
+country_event = {
+	id = ambition.125
+	title = "ambition.125.name"
+	desc = ambition.125.desc
+	picture = GFX_evt_salute
+	show_sound = event_hand_shake
+	event_chain = defender_of_the_galaxy_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = ambition.125.a
+	}
+
+	after = {
+		custom_tooltip = can_advance_crisis_progression
+	}
+}
+
+#130 - Paladins
+country_event = {
+	id = ambition.130
+	title = "ambition.130.name"
+	desc = ambition.130.desc
+	picture = GFX_evt_salute
+	show_sound = event_hand_shake
+	event_chain = defender_of_the_galaxy_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = ambition.130.a
+	}
+
+	after = {
+		custom_tooltip = can_advance_crisis_progression
+	}
+}
+
+#135 - First Crisis
+country_event = {
+	id = ambition.135
+	title = "ambition.135.name"
+	desc = ambition.135.desc
+	picture = GFX_evt_salute
+	show_sound = event_hand_shake
+	event_chain = defender_of_the_galaxy_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = ambition.135.a
+	}
+}
+
+#140 - Second Crisis
+country_event = {
+	id = ambition.140
+	title = "ambition.140.name"
+	desc = ambition.140.desc
+	picture = GFX_evt_salute
+	show_sound = event_hand_shake
+	event_chain = defender_of_the_galaxy_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = ambition.140.a
+	}
+}
+
+### Objectives
+
+# Have Defensive Pacts or federation - from on_yearly_pulse_country
+country_event = {
+	id = ambition.150
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_ascension_perk = ap_defender_of_the_galaxy_nomads
+		OR = {
+			has_federation = yes
+			any_playable_country = {
+				OR = {
+					has_defensive_pact = root
+					has_association_status = root
+				}
+			}
+		}
+	}
+
+	immediate = {
+		#check for federation
+		if = {
+			limit = {
+				has_federation = yes
+			}
+			complete_crisis_objective = crisobj_federated
+		}
+		#check for defensive pacts
+		every_playable_country = {
+			limit = {
+				OR = {
+					has_defensive_pact = root
+					has_association_status = root
+				}
+			}
+			root = {
+				complete_crisis_objective = crisobj_defensive_pacts
+			}
+		}
+	}
+}
+
+# Not in Agressive war - from on_monthly_pulse_country
+country_event = {
+	id = ambition.160
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_ascension_perk = ap_defender_of_the_galaxy_nomads
+		NOT = {
+			any_war = {
+				is_war_participant = {
+					who = root
+					side = attackers
+				}
+			}
+		}
+	}
+
+	immediate = {
+		complete_crisis_objective = crisobj_not_in_aggressive_war
+	}
+}
+
+# Galcom Activity
+country_event = {
+	id = ambition.170
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_playable_country = {
+			has_ascension_perk = ap_defender_of_the_galaxy_nomads
+			position_on_last_resolution = support
+		}
+	}
+
+	immediate = {
+		every_playable_country = {
+			limit = {
+				has_ascension_perk = ap_defender_of_the_galaxy_nomads
+				position_on_last_resolution = support
+			}
+			complete_crisis_objective = crisobj_galcom_activity
+		}
+	}
+}
+
+# Destroy Crisis Ships
+# This = owner of ship 1 (combatant)
+# From = owner of ship 2 (destroyed)
+# FromFrom = ship 1
+# FromFromFrom = ship 2
+country_event = {
+	id = ambition.180
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_ascension_perk = ap_defender_of_the_galaxy_nomads
+
+		from = {
+			OR = {
+				is_crisis_faction = yes
+				has_country_flag = declared_crisis
+			}
+		}
+		fromfrom = {
+			OR = {
+				NOT = { is_ship_class = shipclass_starbase }
+				fleet = { is_mobile = yes } #juggernauts
+			}
+		}
+	}
+
+	immediate = {
+		owner = {
+			complete_crisis_objective = crisobj_destroy_crisis_ships
+		}
+	}
+}
+
+# Destroy Crisis Countries
+# This = destroyed country
+# From = optional, destroyer (country)
+country_event = {
+	id = ambition.190
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			is_crisis_faction = yes
+			has_been_declared_crisis = yes
+		}
+		any_playable_country = {
+			has_ascension_perk = ap_defender_of_the_galaxy_nomads
+		}
+	}
+
+	immediate = {
+		every_playable_country = {
+			limit = {
+				has_ascension_perk = ap_defender_of_the_galaxy_nomads
+			}
+			complete_crisis_objective = crisobj_destroy_crisis_countries
+		}
+	}
+}
+
+### Paladins Events
+country_event = { # Paladin initiative begins
+	id = ambition.200
+	title = "ambition.200.name"
+	desc = ambition.200.desc
+	picture = GFX_evt_defender_of_the_galaxy
+	show_sound = event_hand_shake
+	is_triggered_only = yes
+
+	option = {
+		name = ambition.200.a
+		enable_special_project = {
+			name = "PALADIN_SHIP_PROJECT"
+			owner = this
+		}
+	}
+}
+
+#Special project Completed
+country_event = {
+	id = ambition.205
+	title = "ambition.205.name"
+	desc = ambition.205.desc
+	picture = GFX_evt_defender_of_the_galaxy
+	show_sound = event_hand_shake
+	is_triggered_only = yes
+
+	option = {
+		name = ambition.205.a
+	}
+
+	after = {
+		hidden_effect = {
+			set_global_flag = paladin_project_researched #Lets you build Paladin ship
+			every_playable_country = {
+				limit = {
+					is_galactic_community_member = yes
+				}
+				refresh_auto_generated_ship_designs = yes
+			}
+		}
+	}
+}
+
+# Paladin Ship Built
+# Root = Ship
+# From = Planet
+ship_event = { # Prompts you to nominate a paladin to crew the ship
+	id = ambition.210
+	title = "ambition.210.name"
+	desc = ambition.210.desc
+	picture = GFX_evt_defender_of_the_galaxy
+	show_sound = event_hand_shake
+	is_triggered_only = yes
+
+	trigger = {
+		is_ship_size = paladin_ship
+		has_global_flag = paladin_project_researched
+	}
+
+	immediate = {
+		set_ship_flag = paladin_ship
+	}
+
+	option = {
+		name = ambition.210.a
+	}
+}
+
+#Paladin assigned to ship - Grant traits
+leader_event = {
+	id = ambition.215
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = fleet
+		leader_class = commander
+		fleet = {
+			any_owned_ship = {
+				has_ship_flag = paladin_ship
+			}
+		}
+	}
+
+	immediate = {
+		fleet = {
+			every_owned_ship = {
+				set_disabled = no
+			}
+			if = {
+				limit = {
+					is_active_resolution = resolution_paladin_direct_command
+				}
+				set_controller = galactic_custodian
+			}
+		}
+
+		#Grant Traits
+		add_trait = {
+			trait = leader_trait_paladin
+			show_message = no
+		}
+		#Grant Class specialization
+		random_list = {
+			1 = {
+				modifier = {
+					factor = 0
+					OR = {
+						has_leader_flag = paladin_logistician
+						has_leader_flag = paladin_strategist
+						has_leader_flag = paladin_ambusher
+						has_leader_flag = paladin_defender
+						has_leader_flag = paladin_spearhead
+						has_leader_flag = paladin_knight
+					}
+				}
+				add_trait = {
+					trait = leader_trait_paladin_ace
+					show_message = no
+				}
+				#we set a flag to remember the subclass if the leader gets demoted then comes back
+				set_leader_flag = paladin_ace
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					OR = {
+						has_leader_flag = paladin_ace
+						has_leader_flag = paladin_logistician
+						has_leader_flag = paladin_ambusher
+						has_leader_flag = paladin_defender
+						has_leader_flag = paladin_spearhead
+						has_leader_flag = paladin_knight
+					}
+				}
+				add_trait = {
+					trait = leader_trait_paladin_strategist
+					show_message = no
+				}
+				set_leader_flag = paladin_strategist
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					OR = {
+						has_leader_flag = paladin_ace
+						has_leader_flag = paladin_strategist
+						has_leader_flag = paladin_logistician
+						has_leader_flag = paladin_defender
+						has_leader_flag = paladin_spearhead
+						has_leader_flag = paladin_knight
+					}
+				}
+				add_trait = {
+					trait = leader_trait_paladin_ambusher
+					show_message = no
+				}
+				set_leader_flag = paladin_ambusher
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					OR = {
+						has_leader_flag = paladin_ace
+						has_leader_flag = paladin_strategist
+						has_leader_flag = paladin_ambusher
+						has_leader_flag = paladin_defender
+						has_leader_flag = paladin_spearhead
+						has_leader_flag = paladin_knight
+					}
+				}
+				add_trait = {
+					trait = leader_trait_paladin_logistician
+					show_message = no
+				}
+				set_leader_flag = paladin_logistician
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					OR = {
+						has_leader_flag = paladin_ace
+						has_leader_flag = paladin_strategist
+						has_leader_flag = paladin_ambusher
+						has_leader_flag = paladin_logistician
+						has_leader_flag = paladin_spearhead
+						has_leader_flag = paladin_knight
+					}
+				}
+				add_trait = {
+					trait = leader_trait_paladin_defender
+					show_message = no
+				}
+				set_leader_flag = paladin_defender
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					owner = { has_origin = origin_toxic_knights }
+				}
+				modifier = {
+					factor = 0
+					OR = {
+						has_leader_flag = paladin_ace
+						has_leader_flag = paladin_strategist
+						has_leader_flag = paladin_ambusher
+						has_leader_flag = paladin_logistician
+						has_leader_flag = paladin_defender
+						has_leader_flag = paladin_knight
+					}
+				}
+				add_trait = {
+					trait = leader_trait_paladin_spearhead
+					show_message = no
+				}
+				set_leader_flag = paladin_spearhead
+			}
+			5 = {
+				modifier = {
+					factor = 0
+					owner = { NOT = { has_origin = origin_toxic_knights } }
+				}
+				modifier = {
+					factor = 0
+					OR = {
+						has_leader_flag = paladin_ace
+						has_leader_flag = paladin_strategist
+						has_leader_flag = paladin_ambusher
+						has_leader_flag = paladin_logistician
+						has_leader_flag = paladin_defender
+						has_leader_flag = paladin_spearhead
+					}
+				}
+				add_trait = {
+					trait = leader_trait_paladin_knight
+					show_message = no
+				}
+				set_leader_flag = paladin_knight
+			}
+		}
+		#Fire Class confirmation event
+		leader_event = { id = ambition.216 }
+	}
+}
+
+#216 - Paladin Class Confirmation
+leader_event = {
+	id = ambition.216
+	title = "ambition.216.name"
+	desc = ambition.216.desc
+	picture = GFX_evt_defender_of_the_galaxy
+	show_sound = event_hand_shake
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = {
+			has_leader_flag = confirmed_paladin
+		}
+	}
+
+	option = { #OK
+		name = ambition.216.a
+	}
+
+	option = { #Respec into Ace
+		name = ambition.216.b
+		trigger = {
+			NOT = { has_trait = leader_trait_paladin_ace }
+		}
+		allow = {
+			owner = {
+				resource_stockpile_compare = {
+					resource = unity
+					value >= 10000
+				}
+			}
+		}
+		owner = {
+			add_resource = {
+				unity = -10000
+			}
+		}
+		add_trait = {
+			trait = leader_trait_paladin_ace
+			show_message = no
+		}
+
+		hidden_effect = {
+			set_leader_flag = paladin_ace
+			remove_leader_flag = paladin_logistician
+			remove_leader_flag = paladin_strategist
+			remove_leader_flag = paladin_ambusher
+			remove_leader_flag = paladin_defender
+			remove_leader_flag = paladin_spearhead
+			remove_leader_flag = paladin_knight
+			remove_trait = leader_trait_paladin_logistician
+			remove_trait = leader_trait_paladin_strategist
+			remove_trait = leader_trait_paladin_ambusher
+			remove_trait = leader_trait_paladin_defender
+			remove_trait = leader_trait_paladin_spearhead
+			remove_trait = leader_trait_paladin_knight
+		}
+	}
+
+	option = { #Respec into Strategist
+		name = ambition.216.c
+		trigger = {
+			NOT = { has_trait = leader_trait_paladin_strategist }
+		}
+		allow = {
+			owner = {
+				resource_stockpile_compare = {
+					resource = unity
+					value >= 10000
+				}
+			}
+		}
+		owner = {
+			add_resource = {
+				unity = -10000
+			}
+		}
+		add_trait = {
+			trait = leader_trait_paladin_strategist
+			show_message = no
+		}
+
+		hidden_effect = {
+			set_leader_flag = paladin_strategist
+			remove_leader_flag = paladin_logistician
+			remove_leader_flag = paladin_ace
+			remove_leader_flag = paladin_ambusher
+			remove_leader_flag = paladin_defender
+			remove_leader_flag = paladin_spearhead
+			remove_leader_flag = paladin_knight
+			remove_trait = leader_trait_paladin_logistician
+			remove_trait = leader_trait_paladin_ace
+			remove_trait = leader_trait_paladin_ambusher
+			remove_trait = leader_trait_paladin_defender
+			remove_trait = leader_trait_paladin_spearhead
+			remove_trait = leader_trait_paladin_knight
+		}
+	}
+
+	option = { #Respec into ambusher
+		name = ambition.216.d
+		trigger = {
+			NOT = { has_trait = leader_trait_paladin_ambusher }
+			has_first_contact_dlc = yes
+		}
+		allow = {
+			owner = {
+				resource_stockpile_compare = {
+					resource = unity
+					value >= 10000
+				}
+			}
+		}
+		owner = {
+			add_resource = {
+				unity = -10000
+			}
+		}
+		add_trait = {
+			trait = leader_trait_paladin_ambusher
+			show_message = no
+		}
+
+		hidden_effect = {
+			set_leader_flag = paladin_ambusher
+			remove_leader_flag = paladin_logistician
+			remove_leader_flag = paladin_strategist
+			remove_leader_flag = paladin_ace
+			remove_leader_flag = paladin_defender
+			remove_leader_flag = paladin_spearhead
+			remove_leader_flag = paladin_knight
+			remove_trait = leader_trait_paladin_logistician
+			remove_trait = leader_trait_paladin_strategist
+			remove_trait = leader_trait_paladin_ace
+			remove_trait = leader_trait_paladin_defender
+			remove_trait = leader_trait_paladin_spearhead
+			remove_trait = leader_trait_paladin_knight
+		}
+	}
+
+	option = { #Respec into logistician
+		name = ambition.216.e
+		trigger = {
+			NOT = { has_trait = leader_trait_paladin_logistician }
+		}
+		allow = {
+			owner = {
+				resource_stockpile_compare = {
+					resource = unity
+					value >= 10000
+				}
+			}
+		}
+		owner = {
+			add_resource = {
+				unity = -10000
+			}
+		}
+		add_trait = {
+			trait = leader_trait_paladin_logistician
+			show_message = no
+		}
+
+		hidden_effect = {
+			set_leader_flag = paladin_logistician
+			remove_leader_flag = paladin_ace
+			remove_leader_flag = paladin_strategist
+			remove_leader_flag = paladin_ambusher
+			remove_leader_flag = paladin_defender
+			remove_leader_flag = paladin_spearhead
+			remove_leader_flag = paladin_knight
+			remove_trait = leader_trait_paladin_ace
+			remove_trait = leader_trait_paladin_strategist
+			remove_trait = leader_trait_paladin_ambusher
+			remove_trait = leader_trait_paladin_defender
+			remove_trait = leader_trait_paladin_spearhead
+			remove_trait = leader_trait_paladin_knight
+		}
+	}
+
+	option = { #Respec into defender
+		name = ambition.216.f
+		trigger = {
+			NOT = { has_trait = leader_trait_paladin_defender }
+		}
+		allow = {
+			owner = {
+				resource_stockpile_compare = {
+					resource = unity
+					value >= 10000
+				}
+			}
+		}
+		owner = {
+			add_resource = {
+				unity = -10000
+			}
+		}
+		add_trait = {
+			trait = leader_trait_paladin_defender
+			show_message = no
+		}
+
+		hidden_effect = {
+			set_leader_flag = paladin_defender
+			remove_leader_flag = paladin_logistician
+			remove_leader_flag = paladin_strategist
+			remove_leader_flag = paladin_ambusher
+			remove_leader_flag = paladin_ace
+			remove_leader_flag = paladin_spearhead
+			remove_leader_flag = paladin_knight
+			remove_trait = leader_trait_paladin_logistician
+			remove_trait = leader_trait_paladin_strategist
+			remove_trait = leader_trait_paladin_ambusher
+			remove_trait = leader_trait_paladin_ace
+			remove_trait = leader_trait_paladin_spearhead
+			remove_trait = leader_trait_paladin_knight
+		}
+	}
+
+	option = { #Respec into spearhead
+		name = ambition.216.g
+		trigger = {
+			NOT = { has_trait = leader_trait_paladin_spearhead }
+			NOT = { owner = { has_origin = origin_toxic_knights } }
+		}
+		allow = {
+			owner = {
+				resource_stockpile_compare = {
+					resource = unity
+					value >= 10000
+				}
+			}
+		}
+		owner = {
+			add_resource = {
+				unity = -10000
+			}
+		}
+		add_trait = {
+			trait = leader_trait_paladin_spearhead
+			show_message = no
+		}
+
+		hidden_effect = {
+			set_leader_flag = paladin_spearhead
+			remove_leader_flag = paladin_logistician
+			remove_leader_flag = paladin_strategist
+			remove_leader_flag = paladin_ambusher
+			remove_leader_flag = paladin_defender
+			remove_leader_flag = paladin_ace
+			remove_leader_flag = paladin_knight
+			remove_trait = leader_trait_paladin_logistician
+			remove_trait = leader_trait_paladin_strategist
+			remove_trait = leader_trait_paladin_ambusher
+			remove_trait = leader_trait_paladin_defender
+			remove_trait = leader_trait_paladin_ace
+			remove_trait = leader_trait_paladin_knight
+		}
+	}
+
+	option = { #Respec into knight
+		name = ambition.216.h
+		trigger = {
+			NOT = { has_trait = leader_trait_paladin_knight }
+			owner = { has_origin = origin_toxic_knights }
+		}
+		allow = {
+			owner = {
+				resource_stockpile_compare = {
+					resource = unity
+					value >= 10000
+				}
+			}
+		}
+		owner = {
+			add_resource = {
+				unity = -10000
+			}
+		}
+		add_trait = {
+			trait = leader_trait_paladin_knight
+			show_message = no
+		}
+
+		hidden_effect = {
+			set_leader_flag = paladin_knight
+			remove_leader_flag = paladin_logistician
+			remove_leader_flag = paladin_strategist
+			remove_leader_flag = paladin_ambusher
+			remove_leader_flag = paladin_defender
+			remove_leader_flag = paladin_ace
+			remove_leader_flag = paladin_spearhead
+			remove_trait = leader_trait_paladin_logistician
+			remove_trait = leader_trait_paladin_strategist
+			remove_trait = leader_trait_paladin_ambusher
+			remove_trait = leader_trait_paladin_defender
+			remove_trait = leader_trait_paladin_spearhead
+			remove_trait = leader_trait_paladin_ace
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			set_leader_flag = confirmed_paladin
+			#actually remove the trait if the leader has been reassigned before an option was chosen
+			if = {
+				limit = {
+					NOT = {
+						fleet = {
+							any_owned_ship = {
+								has_ship_flag = paladin_ship
+							}
+						}
+					}
+				}
+				remove_trait = leader_trait_paladin_logistician
+				remove_trait = leader_trait_paladin_strategist
+				remove_trait = leader_trait_paladin_ambusher
+				remove_trait = leader_trait_paladin_defender
+				remove_trait = leader_trait_paladin_spearhead
+				remove_trait = leader_trait_paladin_ace
+				remove_trait = leader_trait_paladin_knight
+				remove_trait = leader_trait_paladin
+			}
+		}
+	}
+}
+
+#220 - Paladin unassigned
+leader_event = {
+	id = ambition.220
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_trait = leader_trait_paladin
+	}
+
+	immediate = {
+		#Remove Traits
+		remove_trait = leader_trait_paladin
+		remove_trait = leader_trait_paladin_ace
+		remove_trait = leader_trait_paladin_strategist
+		remove_trait = leader_trait_paladin_ambusher
+		remove_trait = leader_trait_paladin_logistician
+		remove_trait = leader_trait_paladin_defender
+		remove_trait = leader_trait_paladin_spearhead
+		remove_trait = leader_trait_paladin_knight
+	}
+}
+
+#225 - Paladins Disbanded - From repealing the Paladins initiative resolution
+country_event = {
+	id = ambition.225
+	title = "ambition.225.name"
+	desc = ambition.225.desc
+	picture = GFX_evt_crisis_declared
+	show_sound = event_hand_shake
+	is_triggered_only = yes
+
+
+	immediate = {
+		#Unassign Paladins (should remove traits automatically)
+		every_owned_leader = {
+			limit = {
+				fleet = {
+					is_ship_size = paladin_ship
+				}
+			}
+			unassign_leader = this
+		}
+		#Delete Palaships
+		every_owned_fleet = {
+			limit = {
+				is_ship_size = paladin_ship
+			}
+			delete_fleet = this
+		}
+	}
+
+	option = {
+		name = ambition.225.a
+	}
+}
+
+#230 - Paladins Direct Control
+country_event = {
+	id = ambition.230
+	title = "ambition.230.name"
+	desc = ambition.230.desc
+	picture = GFX_evt_crisis_declared
+	show_sound = event_hand_shake
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = {
+			is_same_value = galactic_custodian
+		}
+		any_owned_fleet = {
+			is_ship_size = paladin_ship
+		}
+	}
+
+	immediate = {
+		#Transfer Palaships
+		every_owned_fleet = {
+			limit = {
+				is_ship_size = paladin_ship
+			}
+			set_controller = galactic_custodian
+		}
+	}
+
+	option = {
+		name = ambition.230.a
+	}
+}
+
+#235 - Paladins Give back control
+country_event = {
+	id = ambition.235
+	title = "ambition.235.name"
+	desc = ambition.235.desc
+	picture = GFX_evt_crisis_declared
+	show_sound = event_hand_shake
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = {
+			is_same_value = galactic_custodian
+		}
+		any_owned_fleet = {
+			is_ship_size = paladin_ship
+		}
+	}
+
+	immediate = {
+		#Transfer Palaships
+		every_owned_fleet = {
+			limit = {
+				is_ship_size = paladin_ship
+			}
+			set_controller = root
+		}
+	}
+
+	option = {
+		name = ambition.235.a
+	}
+}
+
+#240 - Paladin Abilities - Decloak before ability
+fleet_event = {
+	id = ambition.240
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = { is_cloaked = yes }
+	}
+
+	immediate = {
+		from = { set_cloaking_active = no }
+	}
+}
+
+#245 - Paladin Abilities - Super Shield
+fleet_event = {
+	id = ambition.245
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		clear_orders = yes
+		add_modifier = {
+			modifier = paladin_super_shield
+			days = 90
+		}
+		random_controlled_ship = {
+			lock_animation_state = working_looping
+		}
+		fleet_event = { id = ambition.246 days = 90 }
+	}
+}
+
+#246 - Paladin Abilities - Super Shield Folding
+fleet_event = {
+	id = ambition.246
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		random_controlled_ship = {
+			lock_animation_state = none
+			set_animation_state = closing
+		}
+	}
+}
+
+#250 - Paladin Abilities - Thunderclap
+fleet_event = {
+	id = ambition.250
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { #for every 1 + 100 000 diplo weight, deal 5*750 damage to random enemy fleet in system
+		play_sound = "paladin_lance_of_valor"
+		random_owned_ship = {
+			save_event_target_as = paladin_attacker_ship
+		}
+		owner = {
+			set_variable = {
+				which = paladin_thunderclap_diploweight
+				value = 0
+			}
+			export_trigger_value_to_variable = { #Get diplo weight
+				trigger = diplomacy_weight
+				variable = paladin_thunderclap_diploweight
+				rounded = yes
+			}
+			divide_variable = { #divide it
+				which = paladin_thunderclap_diploweight
+				value = 100000
+			}
+			floor_variable = paladin_thunderclap_diploweight #make it a nice number
+			change_variable = { #Add 1 to ensure the ability always does something
+				which = paladin_thunderclap_diploweight
+				value = 1
+			}
+		}
+		solar_system = {
+			while = {
+				count = root.owner.paladin_thunderclap_diploweight
+				random_fleet_in_system = {
+					limit = {
+						controller = {
+							is_hostile = root.owner
+						}
+						is_civilian = no
+					}
+					while = {
+						count = 5
+						random_owned_ship = {
+							damage_ship = {
+								amount = 750
+								attacker = event_target:paladin_attacker_ship
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#255 - Paladin Abilities - Recall preparation
+fleet_event = {
+	id = ambition.255
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		fleet_event = { id = ambition.260 days = 9 }
+	}
+}
+
+#260 - Paladin Abilities - Recall
+fleet_event = {
+	id = ambition.260
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { #instant move to nearest non hostile starbase, repair up to 25% of hull and armor
+		closest_system = {
+			limit = {
+				OR = {
+					AND = {
+						exists = owner
+						owner = {
+							is_same_value = root.owner
+						}
+						exists = starbase
+						starbase = {
+							has_starbase_size > starbase_outpost
+							controller = {
+								is_same_value = root.owner
+							}
+						}
+						NOT = {
+							is_same_value = root.solar_system
+						}
+					}
+					any_fleet_in_system = {
+						exists = owner
+						owner = {
+							is_same_value = root.owner
+						}
+						is_arkship_fleet = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					exists = starbase
+				}
+				starbase = {
+					save_event_target_as = recall_target
+				}
+			}
+			else = {
+				random_system_planet = {
+					save_event_target_as = recall_target
+				}
+			}
+		}
+		from = {
+			set_location = {
+				target = event_target:recall_target
+				distance = 4
+				angle = random
+			}
+			repair_percentage = 0.25
+			repair_armor_percentage = 0.25
+		}
+	}
+}
+
+#265 - Paladin Abilities - Air Superiority
+fleet_event = {
+	id = ambition.265
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		solar_system = {
+			every_fleet_in_system = {
+				limit = {
+					controller = {
+						is_hostile = root.owner
+					}
+				}
+				add_modifier = {
+					modifier = paladin_air_superiority
+					days = 90
+				}
+			}
+		}
+	}
+}
+
+#270 - Paladin Abilities - Plan B
+fleet_event = {
+	id = ambition.270
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		solar_system = {
+			every_fleet_in_system = {
+				limit = {
+					controller = {
+						NOT = { is_hostile = root.owner }
+					}
+					is_civilian = no
+				}
+				add_modifier = {
+					modifier = paladin_plan_b
+					days = 90
+				}
+			}
+		}
+	}
+}
+
+#275 - Paladin Abilities - Sudden Strike
+fleet_event = {
+	id = ambition.275
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		solar_system = {
+			every_fleet_in_system = {
+				limit = {
+					controller = {
+						NOT = { is_hostile = root.owner }
+					}
+					is_civilian = no
+				}
+				add_modifier = {
+					modifier = paladin_sudden_strike
+					days = 90
+				}
+			}
+		}
+	}
+}
+
+#280 - Paladin Abilities - Field Repairs
+fleet_event = {
+	id = ambition.280
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		solar_system = {
+			every_fleet_in_system = {
+				limit = {
+					controller = {
+						NOT = { is_hostile = root.owner }
+					}
+					is_civilian = no
+				}
+				add_modifier = {
+					modifier = paladin_field_repairs
+					days = 90
+				}
+			}
+		}
+	}
+}
+
+#285 - Paladin Abilities - Taunt
+fleet_event = {
+	id = ambition.285
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		add_modifier = {
+			modifier = paladin_taunt
+			days = 90
+		}
+	}
+}
+
+#290 - Paladin Abilities - Hold the Line
+fleet_event = {
+	id = ambition.290
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		solar_system = {
+			every_fleet_in_system = {
+				limit = {
+					controller = {
+						NOT = { is_hostile = root.owner }
+					}
+					is_civilian = no
+				}
+				add_modifier = {
+					modifier = paladin_hold_the_line
+					days = 90
+				}
+			}
+		}
+	}
+}
+
+#295 - Paladin Abilities - For the Order
+fleet_event = {
+	id = ambition.295
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		solar_system = {
+			every_fleet_in_system = {
+				limit = {
+					controller = {
+						NOT = { is_hostile = root.owner }
+					}
+					is_civilian = no
+				}
+				add_modifier = {
+					modifier = paladin_for_the_order
+					days = 90
+				}
+			}
+		}
+	}
+}
+
+#300 - Paladin Abilities - Teamwork
+fleet_event = {
+	id = ambition.300
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		play_sound = "on_paladin_teamwork"
+		solar_system = {
+			set_variable = {
+				which = paladin_teamwork_counter
+				value = 0
+			}
+			every_fleet_in_system = {
+				limit = {
+					controller = {
+						NOT = { is_hostile = root.owner }
+					}
+					is_ship_size = paladin_ship
+				}
+				prev = {
+					change_variable = {
+						which = paladin_teamwork_counter
+						value = 1
+					}
+				}
+			}
+			every_fleet_in_system = {
+				limit = {
+					controller = {
+						NOT = { is_hostile = root.owner }
+					}
+					is_ship_size = paladin_ship
+				}
+				add_modifier = {
+					modifier = paladin_teamwork
+					days = 90
+					mult = prev.paladin_teamwork_counter
+				}
+			}
+			clear_variable = paladin_teamwork_counter
+		}
+	}
+}
+
+#305 - Paladin Abilities - Leadership
+fleet_event = {
+	id = ambition.305
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		play_sound = "on_paladin_leadership"
+		solar_system = {
+			every_fleet_in_system = {
+				limit = {
+					controller = {
+						NOT = { is_hostile = root.owner }
+					}
+					is_civilian = no
+				}
+				add_modifier = {
+					modifier = paladin_leadership
+					days = 90
+				}
+			}
+		}
+	}
+}
+
+#310 - Paladin Abilities - Field Testing - aka the Boom Boom Gacha
+fleet_event = {
+	id = ambition.310
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		play_sound = "on_paladin_field_testing"
+		random_owned_ship = {
+			save_event_target_as = paladin_attacker_ship
+		}
+		random_list = {
+			20 = {
+				every_owned_ship = { damage_ship = 250 }
+			} # Misfire. Deals damage to hero ship.
+			20 = { # Titan killer. Find biggest ship around. Either kill it or deal it a lot of damage
+				solar_system = {
+					ordered_ship_in_system = {
+						limit = {
+							controller = {
+								is_hostile = root.owner
+							}
+							is_civilian = no
+						}
+						order_by = trigger:ship_size_multiplier
+						position = 0
+						damage_ship = {
+							amount = @paladin_spike_damage
+							attacker = event_target:paladin_attacker_ship
+						}
+					}
+				}
+			}
+			20 = { # Mosquito Swarm. Deal frigate killing damage to every enemy in the system
+				solar_system = {
+					every_fleet_in_system = {
+						limit = {
+							controller = {
+								is_hostile = root.owner
+							}
+							is_civilian = no
+						}
+						every_owned_ship = {
+							random_list = {
+								33 = {
+									damage_ship = {
+										amount = 450
+										attacker = event_target:paladin_attacker_ship
+									}
+								}
+								33 = {
+									damage_ship = {
+										amount = 650
+										attacker = event_target:paladin_attacker_ship
+									}
+								}
+								33 = {
+									damage_ship = {
+										amount = 850
+										attacker = event_target:paladin_attacker_ship
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			20 = { # Harmonics Disruptor. Debuffs all other ships in the system
+				solar_system = {
+					every_fleet_in_system = {
+						limit = {
+							controller = {
+								is_hostile = root.owner
+							}
+							is_civilian = no
+						}
+						add_modifier = {
+							modifier = paladin_harmonic_disruption
+							days = 180
+						}
+					}
+				}
+			}
+			20 = { # Oblivion Ordnance. Deal % damage to the biggest enemy fleet around.
+				solar_system = {
+					ordered_fleet_in_system = {
+						limit = {
+							controller = {
+								is_hostile = root.owner
+							}
+							is_civilian = no
+						}
+						order_by = trigger:num_ships
+						position = 0
+						every_owned_ship = {
+							random_list = {
+								33 = {
+									reduce_hp_percent = 0.15
+								}
+								33 = {
+									reduce_hp_percent = 0.3
+								}
+								33 = {
+									reduce_hp_percent = 0.45
+								}
+								1 = {
+									reduce_hp_percent = 0.99
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#315 - Council Composition Changes Hand over paladin ship and dismiss the paladin so you can nominate your own
+country_event = {
+	id = ambition.315
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_global_flag = paladin_project_researched
+		any_owned_fleet = {
+			is_ship_size = paladin_ship
+		}
+	}
+
+	immediate = {
+		if = { #find if there is a councilor with no paladin
+			limit = {
+				any_country = {
+					is_part_of_galactic_council = yes
+					NOT = {
+						any_owned_fleet = {
+							is_ship_size = paladin_ship
+						}
+					}
+				}
+			}
+			random_country = { #save them
+				limit = {
+					is_part_of_galactic_council = yes
+					NOT = {
+						any_owned_fleet = {
+							is_ship_size = paladin_ship
+						}
+					}
+				}
+				save_event_target_as = new_councillor
+			}
+			random_owned_fleet = {
+				limit = {
+					is_ship_size = paladin_ship
+				}
+				leader = { #unassign paladin
+					unassign_leader = this
+				}
+				set_owner = event_target:new_councillor #transfer ship ownership
+				set_controller = event_target:new_councillor
+			}
+		}
+		else = { #should be that council size has been reduced. In that case, disband the palaship.
+			every_owned_fleet = { #(every is probably redundant here but eh. Better safe than cheesey)
+				limit = {
+					is_ship_size = paladin_ship
+				}
+				leader = { #unassign paladin
+					unassign_leader = this
+				}
+				delete_fleet = this #destroy the palaship
+			}
+		}
+	}
+}
+
+#325 Victory
+country_event = {
+	id = ambition.325
+	title = "ambition.325.name"
+	desc = ambition.325.desc
+	picture = GFX_evt_crisis_defeated
+	show_sound = event_celebration
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_menace_perk = menp_defender_defense_3
+		NOT = {
+			any_country = {
+				is_player_crisis = yes
+				is_crisis_faction = yes
+			}
+		}
+		calc_true_if = {
+			amount >= 2
+			AND = {
+				has_global_flag = ai_invasion_happened
+				has_global_flag = ai_invasion_defeated
+			}
+			AND = {
+				has_global_flag = extradimensional_invasion_happened
+				has_global_flag = extradimensional_invasion_defeated
+			}
+			AND = {
+				has_global_flag = prethoryn_invasion_happened
+				has_global_flag = prethoryn_invasion_defeated
+			}
+			AND = {
+				has_global_flag = synth_queen_happened
+				has_global_flag = synth_queen_defeated
+			}
+		}
+	}
+
+	option = {
+		name = ambition.325.a
+		win = yes
+	}
+}
+
+#330 - Galcom Mission Check
+country_event = {
+	id = ambition.330
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_event_chain = defender_of_the_galaxy_chain
+		is_galactic_community_member = yes
+	}
+
+	immediate = {
+		add_mission_counter = {
+			mission = MISSION_JOIN_GALACTIC_COMMUNITY
+			counter = BE_ON_GALCOM
+			amount = 1
+		}
+	}
+}
+
+#335 - Council Mission Check
+country_event = {
+	id = ambition.335
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_event_chain = defender_of_the_galaxy_chain
+		has_menace_perk = menp_defender_crisis_damage_1
+		is_part_of_galactic_council = yes
+	}
+
+	immediate = {
+		add_mission_counter = {
+			mission = MISSION_BE_ON_GALACTIC_COUNCIL
+			counter = BE_ON_GALACTIC_COUNCIL
+			amount = 1
+		}
+	}
+}
+
+#340 - Custodian Mission Check
+country_event = {
+	id = ambition.340
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_event_chain = defender_of_the_galaxy_chain
+		has_menace_perk = menp_defender_crisis_damage_2
+		is_galactic_custodian = yes
+	}
+
+	immediate = {
+		add_mission_counter = {
+			mission =  MISSION_BE_CUSTODIAN
+			counter = BE_CUSTODIAN
+			amount = 1
+		}
+	}
+}

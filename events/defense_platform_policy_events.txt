@@ -1,0 +1,144 @@
+# Defense Platform Protocols policy on_action handlers (all hidden). See common/policies/06_policies_fleets_and_starbases.txt
+namespace = defense_platform_policy
+
+# Root = Ship, From = Planet
+ship_event = {
+	id = defense_platform_policy.1
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		owner = {
+			OR = {
+				has_policy_flag = defense_platform_resilient_frames
+				has_policy_flag = defense_platform_reinforced_plating
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				is_defense_platform_ship = yes
+				owner = { has_policy_flag = defense_platform_resilient_frames }
+			}
+			set_disable_at_health = 0.05
+		}
+		if = {
+			limit = {
+				owner = { has_policy_flag = defense_platform_reinforced_plating }
+				fleet = { is_defense_platform_fleet = yes }
+			}
+			fleet = {
+				if = {
+					limit = { NOT = { has_modifier = defense_platform_reinforced_field } }
+					add_modifier = {
+						modifier = defense_platform_reinforced_field
+					}
+				}
+			}
+		}
+	}
+}
+
+# Root = Ship (starbase), From = Planet
+ship_event = {
+	id = defense_platform_policy.2
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		owner = { has_policy_flag = defense_platform_reinforced_plating }
+	}
+
+	immediate = {
+		fleet = {
+			if = {
+				limit = {
+					is_defense_platform_fleet = yes
+					NOT = { has_modifier = defense_platform_reinforced_field }
+				}
+				add_modifier = {
+					modifier = defense_platform_reinforced_field
+				}
+			}
+		}
+	}
+}
+
+# This = fleet owner (winner), FromFrom = the fleet
+country_event = {
+	id = defense_platform_policy.3
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_policy_flag = defense_platform_resilient_frames
+	}
+
+	immediate = {
+		defense_platform_reenable_after_combat = yes
+	}
+}
+
+# This = fleet owner (loser), FromFrom = the fleet
+country_event = {
+	id = defense_platform_policy.4
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_policy_flag = defense_platform_resilient_frames
+	}
+
+	immediate = {
+		defense_platform_reenable_after_combat = yes
+	}
+}
+
+# Root = Ship (starbase), From = former owner. Reconcile a captured starbase to the new owner's doctrine.
+ship_event = {
+	id = defense_platform_policy.5
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		fleet = {
+			# Reinforced Plating field should match the new owner's doctrine; never sits on a waystation
+			if = {
+				limit = {
+					is_defense_platform_fleet = yes
+					owner = { has_policy_flag = defense_platform_reinforced_plating }
+					NOT = { has_modifier = defense_platform_reinforced_field }
+				}
+				add_modifier = { modifier = defense_platform_reinforced_field }
+			}
+			else_if = {
+				limit = {
+					has_modifier = defense_platform_reinforced_field
+					OR = {
+						NOT = { is_defense_platform_fleet = yes }
+						NOT = { owner = { has_policy_flag = defense_platform_reinforced_plating } }
+					}
+				}
+				remove_modifier = defense_platform_reinforced_field
+			}
+			# Resilient Frames disable state should match the new owner on any inherited platforms
+			every_owned_ship = {
+				limit = { is_defense_platform_ship = yes }
+				if = {
+					limit = { owner = { has_policy_flag = defense_platform_resilient_frames } }
+					set_disable_at_health = 0.05
+				}
+				else = {
+					set_disable_at_health = no
+					if = {
+						limit = { is_disabled = yes }
+						repair_percentage = 0.45 # recover a platform left disabled by the previous owner
+						set_disabled = no
+					}
+				}
+			}
+		}
+	}
+}
