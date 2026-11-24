@@ -1,0 +1,29 @@
+﻿l_english:
+# Defense Platform Protocols policy
+ policy_defense_platform_protocols: "Defense Platform Protocols"
+ policy_defense_platform_protocols_desc: "Standing orders governing how our defensive platforms are armored, powered, and recovered."
+
+ defense_platform_standard: "Standard Doctrine"
+ defense_platform_standard_name: "$defense_platform_standard$"
+ defense_platform_standard_desc: "Defensive platforms operate to baseline specifications.\n\n§ENo additional effects or upkeep.§!"
+
+ defense_platform_synchronized_shielding: "Synchronized Shielding"
+ defense_platform_synchronized_shielding_name: "$defense_platform_synchronized_shielding$"
+ defense_platform_synchronized_shielding_desc: "Distributed shield harmonics shelter our defensive platforms from the most punishing fire.\n\n§EDefensive platforms take reduced damage from the Stellar Cannon.§!"
+ defense_platform_synchronized_shielding_effect: "Stellar Cannon Damage Reduction: §G+60%§!"
+
+ defense_platform_reinforced_plating: "Reinforced Plating"
+ defense_platform_reinforced_plating_name: "$defense_platform_reinforced_plating$"
+ defense_platform_reinforced_plating_desc: "Layered ablative plating hardens our starbases along with their defensive platforms against incoming fire.\n\n§EStarbases and their defensive platforms take reduced damage from all weapons.§!"
+ defense_platform_reinforced_plating_effect: "Starbase and Defense Platform Damage Reduction: §G+15%§!"
+
+ defense_platform_resilient_frames: "Resilient Frames"
+ defense_platform_resilient_frames_name: "$defense_platform_resilient_frames$"
+ defense_platform_resilient_frames_desc: "Redundant power cores and modular framing let crippled platforms power down and reboot rather than break apart.\n\n§EDefensive platforms are disabled instead of destroyed, reactivating once the fighting ends.§!"
+
+ defense_platform_provocation_arrays: "Provocation Arrays"
+ defense_platform_provocation_arrays_name: "$defense_platform_provocation_arrays$"
+ defense_platform_provocation_arrays_desc: "Aggressive sensor locks and a weapons-hot posture bait hostile fire toward our platforms and away from the fleet.\n\n§EEnemy ships are far more likely to target our defensive platforms in combat.§!"
+
+# Fleet modifier from the Reinforced Plating doctrine
+ defense_platform_reinforced_field: "Reinforced Plating"
