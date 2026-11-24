@@ -1,0 +1,196 @@
+spriteTypes = {
+
+	spriteType = {
+		name = "GFX_toast_leader_acquired"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_leader_acquired.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_negative_trait_gained"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_negative_trait_gained.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_positive_trait_gained"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_positive_trait_gained.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_leader_awarded_exp"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_leader_awarded_exp.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_habitat_built"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_habitat_built.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_orbital_built"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_orbital_built.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_rulerchip_leader_death"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_rulerchip_leader_death.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_truce_over"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_truce_over.dds"
+	}
+
+	spriteType = {
+		name = "GFX_message_first_contact_discovered_toast"
+		texturefile = "gfx/interface/icons/message/message_first_contact_discovered.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_core_focus"
+		texturefile = "gfx/interface/icons/toasts/toast_core_focus_completed.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_exploration_focus"
+		texturefile = "gfx/interface/icons/toasts/toast_exploration_focus_completed.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_conquest_focus"
+		texturefile = "gfx/interface/icons/toasts/toast_conquest_focus_completed.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_development_focus"
+		texturefile = "gfx/interface/icons/toasts/toast_development_focus_completed.dds"
+	}
+
+	# Storm Aftermath icons
+	spriteType = {
+		name = "GFX_toast_electric_storm_aftermath"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_electric_storm_aftermath.dds"
+	}
+	spriteType = {
+		name = "GFX_toast_particle_storm_aftermath"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_particle_storm_aftermath.dds"
+	}
+	spriteType = {
+		name = "GFX_toast_gravity_storm_aftermath"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_gravity_storm_aftermath.dds"
+	}
+	spriteType = {
+		name = "GFX_toast_magnetic_storm_aftermath"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_magnetic_storm_aftermath.dds"
+	}
+	spriteType = {
+		name = "GFX_toast_solar_storm_aftermath"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_solar_storm_aftermath.dds"
+	}
+	spriteType = {
+		name = "GFX_toast_celestial_storm_aftermath"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_celestial_storm_aftermath.dds"
+	}
+	spriteType = {
+		name = "GFX_toast_shroud_storm_aftermath"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_shroud_storm_aftermath.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_specimen_acquired"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_specimen_acquired.dds"
+	}
+
+	# Arkship Actions
+
+	spriteType = {
+		name = "GFX_toast_deep_scan_complete"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_arkship_deep_scan.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_subspace_image_complete"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_arkship_subspace_image.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_stellar_ignition_complete"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_arkship_stellar_ignition.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_exodus_jump_complete"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_arkship_exodus_jump.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_harvest_resources_complete"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_arkship_harvest_resources.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_strip_mine_complete"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_arkship_strip_mine.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_reprocess_planet_complete"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_arkship_reprocess_planet.dds"
+	}
+
+	# Nomad Contracts
+
+	spriteType = {
+		name = "GFX_toast_nomad_contract"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_nomad_contract.dds"
+	}
+
+    #Waystations
+
+	spriteType = {
+		name = "GFX_toast_waystation_lost"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_waystation_lost.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_waystation_network_merged"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_waystation_network_merged.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_waystation_network_split"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_waystation_network_split.dds"
+	}
+
+	spriteType = {
+		name = "GFX_toast_waystation_stockpile_collected"
+		alwaystransparent = yes
+		texturefile = "gfx/interface/icons/toasts/toast_waystation_stockpile_collected.dds"
+	}
+}
