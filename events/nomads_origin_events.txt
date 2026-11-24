@@ -1,0 +1,1589 @@
+#######################
+#   Events - Nomads	  #
+#######################
+
+namespace = nomads
+
+##################################################################
+# The Sacred Path Events - Namespace: nomads.2000 - nomads.2999  #
+##################################################################
+
+country_event = {
+	id = nomads.2000
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		owner = {
+			country_event = { id = nomads.2005 days = 5 }
+		}
+	}
+}
+
+# The Beginning / The Sacred Path: Emergence
+country_event = {
+	id = nomads.2005
+	title = nomads.2005.name
+	desc = nomads.2005.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_bridge
+
+	is_triggered_only = yes
+
+	immediate = {
+		random_owned_fleet = {
+			limit = {
+				any_owned_ship = {
+					is_arkship_ship = yes
+				}
+			}
+			solar_system = {
+				random_system_planet = {
+					save_event_target_as = pilgrim_path_1
+				}
+			}
+		}
+		set_country_flag = sacred_sites_survey
+		begin_event_chain = {
+			event_chain = sacred_sites_visited_chain
+			target = root
+		}
+		owner = {
+			set_country_flag = sacred_site_alpha
+			random_owned_fleet = {
+				limit = {
+					any_owned_ship = {
+						is_arkship_ship = yes
+					}
+				}
+				solar_system = {
+					random_system_planet = {
+						enable_special_project = {
+							name = "SACRED_SITE_ONE_PROJECT"
+							location = this
+							owner = root
+						}
+						# Sacred Site: Emergence
+						set_planet_flag = sacred_emergence_planet@root.owner
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2005.a
+		add_modifier = {
+			modifier = first_light_guidance
+		}
+	}
+
+	option = {
+		name = nomads.2005.b
+		add_modifier = {
+			modifier = incomplete_texts
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			owner = {
+				country_event = { id = nomads.2015 days = 3600 }
+			}
+		}
+	}
+}
+
+# Sacred Path Origin Progression Events
+
+country_event = {
+	id = nomads.2015
+	title = nomads.2015.name
+	desc = nomads.2015.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_bridge
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2015.a
+		trigger = {
+			is_dictatorial_authority = yes
+		}
+		add_modifier = {
+			modifier = glorious_pilgrims
+		}
+		hidden_effect = {
+			country_event = { id = nomads.2020 days = 1800 }
+		}
+	}
+
+	option = {
+		name = nomads.2015.a
+		trigger = {
+			is_dictatorial_authority = no
+		}
+		add_modifier = {
+			modifier = glorious_pilgrims
+		}
+		hidden_effect = {
+			country_event = { id = nomads.2020 days = 1800 }
+		}
+	}
+
+	option = {
+		name = nomads.2015.b
+		add_modifier = {
+			modifier = deeply_devoted
+		}
+		hidden_effect = {
+			country_event = { id = nomads.2025 days = 1800 }
+		}
+	}
+
+	option = {
+		name = nomads.2015.c
+		if = {
+			limit = {
+				is_lithoid_or_infernal_empire = no
+				is_synthetic_empire = no
+			}
+			add_modifier = {
+				modifier = forever_faithful
+			}
+		}
+		else_if = {
+			limit = {
+				is_lithoid_empire = yes
+			}
+			add_modifier = {
+				modifier = forever_faithful_lithoid
+			}
+		}
+		else = {
+			add_modifier = {
+				modifier = forever_faithful_infernal
+			}
+		}
+		hidden_effect = {
+			country_event = { id = nomads.2030 days = 1800 }
+		}
+	}
+
+	option = {
+		name = nomads.2015.d
+		exclusive_trigger = {
+			OR = {
+				has_valid_civic = civic_worker_coop
+				has_valid_civic = civic_shared_burden
+			}
+		}
+		add_spiritual_equality_modifiers = yes
+	}
+}
+
+country_event = {
+	id = nomads.2020
+	title = nomads.2020.name
+	desc = nomads.2020.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2020.a
+		remove_modifier = glorious_pilgrims
+		add_modifier = {
+			modifier = glorious_pilgrims_2
+		}
+
+	}
+
+	option = {
+		name = nomads.2020.b
+		allow = {
+			is_authoritarian = no
+		}
+		remove_modifier = glorious_pilgrims
+		add_spiritual_equality_modifiers = yes
+	}
+}
+
+country_event = {
+	id = nomads.2025
+	title = nomads.2025.name
+	desc = nomads.2025.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2025.a
+		remove_modifier = deeply_devoted
+		add_modifier = {
+			modifier = deeply_devoted_2
+		}
+	}
+
+	option = {
+		name = nomads.2025.b
+		allow = {
+			is_authoritarian = no
+		}
+		remove_modifier = deeply_devoted
+		add_spiritual_equality_modifiers = yes
+	}
+}
+
+country_event = {
+	id = nomads.2030
+	title = nomads.2030.name
+	desc = nomads.2030.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2030.a
+		switch = {
+			trigger = has_modifier
+			forever_faithful = {
+				remove_modifier = forever_faithful
+				add_modifier = {
+					modifier = forever_faithful_2
+				}
+			}
+			forever_faithful_lithoid = {
+				remove_modifier = forever_faithful_lithoid
+				add_modifier = {
+					modifier = forever_faithful_lithoid_2
+				}
+			}
+			forever_faithful_infernal = {
+				remove_modifier = forever_faithful_infernal
+				add_modifier = {
+					modifier = forever_faithful_infernal_2
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2030.b
+		allow = {
+			is_authoritarian = no
+		}
+		switch = {
+			trigger = has_modifier
+			forever_faithful = {
+				remove_modifier = forever_faithful
+			}
+			forever_faithful_lithoid = {
+				remove_modifier = forever_faithful_lithoid
+			}
+			forever_faithful_infernal = {
+				remove_modifier = forever_faithful_infernal
+			}
+		}
+		add_spiritual_equality_modifiers = yes
+	}
+}
+
+# Sacred Sites Anomaly Success Events
+
+# Emergence
+ship_event = {
+	id = nomads.2050
+	title = nomads.2050.name
+	desc = nomads.2050.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_bridge
+	event_chain = sacred_sites_visited_chain
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			owner = {
+				from.solar_system = {
+					save_event_target_as = sacred_emergence_poi_system
+				}
+				create_point_of_interest = {
+					id = sacred_site_emergence_poi
+					name = sacred_site_emergence_poi_name
+					desc = sacred_site_emergence_poi_desc
+					event_chain = sacred_sites_visited_chain
+					location = event_target:sacred_emergence_poi_system
+				}
+				add_event_chain_counter = {
+					event_chain = "sacred_sites_visited_chain"
+					counter = "sacred_sites_surveyed"
+					amount = 1
+				}
+				random_galaxy_planet = {
+					limit = {
+						is_sacred_site_planet = yes
+						has_sacred_site_flag_for_ship_owner = no
+					}
+					# Sacred Site: The Eye
+					enable_special_project = {
+						name = "SACRED_SITE_TWO_PROJECT"
+						location = this
+						owner = root
+					}
+					set_planet_flag = sacred_eye_planet@root.owner
+				}
+				random_galaxy_planet = {
+					limit = {
+						is_sacred_site_planet = yes
+						has_sacred_site_flag_for_ship_owner = no
+					}
+					# Sacred Site: The Monastery
+					enable_special_project = {
+						name = "SACRED_SITE_THREE_PROJECT"
+						location = this
+						owner = root
+					}
+					set_planet_flag = sacred_monastery_planet@root.owner
+				}
+				random_galaxy_planet = {
+					limit = {
+						is_sacred_site_planet = yes
+						has_sacred_site_flag_for_ship_owner = no
+					}
+					# Sacred Site: The Cradle
+					enable_special_project = {
+						name = "SACRED_SITE_FOUR_PROJECT"
+						location = this
+						owner = root
+					}
+					set_planet_flag = sacred_cradle_planet@root.owner
+				}
+				random_galaxy_planet = {
+					limit = {
+						is_sacred_site_planet = yes
+						has_sacred_site_flag_for_ship_owner = no
+					}
+					# Sacred Site: The Intelligence
+					enable_special_project = {
+						name = "SACRED_SITE_FIVE_PROJECT"
+						location = this
+						owner = root
+					}
+					set_planet_flag = sacred_intelligence_planet@root.owner
+				}
+				random_galaxy_planet = {
+					limit = {
+						is_sacred_site_planet = yes
+						has_sacred_site_flag_for_ship_owner = no
+					}
+					# Sacred Site: The Breathvault
+					enable_special_project = {
+						name = "SACRED_SITE_SIX_PROJECT"
+						location = this
+						owner = root
+					}
+					set_planet_flag = sacred_breathvault_planet@root.owner
+				}
+				random_galaxy_planet = {
+					limit = {
+						is_sacred_site_planet = yes
+						has_sacred_site_flag_for_ship_owner = no
+					}
+					# Sacred Site: The Chasm
+					enable_special_project = {
+						name = "SACRED_SITE_SEVEN_PROJECT"
+						location = this
+						owner = root
+					}
+					set_planet_flag = sacred_chasm_planet@root.owner
+				}
+				random_galaxy_planet = {
+					limit = {
+						is_sacred_site_planet = yes
+						has_sacred_site_flag_for_ship_owner = no
+					}
+					# Sacred Site: The Mirror
+					enable_special_project = {
+						name = "SACRED_SITE_EIGHT_PROJECT"
+						location = this
+						owner = root
+					}
+					set_planet_flag = sacred_mirror_planet@root.owner
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2050.a
+		custom_tooltip = nomads.2050.a.tt
+	}
+
+	option = {
+		name = nomads.2050.b
+		custom_tooltip = nomads.2050.b.tt
+	}
+}
+
+# The Eye
+ship_event = {
+	id = nomads.2055
+	title = nomads.2055.name
+	desc = nomads.2055.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			random_owned_leader = {
+				limit = {
+					leader_class = scientist
+				}
+				save_event_target_as = sacred_eye_scientist
+			}
+			set_country_flag = sacred_site_eye_flag
+			from.solar_system = {
+				save_event_target_as = sacred_eye_poi_system
+			}
+			create_point_of_interest = {
+				id = sacred_site_eye_poi
+				name = sacred_site_eye_poi_name
+				desc = sacred_site_eye_poi_desc
+				event_chain = sacred_sites_visited_chain
+				location = event_target:sacred_eye_poi_system
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2055.a
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier2researchreward
+				min = @tier2researchmin
+				max = @tier2researchmax
+			}
+		}
+		hidden_effect = {
+			ship_event = { id = nomads.2056 days = 30 }
+		}
+	}
+
+	option = {
+		name = nomads.2055.b
+		owner = {
+			add_monthly_resource_mult = {
+				resource = engineering_research
+				value = @tier2researchreward
+				min = @tier2researchmin
+				max = @tier2researchmax
+			}
+			add_monthly_resource_mult = {
+				resource = alloys
+				value = @tier1materialreward
+				min = @tier1materialmin
+				max = @tier1materialmax
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2055.c
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier1unityreward
+				min = @tier1unitymin
+				max = @tier1unitymax
+			}
+			add_modifier =  {
+				modifier = the_sacred_eye
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			owner = {
+				add_event_chain_counter = {
+					event_chain = "sacred_sites_visited_chain"
+					counter = "sacred_sites_surveyed"
+					amount = 1
+				}
+				country_event = { id = nomads.2100 days = 60 }
+			}
+		}
+	}
+}
+
+ship_event = {
+	id = nomads.2056
+	title = nomads.2056.name
+	desc = nomads.2056.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_bridge
+	event_chain = sacred_sites_visited_chain
+	location = fromfrom
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2056.a
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier3unityreward
+				min = @tier3unitymin
+				max = @tier3unitymax
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2056.b
+		owner = {
+			add_monthly_resource_mult = {
+				resource = influence
+				value = @tier3influencereward
+				min = @tier3influencemin
+				max = @tier3influencemax
+			}
+		}
+	}
+}
+
+# The Monastery
+ship_event = {
+	id = nomads.2060
+	title = nomads.2060.name
+	desc = nomads.2060.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			set_country_flag = sacred_site_monastery_flag
+			from.solar_system = {
+				save_event_target_as = sacred_monastery_poi_system
+			}
+			create_point_of_interest = {
+				id = sacred_site_monastery_poi
+				name = sacred_site_monastery_poi_name
+				desc = sacred_site_monastery_poi_desc
+				event_chain = sacred_sites_visited_chain
+				location = event_target:sacred_monastery_poi_system
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2060.a
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier1unityreward
+				min = @tier1unitymin
+				max = @tier1unitymax
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2060.b
+		owner = {
+			add_monthly_resource_mult = {
+				resource = engineering_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			owner = {
+				add_event_chain_counter = {
+					event_chain = "sacred_sites_visited_chain"
+					counter = "sacred_sites_surveyed"
+					amount = 1
+				}
+				country_event = { id = nomads.2100 days = 30 }
+			}
+		}
+	}
+}
+
+# The Cradle
+ship_event = {
+	id = nomads.2065
+	title = nomads.2065.name
+	desc = nomads.2065.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			set_country_flag = sacred_site_cradle_flag
+			from.solar_system = {
+				save_event_target_as = sacred_cradle_poi_system
+			}
+			create_point_of_interest = {
+				id = sacred_site_cradle_poi
+				name = sacred_site_cradle_poi_name
+				desc = sacred_site_cradle_poi_desc
+				event_chain = sacred_sites_visited_chain
+				location = event_target:sacred_cradle_poi_system
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2065.a
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier1unityreward
+				min = @tier1unitymin
+				max = @tier1unitymax
+			}
+			add_modifier = {
+				modifier = sacred_substantiation
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2065.b
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+			add_modifier = {
+				modifier = historical_truth
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			owner = {
+				add_event_chain_counter = {
+					event_chain = "sacred_sites_visited_chain"
+					counter = "sacred_sites_surveyed"
+					amount = 1
+				}
+				country_event = { id = nomads.2100 days = 30 }
+			}
+		}
+	}
+}
+
+# The Intelligence
+ship_event = {
+	id = nomads.2070
+	title = nomads.2070.name
+	desc = nomads.2070.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_bridge
+	event_chain = sacred_sites_visited_chain
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			random_owned_leader = {
+				limit = {
+					leader_class = scientist
+				}
+				save_event_target_as = mechsiah_plug_scientist
+			}
+			set_country_flag = sacred_site_mechsiah_flag
+			from.solar_system = {
+				save_event_target_as = sacred_intelligence_poi_system
+			}
+			create_point_of_interest = {
+				id = sacred_site_intelligence_poi
+				name = sacred_site_intelligence_poi_name
+				desc = sacred_site_intelligence_poi_desc
+				event_chain = sacred_sites_visited_chain
+				location = event_target:sacred_intelligence_poi_system
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2070.a
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier1unityreward
+				min = @tier1unitymin
+				max = @tier1unitymax
+			}
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+			add_modifier = {
+				modifier = mechsiah_blessings
+			}
+			set_country_flag = sacred_site_mechsiah_flag
+		}
+		hidden_effect = {
+			random_list = {
+				1 = {
+					ship_event = { id = nomads.2071 days = 5 }
+				}
+				1 = {
+					ship_event = { id = nomads.2072 days = 5 }
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2070.b
+		custom_tooltip = nomads.2075.b.tt
+		owner = {
+			add_monthly_resource_mult = {
+				resource = alloys
+				value = @tier1materialreward
+				min = @tier1materialmin
+				max = @tier1materialmax
+			}
+			add_monthly_resource_mult = {
+				resource = engineering_research
+				value = @tier2researchreward
+				min = @tier2researchmin
+				max = @tier2researchmax
+			}
+			hidden_effect = {
+				capital_scope = {
+					random_owned_pop_group = {
+						limit = {
+							has_any_ethic = yes
+						}
+						pop_group_add_ethic_effect = {
+							POP_GROUP = this
+							ETHOS = ethic_authoritarian
+							PERCENTAGE = 0.3
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2070.c
+		owner = {
+			capital_scope = {
+				add_deposit = d_mechsiah_mainframe
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			owner = {
+				add_event_chain_counter = {
+					event_chain = "sacred_sites_visited_chain"
+					counter = "sacred_sites_surveyed"
+					amount = 1
+				}
+				country_event = { id = nomads.2100 days = 30 }
+			}
+		}
+	}
+}
+
+ship_event = {
+	id = nomads.2071
+	title = nomads.2071.name
+	desc = nomads.2071.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_bridge
+	event_chain = sacred_sites_visited_chain
+	location = from
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2071.a
+		custom_tooltip = nomads.2075.a.tt
+		trigger = {
+			owner = {
+				is_synthetic_empire = no
+			}
+		}
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier1unityreward
+				min = @tier1unitymin
+				max = @tier1unitymax
+			}
+			hidden_effect = {
+				capital_scope = {
+					random_owned_pop_group = {
+						limit = {
+							has_any_ethic = yes
+						}
+						pop_group_add_ethic_effect = {
+							POP_GROUP = this
+							ETHOS = ethic_egalitarian
+							PERCENTAGE = 0.3
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2071.b
+		custom_tooltip = nomads.2075.a.tt
+		trigger = {
+			owner = {
+				is_synthetic_empire = yes
+			}
+		}
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier2unityreward
+				min = @tier2unitymin
+				max = @tier2unitymax
+			}
+			hidden_effect = {
+				capital_scope = {
+					random_owned_pop_group = {
+						limit = {
+							has_any_ethic = yes
+						}
+						pop_group_add_ethic_effect = {
+							POP_GROUP = this
+							ETHOS = ethic_egalitarian
+							PERCENTAGE = 0.3
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+ship_event = {
+	id = nomads.2072
+	title = nomads.2072.name
+	desc = nomads.2072.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_bridge
+	event_chain = sacred_sites_visited_chain
+	location = from
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2072.a
+		trigger = {
+			owner = {
+				is_synthetic_empire = no
+			}
+		}
+		owner = {
+			add_modifier = {
+				modifier = deity_detonators
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2072.b
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier1unityreward
+				min = @tier1unitymin
+				max = @tier1unitymax
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2072.c
+		trigger = {
+			owner = {
+				is_synthetic_empire = yes
+			}
+		}
+		owner = {
+			add_modifier = {
+				modifier = deity_detonators
+			}
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier1unityreward
+				min = @tier1unitymin
+				max = @tier1unitymax
+			}
+		}
+	}
+}
+
+# Breathvault
+ship_event = {
+	id = nomads.2075
+	title = nomads.2075.name
+	desc = nomads.2075.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			set_country_flag = sacred_site_breathvault_flag
+			from.solar_system = {
+				save_event_target_as = sacred_breathvault_poi_system
+			}
+			create_point_of_interest = {
+				id = sacred_site_breathvault_poi
+				name = sacred_site_breathvault_poi_name
+				desc = sacred_site_breathvault_poi_desc
+				event_chain = sacred_sites_visited_chain
+				location = event_target:sacred_breathvault_poi_system
+			}
+		}
+	}
+	option = {
+		name = nomads.2075.a
+		custom_tooltip = nomads.2075.a.tt
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier3unityreward
+				min = @tier3unitymin
+				max = @tier3unitymax
+			}
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+			hidden_effect = {
+				capital_scope = {
+					random_owned_pop_group = {
+						limit = {
+							has_any_ethic = yes
+						}
+						pop_group_add_ethic_effect = {
+							POP_GROUP = this
+							ETHOS = ethic_egalitarian
+							PERCENTAGE = 0.3
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2075.b
+		custom_tooltip = nomads.2075.b.tt
+		owner = {
+			hidden_effect = {
+				capital_scope = {
+					random_owned_pop_group = {
+						limit = {
+							has_any_ethic = yes
+						}
+						pop_group_add_ethic_effect = {
+							POP_GROUP = this
+							ETHOS = ethic_authoritarian
+							PERCENTAGE = 0.3
+						}
+					}
+				}
+			}
+			add_modifier = {
+				modifier = sealed_vaults
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2075.c
+		trigger = {
+			owner = {
+				is_psionic = yes
+			}
+		}
+		owner = {
+			add_modifier = {
+			modifier = screaming_void
+				days = 3600
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			owner = {
+				add_event_chain_counter = {
+					event_chain = "sacred_sites_visited_chain"
+					counter = "sacred_sites_surveyed"
+					amount = 1
+				}
+				country_event = { id = nomads.2100 days = 30 }
+			}
+		}
+	}
+}
+
+# The Chasm
+ship_event = {
+	id = nomads.2080
+	title = nomads.2080.name
+	desc = nomads.2080.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_bridge
+	event_chain = sacred_sites_visited_chain
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			set_country_flag = sacred_site_chasm_flag
+			from.solar_system = {
+				save_event_target_as = sacred_chasm_poi_system
+			}
+			create_point_of_interest = {
+				id = sacred_site_chasm_poi
+				name = sacred_site_chasm_poi_name
+				desc = sacred_site_chasm_poi_desc
+				event_chain = sacred_sites_visited_chain
+				location = event_target:sacred_chasm_poi_system
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2080.a
+		custom_tooltip = nomads.2075.b.tt
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier4unityreward
+				min = @tier4unitymin
+				max = @tier4unitymax
+			}
+			hidden_effect = {
+				capital_scope = {
+					random_owned_pop_group = {
+						limit = {
+							has_any_ethic = yes
+						}
+						pop_group_add_ethic_effect = {
+							POP_GROUP = this
+							ETHOS = ethic_authoritarian
+							PERCENTAGE = 0.3
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2080.b
+		custom_tooltip = nomads.2075.a.tt
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier4researchreward
+				min = @tier4researchmin
+				max = @tier4researchmax
+			}
+			hidden_effect = {
+				capital_scope = {
+					random_owned_pop_group = {
+						limit = {
+							has_any_ethic = yes
+						}
+						pop_group_add_ethic_effect = {
+							POP_GROUP = this
+							ETHOS = ethic_egalitarian
+							PERCENTAGE = 0.3
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2080.c
+		custom_tooltip = nomads.2080.c.tt
+		owner = {
+			add_modifier = {
+				modifier = beastly_remains
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			owner = {
+				add_event_chain_counter = {
+					event_chain = "sacred_sites_visited_chain"
+					counter = "sacred_sites_surveyed"
+					amount = 1
+				}
+				country_event = { id = nomads.2100 days = 30 }
+			}
+		}
+	}
+}
+
+# The Mirror
+ship_event = {
+	id = nomads.2085
+	title = nomads.2085.name
+	desc = nomads.2085.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_bridge
+	event_chain = sacred_sites_visited_chain
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			set_country_flag = sacred_site_mirror_flag
+			from.solar_system = {
+				save_event_target_as = sacred_mirror_poi_system
+			}
+			create_point_of_interest = {
+				id = sacred_site_mirror_poi
+				name = sacred_site_mirror_poi_name
+				desc = sacred_site_mirror_poi_desc
+				event_chain = sacred_sites_visited_chain
+				location = event_target:sacred_mirror_poi_system
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2085.a
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier1unityreward
+				min = @tier1unitymin
+				max = @tier1unitymax
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2085.b
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			owner = {
+				add_event_chain_counter = {
+					event_chain = "sacred_sites_visited_chain"
+					counter = "sacred_sites_surveyed"
+					amount = 1
+				}
+				country_event = { id = nomads.2100 days = 30 }
+			}
+		}
+	}
+}
+
+# The Sacred Path Endgame Events
+
+country_event = {
+	id = nomads.2100
+	title = nomads.2100.name
+	desc = nomads.2100.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_flag = sacred_site_eye_flag
+		has_country_flag = sacred_site_monastery_flag
+		has_country_flag = sacred_site_cradle_flag
+		has_country_flag = sacred_site_mechsiah_flag
+		has_country_flag = sacred_site_breathvault_flag
+		has_country_flag = sacred_site_chasm_flag
+		has_country_flag = sacred_site_mirror_flag
+		NOT = {
+			has_country_flag = sacred_path_complete
+		}
+	}
+
+	immediate = {
+		set_country_flag = sacred_path_complete
+	}
+
+	option = {
+		name = nomads.2100.a
+		add_modifier = {
+			modifier = steadfast_path
+		}
+	}
+
+	option = {
+		name = nomads.2100.b
+		trigger = {
+			has_modifier = incomplete_texts
+		}
+		remove_modifier = incomplete_texts
+		add_modifier = {
+			modifier = incomplete_texts_2
+		}
+	}
+
+	option = {
+		name = nomads.2100.c
+		trigger = {
+			NOT = {
+				has_modifier = incomplete_texts
+			}
+		}
+		add_modifier = {
+			modifier = incomplete_texts
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			save_event_target_as = this_country
+			country_event = { id = nomads.2105 days = 300 }
+			country_event = { id = timeline.125 }
+		}
+	}
+}
+
+country_event = {
+	id = nomads.2105
+	title = nomads.2105.name
+	desc = nomads.2105.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2105.a
+		add_modifier = {
+			modifier = staunch_traditionalists
+		}
+		if = {
+			limit = {
+				has_modifier = steadfast_path
+			}
+			remove_modifier = steadfast_path
+			add_modifier = {
+				modifier = steadfast_path_2
+			}
+		}
+	}
+
+	option = {
+		name = nomads.2105.b
+		add_modifier = {
+			modifier = secular_murmurs
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			country_event = { id = nomads.2115 days = 1800 }
+		}
+	}
+}
+
+country_event = {
+	id = nomads.2115
+	title = nomads.2115.name
+	desc = nomads.2115.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_in_crisis
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2115.a
+		custom_tooltip = nomads.2075.a.tt
+		hidden_effect = {
+			random_owned_pop_group = {
+				limit = {
+					has_any_ethic = yes
+				}
+				pop_group_add_ethic_effect = {
+					POP_GROUP = this
+					ETHOS = ethic_egalitarian
+					PERCENTAGE = 0.1
+				}
+			}
+		}
+		add_modifier = {
+			modifier = nondenominational_worship
+		}
+		hidden_effect = {
+			country_event = { id = nomads.2120 days = 1800 }
+		}
+	}
+
+	option = {
+		name = nomads.2115.b
+		custom_tooltip = nomads.2075.b.tt
+		hidden_effect = {
+			random_owned_pop_group = {
+				limit = {
+					has_any_ethic = yes
+				}
+				pop_group_add_ethic_effect = {
+					POP_GROUP = this
+					ETHOS = ethic_authoritarian
+					PERCENTAGE = 0.1
+				}
+			}
+		}
+		add_modifier = {
+			modifier = heretical_factionalism
+		}
+		hidden_effect = {
+			country_event = { id = nomads.2125 days = 1800 }
+		}
+	}
+}
+
+country_event = {
+	id = nomads.2120
+	title = nomads.2120.name
+	desc = nomads.2120.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2120.a
+		trigger = {
+			has_modifier = steadfast_path_2
+		}
+		remove_modifier = steadfast_path_2
+		add_modifier = {
+			modifier = steadfast_path_3
+		}
+		hidden_effect = {
+			country_event = { id = nomads.2130 days = 1800 }
+		}
+	}
+
+	option = {
+		name = nomads.2120.b
+		trigger = {
+			NOT = {
+				has_modifier = steadfast_path_2
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = steadfast_path
+			}
+			remove_modifier = steadfast_path
+		}
+		add_modifier = {
+			modifier = steadfast_path_2
+		}
+		hidden_effect = {
+			country_event = { id = nomads.2135 days = 1800 }
+		}
+	}
+}
+
+country_event = {
+	id = nomads.2125
+	title = nomads.2125.name
+	desc = nomads.2125.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_life_on_the_arkship
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2125.a
+		trigger = {
+			has_modifier = incomplete_texts_2
+		}
+		remove_modifier = incomplete_texts_2
+		add_modifier = {
+			modifier = incomplete_texts_3
+		}
+		hidden_effect = {
+			country_event = { id = nomads.2135 days = 1800 }
+		}
+	}
+
+	option = {
+		name = nomads.2125.b
+		trigger = {
+			NOT = {
+				has_modifier = incomplete_texts_2
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = incomplete_texts
+			}
+			remove_modifier = incomplete_texts
+			add_modifier = {
+				modifier = incomplete_texts_2
+			}
+		}
+		else = {
+			add_modifier = {
+				modifier = incomplete_texts
+			}
+		}
+		hidden_effect = {
+			country_event = { id = nomads.2140 days = 1800 }
+		}
+	}
+}
+
+country_event = {
+	id = nomads.2130
+	title = nomads.2130.name
+	desc = nomads.2130.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_celebration
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2130.a
+		add_modifier = {
+			modifier = joyous_enlightenment
+		}
+		hidden_effect = {
+			set_country_flag = sacred_path_joyous_enlightenment
+			save_event_target_as = this_country
+			country_event = { id = timeline.135 }
+			# The event chain is intentionally not ended here
+			# Clearing it at this stage would make it difficult
+			# to track The Sacred Sites which you still need
+			# for late-game bonuses.
+		}
+	}
+}
+
+country_event = {
+	id = nomads.2135
+	title = nomads.2135.name
+	desc = nomads.2135.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_bridge
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2135.a
+		add_modifier = {
+			modifier = middle_path
+		}
+		hidden_effect = {
+			set_country_flag = sacred_path_middle_path
+			save_event_target_as = this_country
+			country_event = { id = timeline.140 }
+			# The event chain is intentionally not ended here
+			# Clearing it at this stage would make it difficult
+			# to track The Sacred Sites which you still need
+			# for late-game bonuses.
+		}
+	}
+}
+
+country_event = {
+	id = nomads.2140
+	title = nomads.2140.name
+	desc = nomads.2140.desc
+	picture = GFX_evt_sacred_path
+	show_sound = event_arkship_in_crisis
+	event_chain = sacred_sites_visited_chain
+
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.2140.a
+		add_modifier = {
+			modifier = embracing_chaos
+		}
+		hidden_effect = {
+			set_country_flag = sacred_path_embrace_chaos
+			save_event_target_as = this_country
+			country_event = { id = timeline.145 }
+			# The event chain is intentionally not ended here
+			# Clearing it at this stage would make it difficult
+			# to track The Sacred Sites which you still need
+			# for late-game bonuses.
+		}
+	}
+}
