@@ -1,0 +1,1277 @@
+########################################
+### FORCE OF WILL - Static Modifiers ###
+########################################
+
+#icon_frame = 1 # Green frame
+#icon_frame = 2 # Yellow frame
+#icon_frame = 3 # Red frame
+
+##########################################################################
+# Static Modifiers
+##########################################################################
+
+fanatic_pop_faction_modifier = {
+	custom_tooltip = fanatic_pop_faction_modifier_tt
+	show_only_custom_tooltip = no
+	faction_demands_unmet_mult = 0.50
+}
+
+ideological_reach_mult = {
+	custom_tooltip = ideological_reach_mult_tt
+	colony_ideological_reach_mult = 1
+	hall_ideological_reach_mult = 1
+}
+
+ideological_custodian_modifier = {
+	adopted_ideology_upkeep_mult = -0.1
+	ideological_reach_mult = 0.1
+	diplo_weight_mult = 0.1
+	pop_government_ethic_attraction = 0.25
+}
+
+##########################################################################
+# Empire Modifiers
+##########################################################################
+
+meditation_unity = {
+	hide_from_country_list = yes
+	country_unity_produces_mult = @path_of_the_self_unity_per_roll
+}
+
+meditation_happiness = {
+	hide_from_country_list = yes
+	pop_citizen_happiness = @path_of_the_self_happiness_per_roll
+}
+
+meditation_stability = {
+	hide_from_country_list = yes
+	planet_stability_add = @path_of_the_self_stability_per_roll
+}
+
+meditation_councilor = {
+	hide_from_country_list = yes
+	councilor_skill_add = 1
+}
+
+meditation_leader_upkeep = {
+	hide_from_country_list = yes
+	leaders_upkeep_mult = @path_of_the_self_leader_upkeep_per_roll
+}
+
+meditation_leader_lifespan = {
+	hide_from_country_list = yes
+	leader_lifespan_mult = @path_of_the_self_leader_lifespan_per_roll
+}
+
+meditation_death_cult = {
+	hide_from_country_list = yes
+	custom_tooltip = meditation_death_cult_tt
+}
+
+meditation_ascensionist = {
+	hide_from_country_list = yes
+	planetary_ascension_effect_mult = @path_of_the_self_ascensionist_per_roll
+}
+
+meditation_dimensional_worship = {
+	hide_from_country_list = yes
+	planet_bureaucrats_physics_research_produces_add = @path_of_the_self_dimensional_worship_per_roll
+}
+
+meditation_exalted_priesthood = {
+	hide_from_country_list = yes
+	planet_bureaucrats_unity_produces_add = @path_of_the_self_exalted_priesthood_per_roll
+	planet_high_priests_unity_produces_add = @path_of_the_self_exalted_priesthood_high_priest_per_roll
+}
+
+meditation_gospel_masses = {
+	hide_from_country_list = yes
+	planet_bureaucrats_trade_produces_mult = 1
+}
+
+spirit_cultivation = {
+	icon = "gfx/interface/icons/modifiers/mod_meditation.dds"
+	icon_frame = 1
+
+	custom_tooltip = spirit_cultivation_tooltip
+}
+
+absolute_xenophile_councilor_skill = {
+	councilor_skill_add = 1
+}
+
+warmongers_at_war_1 = {
+	pop_bonus_workforce_mult = 0.03
+	founder_species_growth_mult = 0.05
+	starbase_shipyard_build_speed_mult = 0.05
+	ideological_reach_mult = 0.05
+}
+
+warmongers_at_war_2 = {
+	pop_bonus_workforce_mult = 0.06
+	founder_species_growth_mult = 0.15
+	starbase_shipyard_build_speed_mult = 0.15
+	ideological_reach_mult = 0.15
+}
+
+warmongers_at_war_3 = {
+	pop_bonus_workforce_mult = 0.15
+	founder_species_growth_mult = 0.35
+	starbase_shipyard_build_speed_mult = 0.35
+	ideological_reach_mult = 0.35
+}
+
+ideological_momentum_positive = {
+	country_unity_produces_mult = 0.05
+}
+
+ideological_disruption = {
+	icon = "gfx/interface/icons/modifiers/mod_planet_stability_mult_negative.dds"
+	custom_tooltip = ideological_disruption_tt
+}
+
+moderate_ideological_disruption = {
+	icon = "gfx/interface/icons/modifiers/mod_planet_stability_mult_negative.dds"
+	custom_tooltip = ideological_disruption_tt
+}
+
+severe_ideological_disruption = {
+	icon = "gfx/interface/icons/modifiers/mod_planet_stability_mult_negative.dds"
+	custom_tooltip = ideological_disruption_tt
+}
+
+deviancy_reduced_hive = {
+	planet_crime_no_happiness_mult = -0.1
+}
+deviancy_reduced_machine = {
+	planet_crime_no_happiness_mult = -0.1 # Same as above
+}
+
+increased_productivity_modifier = {
+	planet_jobs_produces_mult = 0.05
+}
+
+cognitive_improvement_modifier = {
+	councilor_gestalt_cognitive_exp_gain = 0.2
+}
+
+cognitive_benefits_modifier = {
+	icon = "gfx/interface/icons/modifiers/mod_pop_workforce_mult.dds"
+	researcher_jobs_bonus_workforce_mult = 0.1
+}
+
+regulatory_improvement_modifier = {
+	councilor_gestalt_regulatory_exp_gain = 0.2
+}
+
+sustainable_doctrine_modifier = {
+	adopted_ideology_upkeep_mult = -0.3
+	planet_crime_no_happiness_mult = -0.05
+}
+
+nonstandard_thought_processed_hive = {
+	pop_bonus_workforce_mult = 0.1
+}
+
+nonstandard_thought_processed_machine = { # Same as above
+	pop_bonus_workforce_mult = 0.1
+}
+
+nonstandard_thought_suppressed_hive = {
+	country_unity_produces_mult = 0.1
+	planet_crime_no_happiness_mult = -0.05
+}
+
+nonstandard_thought_suppressed_machine = { # Same as above
+	country_unity_produces_mult = 0.1
+	planet_crime_no_happiness_mult = -0.05
+}
+
+network_outages_modifier = {
+	icon = "gfx/interface/icons/modifiers/mod_planet_jobs_produces_reduced_mult.dds"
+	planet_jobs_produces_mult = -0.1
+}
+
+error_mitigation_modifier = {
+	icon = "gfx/interface/icons/modifiers/mod_energy_upkeep_add.dds"
+	planet_jobs_upkeep_mult = 0.1
+}
+
+medical_support_modifier = {
+	icon = "gfx/interface/icons/modifiers/mod_energy_upkeep_add.dds"
+	planet_jobs_upkeep_mult = 0.1
+}
+
+extended_rest_modifier = {
+	icon = "gfx/interface/icons/modifiers/mod_planet_jobs_produces_reduced_mult.dds"
+	planet_jobs_produces_mult = -0.1
+}
+
+catatonic_drones_hive = {
+	icon = "gfx/interface/icons/modifiers/mod_planet_jobs_produces_reduced_mult.dds"
+	planet_jobs_produces_mult = -0.1
+}
+
+catatonic_drones_machine = { # Same as above
+	icon = "gfx/interface/icons/modifiers/mod_planet_jobs_produces_reduced_mult.dds"
+	planet_jobs_produces_mult = -0.1
+}
+
+overburdened_node_modifier = {
+	icon = "gfx/interface/icons/modifiers/mod_negative_species_leader_exp_gain.dds"
+	councilor_gestalt_cognitive_exp_gain = -0.2
+}
+
+doctrinal_monitoring_modifier = {
+	icon = "gfx/interface/icons/modifiers/mod_resource_influence_add.dds"
+	adopted_ideology_upkeep_mult = 0.5
+}
+
+pop_political_power_modifier = {
+    pop_political_power = 0.01
+}
+
+jubilee_energy = {
+	country_energy_produces_mult = @jubilee_resource_produces_mult
+}
+
+jubilee_energy_gestalt = {
+	country_energy_produces_mult = @jubilee_resource_produces_mult
+}
+
+jubilee_minerals = {
+	country_minerals_produces_mult = @jubilee_resource_produces_mult
+}
+
+jubilee_minerals_gestalt = {
+	country_minerals_produces_mult = @jubilee_resource_produces_mult
+}
+
+jubilee_food = {
+	country_food_produces_mult = @jubilee_resource_produces_mult
+}
+
+jubilee_food_gestalt = {
+	country_food_produces_mult = @jubilee_resource_produces_mult
+}
+
+jubilee_consumer_goods = {
+	country_consumer_goods_produces_mult = @jubilee_resource_produces_mult
+}
+
+jubilee_alloys = {
+	country_alloys_produces_mult = @jubilee_resource_produces_mult
+}
+
+jubilee_alloys_gestalt = {
+	country_alloys_produces_mult = @jubilee_resource_produces_mult
+}
+
+obsolete_data_cleanup = {
+	num_tech_alternatives_add = 1
+}
+
+sow_peace_modifier_1 = {
+	icon = "gfx/interface/icons/modifiers/mod_sow_peace.dds"
+	custom_tooltip = sow_peace_modifier_tt
+	show_only_custom_tooltip = no
+	country_war_exhaustion_mult = 0.10
+	planet_stability_add = -5
+	pop_ethic_pacifist_attraction_mult = 0.20
+}
+
+sow_peace_modifier_2 = {
+	icon = "gfx/interface/icons/modifiers/mod_sow_peace.dds"
+	custom_tooltip = sow_peace_modifier_tt
+	show_only_custom_tooltip = no
+	country_war_exhaustion_mult = 0.20
+	planet_stability_add = -10
+	pop_ethic_pacifist_attraction_mult = 0.40
+}
+
+sow_peace_modifier_3 = {
+	icon = "gfx/interface/icons/modifiers/mod_sow_peace.dds"
+	custom_tooltip = sow_peace_modifier_tt
+	show_only_custom_tooltip = no
+	country_war_exhaustion_mult = 0.30
+	planet_stability_add = -15
+	pop_ethic_pacifist_attraction_mult = 0.60
+}
+
+sow_peace_modifier_4 = {
+	icon = "gfx/interface/icons/modifiers/mod_sow_peace.dds"
+	custom_tooltip = sow_peace_modifier_tt
+	show_only_custom_tooltip = no
+	country_war_exhaustion_mult = 0.40
+	planet_stability_add = -20
+	pop_ethic_pacifist_attraction_mult = 0.80
+}
+
+sow_peace_modifier_5 = {
+	icon = "gfx/interface/icons/modifiers/mod_sow_peace.dds"
+	custom_tooltip = sow_peace_modifier_tt
+	show_only_custom_tooltip = no
+	country_war_exhaustion_mult = 0.50
+	planet_stability_add = -25
+	pop_ethic_pacifist_attraction_mult = 1.00
+}
+
+ideological_recovery_modifier = {
+	icon = "gfx/interface/icons/modifiers/mod_ideological_strength_mult.dds"
+	ideological_strength_bonus_mult = @ideological_recovery_mult
+	custom_tooltip = ideological_recovery_modifier_effect
+}
+
+propaganda_clubs = {
+	adopted_ideology_upkeep_mult = @propaganda_clubs_upkeep_mult
+	pop_government_ethic_attraction = @propaganda_clubs_ethic_attraction
+	custom_tooltip = propaganda_clubs_tt
+}
+
+doctrinal_funding = {
+	adopted_ideology_upkeep_mult = @doctrinal_funding_upkeep_mult
+	pop_government_ethic_attraction = @doctrinal_funding_ethic_attraction
+	custom_tooltip = doctrinal_funding_tt
+}
+
+government_recognition = {
+	pop_government_ethic_attraction = @government_recognition_ethic_attraction
+	custom_tooltip = government_recognition_tt
+}
+
+citizen_parade = {
+	pop_happiness = @citizen_parade_happiness
+	planet_amenities_mult = @citizen_parade_amenities
+	custom_tooltip = citizen_parade_tt
+}
+
+propaganda_success = {
+	adopted_ideology_upkeep_mult = @propaganda_success_upkeep_mult
+	pop_government_ethic_attraction = @propaganda_success_ethic_attraction
+	custom_tooltip = propaganda_success_tt
+}
+
+recruitment_boom = {
+	country_leader_pool_size = @recruitment_boom_leader_pool_size
+	leaders_cost_mult = @recruitment_boom_leaders_cost_mult
+	custom_tooltip = recruitment_boom_tt
+}
+
+doctrinal_champions_modifier = {
+	ideological_faction_attraction_mult = 0.05
+}
+
+idealistic_civil_servants = {
+	council_agenda_progress_speed = @idealistic_civil_servants_agenda_speed
+	planet_bureaucrats_produces_mult = @idealistic_civil_servants_bureaucrats_mult
+	custom_tooltip = idealistic_civil_servants_tt
+}
+
+loyalty_rewarded = {
+	adopted_ideology_upkeep_mult = @loyalty_rewarded_upkeep_mult
+	pop_government_ethic_attraction = @loyalty_rewarded_ethic_attraction
+	custom_tooltip = loyalty_rewarded_tt
+}
+
+golden_age_of_ideology_society = {
+	country_unity_produces_mult = @golden_age_society_unity_mult
+	pop_happiness = @golden_age_society_happiness
+	custom_tooltip = golden_age_of_ideology_society_tt
+}
+
+golden_age_of_ideology_economy = {
+	planet_jobs_trade_produces_mult = @golden_age_economy_trade_mult
+	country_energy_produces_mult = @golden_age_economy_energy_mult
+	custom_tooltip = golden_age_of_ideology_economy_tt
+}
+
+golden_age_of_ideology_politics = {
+	council_agenda_progress_speed = @golden_age_politics_agenda_speed
+	council_agenda_finishing_effect_duration_mult = @golden_age_politics_agenda_effect
+	councilor_exp_gain = @golden_age_politics_exp_gain
+	custom_tooltip = golden_age_of_ideology_politics_tt
+}
+
+radical_nonconformity = {
+	country_unity_produces_mult = @radical_nonconformity_unity_mult
+	planet_stability_add = @radical_nonconformity_stability_add
+	custom_tooltip = radical_nonconformity_tt
+}
+
+radicalism_suppressed = {
+	planet_researchers_produces_mult = @radicalism_suppressed_researchers_mult
+	pop_happiness = @radicalism_suppressed_happiness
+	custom_tooltip = radicalism_suppressed_tt
+}
+
+economic_stagnation = {
+	country_trade_produces_mult = @economic_stagnation_trade_mult
+	planet_jobs_produces_mult = @economic_stagnation_jobs_mult
+	custom_tooltip = economic_stagnation_tt
+}
+
+terror_activity = {
+	planet_stability_mult = @terror_activity_stability_mult
+	planet_enforcers_upkeep_mult = @terror_activity_upkeep_mult
+	custom_tooltip = terror_activity_tt
+}
+
+government_corruption = {
+	council_agenda_progress_speed = @government_corruption_agenda_speed
+	leaders_upkeep_mult = @government_corruption_upkeep_mult
+	custom_tooltip = government_corruption_tt
+}
+
+increased_ideological_investment = {
+	adopted_ideology_upkeep_mult = @increased_ideological_investment_upkeep_mult
+	custom_tooltip = increased_ideological_investment_tt
+}
+
+# Fanatic faction consequence events
+fanatic_intelligence_leak = {
+	intel_encryption_add = @fanatic_intelligence_leak_encryption
+}
+
+fanatical_obstruction = {
+	planet_stability_add = @fanatical_obstruction_stability
+	planet_enforcers_upkeep_mult = @fanatical_obstruction_enforcer_upkeep
+}
+
+coup_vigilance = {
+	planet_buildings_upkeep_mult = @coup_vigilance_building_upkeep
+	planet_enforcers_upkeep_mult = @coup_vigilance_enforcer_upkeep
+}
+
+abandoning_ideology = {
+	planet_stability_add = -5
+}
+
+resolution_adopted_ideology_denounced = {
+	custom_tooltip = resolution_adopted_ideology_denounced_tt
+	diplo_weight_mult = @denounced_ideology_diplo_weight
+}
+
+resolution_ideology_act_modifier = {
+	custom_tooltip = resolution_ideology_act_modifier_tt
+	pop_government_ethic_attraction = @resolution_ideology_act_attraction
+	diplo_weight_mult = @resolution_ideology_act_diplo_weight
+}
+resolution_ideology_act_modifier_gestalt = {
+	custom_tooltip = resolution_ideology_act_modifier_gestalt_tt
+	planet_crime_no_happiness_add = @resolution_ideology_act_deviancy
+	diplo_weight_mult = @resolution_ideology_act_diplo_weight
+}
+
+imposed_ideology_not_accomplished = {
+	planet_stability_add = @imposed_ideology_not_accomplished_stability_add
+	country_base_influence_produces_add = @imposed_ideology_not_accomplished_produces_add
+
+	icon = "gfx/interface/icons/modifiers/mod_planet_stability_mult_negative.dds"
+	icon_frame = 3
+}
+
+unified_ideology_not_accomplished = {
+	planet_stability_add = @unified_ideology_stability_add
+	country_base_influence_produces_add = @unified_ideology_influence_produces_add
+
+	icon = "gfx/interface/icons/modifiers/mod_planet_stability_mult_negative.dds"
+	icon_frame = 3
+}
+
+ideological_ban_not_accomplished = {
+	planet_stability_add = @ideological_ban_stability_add
+	country_base_influence_produces_add = @ideological_ban_influence_produces_add
+
+	icon = "gfx/interface/icons/modifiers/mod_planet_stability_mult_negative.dds"
+	icon_frame = 3
+}
+
+# Golden Generation origin
+
+golden_academy_budget_modifier = {
+	planet_buildings_golden_academies_upkeep_mult = 0.3
+	pop_happiness = -0.05
+}
+
+golden_generation_prestige_modifier = {
+	pop_cat_ruler_bonus_workforce_mult = 0.2
+	species_leader_exp_gain = 0.2
+}
+
+golden_generation_academy_scandal = {
+	icon = "gfx/interface/icons/modifiers/mod_unity_upkeep_increased.dds"
+	golden_generation_leaders_upkeep_mult = 0.1
+}
+
+golden_generation_academy_scandal_elite = {
+	icon = "gfx/interface/icons/modifiers/mod_unity_upkeep_increased.dds"
+	golden_generation_leaders_upkeep_mult = 0.1
+	elite_alumnus_leaders_upkeep_mult = 0.1
+	elite_alumnus_leaders_cost_mult = 0.1
+}
+
+golden_generation_memorial_scholarship = {
+	icon = "gfx/interface/icons/modifiers/mod_leader_species_exp_gain.dds"
+	country_leader_pool_size = 1
+	leaders_cost_mult = -0.1
+	species_leader_exp_gain = 0.05
+}
+
+golden_generation_public_outrage = {
+	icon = "gfx/interface/icons/modifiers/mod_negative_pop_happiness.dds"
+	pop_happiness = -0.1
+	planet_jobs_produces_mult = -0.1
+	council_agenda_progress_speed = -0.1
+}
+
+golden_generation_public_appeasement = {
+	icon = "gfx/interface/icons/modifiers/mod_job_bureaucrat_upkeep_increased.dds"
+	planet_bureaucrats_upkeep_mult = 0.2
+}
+
+golden_generation_crisis_leadership = {
+	pop_government_ethic_attraction = -0.1
+	planet_stability_mult = -0.02
+	leaders_upkeep_mult = 0.1
+}
+
+golden_generation_victory = {
+	pop_happiness = 0.05
+	pop_government_ethic_attraction = 0.1
+	faction_approval = 0.1
+}
+
+inspired_leadership = {
+	species_leader_exp_gain = 0.1
+	pop_happiness = 0.05
+}
+
+inspiring_scientist = {
+	planet_researchers_produces_mult = 0.1
+	scientist_exp_gain = 0.2
+}
+
+golden_generation_show_trial = {
+	icon = "gfx/interface/icons/modifiers/mod_planet_crime_mult.dds"
+	planet_crime_mult = -0.1
+	pop_government_ethic_attraction = 0.1
+}
+
+golden_generation_learning_from_past_modifier = {
+	leader_initial_skill = 1
+}
+
+golden_generation_transparent_society = {
+	pop_happiness = 0.05
+	planet_jobs_unity_produces_mult = 0.1
+	pop_government_ethic_attraction = 0.05
+}
+
+golden_generation_reputation_damage = {
+	icon = "gfx/interface/icons/modifiers/mod_negative_pop_happiness.dds"
+	pop_happiness = -0.05
+	custom_tooltip = golden_leader_reputation_damage_tt
+	show_only_custom_tooltip = no
+}
+
+golden_generation_ego_clash = {
+	icon = "gfx/interface/icons/modifiers/mod_negative_council_agenda_progress_speed.dds"
+	council_agenda_progress_speed = -0.1
+}
+
+golden_generation_mediation = {
+	icon = "gfx/interface/icons/modifiers/mod_unity_upkeep_increased.dds"
+	golden_generation_leaders_upkeep_mult = 0.05
+}
+
+golden_generation_golden_council = {
+	council_agenda_progress_speed = 0.1
+	planet_bureaucrats_produces_mult = 0.1
+	edicts_upkeep_mult = -0.1
+}
+
+golden_generation_wasted_talent = {
+	icon = "gfx/interface/icons/modifiers/mod_negative_pop_happiness.dds"
+	pop_happiness = -0.05
+	country_unity_produces_mult = -0.05
+	species_leader_exp_gain = -0.05
+}
+
+golden_indulgence_modifier = {
+	icon = "gfx/interface/icons/modifiers/mod_leader_species_exp_gain.dds"
+	custom_tooltip = golden_indulgence_modifier_effect
+}
+
+dissatisfied_elite_modifier = {
+	icon = "gfx/interface/icons/modifiers/mod_negative_species_leader_exp_gain.dds"
+	custom_tooltip = dissatisfied_elite_modifier_effect
+}
+
+# Golden Generation origin - leader funeral rewards
+
+golden_commemoration_with_ideology = {
+	custom_tooltip = golden_commemoration_with_ideology_tt
+	show_only_custom_tooltip = yes
+	country_unity_produces_mult = @golden_commemoration_unity_mult
+	pop_happiness = @golden_commemoration_happiness
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_large
+}
+
+golden_commemoration_no_ideology = {
+	country_unity_produces_mult = @golden_commemoration_unity_mult
+	pop_happiness = @golden_commemoration_happiness
+}
+
+golden_memories_with_ideology = {
+	custom_tooltip = golden_memories_with_ideology_tt
+	show_only_custom_tooltip = yes
+	country_unity_produces_mult = @golden_memories_unity_mult
+	pop_happiness = @golden_memories_happiness
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+golden_memories_no_ideology = {
+	custom_tooltip = golden_memories_no_ideology_tt
+	show_only_custom_tooltip = yes
+	country_unity_produces_mult = @golden_memories_unity_mult
+	pop_happiness = @golden_memories_happiness
+}
+
+mixed_legacy_with_ideology = {
+	custom_tooltip = mixed_legacy_with_ideology_tt
+	show_only_custom_tooltip = yes
+	pop_factions_produces_mult = @mixed_legacy_factions_mult
+	pop_happiness = @mixed_legacy_happiness
+	golden_generation_leaders_upkeep_mult = @mixed_legacy_upkeep_mult
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+mixed_legacy_no_ideology = {
+	pop_factions_produces_mult = @mixed_legacy_factions_mult
+	pop_happiness = @mixed_legacy_happiness
+	golden_generation_leaders_upkeep_mult = @mixed_legacy_upkeep_mult
+}
+
+golden_memorial_materialist_with_ideology = {
+	custom_tooltip = golden_memorial_materialist_with_ideology_tt
+	show_only_custom_tooltip = yes
+	planet_researchers_produces_mult = @golden_memorial_materialist_researchers
+	country_physics_research_produces_mult = @golden_memorial_materialist_physics
+	pop_ethic_materialist_attraction_mult = @golden_memorial_ethics_attraction
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+golden_memorial_materialist_no_ideology = {
+	planet_researchers_produces_mult = @golden_memorial_materialist_researchers
+	country_physics_research_produces_mult = @golden_memorial_materialist_physics
+	pop_ethic_materialist_attraction_mult = @golden_memorial_ethics_attraction
+}
+
+golden_memorial_spiritualist_with_ideology = {
+	custom_tooltip = golden_memorial_spiritualist_with_ideology_tt
+	show_only_custom_tooltip = yes
+	country_unity_produces_mult = @golden_memorial_spiritualist_unity
+	country_consumer_goods_cost_mult = @golden_memorial_spiritualist_goods
+	pop_ethic_spiritualist_attraction_mult = @golden_memorial_ethics_attraction
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+golden_memorial_spiritualist_no_ideology = {
+	country_unity_produces_mult = @golden_memorial_spiritualist_unity
+	country_consumer_goods_cost_mult = @golden_memorial_spiritualist_goods
+	pop_ethic_spiritualist_attraction_mult = @golden_memorial_ethics_attraction
+}
+
+golden_memorial_militarist_with_ideology = {
+	custom_tooltip = golden_memorial_militarist_with_ideology_tt
+	show_only_custom_tooltip = yes
+	country_unity_produces_mult = @golden_memorial_militarist_unity
+	shipclass_military_build_speed_mult = @golden_memorial_militarist_build
+	pop_ethic_militarist_attraction_mult = @golden_memorial_ethics_attraction
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+golden_memorial_militarist_no_ideology = {
+	country_unity_produces_mult = @golden_memorial_militarist_unity
+	shipclass_military_build_speed_mult = @golden_memorial_militarist_build
+	pop_ethic_militarist_attraction_mult = @golden_memorial_ethics_attraction
+}
+
+golden_memorial_pacifist_with_ideology = {
+	custom_tooltip = golden_memorial_pacifist_with_ideology_tt
+	show_only_custom_tooltip = yes
+	pop_ethic_pacifist_attraction_mult = @golden_memorial_ethics_attraction
+	country_society_research_produces_mult = @golden_memorial_pacifist_society
+	country_unity_produces_mult = @golden_memorial_pacifist_unity
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+golden_memorial_pacifist_no_ideology = {
+	pop_ethic_pacifist_attraction_mult = @golden_memorial_ethics_attraction
+	country_society_research_produces_mult = @golden_memorial_pacifist_society
+	country_unity_produces_mult = @golden_memorial_pacifist_unity
+}
+
+golden_memorial_xenophobe_with_ideology = {
+	custom_tooltip = golden_memorial_xenophobe_with_ideology_tt
+	show_only_custom_tooltip = yes
+	country_unity_produces_mult = @golden_memorial_xenophobe_unity
+	planet_stability_add = @golden_memorial_xenophobe_stability
+	pop_ethic_xenophobe_attraction_mult = @golden_memorial_ethics_attraction
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+golden_memorial_xenophobe_no_ideology = {
+	country_unity_produces_mult = @golden_memorial_xenophobe_unity
+	planet_stability_add = @golden_memorial_xenophobe_stability
+	pop_ethic_xenophobe_attraction_mult = @golden_memorial_ethics_attraction
+}
+
+golden_memorial_xenophile_with_ideology = {
+	custom_tooltip = golden_memorial_xenophile_with_ideology_tt
+	show_only_custom_tooltip = yes
+	science_ship_survey_speed = @golden_memorial_xenophile_survey
+	country_society_research_produces_mult = @golden_memorial_xenophile_society
+	pop_ethic_xenophile_attraction_mult = @golden_memorial_ethics_attraction
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+golden_memorial_xenophile_no_ideology = {
+	science_ship_survey_speed = @golden_memorial_xenophile_survey
+	country_society_research_produces_mult = @golden_memorial_xenophile_society
+	pop_ethic_xenophile_attraction_mult = @golden_memorial_ethics_attraction
+}
+
+golden_memorial_authoritarian_with_ideology = {
+	custom_tooltip = golden_memorial_authoritarian_with_ideology_tt
+	show_only_custom_tooltip = yes
+	planet_jobs_worker_produces_mult = @golden_memorial_authoritarian_worker
+	country_unity_produces_mult = @golden_memorial_authoritarian_unity
+	pop_ethic_authoritarian_attraction_mult = @golden_memorial_ethics_attraction
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+golden_memorial_authoritarian_no_ideology = {
+	planet_jobs_worker_produces_mult = @golden_memorial_authoritarian_worker
+	country_unity_produces_mult = @golden_memorial_authoritarian_unity
+	pop_ethic_authoritarian_attraction_mult = @golden_memorial_ethics_attraction
+}
+
+golden_memorial_egalitarian_with_ideology = {
+	custom_tooltip = golden_memorial_egalitarian_with_ideology_tt
+	show_only_custom_tooltip = yes
+	country_unity_produces_mult = @golden_memorial_egalitarian_unity
+	planet_stability_add = @golden_memorial_egalitarian_stability
+	pop_ethic_egalitarian_attraction_mult = @golden_memorial_ethics_attraction
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+golden_memorial_egalitarian_no_ideology = {
+	country_unity_produces_mult = @golden_memorial_egalitarian_unity
+	planet_stability_add = @golden_memorial_egalitarian_stability
+	pop_ethic_egalitarian_attraction_mult = @golden_memorial_ethics_attraction
+}
+
+golden_memorial_corporate_with_ideology = {
+	custom_tooltip = golden_memorial_corporate_with_ideology_tt
+	show_only_custom_tooltip = yes
+	planet_jobs_trade_produces_mult = @golden_memorial_corporate_trade
+	planet_jobs_energy_produces_mult = @golden_memorial_corporate_energy
+	adopted_ideology_upkeep_mult = @stewardism_upkeep_funeral_small
+}
+
+golden_memorial_corporate_no_ideology = {
+	planet_jobs_trade_produces_mult = @golden_memorial_corporate_trade
+	planet_jobs_energy_produces_mult = @golden_memorial_corporate_energy
+}
+
+# Espionage Operations
+
+modifier_sow_ideological_doubt = {
+	ideological_strength_malus_mult = @ideological_doubt_strength
+	pop_government_ethic_attraction = @ideological_doubt_attraction
+}
+
+modifier_sow_ideological_doubt_gestalt = {
+	custom_tooltip = modifier_sow_ideological_doubt_gestalt_tt
+	show_only_custom_tooltip = yes
+	ideological_strength_malus_mult = @ideological_doubt_strength
+	planet_crime_no_happiness_add = @ideological_doubt_deviancy
+}
+
+##########################################################################
+# Planetary Modifiers
+##########################################################################
+
+ideological_momentum_low_stability = {
+	planet_stability_add = @ideological_disruption_planet_stability
+	icon = "gfx/interface/icons/planet_modifiers/pm_suppress_ideology.dds"
+	icon_frame = 3
+}
+
+ideological_momentum_moderately_low_stability = {
+	planet_stability_add = @moderate_ideological_disruption_planet_stability
+	icon = "gfx/interface/icons/planet_modifiers/pm_suppress_ideology.dds"
+	icon_frame = 3
+}
+
+ideological_momentum_dangerously_low_stability = {
+	planet_stability_add = @severe_ideological_disruption_planet_stability
+	icon = "gfx/interface/icons/planet_modifiers/pm_suppress_ideology.dds"
+	icon_frame = 3
+}
+
+ideological_momentum_low_gestalt = {
+	custom_tooltip = ideological_disruption_unity_tt
+	planet_pops_unity_upkeep_add = @ideological_disruption_planet_unity
+	show_only_custom_tooltip = yes
+	icon = "gfx/interface/icons/planet_modifiers/pm_suppress_ideology.dds"
+	icon_frame = 3
+}
+
+ideological_momentum_moderately_low_gestalt = {
+	custom_tooltip = ideological_disruption_unity_tt
+	planet_pops_unity_upkeep_add = @moderate_ideological_disruption_planet_unity
+	show_only_custom_tooltip = yes
+	icon = "gfx/interface/icons/planet_modifiers/pm_suppress_ideology.dds"
+	icon_frame = 3
+}
+
+ideological_momentum_dangerously_low_gestalt = {
+	custom_tooltip = ideological_disruption_unity_tt
+	planet_pops_unity_upkeep_add = @severe_ideological_disruption_planet_unity
+	show_only_custom_tooltip = yes
+	icon = "gfx/interface/icons/planet_modifiers/pm_suppress_ideology.dds"
+	icon_frame = 3
+}
+
+planet_meditation = {
+	pop_ethic_spiritualist_attraction_mult = @path_of_the_self_meditation_attraction
+	colony_ideological_reach_mult = @path_of_the_self_ideological_reach
+	icon = "gfx/interface/icons/planet_modifiers/pm_meditation.dds"
+	icon_frame = 1
+}
+
+planet_meditation_mind = {
+	pop_ethic_spiritualist_attraction_mult = @path_of_the_self_meditation_attraction
+	colony_ideological_reach_mult = @path_of_the_self_ideological_reach
+	pop_amenities_usage_mult = 1
+	icon = "gfx/interface/icons/planet_modifiers/pm_meditation.dds"
+	icon_frame = 2
+}
+
+planet_meditation_body = {
+	pop_ethic_spiritualist_attraction_mult = @path_of_the_self_meditation_attraction
+	colony_ideological_reach_mult = @path_of_the_self_ideological_reach
+	pop_housing_usage_mult = 1
+	icon = "gfx/interface/icons/planet_modifiers/pm_meditation.dds"
+	icon_frame = 2
+}
+
+suppress_foreign_ideology = {
+	custom_tooltip = supress_foreign_ideology_faction_attraction_tt
+	show_only_custom_tooltip = no
+	planet_stability_add = 5
+	planet_pops_unity_upkeep_add = 1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_suppress_ideology.dds"
+	icon_frame = 2
+}
+
+celebrate_ideology = {
+	custom_tooltip = celebrate_ideology_strength_tt
+	show_only_custom_tooltip = no
+	colony_ideological_reach_mult = 0.1
+	planet_pops_unity_upkeep_add = 1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_celebrate_ideology.dds"
+	icon_frame = 1
+}
+
+parade_of_ideals = {
+	pop_government_ethic_attraction = 0.5
+	colony_ideological_reach_mult = 0.1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_celebrate_ideology.dds"
+	icon_frame = 1
+}
+
+resonation_of_ideals = {
+	planet_crime_no_happiness_add = -10
+	colony_ideological_reach_mult = 0.1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_celebrate_ideology.dds"
+	icon_frame = 1
+}
+
+repurposed_yuht_nursery = {
+	planet_max_districts_add = 1
+	founder_species_growth_mult = 0.15
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_nursery.dds"
+	icon_frame = 1
+}
+
+optimized_environment = {
+	planet_max_districts_add = 4
+	army_defense_damage_mult = 0.50
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_optimized_environment.dds"
+	icon_frame = 1
+}
+
+urban_expansion_frame = {
+	planet_building_capacity_add = @urban_frame_build_queue_capacity_add
+	pc_city_max_districts_add = @urban_frame_max_city_districts_add
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_urban_expansion_framework.dds"
+	icon_frame = 1
+}
+
+celebration_of_ideals = {
+	custom_tooltip = celebration_of_ideals_tt
+	show_only_custom_tooltip = no
+	planet_entertainers_consumer_goods_upkeep_add = 0.1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_celebration_of_ideals.dds"
+	icon_frame = 1
+}
+
+premium_leisure_package = {
+	custom_tooltip = premium_leisure_package_tt
+	show_only_custom_tooltip = no
+	planet_entertainers_consumer_goods_upkeep_add = 0.1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_celebration_of_ideals.dds"
+	icon_frame = 1
+}
+
+foreign_ideology_deviancy = {
+	custom_tooltip = foreign_ideology_increasing_deviancy_tt
+	planet_crime_no_happiness_add = 1
+	icon = "gfx/interface/icons/planet_modifiers/pm_ideological_deviancy.dds"
+	icon_frame = 3
+}
+foreign_ideology_deviancy_decreasing = {
+	custom_tooltip = foreign_ideology_decreasing_deviancy_tt
+	planet_crime_no_happiness_add = 1
+	icon = "gfx/interface/icons/planet_modifiers/pm_ideological_deviancy.dds"
+	icon_frame = 2
+}
+
+# Golden Generation origin
+
+academy_discontent_modifier = {
+	pop_happiness = -0.05
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_ideological_revolt.dds"
+	icon_frame = 3
+}
+
+academy_sterilization_program = {
+	planet_buildings_golden_academies_upkeep_mult = -0.25
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_golden_generation.dds"
+	icon_frame = 1
+}
+
+golden_generation_dividends = {
+	planet_jobs_produces_mult = 0.1
+	planet_pops_upkeep_mult = -0.05
+	planet_crime_mult = -0.1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_golden_generation.dds"
+	icon_frame = 1
+}
+
+golden_propagation = {
+	pop_environment_tolerance = 0.1
+	terraform_speed_mult = 0.15
+	logistic_growth_mult = 0.1
+	icon = "gfx/interface/icons/planet_modifiers/pm_rejuvenation.dds"
+	icon_frame = 1
+}
+
+# Lost Makers origin
+
+irassian_planet_population_control = {
+	custom_tooltip = STOPS_POPULATION_GROWTH
+	show_only_custom_tooltip = no
+	planet_stability_add = -5
+	planet_resettlement_unemployed_mult = 1.0
+	pop_bonus_workforce_mult = 0.3
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_politics.dds"
+	icon_frame = 2
+}
+
+irassian_planet_population_control_gestalt = {
+	custom_tooltip = STOPS_POPULATION_GROWTH
+	show_only_custom_tooltip = no
+	planet_pop_assemblers_upkeep_mult = -0.75
+	pop_bonus_workforce_mult = 0.3
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_politics.dds"
+	icon_frame = 2
+}
+
+irassian_planet_robot_assembly_control = {
+	custom_tooltip = STOPS_ROBOT_ASSEMBLY
+	show_only_custom_tooltip = no
+	planet_pop_assemblers_upkeep_mult = -0.75
+	pop_bonus_workforce_mult = 0.3
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_politics.dds"
+	icon_frame = 2
+}
+
+demonstrations_proscribed = {
+	pop_happiness = @demonstrations_proscribed_happiness
+	custom_tooltip = demonstrations_proscribed_tt
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_ideological_revolt.dds"
+	icon_frame = 3
+}
+
+anti_elite_demonstrations = {
+	planet_jobs_produces_mult = @anti_elite_demonstrations_jobs_mult
+	custom_tooltip = anti_elite_demonstrations_tt
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_ideological_revolt.dds"
+	icon_frame = 3
+}
+
+increased_law_enforcement = {
+	planet_enforcers_upkeep_mult = 0.1
+	planet_enforcers_unity_produces_mult = 0.15
+	planet_stability_add = 5
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_crime.dds"
+	icon_frame = 2
+}
+
+shared_resolve = {
+	planet_jobs_produces_mult = 0.2
+	logistic_growth_mult = 0.1
+	pop_happiness = 0.1
+	planet_crime_mult = -0.1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_alien_propaganda.dds"
+	icon_frame = 1
+}
+
+golden_generation_heroes_commemorated_modifier = {
+	planet_jobs_unity_produces_mult = 0.1
+	pop_happiness = 0.05
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_golden_generation.dds"
+	icon_frame = 1
+}
+
+golden_commemoration_modifier = {
+	planet_jobs_unity_produces_mult = 0.1
+	planet_stability_add = 5
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_golden_generation.dds"
+	icon_frame = 1
+}
+
+open_defiance = {
+	planet_jobs_produces_mult = -0.1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_slave_riots.dds"
+	icon_frame = 3
+}
+
+additional_state_support = {
+	planet_stability_add = 5
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_alien_propaganda.dds"
+	icon_frame = 1
+}
+
+insurgency_suppressed = {
+	planet_stability_add = 5
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_crime.dds"
+	icon_frame = 1
+}
+
+##########################################################################
+# Cultural Envoy Modifiers
+##########################################################################
+
+# Empire modifiers
+
+cultural_envoy_martyr = {
+	custom_tooltip = cultural_envoy_martyr_tt
+	show_only_custom_tooltip = no
+	pop_government_ethic_attraction = 0.10
+
+	icon = "gfx/interface/icons/modifiers/mod_ethic_attraction_mult.dds"
+}
+
+# Planetary modifiers
+
+inline_script = {
+	script = forceofwill/cultural_envoy_conversion_modifiers
+	PREFIX = being_converted_by
+}
+
+inline_script = {
+	script = forceofwill/cultural_envoy_conversion_modifiers
+	PREFIX = being_converted_by_cloaked
+}
+
+envoy_martyr_modifier = {
+	planet_stability_add = -50
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_ideological_revolt.dds"
+	icon_frame = 3
+}
+
+operation_information_manipulation_modifier = {
+	planet_stability_add = @information_manipulation_stability
+	icon = "gfx/interface/icons/planet_modifiers/pm_ideological_deviancy.dds"
+	icon_frame = 3
+}
+
+operation_information_manipulation_modifier_gestalt = {
+	planet_stability_add = @information_manipulation_stability
+	icon = "gfx/interface/icons/planet_modifiers/pm_ideological_deviancy.dds"
+	icon_frame = 3
+}
+
+operation_incite_ideological_revolt_modifier = {
+	planet_stability_add = -40
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_ideological_revolt.dds"
+	icon_frame = 3
+}
+
+agenda_codify_instinct_finish = {
+	species_leader_exp_gain = 0.30
+}
+
+agenda_codify_directive_finish = {
+	species_leader_exp_gain = 0.30
+}
+
+##########################################################################
+# Agenda Ideological Modifiers
+##########################################################################
+
+agenda_preserve_the_order_forceofwill_finish = {
+	planet_jobs_worker_produces_mult = 0.10
+	pop_slave_bonus_workforce_mult = 0.10
+	pop_cat_worker_political_power = -0.25
+	pop_slave_political_power = -0.25
+	pop_ethic_authoritarian_attraction_mult = 0.4
+	adopted_ideology_upkeep_mult = -0.10
+	ideological_reach_mult = 0.10
+}
+
+agenda_a_higher_purpose_forceofwill_finish = {
+	pop_citizen_happiness = 0.05
+	pop_ethic_spiritualist_attraction_mult = 0.4
+	adopted_ideology_upkeep_mult = -0.10
+	ideological_reach_mult = 0.10
+}
+
+agenda_display_of_power_forceofwill_finish = {
+	country_power_projection_influence_produces_add = 1
+	country_war_exhaustion_mult = -0.20
+	pop_ethic_militarist_attraction_mult = 0.4
+	adopted_ideology_upkeep_mult = -0.10
+	ideological_reach_mult = 0.10
+}
+
+agenda_give_and_take_forceofwill_finish = {
+	faction_approval = 0.25
+	pop_factions_produces_mult = 0.25
+	pop_ethic_egalitarian_attraction_mult = 0.4
+	adopted_ideology_upkeep_mult = -0.10
+	ideological_reach_mult = 0.10
+}
+
+agenda_open_arms_forceofwill_finish = {
+	planet_resettlement_unemployed_destination_mult = 0.40
+	planet_jobs_trade_produces_mult = 0.1
+	external_leader_pool_add = 2
+	pop_ethic_xenophile_attraction_mult = 0.4
+	adopted_ideology_upkeep_mult = -0.10
+	ideological_reach_mult = 0.10
+}
+
+agenda_open_arms_nomads_forceofwill_finish = {
+	unlicensed_waystations_scaling_mult = -0.25
+	planet_jobs_trade_produces_mult = 0.1
+	external_leader_pool_add = 2
+	pop_ethic_xenophile_attraction_mult = 0.4
+	adopted_ideology_upkeep_mult = -0.10
+	ideological_reach_mult = 0.10
+}
+
+agenda_progressive_growth_forceofwill_finish = {
+	planet_pop_assembly_mult = 0.2
+	pop_ethic_materialist_attraction_mult = 0.4
+	adopted_ideology_upkeep_mult = -0.10
+	ideological_reach_mult = 0.10
+}
+
+agenda_strong_on_our_own_forceofwill_finish = {
+	logistic_growth_mult = 0.1
+	planet_stability_add = 3
+	intel_encryption_add = 2
+	planet_jobs_trade_produces_mult = -0.1
+	pop_ethic_xenophobe_attraction_mult = 0.4
+	adopted_ideology_upkeep_mult = -0.10
+	ideological_reach_mult = 0.10
+}
+
+agenda_we_come_in_peace_forceofwill_finish = {
+	country_border_friction_mult = -0.5
+	country_trust_cap_add = 25
+	country_naval_cap_mult = -0.25
+	pop_ethic_pacifist_attraction_mult = 0.4
+	adopted_ideology_upkeep_mult = -0.10
+	ideological_reach_mult = 0.10
+}
+
+agenda_we_come_in_peace_nomads_forceofwill_finish = {
+	country_trust_cap_add = 25
+	country_naval_cap_mult = -0.1
+	pop_ethic_pacifist_attraction_mult = 0.4
+	adopted_ideology_upkeep_mult = -0.10
+	ideological_reach_mult = 0.10
+}
+
+sacrifism_strength_mod = {
+	sacrifice_ideological_strength_add = 1 # Multiplied by tenet_sacrifism_ideological_strength_add
+}
+
+# Ideology Clash event
+
+foreign_influence_resistance = {
+	icon = "gfx/interface/icons/modifiers/mod_ideological_resistance_mult.dds"
+	adopted_ideology_upkeep_mult = 0.25
+	ideological_resistance_from_closed_borders_mult = 1
+}
+
+contest_of_ideas = {
+	icon = "gfx/interface/icons/modifiers/mod_ideological_strength_mult.dds"
+	adopted_ideology_upkeep_mult = 0.25
+	ideological_strength_from_clashes_mult = 0.5
+}
+
+defect_filtering_pop_group_modifier = {
+	pop_ethic_militarist_attraction_mult = 0.25
+	pop_category_rulers_consumer_goods_upkeep_add = @living_standard_luxuries_very_high
+	pop_category_specialists_consumer_goods_upkeep_add = 0.75
+	pop_category_workers_consumer_goods_upkeep_add = @living_standard_luxuries_normal
+	pop_category_civilians_consumer_goods_upkeep_add = @living_standard_luxuries_normal
+	pop_cat_ruler_political_power = 5.0
+	pop_cat_specialist_political_power = 3
+	pop_cat_worker_political_power = 1.5
+	pop_cat_civilian_political_power = -0.5
+}
