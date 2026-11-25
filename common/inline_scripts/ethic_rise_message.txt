@@ -1,0 +1,11 @@
+message_type = {
+	key = "MESSAGE_ETHIC_RISE_$ETHIC$"
+	icon = "GFX_message_ethic_$ETHIC$"
+	icon_frame = 1
+
+	name = "MESSAGE_ETHIC_RISE_$ETHIC$_TITLE"
+	sound = "diplomatic_notification"
+	ping = "ping_notification_yellow"
+
+	category = planets
+}
