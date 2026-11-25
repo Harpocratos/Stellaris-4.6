@@ -1,0 +1,115 @@
+#
+# Situation Log Categories
+#
+# Each category should show up as a top level container in the situation log
+#
+# category = {
+# 	collapsible = <yes/no>		# whether the entry can be collapsed, default is yes
+#	icon = <GFX_icon>			# The icon used for the category header
+# 	priority = <integer>		# numerical value that indicate how high in the list the entry should appear
+								# The higher value, the lower in the list
+								# In case of equality, the tie breaker will be an alphabetical sort of the
+								# displayed localization
+# }
+#
+# To define a situation log entry to be part of a specific category use situation_log_category in the defenition
+
+tutorial = { #Used for in-game tutorial chains, projects, and entries.
+	collapsible = no
+	priority = 0
+	localization = tutorial
+	icon = "GFX_category_tutorial"
+}
+
+crises = { #Used for end-game and mid-game crises
+	collapsible = no
+	priority = 1
+	localization = crises
+	icon = "GFX_category_crisis"
+}
+
+ambitions = { #Used for player ambitions and crises
+	collapsible = no
+	priority = 2
+	localization = ambitions
+	icon = "GFX_category_ambitions"
+}
+
+priority = { #Pinned by the player, nothing should be in this category by default
+	collapsible = no
+	priority = 3
+	localization = priority
+	icon = "GFX_category_priority"
+}
+
+urgent_matters = { #Time-critical tasks such as deficits, rebellions, End of the Cycle, large narratives like Horizon Signal and Negative Mass
+	priority = 4
+	localization = urgent_matters
+	icon = "GFX_category_urgent"
+}
+
+empire_concerns = { #Content relating to your origin/civic and, in the Commonwealth of Mans case, bespoke events
+	priority = 5
+	localization = empire_concerns
+	icon = "GFX_category_empire_concerns"
+}
+
+contracts = { #Contracts both Issued and Accepted
+	priority = 6
+	localization = contracts
+	icon = "GFX_category_tasks"
+}
+
+precursors = { #Used to track your precursor
+	priority = 7
+	localization = precursors
+	icon = "GFX_category_precursors"
+}
+
+developments = { #A catch-all term for content such as colony events, space encounters, leviathan-related content, and much more
+	priority = 8
+	localization = developments
+	icon = "GFX_category_developments"
+}
+
+others = { #Fallback
+	priority = 9
+	localization = others
+	default = yes
+	icon = "GFX_category_others"
+}
+
+first_contacts = { #First contact with alien lifeforms
+	priority = 1
+	localization = first_contacts
+	target_tab = anomalies
+	icon = "GFX_category_first_contact"
+}
+
+dig_sites = { #A collection of archeology sites that didn't fall under precursors and empire-specific
+	priority = 2
+	localization = dig_sites
+	target_tab = anomalies
+	icon = "GFX_category_dig_sites"
+}
+
+anomalies = { #Anomalies that didn't fall under precursors
+	priority = 3
+	localization = anomalies_sitlog
+	target_tab = anomalies
+	icon = "GFX_category_anomalies"
+}
+
+astral_rifts = { #Astral Rifts
+	priority = 4
+	localization = astral_rifts
+	target_tab = anomalies
+	icon = "GFX_category_astral_rift"
+}
+
+other_findings = { #Fallback
+	priority = 5
+	localization = others
+	target_tab = anomalies
+	icon = "GFX_category_others"
+}

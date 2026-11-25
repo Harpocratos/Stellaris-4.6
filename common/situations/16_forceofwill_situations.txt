@@ -1,0 +1,802 @@
+situation_spirit_cultivation = {
+	title = situation_spirit_cultivation
+	desc = situation_spirit_cultivation_desc
+	picture = GFX_evt_spirit_cultivation
+
+	category = neutral
+	complete_icon_frame = GFX_situation_outcome_frame_green
+	complete_icon = GFX_situation_outcome_ascension
+	initial_progress = 0
+
+	on_start = {
+		if = {
+			limit = {
+				owner = { has_country_flag = spirit_cultivation_free }
+			}
+			set_situation_approach = approach_situation_spirit_cultivation_free
+		}
+		if = {
+			limit = {
+				owner = { has_country_flag = spirit_cultivation_mind }
+			}
+			set_situation_approach = approach_situation_spirit_cultivation_mind
+		}
+		if = {
+			limit = {
+				owner = { has_country_flag = spirit_cultivation_body }
+			}
+			set_situation_approach = approach_situation_spirit_cultivation_body
+		}
+		if = {
+			limit = {
+				owner = { has_country_flag = spirit_cultivation_nerve }
+			}
+			set_situation_approach = approach_situation_spirit_cultivation_nerve
+		}
+	}
+
+	on_progress_complete = {
+		custom_tooltip = situation_spirit_cultivation_finish_effects
+		hidden_effect = {
+			situation_event = { id = forceofwill.205 }
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = owner }
+			owner = {
+				is_path_of_the_self_empire = no
+			}
+		}
+	}
+
+	on_abort = {
+		if = {
+			limit = { exists = owner }
+			owner = {
+				country_event = { id = forceofwill.201 }
+			}
+		}
+	}
+
+	# Length starts at 150 and grows by 25 each time the Situation is completed
+	total_progress = {
+		base = 150
+		modifier = {
+			exists = owner
+			owner = { is_variable_set = spirit_cultivation_count }
+			add = owner.value:spirit_cultivation_completion_length_bonus
+		}
+	}
+
+	stages = {
+		stage_1 = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_green
+			section_weight = 1
+		}
+	}
+
+	approach = {
+		name = approach_situation_spirit_cultivation_free
+		icon = GFX_situation_approach_shrug
+		icon_background = GFX_situation_approach_bg_yellow
+
+		on_select = {
+			custom_tooltip = approach_situation_spirit_cultivation_default_speed_tt
+			hidden_effect = {
+				set_situation_flag = nothing_approach
+				owner = {
+					remove_country_flag = spirit_cultivation_mind
+					remove_country_flag = spirit_cultivation_body
+					remove_country_flag = spirit_cultivation_nerve
+					set_country_flag = spirit_cultivation_free
+					refresh_planet_meditation = yes
+				}
+			}
+		}
+		ai_weight = {
+			base = 1
+		}
+		default = yes
+	}
+
+	approach = {
+		name = approach_situation_spirit_cultivation_mind
+		icon = GFX_situation_approach_research
+		icon_background = GFX_situation_approach_bg_green
+
+		on_select = {
+			custom_tooltip = approach_situation_spirit_cultivation_mind_effect_tt
+			custom_tooltip = approach_situation_spirit_cultivation_default_speed_tt
+			hidden_effect = {
+				set_situation_flag = insight_approach
+				owner = {
+					remove_country_flag = spirit_cultivation_free
+					remove_country_flag = spirit_cultivation_body
+					remove_country_flag = spirit_cultivation_nerve
+					set_country_flag = spirit_cultivation_mind
+					refresh_planet_meditation = yes
+				}
+			}
+		}
+
+		modifier = {
+			planet_researchers_upkeep_mult = 0.1
+		}
+		ai_weight = {
+			base = 0
+			modifier = {
+				add = 10000
+				OR = {
+					years_passed < 10
+					owner = {
+						any_owned_planet = { planet_stability < 60 }
+					}
+				}
+			}
+		}
+	}
+
+	approach = {
+		name = approach_situation_spirit_cultivation_body
+		icon = GFX_situation_approach_kneel
+		icon_background = GFX_situation_approach_bg_green
+
+		on_select = {
+			custom_tooltip = approach_situation_spirit_cultivation_body_effect_tt
+			custom_tooltip = approach_situation_spirit_cultivation_default_speed_tt
+			set_situation_flag = devotional_approach
+			hidden_effect = {
+				owner = {
+					remove_country_flag = spirit_cultivation_free
+					remove_country_flag = spirit_cultivation_mind
+					remove_country_flag = spirit_cultivation_nerve
+					set_country_flag = spirit_cultivation_body
+					refresh_planet_meditation = yes
+				}
+			}
+		}
+
+		modifier = {
+			planet_jobs_worker_produces_mult = -0.1
+		}
+		ai_weight = {
+			base = 0
+			modifier = {
+				add = 1000
+				owner = {
+					NOT = { has_modifier = meditation_councilor }
+				}
+			}
+		}
+	}
+
+	approach = {
+		name = approach_situation_spirit_cultivation_nerve
+		icon = GFX_situation_approach_nerve
+		icon_background = GFX_situation_approach_bg_red
+
+		on_select = {
+			custom_tooltip = approach_situation_spirit_cultivation_nerve_speed_tt
+			hidden_effect = {
+				set_situation_flag = control_approach
+				owner = {
+					remove_country_flag = spirit_cultivation_free
+					remove_country_flag = spirit_cultivation_mind
+					remove_country_flag = spirit_cultivation_body
+					set_country_flag = spirit_cultivation_nerve
+					refresh_planet_meditation = yes
+				}
+			}
+		}
+
+		modifier = {
+			all_technology_research_speed = -0.25
+		}
+		ai_weight = {
+			base = 0
+			modifier = {
+				add = 100
+				owner = {
+					check_variable = { which = spirit_cultivation_situation_roll_amount value < 5 }
+				}
+			}
+		}
+	}
+
+	monthly_progress = {
+		base = 0
+		modifier = {
+			desc = string_current_approach
+			add = 1
+			OR = {
+				current_situation_approach = approach_situation_spirit_cultivation_free
+				current_situation_approach = approach_situation_spirit_cultivation_mind
+				current_situation_approach = approach_situation_spirit_cultivation_body
+			}
+		}
+		modifier = {
+			desc = string_current_approach
+			add = 4
+			current_situation_approach = approach_situation_spirit_cultivation_nerve
+		}
+		modifier = {
+			desc = spirit_cultivation_councilor_bonus
+			add = value:spirit_cultivation_councilor_speed_bonus|TYPE|councilor_civic_path_of_the_self_corporate|
+			exists = owner
+			owner = {
+				AND = {
+					has_authority = auth_corporate
+					has_councilor = { COUNCILOR = "councilor_civic_path_of_the_self_corporate" }
+				}
+			}
+		}
+		modifier = {
+			desc = spirit_cultivation_councilor_bonus
+			add = value:spirit_cultivation_councilor_speed_bonus|TYPE|councilor_civic_path_of_the_self|
+			exists = owner
+			owner = {
+				NOT = { has_authority = auth_corporate }
+				has_councilor = { COUNCILOR = "councilor_civic_path_of_the_self" }
+			}
+		}
+		modifier = {
+			desc = spirit_cultivation_planet_meditation_bonus
+			add = owner.value:spirit_cultivation_bonus_per_planet_meditation
+			OR = {
+				current_situation_approach = approach_situation_spirit_cultivation_mind
+				current_situation_approach = approach_situation_spirit_cultivation_body
+			}
+		}
+	}
+}
+
+situation_ideological_revolt = {
+	picture = GFX_evt_open_revolt
+	category = negative
+	situation_log_category = urgent_matters
+	revolt_situation = yes
+
+	desc = {
+		trigger = { has_situation_flag = schism_revolt }
+		text = situation_ideological_revolt_desc_schism
+	}
+	desc = {
+		trigger = {
+			NOT = { has_situation_flag = schism_revolt }
+			target.ideology? = {
+				is_same_value = event_target:ideological_revolt_target_ideology@root
+			}
+		}
+		text = situation_ideological_revolt_desc_martyr_drift_specific
+	}
+	desc = {
+		trigger = {
+			NOR = {
+				has_situation_flag = schism_revolt
+				target.ideology? = {
+					is_same_value = event_target:ideological_revolt_target_ideology@root
+				}
+			}
+		}
+		text = situation_ideological_revolt_desc_martyr_drift
+	}
+
+	fail_icon = GFX_situation_outcome_meh
+	fail_icon_frame = GFX_situation_outcome_frame_green
+	complete_icon = GFX_situation_outcome_revolt
+	complete_icon_frame = GFX_situation_outcome_frame_red
+
+	on_start = {
+		set_situation_flag = ideological_revolt_situation_flag
+	}
+
+	on_progress_complete = {
+		random_country = {
+			limit = {
+				has_country_flag = revolt_joiner_empire_@root
+				country_can_back_ideological_revolt_trigger = {
+					SITUATION_OWNER = root.owner
+				}
+			}
+			save_event_target_as = new_owner_empire
+		}
+		if = {
+			limit = { exists = event_target:new_owner_empire }
+			# Told from the backer's own scope, since a tooltip cannot read event targets.
+			event_target:new_owner_empire = {
+				if = {
+					limit = {
+						ideological_revolt_creates_vassal_trigger = {
+							BACKER = this
+							TARGET = prev.target
+						}
+					}
+					custom_tooltip = situation_ideological_revolt_complete_joiner_nomadic_tooltip
+				}
+				else = {
+					custom_tooltip = situation_ideological_revolt_complete_joiner_tooltip
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = { has_situation_flag = schism_revolt }
+				target.ideology? = {
+					is_same_value = event_target:ideological_revolt_target_ideology@root
+				}
+			}
+			custom_tooltip = situation_ideological_revolt_complete_specific_tooltip
+		}
+		else = { custom_tooltip = situation_ideological_revolt_complete_tooltip }
+		hidden_effect = {
+			target = {
+				set_timed_planet_flag = {
+					flag = recent_revolt_attempt
+					days = 5400
+				}
+				remove_modifier = envoy_martyr_modifier
+				remove_modifier = open_defiance
+				if = {
+					limit = { exists = event_target:envoy_martyr_ideology@this }
+					clear_global_event_target = envoy_martyr_ideology@this
+				}
+			}
+			owner = {
+				set_timed_country_flag = {
+					flag = had_recent_successful_rebellion
+					years = 10
+				}
+				if = {
+					limit = {
+						NOT = { is_variable_set = accept_ideological_revendication }
+					}
+					set_variable = {
+						which = accept_ideological_revendication
+						value = 0
+					}
+				}
+				set_variable_to_random_value = {
+					which = accept_ideology_change
+					min = 1
+					max = 3
+				}
+				change_variable = {
+					which = accept_ideological_revendication
+					value = accept_ideology_change
+				}
+				clear_variable = accept_ideology_change
+			}
+			if = {
+				limit = { exists = event_target:new_owner_empire }
+				situation_event = { id = forceofwill.7335 }
+			}
+			else_if = {
+				limit = { has_situation_flag = schism_revolt }
+				situation_event = { id = forceofwill.7385 }
+			}
+			else = {
+				situation_event = { id = forceofwill.7340 }
+			}
+		}
+	}
+
+	on_fail = {
+		custom_tooltip = situation_ideological_revolt_fail_tooltip
+		hidden_effect = {
+			target = {
+				set_timed_planet_flag = {
+					flag = recent_revolt_attempt
+					days = 5400
+				}
+				remove_modifier = envoy_martyr_modifier
+				remove_modifier = open_defiance
+				if = {
+					limit = { exists = event_target:envoy_martyr_ideology@this }
+					clear_global_event_target = envoy_martyr_ideology@this
+				}
+			}
+			situation_event = { id = forceofwill.7345 }
+			if = {
+				limit = {
+					owner? = { is_variable_set = accept_ideological_revendication }
+					OR = {
+						current_situation_approach = approach_situation_ideological_revolt_adopt_ideology
+						current_situation_approach = approach_situation_ideological_revolt_abandon_ideology
+					}
+				}
+				owner = { clear_variable = accept_ideological_revendication }
+			}
+		}
+	}
+
+	abort_trigger = {
+		NOT = {
+			owner = { #otherwise, those events flip ownership, which immediately invalidates the Situation
+				OR = {
+					has_active_event = { forceofwill.7335 }
+					has_active_event = { forceofwill.7340 }
+					has_active_event = { forceofwill.7385 }
+				}
+			}
+		}
+		OR = {
+			NOT = { exists = target.owner }
+			target.owner = { NOT = { is_same_value = root.owner } }
+			target.controller = { NOT = { is_same_value = root.owner } }
+			AND = {
+				has_situation_flag = schism_revolt
+				NOT = { exists = owner.ideology }
+			}
+			AND = {
+				NOT = { has_situation_flag = schism_revolt }
+				exists = owner.ideology
+				owner.ideology = { is_same_value = event_target:ideological_revolt_target_ideology@root }
+			}
+		}
+	}
+
+	on_abort = {
+		if = {
+			limit = {
+				has_situation_flag = schism_revolt
+				NOT = { exists = owner.ideology }
+			}
+			owner = {
+				country_event = {
+					id = forceofwill.7390
+					scopes = { from = root.target }
+				}
+			}
+		}
+		if = {
+			limit = {
+				owner? = { is_variable_set = accept_ideological_revendication }
+				OR = {
+					current_situation_approach = approach_situation_ideological_revolt_adopt_ideology
+					current_situation_approach = approach_situation_ideological_revolt_abandon_ideology
+				}
+			}
+			owner = { clear_variable = accept_ideological_revendication }
+		}
+		clear_global_event_target = ideological_revolt_target_ideology@this
+		target? = {
+			remove_modifier = envoy_martyr_modifier
+			remove_modifier = open_defiance
+			if = {
+				limit = { exists = event_target:envoy_martyr_ideology@this }
+				clear_global_event_target = envoy_martyr_ideology@this
+			}
+		}
+	}
+
+	initial_progress = 0
+
+	stages = {
+		revolt_severity_1 = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_red
+			target_modifier = { planet_stability_add = -10 }
+			end = 25
+		}
+		revolt_severity_2 = {
+			icon = GFX_situation_stage_2
+			icon_background = GFX_situation_stage_frame_red
+			on_first_enter = {
+				situation_event = { id = forceofwill.7310 }
+			}
+			target_modifier = { planet_stability_add = -10 }
+			end = 50
+		}
+		revolt_severity_3 = {
+			icon = GFX_situation_stage_3
+			icon_background = GFX_situation_stage_frame_red
+			on_first_enter = {
+				situation_event = { id = forceofwill.7315 }
+			}
+			target_modifier = { planet_stability_add = -10 }
+			end = 75
+		}
+		revolt_severity_4 = {
+			icon = GFX_situation_stage_4
+			icon_background = GFX_situation_stage_frame_red
+			on_first_enter = {
+				# Rebels ask members of the target ideology for support, one at a time, biggest empire first.
+				situation_event = { id = forceofwill.7317 }
+			}
+			target_modifier = { planet_stability_add = -10 }
+			end = 100
+		}
+	}
+
+	monthly_progress = {
+		base = 0
+		inline_script = "situations/revolt_monthly_progress"
+		modifier = {
+			desc = STRING_IDEOLOGICAL_MOMENTUM
+			subtract = owner.trigger:last_ideology_increase
+			has_situation_flag = schism_revolt
+			exists = owner
+		}
+		modifier = {
+			factor = 0.5
+			desc = STRING_RESOLVING_IDEOLOGY_ADOPT
+			current_situation_approach = approach_situation_ideological_revolt_adopt_ideology
+		}
+		modifier = {
+			factor = 0
+			desc = STRING_RESOLVING_IDEOLOGY_ABANDON
+			current_situation_approach = approach_situation_ideological_revolt_abandon_ideology
+		}
+	}
+
+	approach = {
+		name = approach_situation_ideological_revolt_hands_off
+		icon = GFX_situation_approach_this_is_fine
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		allow = {
+			custom_tooltip = {
+				fail_text = situation_ideological_revolt_approach_locked
+				NOR = {
+					has_situation_flag = adopting_target_ideology
+					owner = { has_country_flag = abandoning_ideology }
+				}
+			}
+		}
+		on_select = {
+			custom_tooltip = approach_situation_ideological_revolt_hands_off_tt
+		}
+		ai_weight = {
+			base = 2
+		}
+	}
+
+	approach = {
+		name = approach_situation_ideological_revolt_distribute_amenities
+		icon = GFX_situation_approach_amenities
+		icon_background = GFX_situation_approach_bg_green
+		allow = {
+			custom_tooltip = {
+				fail_text = situation_ideological_revolt_approach_locked
+				NOR = {
+					has_situation_flag = adopting_target_ideology
+					owner = { has_country_flag = abandoning_ideology }
+				}
+			}
+		}
+		triggered_target_modifier = {
+			potential = {
+				owner = { is_gestalt = no }
+			}
+			modifier = {
+				planet_amenities_add = 2000
+			}
+		}
+		triggered_target_modifier = {
+			potential = {
+				owner = { is_gestalt = yes }
+			}
+			modifier = {
+				planet_amenities_no_happiness_add = 2000
+			}
+		}
+		triggered_target_modifier = {
+			potential = {
+				NOT = { has_situation_flag = schism_revolt }
+			}
+			modifier = {
+				pop_government_ethic_attraction = 0.5
+			}
+		}
+		triggered_modifier = {
+			potential = {
+				has_situation_flag = schism_revolt
+			}
+			modifier = {
+				ideological_strength_bonus_mult = 0.25
+			}
+		}
+		resources = {
+			category = situations
+			upkeep = {
+				trigger = {
+					owner = { is_gestalt = no }
+				}
+				consumer_goods = 20
+			}
+			upkeep = {
+				trigger = {
+					owner = { is_gestalt = yes }
+				}
+				unity = 30
+			}
+		}
+		ai_weight = {
+			base = 2
+			modifier = {
+				factor = 2
+				OR = {
+					current_situation_approach = approach_situation_ideological_revolt_distribute_amenities
+					target = { free_amenities < -5 }
+				}
+			}
+		}
+	}
+
+	approach = {
+		name = approach_situation_ideological_revolt_crackdown
+		icon = GFX_situation_approach_whip
+		icon_background = GFX_situation_approach_bg_red
+		allow = {
+			custom_tooltip = {
+				fail_text = situation_ideological_revolt_approach_locked
+				NOR = {
+					has_situation_flag = adopting_target_ideology
+					owner = { has_country_flag = abandoning_ideology }
+				}
+			}
+		}
+		target_modifier = {
+			job_soldier_stability_add = 1.5
+			planet_army_build_speed_mult = 0.5
+			planet_building_stronghold_build_speed_mult = 0.5
+			planet_soldiers_trade_upkeep_add = 1
+		}
+		triggered_target_modifier = {
+			potential = {
+				NOT = { has_situation_flag = schism_revolt }
+			}
+			modifier = {
+				pop_government_ethic_attraction = 0.5
+			}
+		}
+		triggered_modifier = {
+			potential = {
+				has_situation_flag = schism_revolt
+			}
+			modifier = {
+				ideological_strength_bonus_mult = 0.25
+			}
+		}
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 30
+			}
+		}
+		ai_weight = {
+			base = 1
+			modifier = {
+				factor = 3
+				owner = {
+					OR = {
+						is_militarist = yes
+						is_authoritarian = yes
+						is_machine_empire = yes
+					}
+				}
+			}
+			modifier = {
+				factor = 3
+				target = {
+					OR = {
+						num_assigned_jobs = {
+							job = warrior_drone
+							value > 300
+						}
+						num_assigned_jobs = {
+							job = soldier
+							value > 300
+						}
+					}
+				}
+			}
+		}
+	}
+
+	approach = {
+		name = approach_situation_ideological_revolt_adopt_ideology
+		icon = GFX_situation_approach_scales
+		icon_background = GFX_situation_approach_bg_red
+		potential = {
+			NOT = { has_situation_flag = schism_revolt }
+		}
+		allow = {
+			custom_tooltip = {
+				fail_text = situation_ideological_revolt_adopt_ideology_no_target
+				target = {
+					owner = {
+						any_revealed_ideology = {
+							NOT = { is_same_value = root.owner.ideology }
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				fail_text = cannot_adopt_ideology_force_of_will
+				owner = {
+					NOT = { has_ascension_perk = ap_force_of_will }
+				}
+			}
+		}
+		on_select = {
+			custom_tooltip = approach_situation_ideological_revolt_adopt_ideology_tt
+			set_situation_flag = adopting_target_ideology
+			hidden_effect = {
+				owner = {
+					country_event = {
+						id = forceofwill.1040
+						scopes = { from = event_target:ideological_revolt_target_ideology@root }
+					}
+				}
+			}
+		}
+		ai_weight = {
+			base = 0
+			modifier = {
+				add = owner.accept_ideological_revendication
+				owner? = { is_variable_set = accept_ideological_revendication }
+			}
+			modifier = {
+				factor = 0.5
+				owner = {
+					OR = {
+						is_militarist = yes
+						is_authoritarian = yes
+						is_machine_empire = yes
+					}
+				}
+			}
+		}
+	}
+
+	approach = {
+		name = approach_situation_ideological_revolt_abandon_ideology
+		icon = GFX_situation_approach_scales
+		icon_background = GFX_situation_approach_bg_red
+		potential = {
+			has_situation_flag = schism_revolt
+		}
+		allow = {
+			custom_tooltip = {
+				fail_text = cannot_abandon_imposed_ideology
+				owner = { NOT = { has_country_flag = ideology_cannot_abandon_imposed } }
+			}
+			custom_tooltip = {
+				fail_text = cannot_abandon_ideology_force_of_will
+				owner = { NOT = { has_country_flag = cant_abandon_ideology_forceofwill } }
+			}
+		}
+		on_select = {
+			custom_tooltip = approach_situation_ideological_revolt_abandon_ideology_tt
+			hidden_effect = {
+				owner = {
+					if = {
+						limit = { NOT = { has_country_flag = abandoning_ideology } }
+						execute_ideology_action = action_abandon_ideology
+					}
+				}
+			}
+		}
+		ai_weight = {
+			base = 0
+			modifier = {
+				add = owner.accept_ideological_revendication
+				owner? = { is_variable_set = accept_ideological_revendication }
+			}
+			modifier = {
+				factor = 0.5
+				owner = {
+					OR = {
+						is_militarist = yes
+						is_authoritarian = yes
+						is_machine_empire = yes
+					}
+				}
+			}
+		}
+	}
+}
