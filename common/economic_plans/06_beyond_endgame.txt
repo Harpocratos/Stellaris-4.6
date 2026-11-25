@@ -1,0 +1,169 @@
+# How in Zarqlan's name did you successfully complete the endgame economic plan?
+
+beyond_endgame_economy_plan = {
+	ai_weight = { weight = 1 }
+		
+	income = {
+		alloys = 500
+		physics_research = 10000
+		society_research = 10000
+		engineering_research = 10000
+		trade = 200
+	}
+
+	subplan = {
+		potential = {
+			is_nomadic = no
+		}
+		set_name = "Beyond Endgame Minerals & Energy"
+		income = {
+			minerals = @economic_plan_beyond_endgame_mineral_target
+			energy = @economic_plan_beyond_endgame_energy_target
+		}
+	}
+
+	subplan = {
+		potential = {
+			is_nomadic = yes
+		}
+		set_name = "Beyond Endgame Minerals & Energy Nomads"
+		income = {
+			minerals = @economic_plan_beyond_endgame_mineral_target_nomads
+			energy = @economic_plan_beyond_endgame_energy_target_nomads
+		}
+	}
+
+	subplan = {
+		set_name = "Endgame Alloys"
+		potential = {
+			country_uses_bio_ships = no
+		}
+
+		income = {
+			alloys = 10000
+		}
+	}
+		
+	subplan = {
+		scaling = yes
+		set_name = "Endgame Alloys (Scaling)"
+		potential = {
+			country_uses_bio_ships = no
+		}
+
+		income = {
+			alloys = 10000
+		}
+	}
+
+	subplan = {
+		set_name = "Endgame BioShip Food Baseline"
+		potential = {
+			country_uses_bio_ships = yes
+		}
+
+		income = {
+			food = 10000
+		}
+	}
+
+	subplan = {
+		scaling = yes
+		set_name = "Endgame BioShip Food"
+		potential = {
+			country_uses_bio_ships = yes
+		}
+
+		income = {
+			food = 10000
+		}
+	}
+
+	subplan = {
+		scaling = yes
+		set_name = "Endgame Physics"
+
+		income = {
+			physics_research = 10000
+		}
+	}
+
+	subplan = {
+		scaling = yes
+		set_name = "Endgame Society"
+
+		income = {
+			society_research = 10000
+		}
+	}
+
+	subplan = {
+		scaling = yes
+		set_name = "Endgame Engineering"
+
+		income = {
+			engineering_research = 10000
+		}
+	}
+	
+	subplan = {
+		optional = yes
+		set_name = "Endgame Base Pops"
+		pops = 2500000
+	}
+	
+	subplan = {
+		optional = yes
+		scaling = yes
+		set_name = "Endgame Scaling Pops"
+
+		pops = 1000000
+	}
+	
+	subplan = {
+		optional = yes
+		scaling = yes
+		set_name = "Endgame Naval Cap"
+		potential = {
+			used_naval_capacity_percent > 0.85
+		}
+
+		naval_cap = @economic_plan_beyond_endgame_naval_cap_target
+	}
+	
+	subplan = {
+		scaling = yes
+		set_name = "Galactic Nemesis Endgame Minerals Scaling"
+		potential = {
+			has_ascension_perk = ap_become_the_crisis
+		}
+
+		income = {
+			minerals = 10000
+		}
+	}
+	
+	subplan = {
+		set_name = "Endgame Obsessional CG Baseline"
+		potential = {
+			has_valid_civic = civic_machine_obsessional_directive
+		}
+		income = {
+			consumer_goods = 1000
+		}
+	}
+
+	subplan = {
+		scaling = yes
+		set_name = "Endgame Obsessional CG Scaling"
+		potential = {
+			has_valid_civic = civic_machine_obsessional_directive
+		}
+		income = {
+			consumer_goods = 1000
+		}
+	}
+		
+	inline_script = "ai/ai_strategic_resources"
+	inline_script = "ai/ai_nomad_secondary_focus"
+}

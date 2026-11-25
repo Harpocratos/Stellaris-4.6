@@ -1,0 +1,30 @@
+planet_test_subjects = {
+	parent = planet_jobs
+	generate_mult_modifiers = {
+		produces
+	}
+	modifier_category = colony
+}
+
+planet_experiment_engineer = {
+	parent = planet_researchers
+	generate_mult_modifiers = {
+		produces
+	}
+	modifier_category = colony
+}
+
+planet_production_overseers = {
+	parent = planet_bureaucrats
+	modifier_category = colony
+}
+
+shroud_envoys = {
+	parent = country
+	modifier_category = leader
+}
+
+planet_energy_thralls = {
+	parent = planet_jobs_worker
+	modifier_category = colony
+}

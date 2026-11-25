@@ -1,0 +1,65 @@
+action_invite_adopt_ideology = {
+	select = {
+		01_SELECT_INVITE_ADOPT_IDEOLOGY = {}
+	}
+	consider = {
+		01_CONSIDER_INVITE_ADOPT_IDEOLOGY = {}
+	}
+	propose = {
+		01_PROPOSE_INVITE_ADOPT_IDEOLOGY = {}
+	}
+	accept = {
+		01_ACCEPT_INVITE_ADOPT_IDEOLOGY = {}
+	}
+	refuse = {
+		01_REFUSE_INVITE_ADOPT_IDEOLOGY = {}
+	}
+}
+
+action_declare_ideological_rival = {
+	select = {
+		01_SELECT_DECLARE_IDEOLOGICAL_RIVAL = {}
+		02_SELECT_DECLARE_IDEOLOGICAL_RIVAL = {}
+	}
+	propose = {
+		01_PROPOSE_DECLARE_IDEOLOGICAL_RIVAL = {}
+		01_PROPOSE_DECLARE_IDEOLOGICAL_RIVAL_SAME = {
+			trigger = {
+				ideology? = { has_same_ethic_as_ideology = from.ideology }
+				from = {
+					any_revealed_ideology = {
+						is_same_value = root.ideology
+					}
+				}
+			}
+		}
+		01_PROPOSE_DECLARE_IDEOLOGICAL_RIVAL_DIFFERENT = {
+			trigger = {
+				NOT = {
+					ideology? = { has_same_ethic_as_ideology = from.ideology }
+				}
+				from = {
+					any_revealed_ideology = {
+						is_same_value = root.ideology
+					}
+				}
+			}
+		}
+	}
+	accept = {
+		01_ACCEPT_DECLARE_IDEOLOGICAL_RIVAL = {}
+		02_ACCEPT_DECLARE_IDEOLOGICAL_RIVAL = {}
+	}
+}
+
+action_end_ideological_rivalry = {
+	select = {
+		01_SELECT_END_IDEOLOGICAL_RIVALRY = {}
+	}
+	propose = {
+		01_PROPOSE_END_IDEOLOGICAL_RIVALRY = {}
+	}
+	accept = {
+		01_ACCEPT_END_IDEOLOGICAL_RIVALRY = {}
+	}
+}

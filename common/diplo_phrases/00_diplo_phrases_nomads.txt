@@ -1,0 +1,103 @@
+####################
+# NOMADS DIPLOMACY PHRASES
+####################
+
+# FROM = initiator of the diplomatic action; ROOT = recipient of the diplomatic action
+
+action_form_waystation_pact = {
+	select = {
+		# Settled grants to nomad
+		01_GRANT_WAYSTATION_PACT_SELECT = {
+			trigger = {
+				FROM = { is_nomadic = no }
+				ROOT = { is_nomadic = yes }
+			}
+		}
+		# Nomad requests from settled
+		01_REQUEST_WAYSTATION_PACT_SELECT = {
+			trigger = {
+				FROM = { is_nomadic = yes }
+				ROOT = { is_nomadic = no }
+			}
+		}
+		# Nomad shares with nomad
+		01_SHARE_WAYSTATION_PACT_SELECT = {
+			trigger = {
+				FROM = { is_nomadic = yes }
+				ROOT = { is_nomadic = yes }
+			}
+		}
+	}
+	propose = {
+		01_GRANT_WAYSTATION_PACT_PROPOSE = {
+			trigger = {
+				FROM = { is_nomadic = no }
+				ROOT = { is_nomadic = yes }
+			}
+		}
+		01_REQUEST_WAYSTATION_PACT_PROPOSE = {
+			trigger = {
+				FROM = { is_nomadic = yes }
+				ROOT = { is_nomadic = no }
+			}
+		}
+		01_SHARE_WAYSTATION_PACT_PROPOSE = {
+			trigger = {
+				FROM = { is_nomadic = yes }
+				ROOT = { is_nomadic = yes }
+			}
+		}
+	}
+	accept = {
+		01_GRANT_WAYSTATION_PACT_ACCEPT = {
+			trigger = {
+				FROM = { is_nomadic = no }
+				ROOT = { is_nomadic = yes }
+			}
+		}
+		01_REQUEST_WAYSTATION_PACT_ACCEPT = {
+			trigger = {
+				FROM = { is_nomadic = yes }
+				ROOT = { is_nomadic = no }
+			}
+		}
+		01_SHARE_WAYSTATION_PACT_ACCEPT = {
+			trigger = {
+				FROM = { is_nomadic = yes }
+				ROOT = { is_nomadic = yes }
+			}
+		}
+	}
+	refuse = {
+		01_GRANT_WAYSTATION_PACT_REFUSE = {
+			trigger = {
+				FROM = { is_nomadic = no }
+				ROOT = { is_nomadic = yes }
+			}
+		}
+		01_REQUEST_WAYSTATION_PACT_REFUSE = {
+			trigger = {
+				FROM = { is_nomadic = yes }
+				ROOT = { is_nomadic = no }
+			}
+		}
+		01_SHARE_WAYSTATION_PACT_REFUSE = {
+			trigger = {
+				FROM = { is_nomadic = yes }
+				ROOT = { is_nomadic = yes }
+			}
+		}
+	}
+}
+
+action_break_waystation_pact = {
+	select = {
+		01_BREAK_WAYSTATION_PACT_SELECT = {}
+	}
+	propose = {
+		01_BREAK_WAYSTATION_PACT_PROPOSE = {}
+	}
+	accept = {
+		01_BREAK_WAYSTATION_PACT_ACCEPT = {}
+	}
+}

@@ -1,0 +1,522 @@
+decision_meditation = {
+	icon = decision_meditation
+	owned_planets_only = yes
+
+	potential = {
+		owner? = { is_path_of_the_self_empire = yes }
+		NOT = { has_carrier_flag = decision_meditation_active }
+	}
+
+	effect = {
+		set_carrier_flag = decision_meditation_active
+		if = {
+			limit = {
+				owner = {
+					has_country_flag = spirit_cultivation_body
+				}
+			}
+			add_modifier = {
+				modifier = planet_meditation_body
+			}
+		}
+		else_if = {
+			limit = {
+				owner = {
+					has_country_flag = spirit_cultivation_mind
+				}
+			}
+			add_modifier = {
+				modifier = planet_meditation_mind
+			}
+		}
+		else = {
+			add_modifier = {
+				modifier = planet_meditation
+			}
+			custom_tooltip = decision_meditation_situation_effect
+		}
+
+		hidden_effect = {
+			export_trigger_value_to_variable = {
+				trigger = count_owned_pop_amount
+				variable = local_pops
+			}
+			if = {
+				limit = {
+					check_variable = { which = local_pops value > 0 }
+				}
+				owner = {
+					change_variable = {
+						which = spirit_cultivation_planet_decision_pops
+						value = local_pops
+					}
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 0
+		modifier = {
+			add = 100
+			owner = {
+				OR = {
+					has_country_flag = spirit_cultivation_free
+					has_country_flag = spirit_cultivation_nerve
+				}
+			}
+		}
+		modifier = {
+			add = 100
+			owner = { has_country_flag = spirit_cultivation_body }
+			meditation_body_housing_sufficient = yes
+		}
+		modifier = {
+			add = 100
+			owner = { has_country_flag = spirit_cultivation_mind }
+			meditation_mind_amenities_sufficient = yes
+		}
+	}
+}
+
+decision_cancel_meditation = {
+	icon = decision_meditation
+	owned_planets_only = yes
+
+	potential = {
+		owner? = { is_path_of_the_self_empire = yes }
+		has_carrier_flag = decision_meditation_active
+	}
+
+	effect = {
+		clear_planet_meditation_decision = yes
+		hidden_effect = {
+			export_trigger_value_to_variable = {
+				trigger = count_owned_pop_amount
+				variable = local_pops
+			}
+			multiply_variable = {
+				which = local_pops
+				value = -1
+			}
+			if = {
+				limit = {
+					check_variable = { which = local_pops value < 0 }
+				}
+				owner = {
+					change_variable = {
+						which = spirit_cultivation_planet_decision_pops
+						value = local_pops
+					}
+				}
+			}
+		}
+	}
+}
+
+decision_ideology_authority = {
+	owned_planets_only = yes
+
+	enactment_time = 600
+
+	resources = {
+	category = decisions
+		cost = {
+			unity = 200
+		}
+	}
+
+	potential = {
+		owner? = { has_active_tenet = tenet_administrative_enforcement }
+		NOT = { has_carrier_flag = used_decision_ideology_authority }
+	}
+
+	effect = {
+		if = {
+			limit = {
+				owner = { is_hive_empire = yes }
+			}
+			custom_tooltip = decision_ideology_authority_hive_tt
+		}
+		else_if = {
+			limit = {
+				owner = { is_machine_empire = yes }
+			}
+			custom_tooltip = decision_ideology_authority_machine_tt
+		}
+		else = {
+			custom_tooltip = decision_ideology_authority_tt
+		}
+		set_carrier_flag = used_decision_ideology_authority
+	}
+}
+
+decision_suppress_foreign_ideology = {
+	icon = decision_suppress_ideology
+	name = decision_suppress_ideology
+	desc = decision_suppress_ideology_desc
+	owned_planets_only = yes
+
+	resources = {
+		category = decisions
+		cost = {
+			influence = 50
+		}
+	}
+
+	potential = {
+		has_force_of_will_dlc = yes
+		owner? = {
+			is_gestalt = no
+		}
+		solar_system? = {
+			ideology? = {
+				NOT = { is_same_value = root.owner.ideology }
+			}
+		}
+		NOT = {
+			has_modifier = suppress_foreign_ideology
+		}
+	}
+
+	allow = {
+		owner? = { is_fanatic_egalitarian = no }
+		custom_tooltip = {
+			fail_text = suppress_ideology_espionage_stop_tt
+			NOT = {
+				owner? = {
+					has_modifier = modifier_sow_ideological_doubt
+					root = { has_modifier = operation_information_manipulation_modifier }
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = suppress_ideology_cultural_envoy_stop_tt
+			NOT = {
+				has_carrier_flag = cultural_envoy_convert_in_progress
+			}
+		}
+	}
+
+	effect = {
+		add_modifier = { modifier = suppress_foreign_ideology days = -1 }
+	}
+
+	ai_weight = {
+		weight = 0
+		modifier = {
+			add = 20
+			solar_system = {
+				ideology? = {
+					NOT = { is_same_value = root.owner.ideology }
+					root.owner = {
+						foreign_ideology_affinity = {
+							ideology = prev
+							value < -20
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+decision_cancel_suppress_foreign_ideology = {
+	icon = decision_suppress_ideology
+	name = decision_cancel_suppress_ideology
+	desc = decision_cancel_suppress_ideology_desc
+	owned_planets_only = yes
+
+	resources = {
+		category = decisions
+	}
+
+	potential = {
+		has_modifier = suppress_foreign_ideology
+	}
+
+	effect = {
+		remove_modifier = suppress_foreign_ideology
+	}
+
+	ai_weight = {
+		weight = 0
+		modifier = {
+			add = 20
+			solar_system? = {
+				OR = {
+					NOT = { exists = ideology }
+					ideology = {
+						OR = {
+							is_same_value = root.owner.ideology
+							root.owner = {
+								foreign_ideology_affinity = {
+									ideology = prev
+									value >= -20
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+decision_celebrate_ideology = {
+	icon = decision_celebrate_ideology
+	name = decision_celebrate_ideology
+	desc = decision_celebrate_ideology_desc
+	owned_planets_only = yes
+
+	resources = {
+		category = decisions
+		cost = {
+			influence = 50
+		}
+	}
+
+	potential = {
+		has_force_of_will_dlc = yes
+		owner? = {
+			is_gestalt = no
+			exists = ideology
+		}
+		# Arkships carry the celebration with them, as they cannot rely on a system holding our ideology
+		OR = {
+			solar_system? = {
+				ideology? = {
+					is_same_value = root.owner.ideology
+				}
+			}
+			is_planet_class = pc_ark
+		}
+		NOT = { has_modifier = celebrate_ideology }
+	}
+
+	allow = {
+		owner? = {
+			is_fanatic_egalitarian = no
+		}
+	}
+
+	effect = {
+		add_modifier = { modifier = celebrate_ideology days = -1 }
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+}
+
+decision_cancel_celebrate_ideology = {
+	icon = decision_celebrate_ideology
+	name = decision_cancel_celebrate_ideology
+	desc = decision_cancel_celebrate_ideology_desc
+	owned_planets_only = yes
+
+	resources = {
+		category = decisions
+	}
+
+	potential = {
+		has_modifier = celebrate_ideology
+	}
+
+	effect = {
+		remove_modifier = celebrate_ideology
+	}
+
+	ai_weight = {
+		weight = 0
+		modifier = {
+			add = 20
+			OR = {
+				owner? = {
+					NOT = { exists = ideology }
+				}
+				NOR = {
+					is_planet_class = pc_ark
+					solar_system? = {
+						ideology? = {
+							is_same_value = root.owner.ideology
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+decision_scorched_earth = {
+	owned_planets_only = yes
+	icon = decision_molten_planet
+
+	enactment_time = 720
+	resources = {
+		category = decisions
+		cost = {
+			energy = 1000
+		}
+	}
+
+	potential = {
+		NOT = { has_modifier = optimized_environment }
+		owner? = {
+			has_active_tenet = tenet_lost_makers_baol
+		}
+	}
+
+	effect = {
+		custom_tooltip = decision_scorched_earth_tt
+		hidden_effect = {
+			change_pc = pc_nuked
+
+			add_modifier = {
+				modifier = optimized_environment
+				days = -1
+			}
+		}
+	}
+}
+
+decision_launch_celebration_of_ideals = {
+	owned_planets_only = yes
+	icon = decision_celebration_of_ideals
+
+	potential = {
+		has_force_of_will_dlc = yes
+		NOT = { has_modifier = celebration_of_ideals }
+		owner? = {
+			is_megacorp = no
+			has_technology = tech_hyper_entertainment_forum
+		}
+	}
+
+	effect = {
+		add_modifier = { modifier = celebration_of_ideals }
+	}
+}
+
+decision_end_celebration_of_ideals = {
+	owned_planets_only = yes
+	icon = decision_celebration_of_ideals
+
+	potential = {
+		has_modifier = celebration_of_ideals
+	}
+
+	effect = {
+		remove_modifier = celebration_of_ideals
+	}
+}
+
+decision_launch_premium_leisure_package = {
+	owned_planets_only = yes
+	icon = decision_celebration_of_ideals
+
+	potential = {
+		has_force_of_will_dlc = yes
+		NOT = { has_modifier = premium_leisure_package }
+		owner? = {
+			is_megacorp = yes
+			has_technology = tech_hyper_entertainment_forum
+		}
+	}
+
+	effect = {
+		add_modifier = { modifier = premium_leisure_package }
+	}
+}
+
+decision_end_premium_leisure_package = {
+	owned_planets_only = yes
+	icon = decision_celebration_of_ideals
+
+	potential = {
+		has_modifier = premium_leisure_package
+	}
+
+	effect = {
+		remove_modifier = premium_leisure_package
+	}
+}
+
+decision_urban_expansion_frame = {
+	important = yes
+	owned_planets_only = yes
+	icon = decision_urban_expansion_frame
+	custom_tooltip = decision_urban_expansion_frame_custom_tt
+
+	potential = {
+		owner? = {
+			is_megacity_architects_empire = yes
+		}
+		NOT = { has_modifier = urban_expansion_frame }
+	}
+
+	enactment_time = 480
+	resources = {
+		category = decisions
+		cost = {
+			alloys = 500
+			influence = 100
+		}
+	}
+
+	effect = {
+		custom_tooltip = decision_urban_expansion_frame_tt
+		hidden_effect = {
+			set_carrier_flag = uncapped_generator_districts
+			set_carrier_flag = uncapped_mining_districts
+			set_carrier_flag = uncapped_farming_districts
+			add_modifier = {
+				modifier = urban_expansion_frame
+				days = -1
+			}
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = owner }
+			owner = { is_megacity_architects_empire = no }
+		}
+	}
+
+	abort_effect = {
+		remove_carrier_flag = uncapped_generator_districts
+		remove_carrier_flag = uncapped_mining_districts
+		remove_carrier_flag = uncapped_farming_districts
+		remove_modifier =  urban_expansion_frame
+	}
+
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 0
+			NOR = {
+				is_capital = yes
+				has_designation = col_city
+			}
+		}
+		modifier = {
+			factor = 0
+			years_passed < 10
+		}
+		modifier = {
+			factor = 0
+			num_free_districts = {
+				type = district_city
+				value > 0
+			}
+		}
+		modifier = {
+			factor = 0
+			num_unspecialized_districts = {
+				type = district_city
+				value > 0
+			}
+		}
+	}
+}

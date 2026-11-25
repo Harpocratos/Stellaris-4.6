@@ -1,0 +1,29 @@
+planet_professors = {
+	parent = planet_jobs_ruler
+	modifier_category = colony
+}
+
+megastructures_galactic_halls = {
+	parent = megastructures
+	generate_mult_modifiers = {
+		cost
+	}
+	modifier_category = megastructure
+}
+
+planet_buildings_golden_academies = {
+	parent = planet_buildings
+	generate_mult_modifiers = {
+		upkeep
+	}
+	modifier_category = colony
+}
+
+adopted_ideology = {
+	use_for_ai_budget = yes
+	parent = country
+	generate_mult_modifiers = {
+		upkeep
+	}
+	modifier_category = country
+}

@@ -1,0 +1,91 @@
+peaceful_prosperity = {
+	length = -1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+		cost = {
+			unity = 20
+			multiplier = value:edict_size_effect
+		}
+		upkeep = {
+			unity = 20
+			multiplier = value:edict_size_effect
+		}
+	}
+
+	potential = {
+		has_active_tenet = tenet_peaceful_prosperity
+	}
+
+	triggered_country_modifier = {
+		country_naval_cap_mult = -0.1
+		mult = value:tenet_tier_as_factor|VALUE|1|TENET_KEY|tenet_peaceful_prosperity|
+	}
+	triggered_country_modifier = {
+		pop_bonus_workforce_mult = 0.025
+		mult = value:tenet_tier_as_factor|VALUE|1|TENET_KEY|tenet_peaceful_prosperity|
+	}
+
+	# For nested tooltips when selecting tenet
+	triggered_country_modifier = {
+		potential = {
+			NOT = { has_active_tenet = tenet_peaceful_prosperity }
+			exists = ideology
+		}
+		country_naval_cap_mult = -0.1
+		mult = value:next_active_tenet_index
+	}
+	triggered_country_modifier = {
+		potential = {
+			NOT = { has_active_tenet = tenet_peaceful_prosperity }
+			exists = ideology
+		}
+		pop_bonus_workforce_mult = 0.025
+		mult = value:next_active_tenet_index
+	}
+
+	ai_weight = {
+		weight = @EdictLowPrio
+	}
+}
+
+inline_script = {
+	script = forceofwill/edict_broadcasting
+	ETHIC = authoritarian
+}
+
+inline_script = {
+	script = forceofwill/edict_broadcasting
+	ETHIC = egalitarian
+}
+
+inline_script = {
+	script = forceofwill/edict_broadcasting
+	ETHIC = xenophobe
+}
+
+inline_script = {
+	script = forceofwill/edict_broadcasting
+	ETHIC = xenophile
+}
+
+inline_script = {
+	script = forceofwill/edict_broadcasting
+	ETHIC = militarist
+}
+
+inline_script = {
+	script = forceofwill/edict_broadcasting
+	ETHIC = pacifist
+}
+
+inline_script = {
+	script = forceofwill/edict_broadcasting
+	ETHIC = materialist
+}
+
+inline_script = {
+	script = forceofwill/edict_broadcasting
+	ETHIC = spiritualist
+}

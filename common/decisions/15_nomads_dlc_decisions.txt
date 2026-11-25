@@ -1,0 +1,271 @@
+##########################################################################
+# Nomad Decisions
+##########################################################################
+
+decision_unaligned_shields = {
+	owned_planets_only = yes
+	icon = decision_engineering_research
+
+	resources = {
+		category = decisions
+	}
+	enactment_time = 180
+
+	potential = {
+		has_modifier = checklist_unaligned_shields
+	}
+
+	abort_trigger = {
+		NOT = {
+			solar_system? = {
+				OR = {
+					is_star_class = sc_pulsar
+					is_star_class = sc_binary_1
+					is_star_class = sc_crisis_binary_1
+					# Failsafe if modders don't use the correct star classes
+					any_system_planet = {
+						is_planet_class = pc_pulsar
+					}
+				}
+			}
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = decision_unaligned_shields_requirements_tt
+			solar_system? = {
+				OR = {
+					is_star_class = sc_pulsar
+					is_star_class = sc_binary_1
+					is_star_class = sc_crisis_binary_1
+				}
+			}
+		}
+	}
+
+	effect = {
+		custom_tooltip = decision_unaligned_shields_tt
+		hidden_effect = {
+			owner? = {
+				add_mission_counter = {
+					mission =  NOMAD_CHECKLIST_SHIELD_REALIGNMENT
+					counter = SHIELD_REALIGNMENT
+					amount = 1
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 1
+	}
+}
+
+decision_flush_coolant = {
+	owned_planets_only = yes
+	icon = decision_reactor
+
+	enactment_time = 30
+
+	resources = {
+		category = decisions
+		cost = {
+			exotic_gases = 150
+		}
+	}
+
+	potential = {
+		has_modifier = checklist_corrosive_coolant
+	}
+
+	abort_trigger = {
+		NOT = {
+			solar_system? = {
+				is_star_class = sc_black_hole
+			}
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = decision_flush_coolant_requirements_tt
+			solar_system? = {
+				is_star_class = sc_black_hole
+			}
+		}
+	}
+
+	effect = {
+		custom_tooltip = decision_flush_coolant_tt
+		hidden_effect = {
+			owner? = {
+				add_mission_counter = {
+					mission =  NOMAD_CHECKLIST_FLUSH_COOLANT
+					counter = COOLANT_FLUSHED
+					amount = 1
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 1
+	}
+}
+
+# Deep Sleep Decision
+decision_deep_sleep = {
+	owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_deep_sleep
+
+	resources = {
+		category = decisions
+		cost = {
+			influence = 100
+		}
+	}
+
+	potential = {
+		owner = {
+			is_deep_sleep_country = yes
+		}
+		NOT = {
+			has_modifier = planet_deep_sleep
+		}
+	}
+
+	allow = {
+		has_deposit = d_deep_sleep_cryo_pods_renewed
+		custom_tooltip = {
+			text = decision_deep_sleep_tt
+			OR = {
+				num_assigned_jobs = {
+					job = civilian
+					value >= 1000
+				}
+				num_assigned_jobs = {
+					job = maintenance_drone
+					value >= 1000
+				}
+			}
+		}
+	}
+
+	effect = {
+		custom_tooltip = decision_deep_sleep_effect_tt
+		add_modifier = { modifier = "planet_deep_sleep" days = 1800 }
+	}
+
+	ai_weight = {
+		weight = 5
+	}
+}
+
+decision_nomad_embarkation = {
+	icon = decision_federation_fleet
+	owned_planets_only = yes
+	enactment_time = 3600
+	important = yes
+
+	potential = {
+		owner? = {
+			can_embark_trigger = yes
+		}
+	}
+
+	allow = {
+		owner? = {
+			custom_tooltip = {
+				fail_text = "requires_independence"
+				is_subject = no
+			}
+			custom_tooltip = {
+				fail_text = already_embarking
+				NOT = { has_country_flag = already_embarking }
+			}
+			custom_tooltip = {
+				fail_text = EMBARKING_IMPOSSIBLE_COLONIZATION
+				NOT = {
+					any_owned_planet = {
+						is_under_colonization = yes
+					}
+				}
+			}
+		}
+	}
+
+	on_queued = {
+		owner = {
+			set_country_flag = already_embarking
+		}
+	}
+
+	on_unqueued = {
+		owner = {
+			remove_country_flag = already_embarking
+		}
+	}
+
+	abort_trigger = {
+		owner = {
+			can_embark_trigger = no
+		}
+	}
+
+	abort_effect = {
+		owner = {
+			remove_country_flag = already_embarking
+		}
+	}
+
+	resources = {
+		category = decisions
+		cost = {
+			influence = @arkship_cost_influence_500
+		}
+		cost = {
+			trigger = {
+				owner = { country_uses_bio_ships = no }
+			}
+			alloys = @arkship_cost_alloys_10000
+		}
+		cost = {
+			trigger = {
+				owner = {  country_uses_bio_ships = yes }
+			}
+			alloys = @arkship_cost_alloys_10000
+			mult = 0.5
+		}
+		cost = {
+			trigger = {
+				owner = {  country_uses_bio_ships = yes }
+			}
+			food = @arkship_cost_alloys_10000
+			mult = @halved_alloy_to_food_cost_ratio
+		}
+	}
+
+	effect = {
+		custom_tooltip = nomad_embarkation_effect_short
+		hidden_effect = {
+			owner = {
+				remove_country_flag = already_embarking
+				if = {
+					limit = { has_ascension_perk = ap_eternal_vigilance }
+					remove_ascension_perk = ap_eternal_vigilance
+					add_ascension_perk = ap_eternal_vigilance_nomads
+				}
+				save_event_target_as = player_country
+				country_event = {
+					id = nomads.4710
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+}

@@ -1,0 +1,114 @@
+# Mature AI economic plan - bridges the gap between advanced_economy_plan and endgame_economy_plan
+
+mature_economy_plan = {
+	ai_weight = { weight = 25 }
+
+	income = {
+		alloys = @economic_plan_mature_alloy_target
+		physics_research = @economic_plan_mature_research_target
+		society_research = @economic_plan_mature_research_target
+		engineering_research = @economic_plan_mature_research_target
+		unity = @economic_plan_mature_unity_target
+		trade = @economic_plan_mature_trade_target
+	}
+
+	subplan = {
+		potential = {
+			is_nomadic = no
+		}
+		set_name = "Mature Minerals & Energy"
+		income = {
+			minerals = @economic_plan_mature_mineral_target
+			energy = @economic_plan_mature_energy_target
+		}
+	}
+
+	subplan = {
+		potential = {
+			is_nomadic = yes
+		}
+		set_name = "Mature Minerals & Energy Nomads"
+		income = {
+			minerals = @economic_plan_mature_mineral_target_nomads
+			energy = @economic_plan_mature_energy_target_nomads
+		}
+	}
+
+	subplan = {
+		optional = yes
+		set_name = "Mature Pops"
+		pops = @economic_plan_mature_pops_target
+	}
+
+	subplan = {
+		set_name = "Mature Alloys"
+		potential = {
+			country_uses_bio_ships = no
+		}
+
+		income = {
+			alloys = @economic_plan_mature_non_bioship_alloy_target
+		}
+	}
+
+	subplan = {
+		set_name = "Mature BioShip Food"
+		potential = {
+			country_uses_bio_ships = yes
+		}
+
+		income = {
+			food = @economic_plan_mature_bioship_food_target
+		}
+	}
+
+	subplan = {
+		optional = yes
+		scaling = yes
+		set_name = "Mature Naval Cap"
+		potential = {
+			used_naval_capacity_percent > 0.85
+		}
+
+		naval_cap = @economic_plan_mature_naval_cap_target
+	}
+
+	subplan = {
+		scaling = yes
+		set_name = "Mature Physics"
+		potential = {
+			has_monthly_income = { resource = physics_research value < @economic_plan_mature_scaling_research_limit }
+		}
+
+		income = {
+			physics_research = @economic_plan_mature_scaling_research_target
+		}
+	}
+
+	subplan = {
+		scaling = yes
+		set_name = "Mature Society"
+		potential = {
+			has_monthly_income = { resource = society_research value < @economic_plan_mature_scaling_research_limit }
+		}
+
+		income = {
+			society_research = @economic_plan_mature_scaling_research_target
+		}
+	}
+
+	subplan = {
+		scaling = yes
+		set_name = "Mature Engineering"
+		potential = {
+			has_monthly_income = { resource = engineering_research value < @economic_plan_mature_scaling_research_limit }
+		}
+
+		income = {
+			engineering_research = @economic_plan_mature_scaling_research_target
+		}
+	}
+
+	inline_script = "ai/ai_strategic_resources"
+	inline_script = "ai/ai_nomad_secondary_focus"
+}
