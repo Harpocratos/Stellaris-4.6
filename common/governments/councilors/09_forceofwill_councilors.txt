@@ -1,0 +1,144 @@
+########
+# Base #
+########
+
+councilor_minister_of_integration = {
+	leader_class = { official scientist }
+	is_leader_possible = {
+		OR = {
+			leader_class = official
+			leader_class = scientist
+		}
+	}
+	civic = civic_open_stars_sovereignty
+	triggered_planet_modifier = {
+		pop_environment_tolerance = 0.005
+		mult = value:species_on_planet
+		fix_key = species_on_colony
+		should_mult_desc = no
+	}
+}
+
+councilor_civic_path_of_the_self = {
+	leader_class = { official }
+	is_leader_possible = {
+		leader_class = official
+	}
+	civic = civic_path_of_the_self
+	custom_tooltip = councilor_civic_path_of_the_self_custom_modifier_desc
+	modifier = {
+		planet_pops_upkeep_mult = @path_of_the_self_council_pop_upkeep
+	}
+}
+
+councilor_civic_warmongers = {
+	leader_class = { official commander }
+	is_leader_possible = {
+		OR = {
+			leader_class = official
+			leader_class = commander
+		}
+	}
+	civic = civic_warmongers
+	modifier = {
+		pop_soldier_bonus_workforce_mult = 0.02
+	}
+}
+
+councilor_civic_megacity_architects = {
+	leader_class = { official scientist }
+	is_leader_possible = {
+		OR = {
+			leader_class = official
+			leader_class = scientist
+		}
+	}
+	civic = civic_megacity_architects
+	modifier = {
+		arcology_project_cost_mult = -0.04
+		planet_districts_upkeep_mult = -0.04
+	}
+}
+
+councilor_civic_social_concord = {
+	leader_class = { official }
+	is_leader_possible = {
+		leader_class = official
+	}
+	civic = civic_social_concord
+	modifier = {
+		starbase_upgrade_cost_mult = -0.02
+		envoy_improve_relations_mult = 0.04
+	}
+}
+
+#############
+# Corporate #
+#############
+
+councilor_executive_of_demographics = {
+	leader_class = { official }
+	is_leader_possible = {
+		leader_class = official
+	}
+	civic = civic_corporate_open_stars_sovereignty
+	triggered_planet_modifier = {
+		planet_jobs_trade_produces_mult = 0.005
+		mult = value:species_on_planet
+		fix_key = species_on_colony
+		should_mult_desc = no
+	}
+}
+
+councilor_civic_path_of_the_self_corporate = {
+	leader_class = { official }
+	is_leader_possible = {
+		leader_class = official
+	}
+	civic = civic_path_of_the_self_corporate
+	custom_tooltip = councilor_civic_path_of_the_self_corporate_custom_modifier_desc
+	modifier = {
+		planet_pops_upkeep_mult = @path_of_the_self_council_pop_upkeep
+	}
+}
+
+councilor_civic_warmongers_corporate = {
+	leader_class = { official commander }
+	is_leader_possible = {
+		OR = {
+			leader_class = official
+			leader_class = commander
+		}
+	}
+	civic = civic_warmongers_corporate
+	triggered_country_modifier = {
+		planet_soldiers_trade_produces_add = 0.2
+	}
+}
+
+councilor_civic_megacity_architects_corporate = {
+	leader_class = { official scientist }
+	is_leader_possible = {
+		OR = {
+			leader_class = official
+			leader_class = scientist
+		}
+	}
+	civic = civic_megacity_architects_corporate
+	modifier = {
+		arcology_project_cost_mult = -0.04
+		planet_districts_upkeep_mult = -0.04
+	}
+}
+
+councilor_civic_social_concord_corporate = {
+	leader_class = { official }
+	is_leader_possible = {
+		leader_class = official
+	}
+	civic = civic_social_concord_corporate
+	modifier = {
+		starbase_upgrade_cost_mult = -0.02
+		envoy_improve_relations_mult = 0.04
+	}
+}

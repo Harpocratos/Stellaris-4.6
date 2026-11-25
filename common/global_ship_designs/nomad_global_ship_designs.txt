@@ -1,0 +1,137 @@
+# Champion's Forge Arkship
+ship_design = {
+	name = "NAME_Champions_Forge_Arkship"
+	ship_size = military_arkship_champions_forge
+
+	section = {
+		template = "military_arkship_champions_forge_section"
+		slot = "mid"
+
+		component = {
+			slot = "STRIKE_CRAFT_01"
+			template = "STRIKE_CRAFT_HANGAR_3"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_02"
+			template = "STRIKE_CRAFT_HANGAR_3"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_03"
+			template = "STRIKE_CRAFT_HANGAR_3"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_04"
+			template = "STRIKE_CRAFT_HANGAR_3"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_05"
+			template = "STRIKE_CRAFT_HANGAR_3"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_06"
+			template = "STRIKE_CRAFT_HANGAR_3"
+		}
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_ARCHAEO_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_02"
+			template = "LARGE_RED_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_03"
+			template = "LARGE_BLUE_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_04"
+			template = "LARGE_UV_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_05"
+			template = "LARGE_XRAY_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_06"
+			template = "LARGE_GAMMA_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_07"
+			template = "KINETIC_ARTILLERY_2"
+		}
+		component = {
+			slot = "LARGE_GUN_08"
+			template = "KINETIC_ARTILLERY_2"
+		}
+		component = {
+			slot = "PD_01"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "PD_02"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "PD_03"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "PD_04"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "PD_05"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "PD_06"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "PD_07"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "PD_08"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "PD_09"
+			template = "POINT_DEFENCE_3"
+		}
+		component = {
+			slot = "PD_10"
+			template = "POINT_DEFENCE_3"
+		}
+		component = {
+			slot = "PD_11"
+			template = "POINT_DEFENCE_3"
+		}
+		component = {
+			slot = "PD_12"
+			template = "POINT_DEFENCE_3"
+		}
+		component = {
+			slot = "PD_13"
+			template = "POINT_DEFENCE_3"
+		}
+		component = {
+			slot = "PD_14"
+			template = "POINT_DEFENCE_3"
+		}
+		component = {
+			slot = "PD_15"
+			template = "POINT_DEFENCE_3"
+		}
+		component = {
+			slot = "PD_16"
+			template = "POINT_DEFENCE_3"
+		}
+	}
+	required_component = "JUGGERNAUT_COLD_FUSION_REACTOR"
+	required_component = "HYPER_DRIVE_3"
+	required_component = "COLOSSUS_SHIP_THRUSTER_3"
+	required_component = "SENSOR_3"
+	required_component = "COMBAT_COMPUTER_ARKSHIP"
+
+}

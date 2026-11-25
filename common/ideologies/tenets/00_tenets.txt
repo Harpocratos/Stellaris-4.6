@@ -1,0 +1,6219 @@
+#tenet_example = {
+#	ethics = {}			# List of possible ethics an ideology should have to select this tenet. An empty list means it can be selected by any ideology
+#	potential = {}		# Conditions for the tenet to apply. Scope is country, From is ideology
+#	priority = high/low/default	# Determines tenet's priority during roll selection. High prio tenets are always selected, while low prio are selected only when no other tenets are available.
+#	source_civic = x	# If set, will display the icon of this civic/origin in the tenet selection window
+#	first_tier = 1		# The tiers of this tenet will begin at this tier (optional, default TENET_TIER_MIN)
+#	on_unlock = {}		# Effect triggered when this tenet unlocks (contains variable local_tenet_tier for the current tier for description)
+#	on_lock = {}		# Effect triggered when this tenet is lost (contains variable local_tenet_tier for the current tier for description)
+#	tier = {			# Tenet tiers (add as much as required) (every modifier contains variable local_tenet_tier for the current tier for description)
+#		triggered_country_modifier = {}		# Modifiers applied to the adopting country when this tier is active
+#		# The next triggered modifiers have a From scope, containing the owner of the scoped planet/system/pop_group, even if the planet/system/pop_group is invalid
+#		triggered_colony_modifier = {}		# Modifiers applied to the adopting country's colonies, inside the ideology, when this tier is active
+#		triggered_system_modifier = {}		# Modifiers applied to the adopting country's systems, inside the ideology, when this tier is active
+#		triggered_pop_group_modifier = {}	# Modifiers applied to the pop groups following the ideology, if adopted by their owner, when this tier is active
+#	}
+#	swappable_data = {}	# Allows for alternative visuals and localization based on given triggers. Supports name, desc and source_civic
+#}
+
+#==========================
+# General
+#==========================
+
+tenet_stability = {
+	first_tier = 1
+	priority = low
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			desc = tenet_stability_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			desc = tenet_stability_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			planet_stability_add = 3
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_stability_add = 6
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_stability_add = 9
+		}
+	}
+}
+
+tenet_unity = {
+	first_tier = 1
+	priority = low
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_unity_hive
+			desc = tenet_unity_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_unity_machine
+			desc = tenet_unity_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			country_unity_produces_mult = 0.05
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_unity_produces_mult = 0.10
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_unity_produces_mult = 0.20
+		}
+	}
+}
+
+tenet_civility = {
+	first_tier = 1
+	priority = low
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_civility_hive
+			desc = tenet_civility_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_civility_machine
+			desc = tenet_civility_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			empire_size_pops_mult = -0.025
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_crime_add = -10
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_crime_no_happiness_add = -10
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			empire_size_pops_mult = -0.05
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_crime_add = -20
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_crime_no_happiness_add = -20
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			empire_size_pops_mult = -0.10
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_crime_add = -40
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_crime_no_happiness_add = -40
+		}
+	}
+}
+
+#==========================
+# Authoritarian
+#==========================
+
+tenet_spectacle_of_authority = {
+	ethics = { ethic_authoritarian }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			desc = tenet_spectacle_of_authority_gestalt_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_entertainers_society_research_produces_add = @spectacle_of_authority_society_1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_bureaucrats_society_research_produces_add = @spectacle_of_authority_society_1
+		}
+		triggered_country_modifier = {
+			tenet_spectacle_of_authority_edict_modifier = @spectacle_of_authority_edict_fund_1
+			fix_key = fix_key_tenet_spectacle_of_authority
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_entertainers_society_research_produces_add = @spectacle_of_authority_society_2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_bureaucrats_society_research_produces_add = @spectacle_of_authority_society_2
+		}
+		triggered_country_modifier = {
+			tenet_spectacle_of_authority_edict_modifier = @spectacle_of_authority_edict_fund_2
+			fix_key = fix_key_tenet_spectacle_of_authority
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_entertainers_society_research_produces_add = @spectacle_of_authority_society_3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_bureaucrats_society_research_produces_add = @spectacle_of_authority_society_3
+		}
+		triggered_country_modifier = {
+			tenet_spectacle_of_authority_edict_modifier = @spectacle_of_authority_edict_fund_3
+			fix_key = fix_key_tenet_spectacle_of_authority
+		}
+	}
+}
+
+tenet_juvenile_employment = {
+	ethics = { ethic_authoritarian }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			name = tenet_juvenile_employment_gestalt
+			desc = tenet_juvenile_employment_gestalt_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			pop_slave_bonus_workforce_mult = 0.10
+			worker_and_simple_drone_cat_bonus_workforce_mult = 0.10
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			pop_slave_bonus_workforce_mult = 0.20
+			worker_and_simple_drone_cat_bonus_workforce_mult = 0.20
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			pop_slave_bonus_workforce_mult = 0.40
+			worker_and_simple_drone_cat_bonus_workforce_mult = 0.40
+		}
+	}
+}
+
+tenet_idolism = {
+	ethics = { ethic_authoritarian }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			name = tenet_idolism_gestalt
+			desc = tenet_idolism_gestalt_desc
+		}
+	}
+
+	tier = {
+		# Regular
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = no
+					NOT = { has_valid_civic = civic_dystopian_society }
+				}
+			}
+			pop_enforcer_bonus_workforce_mult = 0.02
+			mult = value:count_owned_job_workforce|JOB|politician|
+			fix_key = per_100_politician
+			should_mult_desc = no
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = no
+					has_valid_civic = civic_dystopian_society
+				}
+			}
+			pop_dystopian_enforcer_bonus_workforce_mult = 0.02
+			mult = value:count_owned_job_workforce|JOB|politician|
+			fix_key = per_100_politician
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			planet_politicians_unity_produces_add = 0.5
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			pop_cat_complex_drone_bonus_workforce_mult = 0.05
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = yes
+					is_wilderness_empire = no
+				}
+			}
+			planet_crime_add = 1
+			mult = value:count_owned_pop_category|CATEGORY|complex_drone|DIVIDE|100|
+			fix_key = per_100_complex_drone
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_jobs_patrol_drone_unity_produces_add = 0.75
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			bonus_pop_growth_mult = 0.05
+		}
+	}
+	tier = {
+		# Regular
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = no
+					NOT = { has_valid_civic = civic_dystopian_society }
+				}
+			}
+			pop_enforcer_bonus_workforce_mult = 0.03
+			mult = value:count_owned_job_workforce|JOB|politician|
+			fix_key = per_100_politician
+			should_mult_desc = no
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = no
+					has_valid_civic = civic_dystopian_society
+				}
+			}
+			pop_dystopian_enforcer_bonus_workforce_mult = 0.03
+			mult = value:count_owned_job_workforce|JOB|politician|
+			fix_key = per_100_politician
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_politicians_unity_produces_add = 1
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			pop_cat_complex_drone_bonus_workforce_mult = 0.10
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = yes
+					is_wilderness_empire = no
+				}
+			}
+			planet_crime_add = 2
+			mult = value:count_owned_pop_category|CATEGORY|complex_drone|DIVIDE|100|
+			fix_key = per_100_complex_drone
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_jobs_patrol_drone_unity_produces_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			bonus_pop_growth_mult = 0.1
+		}
+	}
+	tier = {
+		# Regular
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = no
+					NOT = { has_valid_civic = civic_dystopian_society }
+				}
+			}
+			pop_enforcer_bonus_workforce_mult = 0.04
+			mult = value:count_owned_job_workforce|JOB|politician|
+			fix_key = per_100_politician
+			should_mult_desc = no
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = no
+					has_valid_civic = civic_dystopian_society
+				}
+			}
+			pop_dystopian_enforcer_bonus_workforce_mult = 0.04
+			mult = value:count_owned_job_workforce|JOB|politician|
+			fix_key = per_100_politician
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_politicians_unity_produces_add = 2
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			pop_cat_complex_drone_bonus_workforce_mult = 0.15
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = yes
+					is_wilderness_empire = no
+				}
+			}
+			planet_crime_add = 3
+			mult = value:count_owned_pop_category|CATEGORY|complex_drone|DIVIDE|100|
+			fix_key = per_100_complex_drone
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_jobs_patrol_drone_unity_produces_add = 3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			bonus_pop_growth_mult = 0.15
+		}
+	}
+}
+
+tenet_surveillance = {
+	ethics = { ethic_authoritarian }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_surveillance_hive
+			desc = tenet_surveillance_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_surveillance_machine
+			desc = tenet_surveillance_machine_desc
+		}
+	}
+
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			pop_cat_ruler_bonus_workforce_mult = 0.05
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = no }
+			}
+			planet_pops_upkeep_mult = @tenet_surveillance_upkeep_1
+			mult = value:num_job_workforce_with_tag|TAG|enforcer|
+			fix_key = per_100_enforcer
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_enforcers_energy_upkeep_add = 0.25
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			pop_bonus_workforce_mult = 0.025
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_jobs_patrol_drone_energy_upkeep_add = 0.25
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = yes }
+			}
+			planet_pops_upkeep_mult = @tenet_surveillance_upkeep_1
+			mult = value:num_job_workforce_with_tag|TAG|enforcer|
+			fix_key = per_100_patrol_drone
+			should_mult_desc = no
+		}
+	}
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			pop_cat_ruler_bonus_workforce_mult = 0.10
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = no }
+			}
+			planet_pops_upkeep_mult = @tenet_surveillance_upkeep_2
+			mult = value:num_job_workforce_with_tag|TAG|enforcer|
+			fix_key = per_100_enforcer
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_enforcers_energy_upkeep_add = 0.5
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			pop_bonus_workforce_mult = 0.05
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_jobs_patrol_drone_energy_upkeep_add = 0.5
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = yes }
+			}
+			planet_pops_upkeep_mult = @tenet_surveillance_upkeep_2
+			mult = value:num_job_workforce_with_tag|TAG|enforcer|
+			fix_key = per_100_patrol_drone
+			should_mult_desc = no
+		}
+	}
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			pop_cat_ruler_bonus_workforce_mult = 0.20
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = no }
+			}
+			planet_pops_upkeep_mult = @tenet_surveillance_upkeep_3
+			mult = value:num_job_workforce_with_tag|TAG|enforcer|
+			fix_key = per_100_enforcer
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_enforcers_energy_upkeep_add = 1
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			pop_bonus_workforce_mult = 0.10
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_jobs_patrol_drone_energy_upkeep_add = 1
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = yes }
+			}
+			planet_pops_upkeep_mult = @tenet_surveillance_upkeep_3
+			mult = value:num_job_workforce_with_tag|TAG|enforcer|
+			fix_key = per_100_patrol_drone
+			should_mult_desc = no
+		}
+	}
+}
+
+tenet_administrative_enforcement = {
+	ethics = { ethic_authoritarian }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			name = tenet_administrative_enforcement_gestalt
+			desc = tenet_administrative_enforcement_gestalt_desc
+		}
+	}
+
+	on_unlock = {
+		custom_tooltip = tenet_administrative_enforcement_unlock_tt
+	}
+
+	tier = {
+		# Regular (Administrative Enforcement)
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_politicians_upkeep_mult = -0.10
+		}
+		# Gestalt (Centrality)
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_stability_add = 4
+		}
+	}
+	tier = {
+		# Regular (Administrative Enforcement)
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_politicians_upkeep_mult = -0.20
+		}
+		# Gestalt (Centrality)
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_stability_add = 6
+		}
+	}
+	tier = {
+		# Regular (Administrative Enforcement)
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_politicians_upkeep_mult = -0.30
+		}
+		# Gestalt (Centrality)
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_stability_add = 8
+		}
+	}
+}
+
+tenet_nepotism = {
+	ethics = { ethic_authoritarian }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_nepotism_hive
+			desc = tenet_nepotism_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_nepotism_machine
+			desc = tenet_nepotism_machine_desc
+		}
+	}
+
+	on_unlock = {
+		if = {
+			limit = { is_gestalt = no }
+			if = {
+				limit = { is_imperial_authority = no }
+				custom_tooltip = tenet_nepotism_unlock_tt
+			}
+			else = {
+				custom_tooltip = tenet_nepotism_imperial_unlock_tt
+			}
+			set_country_flag = tenet_nepotism_active
+		}
+	}
+	on_lock = {
+		if = {
+			limit = { is_gestalt = no }
+			remove_country_flag = tenet_nepotism_active
+		}
+	}
+
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			councilor_skill_add = 1
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			councilor_skill_add = 2
+		}
+	}
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			councilor_skill_add = 2
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			councilor_skill_add = 3
+		}
+	}
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			councilor_skill_add = 3
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			councilor_skill_add = 4
+		}
+	}
+}
+
+#==========================
+# Egalitarian
+#==========================
+
+tenet_free_passage = {
+	ethics = { ethic_egalitarian }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			name = tenet_free_passage_gestalt
+			desc = tenet_free_passage_gestalt_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			planet_resettlement_unemployed_mult = 0.4
+			ship_speed_mult = 0.1
+			sm_trading_hubs_trade_produces_add = 2
+			megastructures_hyper_relay_trade_produces_add = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			pop_resettlement_cost_mult = -0.40
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.15
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_resettlement_unemployed_mult = 0.8
+			ship_speed_mult = 0.2
+			sm_trading_hubs_trade_produces_add = 3
+			megastructures_hyper_relay_trade_produces_add = 3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			pop_resettlement_cost_mult = -0.50
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.3
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_resettlement_unemployed_mult = 1.2
+			ship_speed_mult = 0.3
+			sm_trading_hubs_trade_produces_add = 4
+			megastructures_hyper_relay_trade_produces_add = 4
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			pop_resettlement_cost_mult = -0.75
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.45
+		}
+	}
+}
+
+tenet_epistocracy = {
+	ethics = { ethic_egalitarian }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_epistocracy_gestalt
+			desc = tenet_epistocracy_gestalt_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_epistocracy_gestalt
+			desc = tenet_epistocracy_gestalt_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			council_agenda_early_activation_cost_mult = -0.1
+			council_agenda_cooldown_mult = -0.1
+			council_agenda_finishing_effect_duration_mult = 0.1
+			negative_traits_country = -1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			council_agenda_early_activation_cost_mult = -0.2
+			council_agenda_cooldown_mult = -0.2
+			council_agenda_finishing_effect_duration_mult = 0.2
+			negative_traits_country = -2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			council_agenda_early_activation_cost_mult = -0.3
+			council_agenda_cooldown_mult = -0.3
+			council_agenda_finishing_effect_duration_mult = 0.3
+			negative_traits_country = -3
+		}
+	}
+}
+
+tenet_laterality = {
+	ethics = { ethic_egalitarian }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_laterality_gestalt
+			desc = tenet_laterality_gestalt_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_laterality_gestalt
+			desc = tenet_laterality_gestalt_machine_desc
+		}
+	}
+
+	tier = {
+		# Regular
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = no }
+			}
+			planet_jobs_specialist_produces_mult = @tenet_laterality_specialist_output_1
+			mult = value:tenet_laterality_specialist_output_mult
+			fix_key = fix_key_tenet_laterality
+			should_mult_desc = no
+		}
+		# Gestalt
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = yes
+					is_wilderness_empire = no
+				}
+			}
+			pop_cat_simple_drone_bonus_workforce_mult = 0.001
+			mult = value:count_owned_pop_category|CATEGORY|complex_drone|DIVIDE|100|
+			fix_key = per_100_complex_drone
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			bonus_pop_growth_mult = 0.05
+		}
+	}
+	tier = {
+		# Regular
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = no }
+			}
+			planet_jobs_specialist_produces_mult = @tenet_laterality_specialist_output_2
+			mult = value:tenet_laterality_specialist_output_mult
+			fix_key = fix_key_tenet_laterality
+			should_mult_desc = no
+		}
+		# Gestalt
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = yes
+					is_wilderness_empire = no
+				}
+			}
+			pop_cat_simple_drone_bonus_workforce_mult = 0.002
+			mult = value:count_owned_pop_category|CATEGORY|complex_drone|DIVIDE|100|
+			fix_key = per_100_complex_drone
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			bonus_pop_growth_mult = 0.1
+		}
+	}
+	tier = {
+		# Regular
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = no }
+			}
+			planet_jobs_specialist_produces_mult = @tenet_laterality_specialist_output_3
+			mult = value:tenet_laterality_specialist_output_mult
+			fix_key = fix_key_tenet_laterality
+			should_mult_desc = no
+		}
+		# Gestalt
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_gestalt = yes
+					is_wilderness_empire = no
+				}
+			}
+			pop_cat_simple_drone_bonus_workforce_mult = 0.003
+			mult = value:count_owned_pop_category|CATEGORY|complex_drone|DIVIDE|100|
+			fix_key = per_100_complex_drone
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			bonus_pop_growth_mult = 0.15
+		}
+	}
+}
+
+tenet_participation = {
+	ethics = { ethic_egalitarian }
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_hive_empire = yes
+			}
+			name = tenet_participation_gestalt
+			desc = tenet_participation_gestalt_desc
+		}
+		swap_type = {
+			trigger = {
+				is_machine_empire = yes
+			}
+			name = tenet_participation_gestalt
+			desc = tenet_participation_gestalt_machine_desc
+		}
+	}
+
+	on_lock = {
+		validate_species_rights = yes
+	}
+
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_factions_produces_mult = 0.1
+			custom_tooltip = tenet_participation_living_standard_tt
+			show_only_custom_tooltip = no
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			planet_jobs_produces_mult = 0.05
+			planet_pops_upkeep_mult = -0.1
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_factions_produces_mult = 0.2
+			custom_tooltip = tenet_participation_living_standard_tt
+			show_only_custom_tooltip = no
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			planet_jobs_produces_mult = 0.075
+			planet_pops_upkeep_mult = -0.2
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_factions_produces_mult = 0.4
+			custom_tooltip = tenet_participation_living_standard_tt
+			show_only_custom_tooltip = no
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			planet_jobs_produces_mult = 0.1
+			planet_pops_upkeep_mult = -0.3
+		}
+	}
+}
+
+tenet_efficient_legislature = {
+	ethics = { ethic_egalitarian }
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_hive_empire = yes
+			}
+			name = tenet_efficient_legislature_hive
+			desc = tenet_efficient_legislature_hive_desc
+		}
+		swap_type = {
+			trigger = {
+				is_machine_empire = yes
+			}
+			name = tenet_efficient_legislature_machine
+			desc = tenet_efficient_legislature_machine_desc
+		}
+	}
+
+	first_tier = 1
+
+	on_unlock = {
+		hidden_effect = {
+			if = {
+				limit = { is_variable_set = efficient_legislature_tier }
+				clear_variable = efficient_legislature_tier
+			}
+			export_trigger_value_to_variable = {
+				trigger = get_tenet_tier
+				variable = efficient_legislature_tier
+				parameters = {
+					tenet = tenet_efficient_legislature
+				}
+			}
+		}
+	}
+
+	on_lock = {
+		hidden_effect = {
+			if = {
+				limit = { is_variable_set = efficient_legislature_tier }
+				clear_variable = efficient_legislature_tier
+			}
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_efficient_legislature_agenda_1_tt
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_bureaucrats_upkeep_mult = -0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			council_agenda_progress_speed = 0.12
+		}
+		# Workaround to produce unity per coordinator
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			planet_bureaucrats_unity_produces_add = 0.5
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_efficient_legislature_agenda_2_tt
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_bureaucrats_upkeep_mult = -0.2
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			council_agenda_progress_speed = 0.25
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			planet_bureaucrats_unity_produces_add = 1
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_efficient_legislature_agenda_3_tt
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_bureaucrats_upkeep_mult = -0.3
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			council_agenda_progress_speed = 0.50
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			planet_bureaucrats_unity_produces_add = 2
+		}
+	}
+}
+
+tenet_personal_accountability = {
+	ethics = { ethic_egalitarian }
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_hive_empire = yes
+			}
+			name = tenet_personal_accountability_gestalt
+			desc = tenet_personal_accountability_gestalt_desc
+		}
+		swap_type = {
+			trigger = {
+				is_machine_empire = yes
+			}
+			name = tenet_personal_accountability_gestalt_machine
+			desc = tenet_personal_accountability_gestalt_machine_desc
+		}
+	}
+
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_crime_add = -7
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_crime_no_happiness_add = -7
+		}
+		triggered_country_modifier = {
+			stability_scaling_mult = 1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_crime_add = -15
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_crime_no_happiness_add = -15
+		}
+		triggered_country_modifier = {
+			stability_scaling_mult = 1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_crime_add = -30
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_crime_no_happiness_add = -30
+		}
+		triggered_country_modifier = {
+			stability_scaling_mult = 1
+		}
+	}
+}
+
+tenet_harmonicism = {
+	ethics = { ethic_egalitarian }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			desc = tenet_harmonicism_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			desc = tenet_harmonicism_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			harmonicism_resolutions_effect_mult = 1.5
+			custom_tooltip = harmonicism_emergency_measures
+			show_only_custom_tooltip = no
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.15
+		}
+		triggered_country_modifier = {
+			resolution_category_ecology_vote_strength_mult = @tenet_harmonicism_vote_strength_mult_1
+			resolution_category_greatergood_vote_strength_mult = @tenet_harmonicism_vote_strength_mult_1
+			resolution_category_market_vote_strength_mult = @tenet_harmonicism_vote_strength_mult_1
+			custom_tooltip = harmonicism_resolutions_vote_strength_mult_1
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			harmonicism_resolutions_effect_mult = 2
+			custom_tooltip = harmonicism_emergency_measures
+			show_only_custom_tooltip = no
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.30
+		}
+		triggered_country_modifier = {
+			resolution_category_ecology_vote_strength_mult = @tenet_harmonicism_vote_strength_mult_2
+			resolution_category_greatergood_vote_strength_mult = @tenet_harmonicism_vote_strength_mult_2
+			resolution_category_market_vote_strength_mult = @tenet_harmonicism_vote_strength_mult_2
+			custom_tooltip = harmonicism_resolutions_vote_strength_mult_2
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			harmonicism_resolutions_effect_mult = 2.5
+			custom_tooltip = harmonicism_emergency_measures
+			show_only_custom_tooltip = no
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.45
+		}
+		triggered_country_modifier = {
+			resolution_category_ecology_vote_strength_mult = @tenet_harmonicism_vote_strength_mult_3
+			resolution_category_greatergood_vote_strength_mult = @tenet_harmonicism_vote_strength_mult_3
+			resolution_category_market_vote_strength_mult = @tenet_harmonicism_vote_strength_mult_3
+			custom_tooltip = harmonicism_resolutions_vote_strength_mult_3
+		}
+	}
+}
+
+#==========================
+# Xenophobe
+#==========================
+
+tenet_security = {
+	ethics = { ethic_xenophobe }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_hive_empire = yes
+			}
+			desc = tenet_security_hive_desc
+		}
+		swap_type = {
+			trigger = {
+				is_machine_empire = yes
+			}
+			desc = tenet_security_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			intel_encryption_add = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			army_defense_damage_mult = 0.25
+			shipclass_starbase_armor_mult = 0.15
+			shipclass_starbase_damage_mult = 0.1
+			shipclass_military_station_armor_mult = 0.15
+			shipclass_military_station_damage_mult = 0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			planet_engineers_produces_mult = 0.1
+			planet_biologists_produces_mult = 0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			intel_encryption_add = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			army_defense_damage_mult = 0.50
+			shipclass_starbase_armor_mult = 0.30
+			shipclass_starbase_damage_mult = 0.20
+			shipclass_military_station_armor_mult = 0.3
+			shipclass_military_station_damage_mult = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			planet_engineers_produces_mult = 0.15
+			planet_biologists_produces_mult = 0.15
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			intel_encryption_add = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			army_defense_damage_mult = 0.75
+			shipclass_starbase_armor_mult = 0.45
+			shipclass_starbase_damage_mult = 0.30
+			shipclass_military_station_armor_mult = 0.45
+			shipclass_military_station_damage_mult = 0.3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			planet_engineers_produces_mult = 0.2
+			planet_biologists_produces_mult = 0.2
+		}
+	}
+}
+
+tenet_sovereignty = {
+	ethics = { ethic_xenophobe }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_nomadic = yes }
+			desc = tenet_sovereignty_nomads_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			starbase_outpost_cost_mult = -0.05
+			starbase_upgrade_cost_mult = -0.05
+			starbase_upgrade_speed_mult = 0.05
+			country_starbase_capacity_add = 2
+			starbase_constructions_produces_mult = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			megastructures_waystations_cost_mult = -0.05
+			starbase_waystations_cost_mult = -0.05
+			starbase_upgrade_speed_mult = 0.05
+			country_starbase_capacity_add = 2
+			starbase_collected_system_resources_mult = 0.2
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			starbase_outpost_cost_mult = -0.1
+			starbase_upgrade_cost_mult = -0.1
+			starbase_upgrade_speed_mult = 0.1
+			country_starbase_capacity_add = 3
+			starbase_constructions_produces_mult = 0.4
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			megastructures_waystations_cost_mult = -0.1
+			starbase_waystations_cost_mult = -0.1
+			starbase_upgrade_speed_mult = 0.1
+			country_starbase_capacity_add = 3
+			starbase_collected_system_resources_mult = 0.4
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			starbase_outpost_cost_mult = -0.2
+			starbase_upgrade_cost_mult = -0.2
+			starbase_upgrade_speed_mult = 0.2
+			country_starbase_capacity_add = 4
+			starbase_constructions_produces_mult = 0.6
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			megastructures_waystations_cost_mult = -0.2
+			starbase_waystations_cost_mult = -0.2
+			starbase_upgrade_speed_mult = 0.2
+			country_starbase_capacity_add = 4
+			starbase_collected_system_resources_mult = 0.6
+		}
+	}
+}
+
+tenet_self_sufficiency = {
+	ethics = { ethic_xenophobe }
+	first_tier = 1
+
+	on_unlock = {
+		custom_tooltip = tenet_self_sufficiency_no_effect_tt
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			pop_civilian_bonus_workforce_mult = 0.1
+			show_if_trigger_false = yes
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			pop_maintenance_drone_bonus_workforce_mult = 0.1
+			show_if_trigger_false = yes
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = no
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			planet_traders_trade_produces_add = 1
+			show_if_trigger_false = yes
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			country_trade_produces_mult = 0.1
+			show_if_trigger_false = yes
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			pop_civilian_bonus_workforce_mult = 0.2
+			show_if_trigger_false = yes
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			pop_maintenance_drone_bonus_workforce_mult = 0.2
+			show_if_trigger_false = yes
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = no
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			planet_traders_trade_produces_add = 2
+			show_if_trigger_false = yes
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			country_trade_produces_mult = 0.2
+			show_if_trigger_false = yes
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			pop_civilian_bonus_workforce_mult = 0.3
+			show_if_trigger_false = yes
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			pop_maintenance_drone_bonus_workforce_mult = 0.3
+			show_if_trigger_false = yes
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = no
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			planet_traders_trade_produces_add = 3
+			show_if_trigger_false = yes
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			possible = {
+				is_galactic_community_member = no
+			}
+			country_trade_produces_mult = 0.3
+			show_if_trigger_false = yes
+		}
+	}
+}
+
+tenet_homogeneity = {
+	ethics = { ethic_xenophobe }
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			desc = tenet_homogeneity_gestalt_desc
+		}
+	}
+
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			planet_culture_workers_society_research_produces_add = 1
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			tenet_homogeneity_modifier = 0.025
+			fix_key = per_100_culture_worker
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			planet_culture_workers_society_research_produces_add = 2
+		}
+		triggered_country_modifier = {
+			tenet_homogeneity_modifier = 0.05
+			fix_key = per_100_culture_worker
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_culture_workers_society_research_produces_add = 3
+		}
+		triggered_country_modifier = {
+			tenet_homogeneity_modifier = 0.075
+			fix_key = per_100_culture_worker
+		}
+	}
+}
+
+tenet_assertion = {
+	ethics = { ethic_xenophobe }
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			desc = tenet_assertion_gestalt_desc
+		}
+	}
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			rivalries_influence_produces_mult = 0.3
+			diplo_weight_opposing_mult = 0.1
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			country_claim_influence_cost_mult = -0.1
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			rivalries_influence_produces_mult = 0.6
+			diplo_weight_opposing_mult = 0.2
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			country_claim_influence_cost_mult = -0.2
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			rivalries_influence_produces_mult = 1.2
+			diplo_weight_opposing_mult = 0.3
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			country_claim_influence_cost_mult = -0.3
+		}
+	}
+}
+
+tenet_seclusionism = {
+	ethics = { ethic_xenophobe }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			name = tenet_seclusionism_gestalt
+			desc = tenet_seclusionism_desc # Uses default version
+		}
+	}
+
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_crime_mult = -0.05
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_crime_no_happiness_mult = -0.05
+		}
+		triggered_country_modifier = {
+			planet_stability_add = 3
+			pop_amenities_usage_mult = -0.10
+		}
+	}
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_crime_mult = -0.10
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_crime_no_happiness_mult = -0.10
+		}
+		triggered_country_modifier = {
+			planet_stability_add = 5
+			pop_amenities_usage_mult = -0.20
+		}
+	}
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_crime_mult = -0.20
+		}
+		# Gestalt
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_crime_no_happiness_mult = -0.20
+		}
+		triggered_country_modifier = {
+			planet_stability_add = 10
+			pop_amenities_usage_mult = -0.40
+		}
+	}
+}
+
+#==========================
+# Xenophile
+#==========================
+
+tenet_pluralism = {
+	ethics = { ethic_xenophile }
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			empire_size_pops_mult = -0.07
+			diplomacy_influence_upkeep_mult = -0.1
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.2
+		}
+		triggered_country_modifier = {
+			country_edict_fund_add = 1
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			empire_size_pops_mult = -0.15
+			diplomacy_influence_upkeep_mult = -0.2
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.4
+		}
+		triggered_country_modifier = {
+			country_edict_fund_add = 1.5
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			empire_size_pops_mult = -0.30
+			diplomacy_influence_upkeep_mult = -0.3
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.6
+		}
+		triggered_country_modifier = {
+			country_edict_fund_add = 2
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+	}
+}
+
+tenet_networking = {
+	ethics = { ethic_xenophile }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			desc = tenet_networking_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 0.25
+		}
+		triggered_country_modifier = {
+			planet_jobs_trade_produces_mult = 0.01
+			mult = value:count_active_envoys
+			fix_key = per_envoy
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			diplo_weight_mult = 0.002
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 0.5
+		}
+		triggered_country_modifier = {
+			planet_jobs_trade_produces_mult = 0.02
+			mult = value:count_active_envoys
+			fix_key = per_envoy
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			diplo_weight_mult = 0.004
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 0.75
+		}
+		triggered_country_modifier = {
+			planet_jobs_trade_produces_mult = 0.03
+			mult = value:count_active_envoys
+			fix_key = per_envoy
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			diplo_weight_mult = 0.006
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+	}
+}
+
+tenet_concordance = {
+	ethics = { ethic_xenophile }
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			official_initial_skill = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			country_trust_cap_add = 1
+			mult = value:count_owned_job_workforce|JOB|bureaucrat|
+			fix_key = per_100_bureaucrat
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			country_trust_cap_add = 1
+			mult = value:count_owned_job_workforce|JOB|coordinator|
+			fix_key = per_100_coordinator
+			should_mult_desc = no
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			official_initial_skill = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			country_trust_cap_add = 1
+			mult = value:count_owned_job_workforce|JOB|bureaucrat|
+			fix_key = per_100_bureaucrat
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			country_trust_cap_add = 1
+			mult = value:count_owned_job_workforce|JOB|coordinator|
+			fix_key = per_100_coordinator
+			should_mult_desc = no
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			official_initial_skill = 3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			country_trust_cap_add = 1
+			mult = value:count_owned_job_workforce|JOB|bureaucrat|
+			fix_key = per_100_bureaucrat
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			country_trust_cap_add = 1
+			mult = value:count_owned_job_workforce|JOB|coordinator|
+			fix_key = per_100_coordinator
+			should_mult_desc = no
+		}
+	}
+}
+
+tenet_integration = {
+	ethics = { ethic_xenophile }
+	first_tier = 1
+
+	tier = {
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			custom_tooltip = tenet_integration_external_leader_1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_entertainers_trade_produces_add = 1
+		}
+
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = no }
+			}
+			founder_species_growth_mult = 0.05
+			mult = value:tenet_integration_pop_growth_bonus
+			fix_key = per_different_species
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			founder_species_growth_mult = 0.02
+			mult = value:count_country_embassies_bonus
+			fix_key = per_embassy
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_traders_trade_produces_add = 1
+		}
+	}
+
+	tier = {
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			custom_tooltip = tenet_integration_external_leader_2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_entertainers_trade_produces_add = 2
+		}
+
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = no }
+			}
+			founder_species_growth_mult = 0.05
+			mult = value:tenet_integration_pop_growth_bonus
+			fix_key = per_different_species
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			founder_species_growth_mult = 0.03
+			mult = value:count_country_embassies_bonus
+			fix_key = per_embassy
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_traders_trade_produces_add = 2
+		}
+	}
+
+	tier = {
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			custom_tooltip = tenet_integration_external_leader_3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_entertainers_trade_produces_add = 4
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			founder_species_growth_mult = 0.04
+			mult = value:count_country_embassies_bonus
+			fix_key = per_embassy
+			should_mult_desc = no
+		}
+
+		triggered_colony_modifier = {
+			potential = {
+				from = { is_gestalt = no }
+			}
+			founder_species_growth_mult = 0.05
+			mult = value:tenet_integration_pop_growth_bonus
+			fix_key = per_different_species
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_traders_trade_produces_add = 4
+		}
+	}
+}
+
+tenet_diaspora = {
+	ethics = { ethic_xenophile }
+	on_unlock = {
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { is_same_value = root.owner }
+				}
+				add_opinion_modifier = {
+					who = root.owner
+					modifier = triggered_opinion_diaspora
+				}
+			}
+		}
+	}
+	on_lock = {
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { is_same_value = root.owner }
+				}
+				remove_opinion_modifier = {
+					who = root.owner
+					modifier = triggered_opinion_diaspora
+				}
+			}
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_diaspora_only_migration_treaty_tt
+			show_only_custom_tooltip = no
+			show_if_trigger_false = yes
+
+			possible = {
+				num_migration_pacts > 0
+			}
+
+			envoy_favor_chance_gain_migration_treaty_add = 0.005
+			commercial_pact_diaspora_tenet_mult = 0.1
+			research_sharing_diaspora_tenet_mult = 0.1
+			tenet_diaspora_opinion_bonus = 0.05
+			country_diaspora_tenet_trust_cap_add = 25
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			custom_tooltip = tenet_diaspora_only_open_border_tt
+			show_only_custom_tooltip = no
+			show_if_trigger_false = yes
+
+			possible = {
+				any_country = {
+					NOT = { is_same_value = root }
+					has_communications = root
+					root = { NOT = { has_closed_borders = prev } }
+				}
+			}
+			commercial_pact_diaspora_tenet_mult = 0.05
+			research_sharing_diaspora_tenet_mult = 0.05
+			tenet_diaspora_opinion_bonus = 0.05
+			country_diaspora_tenet_trust_cap_add = 15
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_diaspora_only_migration_treaty_tt
+			show_only_custom_tooltip = no
+			show_if_trigger_false = yes
+
+			possible = {
+				num_migration_pacts > 0
+			}
+
+			envoy_favor_chance_gain_migration_treaty_add = 0.01
+			commercial_pact_diaspora_tenet_mult = 0.2
+			research_sharing_diaspora_tenet_mult = 0.2
+			tenet_diaspora_opinion_bonus = 0.1
+			country_diaspora_tenet_trust_cap_add = 50
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			custom_tooltip = tenet_diaspora_only_open_border_tt
+			show_only_custom_tooltip = no
+			show_if_trigger_false = yes
+
+			possible = {
+				any_country = {
+					NOT = { is_same_value = root }
+					has_communications = root
+					root = { NOT = { has_closed_borders = prev } }
+				}
+			}
+			commercial_pact_diaspora_tenet_mult = 0.1
+			research_sharing_diaspora_tenet_mult = 0.1
+			tenet_diaspora_opinion_bonus = 0.1
+			country_diaspora_tenet_trust_cap_add = 30
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_diaspora_only_migration_treaty_tt
+			show_only_custom_tooltip = no
+			show_if_trigger_false = yes
+
+			possible = {
+				num_migration_pacts > 0
+			}
+
+			envoy_favor_chance_gain_migration_treaty_add = 0.02
+			commercial_pact_diaspora_tenet_mult = 0.4
+			research_sharing_diaspora_tenet_mult = 0.4
+			tenet_diaspora_opinion_bonus = 0.2
+			country_diaspora_tenet_trust_cap_add = 75
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			custom_tooltip = tenet_diaspora_only_open_border_tt
+			show_only_custom_tooltip = no
+			show_if_trigger_false = yes
+
+			possible = {
+				any_country = {
+					NOT = { is_same_value = root }
+					has_communications = root
+					root = { NOT = { has_closed_borders = prev } }
+				}
+			}
+
+			commercial_pact_diaspora_tenet_mult = 0.2
+			research_sharing_diaspora_tenet_mult = 0.2
+			tenet_diaspora_opinion_bonus = 0.2
+			country_diaspora_tenet_trust_cap_add = 45
+		}
+	}
+}
+
+tenet_mutualism = {
+	ethics = { ethic_xenophile }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			desc = tenet_mutualism_gestalt_desc
+		}
+	}
+
+	on_unlock = {
+		hidden_effect = {
+			if = {
+				limit = { is_variable_set = mutualism_tier }
+				clear_variable = mutualism_tier
+			}
+			export_trigger_value_to_variable = {
+				trigger = get_tenet_tier
+				variable = mutualism_tier
+				parameters = {
+					tenet = tenet_mutualism
+				}
+			}
+		}
+	}
+
+	on_lock = {
+		hidden_effect = {
+			if = {
+				limit = { is_variable_set = mutualism_tier }
+				clear_variable = mutualism_tier
+			}
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			diplo_weight_mult = 0.1
+			envoy_favor_chance_gain_add = 0.005
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.1
+		}
+		triggered_country_modifier = {
+			country_tenets_trade_produces_add = 6
+			mult = value:count_country_embassies_bonus
+			fix_key = per_embassy
+			should_mult_desc = no
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			diplo_weight_mult = 0.2
+			envoy_favor_chance_gain_add = 0.01
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.2
+		}
+		triggered_country_modifier = {
+			country_tenets_trade_produces_add = 9
+			mult = value:count_country_embassies_bonus
+			fix_key = per_embassy
+			should_mult_desc = no
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			diplo_weight_mult = 0.3
+			envoy_favor_chance_gain_add = 0.02
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.3
+		}
+		triggered_country_modifier = {
+			country_tenets_trade_produces_add = 12
+			mult = value:count_country_embassies_bonus
+			fix_key = per_embassy
+			should_mult_desc = no
+		}
+	}
+}
+
+#==========================
+# Spiritualist
+#==========================
+
+tenet_unism = {
+	ethics = { ethic_spiritualist }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			desc = tenet_unism_gestalt_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			country_unity_produces_mult = 0.1
+		}
+		triggered_country_modifier = {
+			planet_stability_add = 3
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			country_unity_produces_mult = 0.15
+		}
+		triggered_country_modifier = {
+			planet_stability_add = 5
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			country_unity_produces_mult = 0.2
+		}
+		triggered_country_modifier = {
+			planet_stability_add = 7
+		}
+	}
+}
+
+tenet_higher_law = {
+	ethics = { ethic_spiritualist }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			desc = tenet_higher_law_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			tenet_higher_law_edict_modifier = 1
+			tenet_higher_law_agenda_modifier = 0.003
+			fix_key = per_100_bureaucrat
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			tenet_higher_law_edict_modifier = 1
+			tenet_higher_law_agenda_modifier = 0.003
+			fix_key = per_100_coordinator
+		}
+		triggered_country_modifier = {
+		planet_bureaucrats_upkeep_mult = -0.05
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			tenet_higher_law_edict_modifier = 1.5
+			tenet_higher_law_agenda_modifier = 0.006
+			fix_key = per_100_bureaucrat
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			tenet_higher_law_edict_modifier = 1.5
+			tenet_higher_law_agenda_modifier = 0.006
+			fix_key = per_100_coordinator
+		}
+		triggered_country_modifier = {
+			planet_bureaucrats_upkeep_mult = -0.1
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			tenet_higher_law_edict_modifier = 2
+			tenet_higher_law_agenda_modifier = 0.009
+			fix_key = per_100_bureaucrat
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			tenet_higher_law_edict_modifier = 2
+			tenet_higher_law_agenda_modifier = 0.009
+			fix_key = per_100_coordinator
+		}
+		triggered_country_modifier = {
+			planet_bureaucrats_upkeep_mult = -0.2
+		}
+	}
+}
+
+tenet_sacred_union = {
+	ethics = { ethic_spiritualist }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_sacred_union_hive
+			desc = tenet_sacred_union_desc # Uses default version
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_sacred_union_machine
+			desc = tenet_sacred_union_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			tenet_sacred_union_modifier = 0.005
+			fix_key = per_100_bureaucrat
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			tenet_sacred_union_modifier = 0.005
+			fix_key = per_100_coordinator
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+				is_lithoid_or_infernal_empire = no
+				is_individual_machine = no
+			}
+			planet_bureaucrats_food_upkeep_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_bureaucrats_food_upkeep_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = { is_lithoid_empire = yes }
+			planet_bureaucrats_minerals_upkeep_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				OR = {
+					is_machine_empire = yes
+					is_individual_machine = yes
+				}
+			}
+			planet_bureaucrats_energy_upkeep_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = { is_infernal_empire = yes }
+			planet_bureaucrats_alloys_upkeep_add = 0.125
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			tenet_sacred_union_modifier = 0.01
+			fix_key = per_100_bureaucrat
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			tenet_sacred_union_modifier = 0.01
+			fix_key = per_100_coordinator
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+				is_lithoid_or_infernal_empire = no
+				is_individual_machine = no
+			}
+			planet_bureaucrats_food_upkeep_add = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_bureaucrats_food_upkeep_add = 1
+		}
+		triggered_country_modifier = {
+			potential = { is_lithoid_empire = yes }
+			planet_bureaucrats_minerals_upkeep_add = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				OR = {
+					is_machine_empire = yes
+					is_individual_machine = yes
+				}
+			}
+			planet_bureaucrats_energy_upkeep_add = 1
+		}
+		triggered_country_modifier = {
+			potential = { is_infernal_empire = yes }
+			planet_bureaucrats_alloys_upkeep_add = 0.25
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			tenet_sacred_union_modifier = 0.015
+			fix_key = per_100_bureaucrat
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			tenet_sacred_union_modifier = 0.015
+			fix_key = per_100_coordinator
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+				is_lithoid_or_infernal_empire = no
+				is_individual_machine = no
+			}
+			planet_bureaucrats_food_upkeep_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_bureaucrats_food_upkeep_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = { is_lithoid_empire = yes }
+			planet_bureaucrats_minerals_upkeep_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				OR = {
+					is_machine_empire = yes
+					is_individual_machine = yes
+				}
+			}
+			planet_bureaucrats_energy_upkeep_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = { is_infernal_empire = yes }
+			planet_bureaucrats_alloys_upkeep_add = 0.375
+		}
+	}
+}
+
+tenet_humility = {
+	ethics = { ethic_spiritualist }
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_gestalt = yes
+			}
+			name = tenet_humility_gestalt
+			desc = tenet_humility_gestalt_desc
+		}
+	}
+
+	on_lock = {
+		validate_species_rights = yes
+	}
+
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			pop_happiness = 0.1
+			pop_housing_usage_mult = -0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			custom_tooltip = tenet_humility_living_standard_tt
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_stability_add = 3
+			planet_pops_upkeep_mult = -0.2
+			pop_housing_usage_mult = -0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			pop_happiness = 0.15
+			pop_housing_usage_mult = -0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			custom_tooltip = tenet_humility_living_standard_tt
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_stability_add = 5
+			planet_pops_upkeep_mult = -0.3
+			pop_housing_usage_mult = -0.2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			pop_happiness = 0.2
+			pop_housing_usage_mult = -0.3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			custom_tooltip = tenet_humility_living_standard_tt
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_stability_add = 7
+			planet_pops_upkeep_mult = -0.4
+			pop_housing_usage_mult = -0.3
+		}
+	}
+}
+
+tenet_jubilation = {
+	ethics = { ethic_spiritualist }
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_machine_empire = yes
+			}
+			desc = tenet_jubilation_machine_desc
+		}
+	}
+
+	first_tier = 1
+
+	on_unlock = {
+		hidden_effect = {
+			if = {
+				limit = { is_variable_set = jubilation_tier }
+				clear_variable = jubilation_tier
+			}
+			export_trigger_value_to_variable = {
+				trigger = get_tenet_tier
+				variable = jubilation_tier
+				parameters = {
+					tenet = tenet_jubilation
+				}
+			}
+		}
+	}
+
+	on_lock = {
+		hidden_effect = {
+			if = {
+				limit = { is_variable_set = jubilation_tier }
+				clear_variable = jubilation_tier
+			}
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			planet_bureaucrats_trade_produces_add = 1
+			fix_key = per_100_bureaucrats
+		}
+		triggered_country_modifier = {
+			potential = {  is_gestalt = yes }
+			planet_bureaucrats_trade_produces_add = 1
+			fix_key = per_100_coordinators
+		}
+		triggered_country_modifier = {
+			custom_tooltip = tenet_jubilation_agenda_tt
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			planet_bureaucrats_trade_produces_add = 2
+			fix_key = per_100_bureaucrats
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+			}
+			planet_bureaucrats_trade_produces_add = 2
+			fix_key = per_100_coordinators
+		}
+		triggered_country_modifier = {
+			custom_tooltip = tenet_jubilation_agenda_tt
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			planet_bureaucrats_trade_produces_add = 4
+			fix_key = per_100_bureaucrats
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			planet_bureaucrats_trade_produces_add = 4
+			fix_key = per_100_coordinators
+		}
+		triggered_country_modifier = {
+			custom_tooltip = tenet_jubilation_agenda_tt
+		}
+	}
+}
+
+tenet_sacred_counsel = {
+	ethics = { ethic_spiritualist }
+	potential = { has_paragon_dlc = yes }
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			name = tenet_sacred_counsel_gestalt
+			desc = tenet_sacred_counsel_desc # Uses default version
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_sacred_counsel_official_tt
+			show_only_custom_tooltip = no
+			councilor_skill_add = 1
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			councilor_skill_add = 1
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_government_ethic_attraction = 0.15
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_sacred_counsel_official_tt
+			show_only_custom_tooltip = no
+			councilor_skill_add = 2
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			councilor_skill_add = 2
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_government_ethic_attraction = 0.30
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_sacred_counsel_official_tt
+			show_only_custom_tooltip = no
+			councilor_skill_add = 3
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			councilor_skill_add = 3
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_government_ethic_attraction = 0.45
+		}
+	}
+}
+
+#==========================
+# Materialist
+#==========================
+
+tenet_curiosity = {
+	ethics = { ethic_materialist }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			desc = tenet_curiosity_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			desc = tenet_curiosity_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_civilians_physics_research_produces_add = 0.25
+			planet_civilians_society_research_produces_add = 0.25
+			planet_civilians_engineering_research_produces_add = 0.25
+			planet_civilians_consumer_goods_upkeep_add = 0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_physics_research_produces_add = 0.25
+			planet_maintenance_drones_society_research_produces_add = 0.25
+			planet_maintenance_drones_engineering_research_produces_add = 0.25
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_machine_empire = yes
+			}
+			planet_maintenance_drones_energy_upkeep_add = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_maintenance_drones_food_upkeep_add = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_empire = yes
+			}
+			planet_maintenance_drones_minerals_upkeep_add = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_infernal_empire = yes
+			}
+			planet_maintenance_drones_alloys_upkeep_add = 0.05
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			all_technology_research_speed = 0.05
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_civilians_physics_research_produces_add = 0.5
+			planet_civilians_society_research_produces_add = 0.5
+			planet_civilians_engineering_research_produces_add = 0.5
+			planet_civilians_consumer_goods_upkeep_add = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_physics_research_produces_add = 0.5
+			planet_maintenance_drones_society_research_produces_add = 0.5
+			planet_maintenance_drones_engineering_research_produces_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_machine_empire = yes
+			}
+			planet_maintenance_drones_energy_upkeep_add = 0.4
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_maintenance_drones_food_upkeep_add = 0.4
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_empire = yes
+			}
+			planet_maintenance_drones_minerals_upkeep_add = 0.4
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_infernal_empire = yes
+			}
+			planet_maintenance_drones_alloys_upkeep_add = 0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			all_technology_research_speed = 0.075
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			planet_civilians_physics_research_produces_add = 0.75
+			planet_civilians_society_research_produces_add = 0.75
+			planet_civilians_engineering_research_produces_add = 0.75
+			planet_civilians_consumer_goods_upkeep_add = 0.3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_physics_research_produces_add = 0.75
+			planet_maintenance_drones_society_research_produces_add = 0.75
+			planet_maintenance_drones_engineering_research_produces_add = 0.75
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_machine_empire = yes
+			}
+			planet_maintenance_drones_energy_upkeep_add = 0.6
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_maintenance_drones_food_upkeep_add = 0.6
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_empire = yes
+			}
+			planet_maintenance_drones_minerals_upkeep_add = 0.6
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_infernal_empire = yes
+			}
+			planet_maintenance_drones_alloys_upkeep_add = 0.15
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			all_technology_research_speed = 0.1
+		}
+	}
+}
+
+tenet_consumerism = {
+	ethics = { ethic_materialist }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			name = tenet_consumerism_gestalt
+			desc = tenet_consumerism_gestalt_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			planet_artisans_trade_produces_add = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_farmers_trade_produces_add = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_infernal_empire = yes
+			}
+			planet_metallurgists_trade_produces_add = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_empire = yes
+				is_nomadic = no
+			}
+			planet_miners_trade_produces_add = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_empire = yes
+				is_nomadic = yes
+			}
+			country_trade_produces_mult = 0.05
+		}
+		triggered_country_modifier = {
+			potential = { is_machine_empire = yes }
+			planet_technician_trade_produces_add = 1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			planet_artisans_trade_produces_add = 3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_farmers_trade_produces_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_infernal_empire = yes
+			}
+			planet_metallurgists_trade_produces_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_empire = yes
+				is_nomadic = no
+			}
+			planet_miners_trade_produces_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_empire = yes
+				is_nomadic = yes
+			}
+			country_trade_produces_mult = 0.1
+		}
+		triggered_country_modifier = {
+			potential = { is_machine_empire = yes }
+			planet_technician_trade_produces_add = 1.5
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			planet_artisans_trade_produces_add = 4
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_farmers_trade_produces_add = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_infernal_empire = yes
+			}
+			planet_metallurgists_trade_produces_add = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_empire = yes
+				is_nomadic = no
+			}
+			planet_miners_trade_produces_add = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_lithoid_empire = yes
+				is_nomadic = yes
+			}
+			country_trade_produces_mult = 0.15
+		}
+		triggered_country_modifier = {
+			potential = { is_machine_empire = yes }
+			planet_technician_trade_produces_add = 2
+		}
+	}
+}
+
+tenet_open_sourcing = {
+	ethics = { ethic_materialist }
+	first_tier = 1
+
+	on_unlock = {
+		if = {
+			limit = { is_gestalt = no }
+			custom_tooltip = tenet_open_sourcing_unlock_tt
+			set_country_flag = open_sourcing_policy_unlock
+		}
+	}
+	on_lock = {
+		if = {
+			limit = { is_gestalt = no }
+			remove_country_flag = open_sourcing_policy_unlock
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			planet_jobs_trade_produces_mult = 0.05
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_trade_produces_add = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_physics_research_produces_add = 0.1
+			planet_maintenance_drones_society_research_produces_add = 0.1
+			planet_maintenance_drones_engineering_research_produces_add = 0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_machine_empire = yes
+			}
+			planet_maintenance_drones_energy_upkeep_add = 0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_maintenance_drones_food_upkeep_add = 0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_empire = yes
+			}
+			planet_maintenance_drones_minerals_upkeep_add = 0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_infernal_empire = yes
+			}
+			planet_maintenance_drones_alloys_upkeep_add = 0.025
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			country_trade_produces_mult = 0.05
+			all_technology_research_speed = 0.03
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			planet_jobs_trade_produces_mult = 0.075
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_trade_produces_add = 2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_physics_research_produces_add = 0.2
+			planet_maintenance_drones_society_research_produces_add = 0.2
+			planet_maintenance_drones_engineering_research_produces_add = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_machine_empire = yes
+			}
+			planet_maintenance_drones_energy_upkeep_add = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_maintenance_drones_food_upkeep_add = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_empire = yes
+			}
+			planet_maintenance_drones_minerals_upkeep_add = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_infernal_empire = yes
+			}
+			planet_maintenance_drones_alloys_upkeep_add = 0.05
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			country_trade_produces_mult = 0.1
+			all_technology_research_speed = 0.05
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			planet_jobs_trade_produces_mult = 0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_trade_produces_add = 3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_physics_research_produces_add = 0.3
+			planet_maintenance_drones_society_research_produces_add = 0.3
+			planet_maintenance_drones_engineering_research_produces_add = 0.3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_machine_empire = yes
+			}
+			planet_maintenance_drones_energy_upkeep_add = 0.3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_or_infernal_empire = no
+			}
+			planet_maintenance_drones_food_upkeep_add = 0.3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_lithoid_empire = yes
+			}
+			planet_maintenance_drones_minerals_upkeep_add = 0.3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+				is_wilderness_empire = no
+				is_infernal_empire = yes
+			}
+			planet_maintenance_drones_alloys_upkeep_add = 0.075
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_wilderness_empire = yes
+			}
+			country_trade_produces_mult = 0.15
+			all_technology_research_speed = 0.07
+		}
+	}
+}
+
+tenet_observation = {
+	ethics = { ethic_materialist }
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			station_researchers_produces_mult = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			starbase_collected_system_physics_research_mult = 0.2
+			starbase_collected_system_society_research_mult = 0.2
+			starbase_collected_system_engineering_research_mult = 0.2
+		}
+		triggered_country_modifier = {
+			planet_jobs_society_research_produces_mult = 0.1
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			station_researchers_produces_mult = 0.4
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			starbase_collected_system_physics_research_mult = 0.4
+			starbase_collected_system_society_research_mult = 0.4
+			starbase_collected_system_engineering_research_mult = 0.4
+		}
+		triggered_country_modifier = {
+			planet_jobs_society_research_produces_mult = 0.2
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			station_researchers_produces_mult = 0.6
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			starbase_collected_system_physics_research_mult = 0.6
+			starbase_collected_system_society_research_mult = 0.6
+			starbase_collected_system_engineering_research_mult = 0.6
+		}
+		triggered_country_modifier = {
+			planet_jobs_society_research_produces_mult = 0.3
+		}
+	}
+}
+
+tenet_physicality = {
+	ethics = { ethic_materialist }
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			megastructures_unity_cost_mult = -0.15
+			planet_jobs_physics_research_produces_mult = 0.1
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			megastructures_unity_cost_mult = -0.3
+			planet_jobs_physics_research_produces_mult = 0.2
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			megastructures_unity_cost_mult = -0.45
+			planet_jobs_physics_research_produces_mult = 0.3
+		}
+	}
+}
+
+tenet_engineering = {
+	ethics = { ethic_materialist }
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			megastructures_upkeep_mult = -0.1
+			planet_jobs_engineering_research_produces_mult = 0.1
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			megastructures_upkeep_mult = -0.2
+			planet_jobs_engineering_research_produces_mult = 0.2
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			megastructures_upkeep_mult = -0.3
+			planet_jobs_engineering_research_produces_mult = 0.3
+		}
+	}
+}
+
+tenet_rationality = {
+	ethics = { ethic_materialist }
+	potential = { has_paragon_dlc = yes }
+	swappable_data = {
+		swap_type = {
+			trigger = { is_gestalt = yes }
+			desc = tenet_rationality_gestalt_desc
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_rationality_scientist_tt
+			show_only_custom_tooltip = no
+			scientist_skill_add = 1
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			scientist_skill_add = 3
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_rationality_scientist_tt
+			show_only_custom_tooltip = no
+			scientist_skill_add = 2
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			scientist_skill_add = 4
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_rationality_scientist_tt
+			show_only_custom_tooltip = no
+			scientist_skill_add = 3
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			scientist_skill_add = 5
+		}
+	}
+}
+
+tenet_techno_synergy = {
+	ethics = { ethic_materialist }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			desc = tenet_techno_synergy_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			desc = tenet_techno_synergy_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_artisan_bonus_workforce_mult = 0.005
+			mult = value:count_researchers_div_100
+			fix_key = per_100_researchers
+			should_mult_desc = no
+		}
+
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+				is_hive_empire = yes
+			}
+			pop_mining_drone_bonus_workforce_mult = 0.005
+			mult = value:count_calculator_div_100
+			fix_key = per_100_brain_drone
+			should_mult_desc = no
+		}
+
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+				is_hive_empire = yes
+			}
+			arkship_harvest_resources_exotic_gases_produces_mult = 0.01
+			arkship_harvest_resources_rare_crystals_produces_mult = 0.01
+			arkship_harvest_resources_volatile_motes_produces_mult = 0.01
+			mult = value:count_calculator_div_100
+			fix_key = per_100_calculator
+			should_mult_desc = no
+		}
+
+		triggered_country_modifier = {
+			potential = { is_machine_empire = yes }
+			pop_technician_drone_bonus_workforce_mult = 0.005
+			mult = value:count_calculator_div_100
+			fix_key = per_100_calculator
+			should_mult_desc = no
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_artisan_bonus_workforce_mult = 0.01
+			mult = value:count_researchers_div_100
+			fix_key = per_100_researchers
+			should_mult_desc = no
+		}
+
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+				is_hive_empire = yes
+			}
+			pop_mining_drone_bonus_workforce_mult = 0.01
+			mult = value:count_calculator_div_100
+			fix_key = per_100_brain_drone
+			should_mult_desc = no
+		}
+
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+				is_hive_empire = yes
+			}
+			arkship_harvest_resources_exotic_gases_produces_mult = 0.02
+			arkship_harvest_resources_rare_crystals_produces_mult = 0.02
+			arkship_harvest_resources_volatile_motes_produces_mult = 0.02
+			mult = value:count_calculator_div_100
+			fix_key = per_100_calculator
+			should_mult_desc = no
+		}
+
+		triggered_country_modifier = {
+			potential = { is_machine_empire = yes }
+			pop_technician_drone_bonus_workforce_mult = 0.01
+			mult = value:count_calculator_div_100
+			fix_key = per_100_calculator
+			should_mult_desc = no
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_artisan_bonus_workforce_mult = 0.015
+			mult = value:count_researchers_div_100
+			fix_key = per_100_researchers
+			should_mult_desc = no
+		}
+
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+				is_hive_empire = yes
+			}
+			pop_mining_drone_bonus_workforce_mult = 0.015
+			mult = value:count_calculator_div_100
+			fix_key = per_100_brain_drone
+			should_mult_desc = no
+		}
+
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+				is_hive_empire = yes
+			}
+			arkship_harvest_resources_exotic_gases_produces_mult = 0.03
+			arkship_harvest_resources_rare_crystals_produces_mult = 0.03
+			arkship_harvest_resources_volatile_motes_produces_mult = 0.03
+			mult = value:count_calculator_div_100
+			fix_key = per_100_calculator
+			should_mult_desc = no
+		}
+
+		triggered_country_modifier = {
+			potential = { is_machine_empire = yes }
+			pop_technician_drone_bonus_workforce_mult = 0.015
+			mult = value:count_calculator_div_100
+			fix_key = per_100_calculator
+			should_mult_desc = no
+		}
+	}
+}
+
+#==========================
+# Pacifist
+#==========================
+
+tenet_peaceful_prosperity = {
+	ethics = { ethic_pacifist }
+	first_tier = 1
+
+	on_unlock = {
+		custom_tooltip = tenet_peaceful_prosperity_unlock_tt
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			megastructures_cost_mult = -0.15
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			megastructures_cost_mult = -0.25
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.4
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			megastructures_cost_mult = -0.35
+		}
+		inline_script = {
+			script = forceofwill/tenet_refugee_attraction
+			VALUE = 0.6
+		}
+	}
+}
+
+tenet_autonomy = {
+	ethics = { ethic_pacifist }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_hive_empire = yes
+				is_nomadic = no
+			}
+			desc = tenet_autonomy_hive_desc
+		}
+		swap_type = {
+			trigger = {
+				is_machine_empire = yes
+				is_nomadic = no
+			}
+			desc = tenet_autonomy_machine_desc
+		}
+		swap_type = {
+			trigger = { is_nomadic = yes }
+			desc = tenet_autonomy_nomads_desc
+		}
+	}
+
+	on_unlock = {
+		if = {
+			limit = { is_wilderness_empire = yes }
+			custom_tooltip = tenet_autonomy_effect_wilderness_tt
+		}
+		else = {
+			custom_tooltip = tenet_autonomy_effect_tt
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			planet_farmers_unity_produces_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			planet_miners_alloys_produces_add = 0.25
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			planet_technician_alloys_produces_add = 0.25
+		}
+		triggered_country_modifier = {
+			potential = {
+				country_uses_consumer_goods = yes
+				is_nomadic = no
+			}
+			planet_technician_consumer_goods_produces_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				country_uses_consumer_goods = no
+				is_nomadic = no
+			}
+			tenet_autonomy_amenities_modifier = 50
+			fix_key = per_100_technician_drone
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+				country_uses_consumer_goods = yes
+			}
+			planet_soldiers_consumer_goods_produces_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+				country_uses_consumer_goods = no
+			}
+			tenet_autonomy_amenities_modifier = 50
+			fix_key = per_100_warrior_drones
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			planet_farmers_unity_produces_add = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			planet_miners_alloys_produces_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			planet_technician_alloys_produces_add = 0.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				country_uses_consumer_goods = yes
+				is_nomadic = no
+			}
+			planet_technician_consumer_goods_produces_add = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				country_uses_consumer_goods = no
+				is_nomadic = no
+			}
+			tenet_autonomy_amenities_modifier = 100
+			fix_key = per_100_technician_drone
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+				country_uses_consumer_goods = yes
+			}
+			planet_soldiers_consumer_goods_produces_add = 1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+				country_uses_consumer_goods = no
+			}
+			tenet_autonomy_amenities_modifier = 100
+			fix_key = per_100_warrior_drones
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			planet_farmers_unity_produces_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			planet_miners_alloys_produces_add = 0.75
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			planet_technician_alloys_produces_add = 0.75
+		}
+		triggered_country_modifier = {
+			potential = {
+				country_uses_consumer_goods = yes
+				is_nomadic = no
+			}
+			planet_technician_consumer_goods_produces_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				country_uses_consumer_goods = no
+				is_nomadic = no
+			}
+			tenet_autonomy_amenities_modifier = 150
+			fix_key = per_100_technician_drone
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+				country_uses_consumer_goods = yes
+			}
+			planet_soldiers_consumer_goods_produces_add = 1.5
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+				country_uses_consumer_goods = no
+			}
+			tenet_autonomy_amenities_modifier = 150
+			fix_key = per_100_warrior_drones
+		}
+	}
+}
+
+tenet_moral_pacifism = {
+	ethics = { ethic_pacifist }
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			country_border_friction_mult = -0.1
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_civilian_bonus_workforce_mult = 0.005
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			pop_maintenance_drone_bonus_workforce_mult = 0.005
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			empire_size_penalty_mult = -0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_border_friction_mult = -0.2
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_civilian_bonus_workforce_mult = 0.01
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			pop_maintenance_drone_bonus_workforce_mult = 0.01
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			empire_size_penalty_mult = -0.2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_border_friction_mult = -0.3
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_civilian_bonus_workforce_mult = 0.015
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			pop_maintenance_drone_bonus_workforce_mult = 0.015
+			mult = ideology.value:galactic_strength_percentage
+			fix_key = per_galactic_strength
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			empire_size_penalty_mult = -0.3
+		}
+	}
+}
+
+tenet_peacekeeping = {
+	ethics = { ethic_pacifist }
+	first_tier = 1
+
+	on_unlock = {
+		custom_tooltip = tenet_peacekeeping_unlock_tt
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 0.35
+		}
+
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			custom_tooltip = tenet_peacekeeping_default_effect_tt_1
+			starbase_outpost_cost_mult = @tenet_peacekeeping_cost_1
+			starbase_modules_cost_mult = @tenet_peacekeeping_cost_1
+			starbase_buildings_cost_mult = @tenet_peacekeeping_cost_1
+			starbase_upgrade_cost_mult = @tenet_peacekeeping_cost_1
+			starbase_defenses_build_cost_mult = @tenet_peacekeeping_cost_1
+			country_starbase_influence_cost_mult = @tenet_peacekeeping_cost_1
+			mult = ideology.value:galactic_strength_percentage
+		}
+
+		triggered_country_modifier = {
+			potential = { is_nomadic = yes }
+			custom_tooltip = tenet_peacekeeping_nomad_effect_tt_1
+			megastructures_waystations_cost_mult = @tenet_peacekeeping_cost_1
+			starbase_waystations_modules_cost_mult = @tenet_peacekeeping_cost_1
+			starbase_waystations_cost_mult = @tenet_peacekeeping_cost_1
+			mult = ideology.value:galactic_strength_percentage
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 0.75
+		}
+
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			custom_tooltip = tenet_peacekeeping_default_effect_tt_2
+			starbase_outpost_cost_mult = @tenet_peacekeeping_cost_2
+			starbase_modules_cost_mult = @tenet_peacekeeping_cost_2
+			starbase_buildings_cost_mult = @tenet_peacekeeping_cost_2
+			starbase_upgrade_cost_mult = @tenet_peacekeeping_cost_2
+			starbase_defenses_build_cost_mult = @tenet_peacekeeping_cost_2
+			country_starbase_influence_cost_mult = @tenet_peacekeeping_cost_2
+			mult = ideology.value:galactic_strength_percentage
+		}
+
+		triggered_country_modifier = {
+			potential = { is_nomadic = yes }
+			custom_tooltip = tenet_peacekeeping_nomad_effect_tt_2
+			megastructures_waystations_cost_mult = @tenet_peacekeeping_cost_2
+			starbase_waystations_modules_cost_mult = @tenet_peacekeeping_cost_2
+			starbase_waystations_cost_mult = @tenet_peacekeeping_cost_2
+			mult = ideology.value:galactic_strength_percentage
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 1.5
+		}
+
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			custom_tooltip = tenet_peacekeeping_default_effect_tt_3
+			starbase_outpost_cost_mult = @tenet_peacekeeping_cost_3
+			starbase_modules_cost_mult = @tenet_peacekeeping_cost_3
+			starbase_buildings_cost_mult = @tenet_peacekeeping_cost_3
+			starbase_upgrade_cost_mult = @tenet_peacekeeping_cost_3
+			starbase_defenses_build_cost_mult = @tenet_peacekeeping_cost_3
+			country_starbase_influence_cost_mult = @tenet_peacekeeping_cost_3
+			mult = ideology.value:galactic_strength_percentage
+		}
+
+		triggered_country_modifier = {
+			potential = { is_nomadic = yes }
+			custom_tooltip = tenet_peacekeeping_nomad_effect_tt_3
+			megastructures_waystations_cost_mult = @tenet_peacekeeping_cost_3
+			starbase_waystations_modules_cost_mult = @tenet_peacekeeping_cost_3
+			starbase_waystations_cost_mult = @tenet_peacekeeping_cost_3
+			mult = ideology.value:galactic_strength_percentage
+		}
+	}
+}
+
+tenet_disarmament = {
+	ethics = { ethic_pacifist }
+	first_tier = 1
+	on_unlock = {
+		hidden_effect = {
+			export_trigger_value_to_variable = {
+				trigger = get_tenet_tier
+				variable = disarmament_tier
+				parameters = {
+					tenet = tenet_disarmament
+				}
+			}
+
+			if = {
+				limit = {
+					check_variable = {
+						which = disarmament_tier
+						value = 1
+					}
+				}
+				tenet_disarmament_add_opinion_modifier = { TIER = 1 }
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = disarmament_tier
+						value = 2
+					}
+				}
+				tenet_disarmament_add_opinion_modifier = { TIER = 2 }
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = disarmament_tier
+						value = 3
+					}
+				}
+				tenet_disarmament_add_opinion_modifier = { TIER = 3 }
+			}
+		}
+
+		show_only_custom_tooltip = no
+
+		if = {
+			limit = { is_variable_set = disarmament_tier }
+			custom_tooltip = tenet_disarmament_opinion_tt
+			custom_tooltip = tenet_disarmament_agenda_unlock_tt
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = local_tenet_tier
+					value = 1
+				}
+			}
+			custom_tooltip = tenet_disarmament_opinion_tt_base_1
+			custom_tooltip = tenet_disarmament_agenda_unlock_tt_base_1
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = local_tenet_tier
+					value = 2
+				}
+			}
+			custom_tooltip = tenet_disarmament_opinion_tt_base_2
+			custom_tooltip = tenet_disarmament_agenda_unlock_tt_base_2
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = local_tenet_tier
+					value = 3
+				}
+			}
+			custom_tooltip = tenet_disarmament_opinion_tt_base_3
+			custom_tooltip = tenet_disarmament_agenda_unlock_tt_base_3
+		}
+	}
+
+	on_lock = {
+		hidden_effect = {
+			if = {
+				limit = { is_variable_set = disarmament_tier }
+				clear_variable = disarmament_tier
+			}
+
+			every_country = {
+				remove_opinion_modifier = {
+					who = root.owner
+					modifier = opinion_disarmament_1
+				}
+				remove_opinion_modifier = {
+					who = root.owner
+					modifier = opinion_disarmament_2
+				}
+				remove_opinion_modifier = {
+					who = root.owner
+					modifier = opinion_disarmament_3
+				}
+			}
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			planet_stability_add = @tenet_disarmament_stability_base
+			mult = value:count_years_of_peace_maxed|MAX|@tenet_disarmament_stability_max_1|
+			custom_tooltip = tenet_disarmament_stability_tt_1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_stability_add = @tenet_disarmament_stability_base
+			mult = value:count_years_of_peace_maxed|MAX|@tenet_disarmament_stability_max_2|
+			custom_tooltip = tenet_disarmament_stability_tt_2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_stability_add = @tenet_disarmament_stability_base
+			mult = value:count_years_of_peace_maxed|MAX|@tenet_disarmament_stability_max_3|
+			custom_tooltip = tenet_disarmament_stability_tt_3
+		}
+	}
+}
+
+tenet_life_reverence = {
+	ethics = { ethic_pacifist }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_life_reverence_machine
+			desc = tenet_life_reverence_machine_desc
+		}
+	}
+
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			logistic_growth_mult = 0.05
+			pop_healthcare_bonus_workforce_mult = 0.05
+		}
+		# Hive
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+			}
+			logistic_growth_mult = 0.10
+			pop_spawning_drone_bonus_workforce_mult = 0.10
+		}
+		# Machine
+		triggered_country_modifier = {
+			potential = {
+				is_machine_empire = yes
+			}
+			planet_pop_assembly_mult = 0.10
+			pop_maintenance_drone_bonus_workforce_mult = 0.10
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			army_damage_mult = -0.05
+			country_naval_cap_mult = -0.05
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			army_damage_mult = -0.10
+			country_naval_cap_mult = -0.10
+		}
+	}
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			logistic_growth_mult = 0.10
+			pop_healthcare_bonus_workforce_mult = 0.10
+		}
+		# Hive
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+			}
+			logistic_growth_mult = 0.20
+			pop_spawning_drone_bonus_workforce_mult = 0.20
+		}
+		# Machine
+		triggered_country_modifier = {
+			potential = {
+				is_machine_empire = yes
+			}
+			planet_pop_assembly_mult = 0.20
+			pop_maintenance_drone_bonus_workforce_mult = 0.20
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			army_damage_mult = -0.10
+			country_naval_cap_mult = -0.10
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			army_damage_mult = -0.20
+			country_naval_cap_mult = -0.20
+		}
+	}
+	tier = {
+		# Regular
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			logistic_growth_mult = 0.20
+			pop_healthcare_bonus_workforce_mult = 0.20
+		}
+		# Hive
+		triggered_country_modifier = {
+			potential = {
+				is_hive_empire = yes
+			}
+			logistic_growth_mult = 0.30
+			pop_spawning_drone_bonus_workforce_mult = 0.30
+		}
+		# Machine
+		triggered_country_modifier = {
+			potential = {
+				is_machine_empire = yes
+			}
+			planet_pop_assembly_mult = 0.30
+			pop_maintenance_drone_bonus_workforce_mult = 0.30
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			army_damage_mult = -0.20
+			country_naval_cap_mult = -0.20
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			army_damage_mult = -0.30
+			country_naval_cap_mult = -0.30
+		}
+	}
+}
+
+#==========================
+# Militarist
+#==========================
+
+tenet_readiness = {
+	ethics = { ethic_militarist }
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			planet_metallurgists_produces_mult = 0.07
+			job_soldier_naval_cap_add = @tenet_readiness_naval_1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_metallurgists_produces_mult = 0.15
+			job_soldier_naval_cap_add = @tenet_readiness_naval_2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_metallurgists_produces_mult = 0.3
+			job_soldier_naval_cap_add = @tenet_readiness_naval_3
+		}
+	}
+}
+
+tenet_militia_conscription = {
+	ethics = { ethic_militarist }
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_machine_empire = yes
+			}
+			name = tenet_militia_conscription_machine
+			desc = tenet_militia_conscription_machine_desc
+		}
+		swap_type = {
+			trigger = {
+				is_hive_empire = yes
+			}
+			name = tenet_militia_conscription_hive
+			desc = tenet_militia_conscription_desc # Uses default version
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+				is_wilderness_empire = no
+			}
+			tenet_militia_conscription_defense_army_modifier = @tenet_militia_conscription_defense_army
+			fix_key = per_100_civilian
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			defense_armies_alloys_produces_add = 0.1
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			tenet_militia_conscription_arkship_hull_modifier = @tenet_militia_conscription_arkship_hull
+			fix_key = per_100_civilian
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			planet_soldiers_upkeep_mult = -0.1
+		}
+		triggered_country_modifier = {
+			armies_cost_mult = -0.1
+			armies_upkeep_mult = -0.3
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+				is_wilderness_empire = no
+			}
+			tenet_militia_conscription_defense_army_modifier = @tenet_militia_conscription_defense_army
+			fix_key = per_100_civilian
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			defense_armies_alloys_produces_add = 0.2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			tenet_militia_conscription_arkship_hull_modifier = @tenet_militia_conscription_arkship_hull
+			fix_key = per_100_civilian
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			planet_soldiers_upkeep_mult = -0.2
+		}
+		triggered_country_modifier = {
+			armies_cost_mult = -0.2
+			armies_upkeep_mult = -0.6
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+				is_wilderness_empire = no
+			}
+			tenet_militia_conscription_defense_army_modifier = @tenet_militia_conscription_defense_army
+			fix_key = per_100_civilian
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+			}
+			defense_armies_alloys_produces_add = 0.3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			tenet_militia_conscription_arkship_hull_modifier = @tenet_militia_conscription_arkship_hull
+			fix_key = per_100_civilian
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = yes
+			}
+			planet_soldiers_upkeep_mult = -0.3
+		}
+		triggered_country_modifier = {
+			armies_cost_mult = -0.4
+			armies_upkeep_mult = -0.9
+		}
+	}
+}
+
+tenet_crucible_principle = {
+	ethics = { ethic_militarist }
+	first_tier = 1
+
+	on_unlock = {
+		hidden_effect = {
+			country_event = { id = forceofwill.1258 }
+		}
+	}
+	on_lock = {
+		hidden_effect = {
+			country_event = { id = forceofwill.1259 }
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			planet_metallurgists_engineering_research_produces_add = 0.2
+			planet_metallurgists_physics_research_produces_add = 0.2
+			planet_metallurgists_society_research_produces_add = 0.2
+			category_voidcraft_research_speed_mult = 0.1
+			category_propulsion_research_speed_mult = 0.1
+		}
+		triggered_country_modifier = {
+			custom_tooltip = tenet_crucible_principle_tt_1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_metallurgists_engineering_research_produces_add = 0.4
+			planet_metallurgists_physics_research_produces_add = 0.4
+			planet_metallurgists_society_research_produces_add = 0.4
+			category_voidcraft_research_speed_mult = 0.2
+			category_propulsion_research_speed_mult = 0.2
+		}
+		triggered_country_modifier = {
+			custom_tooltip = tenet_crucible_principle_tt_2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_metallurgists_engineering_research_produces_add = 0.6
+			planet_metallurgists_physics_research_produces_add = 0.6
+			planet_metallurgists_society_research_produces_add = 0.6
+			category_voidcraft_research_speed_mult = 0.3
+			category_propulsion_research_speed_mult = 0.3
+		}
+		triggered_country_modifier = {
+			custom_tooltip = tenet_crucible_principle_tt_3
+		}
+	}
+}
+
+tenet_chain_of_command = {
+	ethics = { ethic_militarist }
+	potential = { has_paragon_dlc = yes }
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_gestalt = yes
+			}
+			name = tenet_chain_of_command_gestalt
+			desc = tenet_chain_of_command_gestalt_desc
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_chain_of_command_commander_tt
+			show_only_custom_tooltip = no
+			commander_initial_skill = 1
+		}
+		triggered_country_modifier = {
+			country_naval_cap_mult = 0.05
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			councilor_skill_add = 1
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_chain_of_command_commander_tt
+			show_only_custom_tooltip = no
+			commander_initial_skill = 2
+		}
+		triggered_country_modifier = {
+			country_naval_cap_mult = 0.1
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			councilor_skill_add = 2
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			custom_tooltip = tenet_chain_of_command_commander_tt
+			show_only_custom_tooltip = no
+			commander_initial_skill = 3
+		}
+		triggered_country_modifier = {
+			country_naval_cap_mult = 0.2
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			councilor_skill_add = 3
+		}
+	}
+}
+
+tenet_force_projection = {
+	ethics = { ethic_militarist }
+	first_tier = 1
+
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_gestalt = yes
+			}
+			desc = tenet_force_projection_gestalt_desc
+		}
+	}
+
+	on_unlock = {
+		custom_tooltip = tenet_force_projection_agenda_tt
+		if = {
+			limit = { is_wilderness_empire = yes }
+			custom_tooltip = tenet_force_projection_district_wilderness_tt
+		}
+		else = {
+			custom_tooltip = tenet_force_projection_district_tt
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			possible = { has_agenda_selected = agenda_show_of_force }
+			country_agendas_unity_produces_add = @tenet_force_projection_unity_1
+			mult = trigger:used_naval_capacity_integer
+			custom_tooltip = EMPTY_STRING
+		}
+		triggered_colony_modifier = {
+			possible = {
+				OR = {
+					is_scope_valid = no
+					solar_system = {
+						any_fleet_in_system = {
+							is_controlled_by = from
+							is_ship_class = shipclass_military
+							fleet_size >= 75
+						}
+					}
+				}
+			}
+			trigger_true_key_override = tenet_force_projection_modifier_tt
+			pop_bonus_workforce_mult = 0.03
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			possible = { has_agenda_selected = agenda_show_of_force }
+			country_agendas_unity_produces_add = @tenet_force_projection_unity_2
+			mult = trigger:used_naval_capacity_integer
+			custom_tooltip = EMPTY_STRING
+		}
+		triggered_colony_modifier = {
+			possible = {
+				OR = {
+					is_scope_valid = no
+					solar_system = {
+						any_fleet_in_system = {
+							is_controlled_by = from
+							is_ship_class = shipclass_military
+							fleet_size >= 75
+						}
+					}
+				}
+			}
+			trigger_true_key_override = tenet_force_projection_modifier_tt
+			pop_bonus_workforce_mult = 0.05
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			possible = { has_agenda_selected = agenda_show_of_force }
+			country_agendas_unity_produces_add = @tenet_force_projection_unity_3
+			mult = trigger:used_naval_capacity_integer
+			custom_tooltip = EMPTY_STRING
+		}
+		triggered_colony_modifier = {
+			possible = {
+				OR = {
+					is_scope_valid = no
+					solar_system = {
+						any_fleet_in_system = {
+							is_controlled_by = from
+							is_ship_class = shipclass_military
+							fleet_size >= 75
+						}
+					}
+				}
+			}
+			trigger_true_key_override = tenet_force_projection_modifier_tt
+			pop_bonus_workforce_mult = 0.07
+		}
+	}
+}
+
+tenet_war_bonds = {
+	ethics = { ethic_militarist }
+	first_tier = 1
+
+	tier = {
+		triggered_country_modifier = {
+			ships_upkeep_mult = -0.05
+		}
+		triggered_country_modifier = {
+			possible = { is_at_war = yes }
+			show_if_trigger_false = yes
+			country_market_max_price_mult = -0.15
+			country_trade_fee = -0.05
+			show_trigger_if_false = yes
+			show_trigger_if_true = yes
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			ships_upkeep_mult = -0.1
+		}
+		triggered_country_modifier = {
+			possible = { is_at_war = yes }
+			show_if_trigger_false = yes
+			country_market_max_price_mult = -0.3
+			country_trade_fee = -0.05
+			show_trigger_if_false = yes
+			show_trigger_if_true = yes
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			ships_upkeep_mult = -0.15
+		}
+		triggered_country_modifier = {
+			possible = { is_at_war = yes }
+			show_if_trigger_false = yes
+			country_market_max_price_mult = -0.45
+			country_trade_fee = -0.05
+			show_trigger_if_false = yes
+			show_trigger_if_true = yes
+		}
+	}
+}
+
+#==========================
+# Strategism (one tenet per ethic)
+#==========================
+
+tenet_strategism_authoritarian = {
+	ethics = { ethic_authoritarian }
+	priority = low
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_strategism_hive_authoritarian
+			desc = tenet_strategism_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_strategism_machine_authoritarian
+			desc = tenet_strategism_machine_desc
+		}
+	}
+
+	inline_script = {
+		script = forceofwill/tenet_strategism_tiers
+		AGENDA = preserve_the_order
+	}
+}
+
+tenet_strategism_egalitarian = {
+	ethics = { ethic_egalitarian }
+	priority = low
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_strategism_hive_egalitarian
+			desc = tenet_strategism_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_strategism_machine_egalitarian
+			desc = tenet_strategism_machine_desc
+		}
+	}
+
+	inline_script = {
+		script = forceofwill/tenet_strategism_tiers
+		AGENDA = give_and_take
+	}
+}
+
+tenet_strategism_xenophobe = {
+	ethics = { ethic_xenophobe }
+	priority = low
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_strategism_hive_xenophobe
+			desc = tenet_strategism_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_strategism_machine_xenophobe
+			desc = tenet_strategism_machine_desc
+		}
+	}
+
+	inline_script = {
+		script = forceofwill/tenet_strategism_tiers
+		AGENDA = strong_on_our_own
+	}
+}
+
+tenet_strategism_xenophile = {
+	ethics = { ethic_xenophile }
+	priority = low
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_strategism_hive_xenophile
+			desc = tenet_strategism_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_strategism_machine_xenophile
+			desc = tenet_strategism_machine_desc
+		}
+	}
+
+	inline_script = {
+		script = forceofwill/tenet_strategism_tiers_nomad_variant
+		AGENDA = open_arms
+	}
+}
+
+tenet_strategism_militarist = {
+	ethics = { ethic_militarist }
+	priority = low
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_strategism_hive_militarist
+			desc = tenet_strategism_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_strategism_machine_militarist
+			desc = tenet_strategism_machine_desc
+		}
+	}
+
+	inline_script = {
+		script = forceofwill/tenet_strategism_tiers
+		AGENDA = display_of_power
+	}
+}
+
+tenet_strategism_pacifist = {
+	ethics = { ethic_pacifist }
+	priority = low
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_strategism_hive_pacifist
+			desc = tenet_strategism_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_strategism_machine_pacifist
+			desc = tenet_strategism_machine_desc
+		}
+	}
+
+	inline_script = {
+		script = forceofwill/tenet_strategism_tiers_nomad_variant
+		AGENDA = we_come_in_peace
+	}
+}
+
+tenet_strategism_materialist = {
+	ethics = { ethic_materialist }
+	priority = low
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_strategism_hive_materialist
+			desc = tenet_strategism_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_strategism_machine_materialist
+			desc = tenet_strategism_machine_desc
+		}
+	}
+
+	inline_script = {
+		script = forceofwill/tenet_strategism_tiers
+		AGENDA = progressive_growth
+	}
+}
+
+tenet_strategism_spiritualist = {
+	ethics = { ethic_spiritualist }
+	priority = low
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			name = tenet_strategism_spiritualist
+			desc = tenet_strategism_hive_spiritualist_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			name = tenet_strategism_spiritualist
+			desc = tenet_strategism_machine_spiritualist_desc
+		}
+	}
+
+	inline_script = {
+		script = forceofwill/tenet_strategism_tiers
+		AGENDA = a_higher_purpose
+	}
+}
+
+#==========================
+# Propagandism (one tenet per ethic)
+#==========================
+
+inline_script = {
+	script = forceofwill/tenet_propagandism
+	ETHIC = authoritarian
+}
+
+inline_script = {
+	script = forceofwill/tenet_propagandism
+	ETHIC = egalitarian
+}
+
+inline_script = {
+	script = forceofwill/tenet_propagandism
+	ETHIC = xenophobe
+}
+
+inline_script = {
+	script = forceofwill/tenet_propagandism
+	ETHIC = xenophile
+}
+
+inline_script = {
+	script = forceofwill/tenet_propagandism
+	ETHIC = militarist
+}
+
+inline_script = {
+	script = forceofwill/tenet_propagandism
+	ETHIC = pacifist
+}
+
+inline_script = {
+	script = forceofwill/tenet_propagandism
+	ETHIC = materialist
+}
+
+inline_script = {
+	script = forceofwill/tenet_propagandism
+	ETHIC = spiritualist
+}
+
+#==========================
+# Priority Tenets
+#==========================
+
+### Lost Makers Directive Tenets
+
+# Battle Intelligence
+tenet_lost_makers_vultaum = {
+	ethics = { ethic_militarist }
+	priority = high
+	source_civic = origin_lost_makers
+	potential = { has_country_flag = lost_maker_precursor_vultaum }
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			intel_decryption_add = 3
+			at_war_spy_network_levels_add = 20
+			at_war_spy_network_daily_value_mult = 1
+		}
+	}
+}
+
+# Cultivation
+tenet_lost_makers_yuht = {
+	ethics = { ethic_xenophobe }
+	priority = high
+	source_civic = origin_lost_makers
+	potential = { has_country_flag = lost_maker_precursor_yuht }
+
+	first_tier = 1
+	on_unlock = {
+		if = {
+			limit = {
+				NOT = { has_technology = tech_ecological_adaptation }
+			}
+			add_research_option = tech_ecological_adaptation
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			terraforming_cost_mult = -0.50
+			terraform_speed_mult = 0.50
+		}
+		triggered_country_modifier = {
+			custom_tooltip = tenet_lost_makers_yuht_nursery_modifier_tt
+		}
+	}
+}
+
+# Blitz Warfare
+tenet_lost_makers_first_league = {
+	ethics = { ethic_militarist }
+	priority = high
+	source_civic = origin_lost_makers
+	potential = { has_country_flag = lost_maker_precursor_first_league }
+
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_machine_empire = yes
+			}
+			desc = tenet_lost_makers_first_league_machine_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			country_war_exhaustion_inflicted_mult = 0.25
+			army_experience_gain_mult = 0.50
+			army_damage_mult = 0.5
+			ship_speed_mult = 0.15
+		}
+	}
+}
+
+# Ordered Sanitation
+tenet_lost_makers_irassian = {
+	ethics = { ethic_authoritarian }
+	priority = high
+	source_civic = origin_lost_makers
+	potential = { has_country_flag = lost_maker_precursor_irassian }
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			custom_tooltip = tenet_lost_makers_irassian_control_decision_tt
+		}
+		triggered_country_modifier = {
+			founder_species_growth_mult = 0.1
+		}
+	}
+}
+
+# Nonhostility
+tenet_lost_makers_cybrex = {
+	ethics = { ethic_pacifist }
+	priority = high
+	source_civic = origin_lost_makers
+	potential = { has_country_flag = lost_maker_precursor_cybrex }
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			country_non_genocidal_trust_cap_add = 25
+		}
+
+		triggered_system_modifier = {
+			possible = {
+				OR = {
+					is_scope_valid = no # For tooltips
+					owner? = {
+						is_same_value = from
+					}
+				}
+			}
+			ships_upkeep_mult = -0.15
+		}
+	}
+}
+
+# Dimensionality
+tenet_lost_makers_zroni = {
+	ethics = { ethic_materialist }
+	priority = high
+	source_civic = origin_lost_makers
+	potential = { has_country_flag = lost_maker_precursor_zroni }
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			country_physics_tech_research_speed = 0.25
+			ship_anomaly_research_speed_mult = 0.25
+			shroud_delve_cooldown = -0.25
+		}
+		triggered_country_modifier = {
+			potential = {
+				has_astral_planes_dlc = yes
+			}
+			country_astral_rift_speed_mult = 0.25
+		}
+	}
+}
+
+# Scorched Earth
+tenet_lost_makers_baol = {
+	ethics = { ethic_militarist }
+	priority = high
+	source_civic = origin_lost_makers
+	potential = { has_country_flag = lost_maker_precursor_baol }
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			pc_nuked_habitability = 0.50
+		}
+		triggered_country_modifier = {
+			custom_tooltip = tenet_lost_makers_baol_scorched_earth
+		}
+	}
+}
+
+# Sensuality
+tenet_lost_makers_inetian = {
+	ethics = { ethic_xenophile }
+	priority = high
+	source_civic = origin_lost_makers
+	potential = { has_country_flag = lost_maker_precursor_inetian }
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			country_organic_trust_cap_add = 30
+			monthly_loyalty_from_organic_subjects = 2
+			show_only_custom_tooltip = no
+			custom_tooltip = tenet_lost_makers_inetian_opinion_tt
+		}
+	}
+}
+
+# Subjectivity
+tenet_lost_makers_adakkaria = {
+	ethics = { ethic_materialist }
+	priority = high
+	source_civic = origin_lost_makers
+	potential = { has_country_flag = lost_maker_precursor_adakkaria }
+
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				is_machine_empire = yes
+			}
+			name = tenet_lost_makers_adakkaria_machine
+			desc = tenet_lost_makers_adakkaria_machine_desc
+		}
+		swap_type = {
+			trigger = {
+				is_hive_empire = yes
+			}
+			name = tenet_lost_makers_adakkaria_hive
+			desc = tenet_lost_makers_adakkaria_hive_desc
+		}
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			leaders_upkeep_mult = -0.40
+			country_leader_pool_size = 1
+		}
+		triggered_country_modifier = {
+			country_society_research_produces_mult = @tenet_lost_makers_adakkaria_research
+			mult = value:count_owned_leaders
+			fix_key = per_leader
+			should_mult_desc = no
+		}
+	}
+}
+
+#==========================
+# Golden Generation tenets
+#==========================
+
+tenet_pillars_leadership = {
+	priority = high
+	source_civic = origin_golden_generation
+	potential = {
+		has_origin = origin_golden_generation
+		from = { has_ideology_flag = golden_generation_tenet_pillars_leadership }
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			country_leader_cap_add = 1
+			leaders_upkeep_mult = -0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_leader_cap_add = 1
+			leaders_upkeep_mult = -0.2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_leader_cap_add = 1
+			leaders_upkeep_mult = -0.4
+		}
+	}
+}
+
+tenet_excellence_doctrine = {
+	priority = high
+	source_civic = origin_golden_generation
+	potential = {
+		has_origin = origin_golden_generation
+		from = { has_ideology_flag = golden_generation_tenet_excellence_doctrine }
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			species_leader_exp_gain = 0.15
+			leader_lifespan_add = 10
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			species_leader_exp_gain = 0.3
+			leader_lifespan_add = 20
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			species_leader_exp_gain = 0.6
+			leader_lifespan_add = 40
+		}
+	}
+}
+
+tenet_high_command = {
+	priority = high
+	source_civic = origin_golden_generation
+	potential = {
+		has_origin = origin_golden_generation
+		from = { has_ideology_flag = golden_generation_tenet_high_command }
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			leader_skill_add = 1
+		}
+		triggered_country_modifier = {
+			pop_government_ethic_attraction = 0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			leader_skill_add = 1
+		}
+		triggered_country_modifier = {
+			pop_government_ethic_attraction = 0.2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			leader_skill_add = 1
+		}
+		triggered_country_modifier = {
+			pop_government_ethic_attraction = 0.4
+		}
+	}
+}
+
+tenet_favoritist_leadership = {
+	priority = high
+	source_civic = origin_golden_generation
+	potential = {
+		has_origin = origin_golden_generation
+		has_country_flag = golden_generation_favoritism_tenet
+		from = { has_ideology_flag = golden_generation_ideology }
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_leader_modifier = {
+			possible = {
+				OR = {
+					is_scope_valid = no # For tooltips
+					has_total_skill >= 5
+				}
+			}
+			species_leader_exp_gain = 0.1
+			fix_key = experienced_leader_exp
+		}
+		triggered_country_modifier = {
+			negative_leader_traits_species = -1
+		}
+	}
+	tier = {
+		triggered_leader_modifier = {
+			possible = {
+				OR = {
+					is_scope_valid = no # For tooltips
+					has_total_skill >= 5
+				}
+			}
+			species_leader_exp_gain = 0.2
+			fix_key = experienced_leader_exp
+		}
+		triggered_country_modifier = {
+			negative_leader_traits_species = -1
+		}
+	}
+	tier = {
+		triggered_leader_modifier = {
+			possible = {
+				OR = {
+					is_scope_valid = no # For tooltips
+					has_total_skill >= 5
+				}
+			}
+			species_leader_exp_gain = 0.4
+			fix_key = experienced_leader_exp
+		}
+		triggered_country_modifier = {
+			negative_leader_traits_species = -1
+		}
+	}
+}
+
+tenet_equitable_leadership = {
+	priority = high
+	source_civic = origin_golden_generation
+	potential = {
+		has_origin = origin_golden_generation
+		has_country_flag = golden_generation_equitable_tenet
+		from = { has_ideology_flag = golden_generation_ideology }
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			species_leader_exp_gain = 0.05
+			negative_leader_traits_species = -1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			species_leader_exp_gain = 0.10
+			negative_leader_traits_species = -1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			species_leader_exp_gain = 0.20
+			negative_leader_traits_species = -1
+		}
+	}
+}
+
+#==========================
+# Civic Specific tenets
+#==========================
+
+tenet_hedonism = {
+	priority = high
+	potential = { is_pleasure_seeker_empire = yes }
+	source_civic = civic_pleasure_seekers
+	swappable_data = {
+		swap_type = {
+			trigger = { has_valid_civic = civic_corporate_hedonism }
+			source_civic = civic_corporate_hedonism
+			desc = tenet_hedonism_corporate_desc
+		}
+		swap_type = {
+			trigger = { is_megacorp = yes }
+			desc = tenet_hedonism_corporate_desc
+		}
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			desc = tenet_hedonism_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			desc = tenet_hedonism_machine_desc
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			possible = { is_gestalt = no }
+			custom_tooltip = civilian_turned_hedonists_tt
+		}
+		triggered_country_modifier = {
+			possible = { is_gestalt = no }
+			planet_civilians_unity_produces_add = 0.1
+		}
+		triggered_country_modifier = {
+			possible = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_unity_produces_add = 0.1
+		}
+		triggered_country_modifier = {
+			possible = {
+				is_synthetic_empire = no
+				is_wilderness_empire = no
+			}
+			tenet_hedonism_logistic_growth_modifier = 0.0015
+		}
+		triggered_country_modifier = {
+			possible = { is_synthetic_empire = yes }
+			tenet_hedonism_roboticist_workforce_modifier = 0.0005
+		}
+		triggered_country_modifier = {
+			possible = { is_wilderness_empire = yes }
+			logistic_growth_mult = 0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			possible = { is_gestalt = no }
+			custom_tooltip = civilian_turned_hedonists_tt
+		}
+		triggered_country_modifier = {
+			possible = { is_gestalt = no }
+			planet_civilians_unity_produces_add = 0.2
+		}
+		triggered_country_modifier = {
+			possible = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_unity_produces_add = 0.2
+		}
+		triggered_country_modifier = {
+			possible = {
+				is_synthetic_empire = no
+				is_wilderness_empire = no
+			}
+			tenet_hedonism_logistic_growth_modifier = 0.003
+		}
+		triggered_country_modifier = {
+			possible = { is_synthetic_empire = yes }
+			tenet_hedonism_roboticist_workforce_modifier = 0.001
+		}
+		triggered_country_modifier = {
+			possible = { is_wilderness_empire = yes }
+			logistic_growth_mult = 0.2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			possible = { is_gestalt = no }
+			custom_tooltip = civilian_turned_hedonists_tt
+		}
+		triggered_country_modifier = {
+			possible = { is_gestalt = no }
+			planet_civilians_unity_produces_add = 0.3
+		}
+		triggered_country_modifier = {
+			possible = {
+				is_gestalt = yes
+				is_wilderness_empire = no
+			}
+			planet_maintenance_drones_unity_produces_add = 0.3
+		}
+		triggered_country_modifier = {
+			possible = {
+				is_synthetic_empire = no
+				is_wilderness_empire = no
+			}
+			tenet_hedonism_logistic_growth_modifier = 0.006
+		}
+		triggered_country_modifier = {
+			possible = { is_synthetic_empire = yes }
+			tenet_hedonism_roboticist_workforce_modifier = 0.0015
+		}
+		triggered_country_modifier = {
+			possible = { is_wilderness_empire = yes }
+			logistic_growth_mult = 0.3
+		}
+	}
+}
+
+tenet_supreme_will = {
+	priority = high
+	potential = {
+		OR = {
+			has_origin = origin_legendary_leader_imperial
+			has_origin = origin_legendary_leader_dictatorial
+			has_valid_civic = civic_imperial_cult
+		}
+	}
+	source_civic = origin_legendary_leader
+	swappable_data = {
+		swap_type = {
+			trigger = {
+				NOR = {
+					has_origin = origin_legendary_leader_imperial
+					has_origin = origin_legendary_leader_dictatorial
+				}
+				has_valid_civic = civic_imperial_cult
+			}
+			source_civic = civic_imperial_cult
+		}
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			desc = tenet_supreme_will_hive_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			desc = tenet_supreme_will_machine_desc
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			tenet_supreme_upkeep_mult = -0.0025
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+				OR = {
+					has_origin = origin_legendary_leader_dictatorial
+					has_origin = origin_legendary_leader_imperial
+				}
+			}
+			councilor_ruler_dictatorial_exp_gain = 0.3
+			leader_trait_selection_options_add = 1
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			ruler_skill_add = 2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			tenet_supreme_upkeep_mult = -0.005
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+				OR = {
+					has_origin = origin_legendary_leader_dictatorial
+					has_origin = origin_legendary_leader_imperial
+				}
+			}
+			councilor_ruler_dictatorial_exp_gain = 0.6
+			leader_trait_selection_options_add = 1
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			ruler_skill_add = 4
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			tenet_supreme_upkeep_mult = -0.01
+		}
+		triggered_country_modifier = {
+			potential = {
+				OR = {
+					has_origin = origin_legendary_leader_dictatorial
+					has_origin = origin_legendary_leader_imperial
+				}
+				is_gestalt = no
+			}
+			councilor_ruler_dictatorial_exp_gain = 0.9
+			leader_trait_selection_options_add = 1
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			ruler_skill_add = 6
+		}
+	}
+}
+
+tenet_sacrifism = {
+	priority = high
+	potential = { is_death_cult_empire = yes }
+	source_civic = civic_death_cult
+	swappable_data = {
+		swap_type = {
+			trigger = { has_valid_civic = civic_death_cult_corporate }
+			source_civic = civic_death_cult_corporate
+			desc = tenet_sacrifism_corporate_desc
+		}
+		swap_type = {
+			trigger = { is_megacorp = yes }
+			desc = tenet_sacrifism_corporate_desc
+		}
+		swap_type = {
+			trigger = {
+				is_robot_empire = yes
+				is_megacorp = no
+			}
+			desc = tenet_sacrifism_machine_desc
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_death_cult_empire = yes }
+			tenet_sacrifism_ideological_strength_add = 0.1
+		}
+		triggered_country_modifier = {
+			potential = { is_death_cult_empire = no }
+			custom_tooltip = tenet_sacrifism_default_effect_tt_1
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_amenities_usage_mult = -0.05
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			pop_amenities_usage_no_happiness_mult = -0.05
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_death_cult_empire = yes }
+			tenet_sacrifism_ideological_strength_add = 0.2
+		}
+		triggered_country_modifier = {
+			potential = { is_death_cult_empire = no }
+			custom_tooltip = tenet_sacrifism_default_effect_tt_2
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_amenities_usage_mult = -0.1
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			pop_amenities_usage_no_happiness_mult = -0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_death_cult_empire = yes }
+			tenet_sacrifism_ideological_strength_add = 0.3
+		}
+		triggered_country_modifier = {
+			potential = { is_death_cult_empire = no }
+			custom_tooltip = tenet_sacrifism_default_effect_tt_3
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = no }
+			pop_amenities_usage_mult = -0.2
+		}
+		triggered_country_modifier = {
+			potential = { is_gestalt = yes }
+			pop_amenities_usage_no_happiness_mult = -0.2
+		}
+	}
+}
+
+tenet_environmentalism = {
+	priority = high
+	potential = { has_valid_civic = civic_environmentalist }
+	source_civic = civic_environmentalist
+
+	on_unlock = {
+		potential = {
+			is_nomadic = yes
+		}
+		custom_tooltip = tenet_environmentalism_block_arkship_actions_tt
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+				country_uses_consumer_goods = yes
+			}
+			planet_pops_consumer_goods_upkeep_mult = -0.1
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			pop_environment_tolerance = 0.05
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_nomadic = no
+					country_uses_consumer_goods = no
+				}
+			}
+			planet_pops_upkeep_mult = -0.05
+			mult = value:natural_blocker_count
+			fix_key = per_natural_blocker
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			custom_tooltip = tenet_environmentalism_strip_mine_effect_tt
+		}
+
+		triggered_country_modifier = {
+			potential = { is_nomadic = yes }
+			tenet_environmentalist_nomad_pops_upkeep_mult = -0.05
+			arkship_harvest_resources_depletion_time_mult = -0.15
+			arkship_harvest_resources_produces_mult = 0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+				country_uses_consumer_goods = yes
+			}
+			planet_pops_consumer_goods_upkeep_mult = -0.2
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			pop_environment_tolerance = 0.1
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_nomadic = no
+					country_uses_consumer_goods = no
+				}
+			}
+			planet_pops_upkeep_mult = -0.1
+			mult = value:natural_blocker_count
+			fix_key = per_natural_blocker
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			custom_tooltip = tenet_environmentalism_strip_mine_effect_tt
+		}
+
+		triggered_country_modifier = {
+			potential = { is_nomadic = yes }
+			tenet_environmentalist_nomad_pops_upkeep_mult = -0.1
+			arkship_harvest_resources_depletion_time_mult = -0.30
+			arkship_harvest_resources_produces_mult = 0.2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = {
+				is_nomadic = no
+				country_uses_consumer_goods = yes
+			}
+			planet_pops_consumer_goods_upkeep_mult = -0.3
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			pop_environment_tolerance = 0.15
+		}
+		triggered_colony_modifier = {
+			potential = {
+				from = {
+					is_nomadic = no
+					country_uses_consumer_goods = no
+				}
+			}
+			planet_pops_upkeep_mult = -0.15
+			mult = value:natural_blocker_count
+			fix_key = per_natural_blocker
+			should_mult_desc = no
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			custom_tooltip = tenet_environmentalism_strip_mine_effect_tt
+		}
+
+		triggered_country_modifier = {
+			potential = { is_nomadic = yes }
+			tenet_environmentalist_nomad_pops_upkeep_mult = -0.15
+			arkship_harvest_resources_depletion_time_mult = -0.45
+			arkship_harvest_resources_produces_mult = 0.3
+		}
+	}
+}
+
+tenet_dimensionalism = {
+	priority = high
+	potential = { is_dimensional_worship_empire = yes }
+	source_civic = civic_dimensional_worship
+	swappable_data = {
+		swap_type = {
+			trigger = { has_valid_civic = civic_corporate_dimensional_worship }
+			source_civic = civic_corporate_dimensional_worship
+			desc = tenet_dimensionalism_corporate_desc
+		}
+	}
+
+	on_unlock = {
+		custom_tooltip = can_construct_dimensional_shrine
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			sb_dimensional_shrines_unity_produces_mult = 0.5
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = yes }
+			tenet_dimensionalism_nomad_unity_mult = 0.5
+		}
+		triggered_country_modifier = {
+			rare_tech_draw_chance_mult = 0.05
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			sb_dimensional_shrines_unity_produces_mult = 1.0
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = yes }
+			tenet_dimensionalism_nomad_unity_mult = 1.0
+		}
+		triggered_country_modifier = {
+			rare_tech_draw_chance_mult = 0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_nomadic = no }
+			sb_dimensional_shrines_unity_produces_mult = 2.0
+		}
+		triggered_country_modifier = {
+			potential = { is_nomadic = yes }
+			tenet_dimensionalism_nomad_unity_mult = 2.0
+		}
+		triggered_country_modifier = {
+			rare_tech_draw_chance_mult = 0.2
+		}
+	}
+}
+
+tenet_cult_of_the_composer = {
+	priority = high
+	potential = {
+		is_chosen_empire = yes
+		has_country_flag = the_composer_of_strands_as_chosen_patron
+	}
+	source_civic = civic_chosen
+	swappable_data = {
+		swap_type = {
+			trigger = { has_valid_civic = civic_hive_chosen }
+			source_civic = civic_hive_chosen
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_machine_chosen }
+			source_civic = civic_machine_chosen
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_corporate_chosen }
+			source_civic = civic_corporate_chosen
+		}
+	}
+
+	on_unlock = {
+		custom_tooltip = tenet_chosen_opinion_effect_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = tenet_chosen_opinion_effect_applied }
+				}
+				event_target:shroudwalker_enclave_country? = {
+					add_trust = {
+						who = root
+						amount = @tenet_chosen_positive_opinion
+					}
+				}
+				event_target:mindwarden_enclave_country? = {
+					add_trust = {
+						who = root
+						amount = @tenet_chosen_negative_opinion
+					}
+				}
+				set_country_flag = tenet_chosen_opinion_effect_applied
+			}
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_synthetic_empire = no }
+			logistic_growth_mult = 0.1
+		}
+		triggered_country_modifier = {
+			potential = { is_synthetic_empire = yes }
+			planet_pop_assembly_mult = 0.1
+		}
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_synthetic_empire = no }
+			logistic_growth_mult = 0.2
+		}
+		triggered_country_modifier = {
+			potential = { is_synthetic_empire = yes }
+			planet_pop_assembly_mult = 0.2
+		}
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 0.15
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			potential = { is_synthetic_empire = no }
+			logistic_growth_mult = 0.3
+		}
+		triggered_country_modifier = {
+			potential = { is_synthetic_empire = yes }
+			planet_pop_assembly_mult = 0.3
+		}
+		triggered_country_modifier = {
+			country_tenets_influence_produces_add = 0.2
+		}
+	}
+}
+
+tenet_cult_of_the_cradle = {
+	priority = high
+	potential = {
+		is_chosen_empire = yes
+		has_country_flag = the_cradle_of_souls_as_chosen_patron
+	}
+	source_civic = civic_chosen
+	swappable_data = {
+		swap_type = {
+			trigger = { has_valid_civic = civic_hive_chosen }
+			source_civic = civic_hive_chosen
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_machine_chosen }
+			source_civic = civic_machine_chosen
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_corporate_chosen }
+			source_civic = civic_corporate_chosen
+		}
+	}
+
+	on_unlock = {
+		custom_tooltip = tenet_chosen_opinion_effect_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = tenet_chosen_opinion_effect_applied }
+				}
+				event_target:shroudwalker_enclave_country? = {
+					add_trust = {
+						who = root
+						amount = @tenet_chosen_positive_opinion
+					}
+				}
+				event_target:mindwarden_enclave_country? = {
+					add_trust = {
+						who = root
+						amount = @tenet_chosen_negative_opinion
+					}
+				}
+				set_country_flag = tenet_chosen_opinion_effect_applied
+			}
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			diplo_weight_mult = 0.05
+			country_trust_growth = 0.15
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			diplo_weight_mult = 0.1
+			country_trust_growth = 0.3
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			diplo_weight_mult = 0.15
+			country_trust_growth = 0.45
+		}
+	}
+}
+
+tenet_cult_of_the_eater = {
+	priority = high
+	potential = {
+		is_chosen_empire = yes
+		has_country_flag = the_eater_of_worlds_as_chosen_patron
+	}
+	source_civic = civic_chosen
+	swappable_data = {
+		swap_type = {
+			trigger = { has_valid_civic = civic_hive_chosen }
+			source_civic = civic_hive_chosen
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_machine_chosen }
+			source_civic = civic_machine_chosen
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_corporate_chosen }
+			source_civic = civic_corporate_chosen
+		}
+	}
+
+	on_unlock = {
+		custom_tooltip = tenet_chosen_opinion_effect_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = tenet_chosen_opinion_effect_applied }
+				}
+				event_target:shroudwalker_enclave_country? = {
+					add_trust = {
+						who = root
+						amount = @tenet_chosen_positive_opinion
+					}
+				}
+				event_target:mindwarden_enclave_country? = {
+					add_trust = {
+						who = root
+						amount = @tenet_chosen_negative_opinion
+					}
+				}
+				set_country_flag = tenet_chosen_opinion_effect_applied
+			}
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			army_damage_mult = 0.15
+			ship_fire_rate_mult = 0.05
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			army_damage_mult = 0.3
+			ship_fire_rate_mult = 0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			army_damage_mult = 0.45
+			ship_fire_rate_mult = 0.15
+		}
+	}
+}
+
+tenet_cult_of_the_instrument = {
+	priority = high
+	potential = {
+		is_chosen_empire = yes
+		has_country_flag = the_instrument_of_desire_as_chosen_patron
+	}
+	source_civic = civic_chosen
+	swappable_data = {
+		swap_type = {
+			trigger = { has_valid_civic = civic_hive_chosen }
+			source_civic = civic_hive_chosen
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_machine_chosen }
+			source_civic = civic_machine_chosen
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_corporate_chosen }
+			source_civic = civic_corporate_chosen
+		}
+	}
+
+	on_unlock = {
+		custom_tooltip = tenet_chosen_opinion_effect_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = tenet_chosen_opinion_effect_applied }
+				}
+				event_target:shroudwalker_enclave_country? = {
+					add_trust = {
+						who = root
+						amount = @tenet_chosen_positive_opinion
+					}
+				}
+				event_target:mindwarden_enclave_country? = {
+					add_trust = {
+						who = root
+						amount = @tenet_chosen_negative_opinion
+					}
+				}
+				set_country_flag = tenet_chosen_opinion_effect_applied
+			}
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			pop_bonus_workforce_mult = 0.05
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			pop_bonus_workforce_mult = 0.1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			pop_bonus_workforce_mult = 0.15
+		}
+	}
+}
+
+tenet_galactic_purification = {
+	priority = high
+	potential = {
+		OR = { # is_homicidal trigger w/o behemoth menace perk
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_machine_terminator
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_scorched_earth
+			has_valid_civic = civic_hive_scorched_earth
+		}
+	}
+	source_civic = civic_fanatic_purifiers
+	swappable_data = {
+		swap_type = {
+			trigger = { has_valid_civic = civic_machine_terminator }
+			source_civic = civic_machine_terminator
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_hive_devouring_swarm }
+			source_civic = civic_hive_devouring_swarm
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_scorched_earth }
+			source_civic = civic_scorched_earth
+		}
+		swap_type = {
+			trigger = { has_valid_civic = civic_hive_scorched_earth }
+			source_civic = civic_hive_scorched_earth
+		}
+	}
+
+	on_unlock = {
+		custom_tooltip = tenet_galactic_purification_effect_tt
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			planet_purge_jobs_unity_produces_add = 1
+			planet_purge_jobs_society_research_produces_add = 1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_purge_jobs_unity_produces_add = 2
+			planet_purge_jobs_society_research_produces_add = 2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			planet_purge_jobs_unity_produces_add = 3
+			planet_purge_jobs_society_research_produces_add = 3
+		}
+	}
+}
+
+tenet_secrecy = {
+	priority = high
+	potential = { is_secret_societies_empire = yes }
+	source_civic = civic_secret_societies
+	swappable_data = {
+		swap_type = {
+			trigger = { has_valid_civic = civic_secret_societies_corporate }
+			source_civic = civic_secret_societies_corporate
+		}
+	}
+
+	first_tier = 1
+	tier = {
+		triggered_country_modifier = {
+			intel_encryption_add = 1
+			country_tenets_influence_produces_add = 0.5
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			intel_encryption_add = 2
+			country_tenets_influence_produces_add = 1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			intel_encryption_add = 3
+			country_tenets_influence_produces_add = 1.5
+		}
+	}
+}

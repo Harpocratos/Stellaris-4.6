@@ -1,0 +1,196 @@
+###################################
+# Ideology actions
+###################################
+#
+# Localization:
+#	KEY
+#	KEY_short
+#   KEY_desc
+#	KEY_confirm				- Body of the confirmation popup (only needed when requires_confirmation = yes)
+#
+# Tokens:
+#	has_lasting_effect		- Does this action has effects after it has been executed, like an upkeep, or does it have an on_cancel? (will switch to the toggle view in the UI)
+#	requires_confirmation	- Show a yes/no confirmation popup when the player executes this action, instead of running it immediately
+#	potential				- Can the action be displayed in the view?
+#	allow					- Can the action be executed?
+#	allow_cancel			- Can the action be cancelled?
+#	resources				- Resources block (cost, produces, upkeep)
+#	effect					- Effect when executed
+#	on_cancel				- Effect when canceled
+#	ai_weight				- AI willingness to execute this action
+#	cancel_ai_weight		- AI willingness to cancel this action
+#
+###################################
+
+action_abandon_ideology = {
+	requires_confirmation = yes
+
+	potential = {
+		ideology? = {
+			is_same_value = from
+		}
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = cannot_abandon_imposed_ideology
+			NOT = { has_country_flag = ideology_cannot_abandon_imposed }
+		}
+		custom_tooltip = {
+			fail_text = is_abandoning_ideology
+			NOT = {
+				has_country_flag = abandoning_ideology
+			}
+		}
+		custom_tooltip = {
+			fail_text = recent_abandon
+			NOT = {
+				has_country_flag = recently_abandon_ideology
+			}
+		}
+		custom_tooltip = {
+			fail_text = cannot_abandon_ideology_force_of_will
+			NOT = { has_country_flag = cant_abandon_ideology_forceofwill }
+		}
+	}
+
+	resources = {
+		cost = {
+			unity = 1000
+			influence = 100
+		}
+	}
+
+	effect = {
+		start_abandon_ideology_process = yes
+	}
+
+	ai_weight = {
+		base = 0
+		modifier = {
+			add = 10
+			has_country_flag = under_ideological_ban_law
+		}
+	}
+}
+
+action_adopt_ideology = {
+	requires_confirmation = yes
+
+	potential = {
+		OR = {
+			NOT = { exists = ideology }
+			ideology = {
+				NOT = { is_same_value = from }
+			}
+		}
+	}
+
+	allow = {
+		hidden_trigger = { is_country_type = default }
+		custom_tooltip = {
+			fail_text = not_adopting_ideology
+			NOR = {
+				exists = ideology
+				has_special_project = "ADOPT_IDEOLOGY_SPECIAL_PROJECT"
+			}
+		}
+		custom_tooltip = {
+			fail_text = cannot_adopt_ideology_under_ideological_ban
+			NOT = {
+				any_agreement = {
+					target = {
+						is_same_value = root
+					}
+					has_term_value = {
+						term = subject_ideology
+						value = subject_ideological_ban
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = cannot_adopt_ideology_under_unified_ideology
+			OR = {
+				NOT = {
+					any_agreement = {
+						target = {
+							is_same_value = root
+						}
+						has_term_value = {
+							term = subject_ideology
+							value = subject_unified_ideology
+						}
+					}
+				}
+				overlord? = {
+					ideology? = {
+						is_same_value = from
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = cannot_adopt_ideology_while_in_revolt
+			NOT = {
+				any_situation = {
+					is_situation_type = situation_ideological_revolt
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = recent_adoption
+			NOT = { has_country_flag = recently_adopted_ideology }
+		}
+		custom_tooltip = {
+			fail_text = recent_abandon_readopt
+			NOT = { has_country_flag = recently_abandon_ideology_@from }
+		}
+		custom_tooltip = {
+			fail_text = homicidals_cant_adopt_peaceful_ideology
+			OR = {
+				is_homicidal = no
+				from = {
+					is_pacifist = no
+					is_xenophile = no
+				}
+			}
+		}
+	}
+
+	resources = {
+		cost = {
+			unity = 1000
+			influence = 100
+		}
+	}
+
+	effect = {
+		custom_tooltip = adopt_ideology_tt
+		set_country_flag = adopt_ideology_yourself
+		hidden_effect = {
+			country_event = {
+				id = forceofwill.1040
+				scopes = { from = from }
+			}
+		}
+	}
+
+	ai_weight = {
+		base = 0
+		modifier = {
+			add = 10
+			has_country_flag = ai_should_adopt_ideology@from
+		}
+		modifier = {
+			add = 10
+			any_pop_faction = {
+				has_pop_faction_flag = fanatic_faction_demand_adopt_unlocked
+				ideology? = { is_same_value = from }
+			}
+		}
+	}
+	cancel_ai_weight = {
+		base = 0 # When an AI starts to adopt an Ideology, there's no reason for them to stop
+	}
+}

@@ -1,0 +1,30 @@
+# Ideological Reach calculation is divided into 2 parts:
+#	value = {}	# Should contain every trigger/modifier directly affecting reach
+#	weight = {}	# Should contain every modifier applied to value
+# Separation is made for tooltip reasons
+#	We can have multiple value and weight blocs, each associated w/ a possible trigger
+
+# Scope
+ # This = Emitter (can be any scope)
+ # From = Ideology
+
+# ideological_push = { ... }		# Calculated per system when calculating reach propagation (used alongside ideological_push_mult modifiers)
+									# Scope - this: System (owner is valid) - from: emitter owner
+# ideological_resistance = { ... } 	# Calculated per system when calculating reach propagation (used alongside ideological_resistance_mult and foreign_ideological_push_mult modifiers)
+									# Scope - this: System - from: emitter owner - fromfrom: system owner
+
+default_reach = {
+	inline_script = {
+		script = ideologies/ideology_reach_type_common_data
+		FLEET_PUSH = 0.001
+		FLEET_RES = 0.002
+	}
+}
+
+militarist_reach = {
+	inline_script = {
+		script = ideologies/ideology_reach_type_common_data
+		FLEET_PUSH = 0.002
+		FLEET_RES = 0.003
+	}
+}

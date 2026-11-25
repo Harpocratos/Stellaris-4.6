@@ -1,0 +1,185 @@
+
+########
+# Base #
+########
+
+councilor_waystation_bosun = {
+	leader_class = { official }
+
+	is_leader_possible = {
+		leader_class = official
+	}
+
+	civic = civic_caravan_masters
+
+	modifier = {
+		starbase_collected_system_resources_mult = 0.02
+		shipsize_nomads_constructor_stockpile_capacity_mult = 0.02
+		# This deliberately doesn't work on Eager Explorer logistic ships.
+	}
+
+	ai_hiring_weight = {
+		inline_script = councilor_leader_weights
+	}
+}
+
+councilor_deep_sleep = {
+	leader_class = { official }
+
+	is_leader_possible = {
+		leader_class = official
+	}
+
+	civic = civic_deep_sleep
+
+	modifier = {
+		leader_lifespan_add = 2
+	}
+
+	ai_hiring_weight = {
+		inline_script = councilor_leader_weights
+	}
+}
+
+councilor_master_gunner = {
+	leader_class = { commander official }
+
+	is_leader_possible = {
+		OR = {
+			leader_class = commander
+			leader_class = official
+		}
+	}
+
+	civic = civic_void_reavers
+
+	modifier = {
+		shipclass_starbase_hull_mult = 0.05
+		shipclass_starbase_damage_mult = 0.05
+	}
+
+	ai_hiring_weight = {
+		inline_script = councilor_leader_weights
+	}
+}
+
+councilor_star_seekers = {
+	leader_class = { scientist commander }
+
+	civic = civic_star_seekers
+
+	modifier = {
+		science_ship_survey_speed = 0.02
+		ship_speed_mult = 0.015
+	}
+
+	is_leader_possible = {
+		OR = {
+			leader_class = commander
+			leader_class = scientist
+		}
+	}
+}
+
+councilor_paymaster = {
+	leader_class = { commander official }
+
+	civic = civic_hired_guns
+
+	is_leader_possible = {
+		OR = {
+			leader_class = commander
+			leader_class = official
+		}
+	}
+
+	modifier = {
+		ship_military_upkeep_mult = -0.005
+		ship_orbital_bombardment_army_damage_mult = 0.025
+	}
+
+	ai_hiring_weight = {
+		inline_script = councilor_leader_weights
+	}
+}
+
+#############
+# Corporate #
+#############
+
+councilor_waystation_quota_auditor = {
+	leader_class = { official }
+
+	is_leader_possible = {
+		leader_class = official
+	}
+
+	civic = civic_caravan_masters_corporate
+
+	modifier = {
+		starbase_collected_system_resources_mult = 0.02
+		shipsize_nomads_constructor_stockpile_capacity_mult = 0.02
+		# This deliberately doesn't work on Eager Explorer logistic ships.
+	}
+
+	ai_hiring_weight = {
+		inline_script = councilor_leader_weights
+	}
+}
+
+councilor_corporate_deep_sleep = {
+	leader_class = { official }
+
+	is_leader_possible = {
+		leader_class = official
+	}
+
+	civic = civic_corporate_deep_sleep
+
+	modifier = {
+		planet_pops_upkeep_mult = -0.015
+	}
+
+	ai_hiring_weight = {
+		inline_script = councilor_leader_weights
+	}
+}
+
+councilor_asset_security_manager = {
+	leader_class = { commander official }
+
+	is_leader_possible = {
+		OR = {
+			leader_class = commander
+			leader_class = official
+		}
+	}
+
+	civic = civic_corporate_hired_guns
+
+	modifier = {
+		ship_military_upkeep_mult = -0.0075
+	}
+
+	ai_hiring_weight = {
+		inline_script = councilor_leader_weights
+	}
+}
+
+councilor_corporate_star_seekers = {
+	leader_class = { scientist commander }
+
+	civic = civic_corporate_star_seekers
+
+	modifier = {
+		science_ship_survey_speed = 0.02
+		ship_speed_mult = 0.015
+	}
+
+	is_leader_possible = {
+		OR = {
+			leader_class = commander
+			leader_class = scientist
+		}
+	}
+}
