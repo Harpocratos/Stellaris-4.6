@@ -1,0 +1,13 @@
+cost = 1
+inline_script = {
+	script = trait/icon
+	CLASS = official
+	ICON = "GFX_leader_trait_spycraft"
+	RARITY = common
+	COUNCIL = yes
+	TIER = 1
+}
+councilor_modifier = {
+	spy_network_daily_value_mult = 0.15
+	operations_cost_mult = -0.05
+}

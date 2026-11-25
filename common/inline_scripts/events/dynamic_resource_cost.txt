@@ -1,0 +1,85 @@
+allow = {
+	$OWNER_SCOPE$ = {
+		if = {
+			limit = {
+				has_monthly_income = { resource = $RESOURCE$ value < $INCOME1$ }
+			}
+			has_resource = { type = $RESOURCE$ amount >= $COST1$ }
+		}
+		else_if = {
+			limit = {
+				has_monthly_income = { resource = $RESOURCE$ value > $INCOME1$ }
+				has_monthly_income = { resource = $RESOURCE$ value <= $INCOME2$ }
+			}
+			has_resource = { type = $RESOURCE$ amount >= $COST2$ }
+		}
+		else_if = {
+			limit = {
+				has_monthly_income = { resource = $RESOURCE$ value > $INCOME2$ }
+				has_monthly_income = { resource = $RESOURCE$ value <= $INCOME3$ }
+			}
+			has_resource = { type = $RESOURCE$ amount >= $COST3$ }
+		}
+		else_if = {
+			limit = {
+				has_monthly_income = { resource = $RESOURCE$ value > $INCOME3$ }
+				has_monthly_income = { resource = $RESOURCE$ value <= $INCOME4$ }
+			}
+			has_resource = { type = $RESOURCE$ amount >= $COST4$ }
+		}
+		else = {
+			has_resource = { type = $RESOURCE$ amount >= $COST5$ }
+		}
+	}
+}
+
+$OWNER_SCOPE$ = {
+	if = {
+		limit = {
+			has_monthly_income = { resource = $RESOURCE$ value <= $INCOME1$ }
+		}
+		add_resource = {
+			$RESOURCE$ = $COST1$
+			mult = -1
+		}
+	}
+	else_if = {
+		limit = {
+			has_monthly_income = { resource = $RESOURCE$ value > $INCOME1$ }
+			has_monthly_income = { resource = $RESOURCE$ value <= $INCOME2$ }
+		}
+		add_resource = {
+			$RESOURCE$ = $COST2$
+			mult = -1
+		}
+	}
+	else_if = {
+		limit = {
+			has_monthly_income = { resource = $RESOURCE$ value > $INCOME2$ }
+			has_monthly_income = { resource = $RESOURCE$ value <= $INCOME3$ }
+		}
+		add_resource = {
+			$RESOURCE$ = $COST3$
+			mult = -1
+		}
+	}
+	else_if = {
+		limit = {
+			has_monthly_income = { resource = $RESOURCE$ value > $INCOME3$ }
+			has_monthly_income = { resource = $RESOURCE$ value <= $INCOME4$ }
+		}
+		add_resource = {
+			$RESOURCE$ = $COST4$
+			mult = -1
+		}
+	}
+	else_if = {
+		limit = {
+			has_monthly_income = { resource = $RESOURCE$ value > $INCOME4$ }
+		}
+		add_resource = {
+			$RESOURCE$ = $COST5$
+			mult = -1
+		}
+	}
+}

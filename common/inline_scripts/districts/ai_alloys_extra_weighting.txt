@@ -1,0 +1,9 @@
+ai_resource_production = {
+    alloys = $AMOUNT$
+    trigger = {
+        OR = {
+            has_any_foundry_zone = yes
+            has_mixed_industrial_zone = yes
+        }
+    }
+}

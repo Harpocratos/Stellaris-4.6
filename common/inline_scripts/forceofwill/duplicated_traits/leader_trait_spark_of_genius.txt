@@ -1,0 +1,17 @@
+cost = 1
+inline_script = {
+	script = trait/icon
+	CLASS = scientist
+	ICON = "GFX_leader_trait_spark_of_genius"
+	RARITY = common
+	COUNCIL = yes
+	TIER = 1
+}
+councilor_modifier = {
+	all_technology_research_speed = 0.03
+	# increased chance to discover rare techs (weighted in tech-script)
+}
+opposites = {
+	leader_trait_paranoid
+	leader_trait_paranoid_2
+}

@@ -1,0 +1,271 @@
+while = {
+	count = 3
+	random_list = {
+		10 = {
+			owner = {
+				set_country_flag = spirit_cultivation_unity_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						has_country_flag = spirit_cultivation_unity_rolled
+						has_country_flag = spirit_cultivation_body
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					is_variable_set = spirit_cultivation_unity_roll_count
+					check_variable = { which  = spirit_cultivation_unity_roll_count value >= @path_of_the_self_unity_roll_max }
+				}
+			}
+		}
+		10 = {
+			owner = {
+				set_country_flag = spirit_cultivation_happiness_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						has_country_flag = spirit_cultivation_happiness_rolled
+						has_country_flag = spirit_cultivation_body
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					is_variable_set = spirit_cultivation_happiness_roll_count
+					check_variable = { which  = spirit_cultivation_happiness_roll_count value >= @path_of_the_self_happiness_roll_max }
+				}
+			}
+		}
+		10 = {
+			owner = {
+				set_country_flag = spirit_cultivation_stability_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						has_country_flag = spirit_cultivation_stability_rolled
+						has_country_flag = spirit_cultivation_body
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					is_variable_set = spirit_cultivation_stability_roll_count
+					check_variable = { which  = spirit_cultivation_stability_roll_count value >= @path_of_the_self_stability_roll_max }
+				}
+			}
+		}
+		10 = {
+			owner = {
+				set_country_flag = spirit_cultivation_councilor_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					has_country_flag = spirit_cultivation_councilor_rolled
+					has_country_flag = spirit_cultivation_mind
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					is_variable_set = spirit_cultivation_councilor_roll_count
+					check_variable = { which  = spirit_cultivation_councilor_roll_count value >= @path_of_the_self_councilor_roll_max }
+				}
+			}
+		}
+		10 = {
+			owner = {
+				set_country_flag = spirit_cultivation_leader_upkeep_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						has_country_flag = spirit_cultivation_leader_upkeep_rolled
+						has_country_flag = spirit_cultivation_mind
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					is_variable_set = spirit_cultivation_leader_upkeep_roll_count
+					check_variable = { which  = spirit_cultivation_leader_upkeep_roll_count value >= @path_of_the_self_leader_upkeep_roll_max }
+				}
+			}
+		}
+		10 = {
+			owner = { #there should be no cap here
+				set_country_flag = spirit_cultivation_leader_lifespan_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						has_country_flag = spirit_cultivation_leader_lifespan_rolled
+						has_country_flag = spirit_cultivation_mind
+					}
+				}
+			}
+		}
+		10 = {
+			owner = {
+				set_country_flag = spirit_cultivation_death_cult_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						is_death_cult_empire = no
+						has_country_flag = spirit_cultivation_death_cult_rolled
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					is_variable_set = spirit_cultivation_death_cult_roll_count
+					check_variable = { which  = spirit_cultivation_death_cult_roll_count value >= @path_of_the_self_death_cult_roll_max }
+				}
+			}
+		}
+		10 = {
+			owner = {
+				set_country_flag = spirit_cultivation_ascensionist_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						is_ascensionist_empire = no
+						has_country_flag = spirit_cultivation_ascensionist_rolled
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					is_variable_set = spirit_cultivation_ascensionist_roll_count
+					check_variable = { which  = spirit_cultivation_ascensionist_roll_count value >= @path_of_the_self_ascensionist_roll_max }
+				}
+			}
+		}
+		10 = {
+			owner = {
+				set_country_flag = spirit_cultivation_dimensional_worship_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						is_dimensional_worship_empire = no
+						has_country_flag = spirit_cultivation_dimensional_worship_rolled
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					is_variable_set = spirit_cultivation_dimensional_worship_roll_count
+					check_variable = { which  = spirit_cultivation_dimensional_worship_roll_count value >= @path_of_the_self_dimensional_worship_roll_max }
+				}
+			}
+		}
+		10 = {
+			owner = {
+				set_country_flag = spirit_cultivation_exalted_priesthood_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						NOT = { has_civic = civic_exalted_priesthood }
+						has_country_flag = spirit_cultivation_exalted_priesthood_rolled
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					is_variable_set = spirit_cultivation_exalted_priesthood_roll_count
+					check_variable = { which  = spirit_cultivation_exalted_priesthood_roll_count value >= @path_of_the_self_exalted_priesthood_roll_max }
+				}
+			}
+		}
+		10 = {
+			owner = {
+				set_country_flag = spirit_cultivation_gospel_masses_rolled
+				change_variable = {
+					which = spirit_cultivation_situation_roll_amount
+					value = 1
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						NOT = { has_civic = civic_gospel_of_the_masses }
+						has_country_flag = spirit_cultivation_gospel_masses_rolled
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					is_variable_set = spirit_cultivation_gospel_masses_roll_count
+					check_variable = { which  = spirit_cultivation_gospel_masses_roll_count value >= @path_of_the_self_gospel_masses_roll_max }
+				}
+			}
+		}
+	}
+}

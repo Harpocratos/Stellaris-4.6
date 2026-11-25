@@ -1,0 +1,16 @@
+cost = 1
+inline_script = {
+	script = trait/icon
+	CLASS = commander
+	ICON = GFX_leader_trait_fleet_organizer
+	RARITY = common
+	COUNCIL = yes
+	TIER = 1
+}
+councilor_modifier = {
+	country_naval_cap_mult = 0.05
+}
+opposites = {
+	leader_trait_nervous
+	leader_trait_nervous_2
+}

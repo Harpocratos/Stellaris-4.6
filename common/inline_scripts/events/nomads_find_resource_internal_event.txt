@@ -1,0 +1,53 @@
+modifier = {
+	factor = 0
+	has_country_flag = contract_find_resources_internal_issued
+}
+modifier = {
+	factor = 0
+	event_target:arkship_system = {
+		NOT = {
+			any_neighbor_system = {
+				any_system_planet = {
+					has_resource = {
+						type = $RESOURCE$
+						amount > 0
+					}
+				}
+			}
+		}
+	}
+}
+event_target:arkship_system = {
+	random_neighbor_system = {
+		limit = {
+			any_system_planet = {
+				has_resource = {
+					type = $RESOURCE$
+					amount > 0
+				}
+			}
+		}
+		save_event_target_as = contract_system
+		set_star_flag = contract_system_find_resources_$RESOURCE$_internal@root
+		random_system_planet = {
+			limit = {
+				has_resource = {
+					type = $RESOURCE$
+					amount > 0
+				}
+			}
+			set_planet_flag = contract_planet_find_resources_$RESOURCE$_internal@root
+		}
+		event_target:nomad_country = {
+			set_timed_country_flag = {
+				flag = contract_find_resources_internal_issued
+				years = 10
+			}
+			issue_contract = {
+				contract = contract_find_resources_$RESOURCE$_internal
+				location = event_target:contract_system
+				target = event_target:nomad_country
+			}
+		}
+	}
+}

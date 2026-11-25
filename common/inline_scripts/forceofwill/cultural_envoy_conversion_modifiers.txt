@@ -1,0 +1,74 @@
+# Applied to a colony while a Cultural Envoy of the matching ideology is orbiting and converting it.
+# PREFIX picks the presentation: being_converted_by names the ideology, being_converted_by_cloaked anonymizes
+# it for a cloaked envoy. Both sets carry the same values, so cloaking never changes the gameplay numbers.
+$PREFIX$_materialist_envoy = {
+	pop_happiness = 0.1
+	planet_jobs_unity_produces_mult = 0.1
+
+	planet_physicists_physics_research_produces_add = 0.75
+	planet_biologists_society_research_produces_add = 0.75
+	planet_engineers_engineering_research_produces_add = 0.75
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_cultural_envoy.dds"
+	icon_frame = 1
+}
+
+$PREFIX$_spiritualist_envoy = {
+	pop_happiness = 0.1
+	planet_jobs_unity_produces_mult = 0.1
+
+	planet_pops_unity_produces_add = 0.5
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_cultural_envoy.dds"
+	icon_frame = 1
+}
+
+$PREFIX$_authoritarian_envoy = {
+	pop_happiness = 0.1
+	planet_jobs_unity_produces_mult = 0.1
+
+	planet_enforcers_unity_produces_add = 1.5
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_cultural_envoy.dds"
+	icon_frame = 1
+}
+
+$PREFIX$_egalitarian_envoy = {
+	pop_happiness = 0.1
+	planet_jobs_unity_produces_mult = 0.1
+
+	planet_pops_consumer_goods_produces_add = 0.25
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_cultural_envoy.dds"
+	icon_frame = 1
+}
+
+$PREFIX$_militarist_envoy = {
+	pop_happiness = 0.1
+	planet_jobs_unity_produces_mult = 0.1
+
+	planet_soldiers_unity_produces_add = 1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_cultural_envoy.dds"
+	icon_frame = 1
+}
+
+$PREFIX$_pacifist_envoy = {
+	pop_happiness = 0.1
+	planet_jobs_unity_produces_mult = 0.1
+
+	planet_pops_trade_produces_add = 1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_cultural_envoy.dds"
+	icon_frame = 1
+}
+
+$PREFIX$_xenophile_envoy = {
+	pop_happiness = 0.1
+	planet_jobs_unity_produces_mult = 0.1
+
+	planet_pops_upkeep_mult = -0.1
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_cultural_envoy.dds"
+	icon_frame = 1
+}

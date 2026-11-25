@@ -1,0 +1,53 @@
+modifier = {
+	factor = @cruise_contract_mult
+	cruise_$ISSUER$_angry = yes
+}
+modifier = {
+	factor = 0
+	num_communications = 0
+}
+modifier = {
+	factor = 0
+	has_country_flag = contract_espionage_support_$ISSUER$_$VARIANT$_issued
+}
+modifier = {
+	factor = 0
+	has_country_flag = cruise_espionage_failed
+}
+random_relation = {
+	limit = {
+		is_country_type = default
+		is_homicidal = no
+		num_owned_planets > 0
+		has_communications = root
+	}
+	random_system_within_border = {
+		limit = {
+			any_system_planet = {
+				is_colony = yes
+			}
+			NOT = {
+				has_star_flag = forever_cruise_contract_issued@root
+			}
+		}
+		save_event_target_as = contract_system
+		event_target:nomad_country = {
+			issue_contract = {
+				contract = contract_espionage_support_$ISSUER$_$VARIANT$
+				location = event_target:contract_system
+				target = event_target:nomad_country
+			}
+			set_country_flag = cruise_contract_issued
+			set_timed_country_flag = {
+				flag = contract_espionage_support_$ISSUER$_$VARIANT$_issued
+				days = 720
+			}
+		}
+	}
+}
+if = {
+	limit = {
+		NOT = { has_country_flag = cruise_contract_issued }
+	}
+	set_country_flag = cruise_espionage_failed
+}

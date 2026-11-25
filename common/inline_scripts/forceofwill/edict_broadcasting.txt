@@ -1,0 +1,63 @@
+broadcasting_$ETHIC$ = {
+	length = -1
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+		cost = {
+			trigger = {
+				is_gestalt = no
+			}
+			consumer_goods = @edict_broadcasting_cost
+			multiplier = value:edict_size_effect
+		}
+		cost = {
+			trigger = {
+				is_gestalt = yes
+			}
+			unity = @edict_broadcasting_cost_gestalt
+			multiplier = value:edict_size_effect
+		}
+		upkeep = {
+			trigger = {
+				is_gestalt = no
+			}
+			consumer_goods = @edict_broadcasting_cost
+			multiplier = value:edict_size_effect
+		}
+		upkeep = {
+			trigger = {
+				is_gestalt = yes
+			}
+			unity = @edict_broadcasting_cost_gestalt
+			multiplier = value:edict_size_effect
+		}
+	}
+
+	potential = {
+		has_active_tenet = tenet_propagandism_$ETHIC$
+	}
+
+	modifier = {
+		colony_ideological_reach_mult = @edict_broadcasting_reach
+		foreign_ideological_push_mult = @edict_broadcasting_push
+	}
+
+	# The happiness itself is applied per pop group in ideologies/ideology_common_data.txt
+	triggered_country_modifier = {
+		potential = {
+			is_gestalt = no
+		}
+		custom_tooltip = edict_broadcasting_pop_happiness_tt
+	}
+	triggered_country_modifier = {
+		potential = {
+			is_gestalt = yes
+		}
+		planet_crime_no_happiness_add = @edict_broadcasting_deviancy
+	}
+
+	ai_weight = {
+		weight = @EdictLowPrio
+	}
+}

@@ -1,0 +1,19 @@
+modifier = {
+	add = ideology.owner.value:ethic_attraction_ideology_follower_add
+	ideology? = {
+		is_$ETHIC$ = yes
+		NOT = { is_ideology_custodian = root }
+	}
+	desc = FROM_IDEOLOGY_FOLLOWER
+}
+
+modifier = {
+	add = 1
+	ideology? = {
+		is_$ETHIC$ = yes
+		owner? = {
+			has_ascension_perk = ap_force_of_will
+		}
+	}
+	desc = FROM_FORCE_OF_WILL_AMBITION
+}

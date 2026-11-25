@@ -1,0 +1,45 @@
+limit = {
+	exists = $ENEMY$
+	$NOMAD$ = {
+		is_at_war_with = $ENEMY$
+		any_war = {
+			any_$ENEMY_SIDE$ = {
+				is_same_value = $ENEMY$
+			}
+			any_$NOMAD_SIDE$ = {
+				is_same_value = prevprev
+			}
+			any_$NOMAD_SIDE$ = {
+				has_claim = $TARGET_SYSTEM$
+				is_nomadic = no #Nomads shouldn't be able to have claims but adding this just in case
+			}
+		}
+	}
+}
+$NOMAD$ = {
+	random_war = {
+		limit = {
+			any_$ENEMY_SIDE$ = {
+				is_same_value = $ENEMY$
+			}
+			any_$NOMAD_SIDE$ = {
+				is_same_value = prevprev
+			}
+			any_$NOMAD_SIDE$ = {
+				has_claim = $TARGET_SYSTEM$
+				is_nomadic = no #Nomads shouldn't be able to have claims but adding this just in case
+			}
+		}
+		ordered_$NOMAD_SIDE$ = {
+			limit = {
+				is_nomadic = no
+				has_claim = $TARGET_SYSTEM$
+			}
+			position = 0
+			order_by = value:num_claims_on_system|TARGET|$TARGET_SYSTEM$|
+			$TARGET_SYSTEM$.starbase = {
+				set_owner = prev
+			}
+		}
+	}
+}

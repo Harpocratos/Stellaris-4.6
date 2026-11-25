@@ -1,0 +1,42 @@
+tier = {
+	triggered_country_modifier = {
+		council_agenda_progress_speed = @tenet_strategism_agenda_speed_1
+		council_agenda_cooldown_mult = @tenet_strategism_agenda_cooldown_1
+	}
+	triggered_country_modifier = {
+		potential = { is_gestalt = no }
+		agenda_$AGENDA$_forceofwill_finishing_effect_strength_mult = @tenet_strategism_agenda_strength_1
+	}
+	triggered_country_modifier = {
+		potential = { is_gestalt = yes }
+		agenda_finding_the_voice_finishing_effect_strength_mult = @tenet_strategism_agenda_strength_1
+	}
+}
+tier = {
+	triggered_country_modifier = {
+		council_agenda_progress_speed = @tenet_strategism_agenda_speed_2
+		council_agenda_cooldown_mult = @tenet_strategism_agenda_cooldown_2
+	}
+	triggered_country_modifier = {
+		potential = { is_gestalt = no }
+		agenda_$AGENDA$_forceofwill_finishing_effect_strength_mult = @tenet_strategism_agenda_strength_2
+	}
+	triggered_country_modifier = {
+		potential = { is_gestalt = yes }
+		agenda_finding_the_voice_finishing_effect_strength_mult = @tenet_strategism_agenda_strength_2
+	}
+}
+tier = {
+	triggered_country_modifier = {
+		council_agenda_progress_speed = @tenet_strategism_agenda_speed_3
+		council_agenda_cooldown_mult = @tenet_strategism_agenda_cooldown_3
+	}
+	triggered_country_modifier = {
+		potential = { is_gestalt = no }
+		agenda_$AGENDA$_forceofwill_finishing_effect_strength_mult = @tenet_strategism_agenda_strength_3
+	}
+	triggered_country_modifier = {
+		potential = { is_gestalt = yes }
+		agenda_finding_the_voice_finishing_effect_strength_mult = @tenet_strategism_agenda_strength_3
+	}
+}

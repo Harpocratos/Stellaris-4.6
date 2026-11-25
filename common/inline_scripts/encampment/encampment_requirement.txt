@@ -1,0 +1,33 @@
+custom_tooltip = {
+	fail_text = celebration_requirements
+	owner? = { is_star_seeker_empire = yes }
+	OR = {
+		owner? = {
+			check_variable = {
+				which = visited_systems_nomad
+				value >= 50
+			}
+			any_situation = {
+				is_situation_type = situation_nomad_economy
+				current_stage = situation_nomad_economy_stage_3_thriving
+			}
+		}
+		hidden_trigger = {
+			is_system_locked = yes
+		}
+	}
+}
+# Separate tooltip so the cooldown reason renders on its own line instead of being
+# swallowed by the celebration_requirements custom_tooltip above. The is_system_locked
+# escape hatch keeps un-encamping available while on cooldown.
+custom_tooltip = {
+	fail_text = festival_on_cooldown
+	OR = {
+		owner? = {
+			NOT = { has_country_flag = festival_cooldown }
+		}
+		hidden_trigger = {
+			is_system_locked = yes
+		}
+	}
+}

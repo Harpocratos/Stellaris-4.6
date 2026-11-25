@@ -1,0 +1,59 @@
+leader_trait_ideologue_$ETHIC$ = {
+	allowed_ethics = { ethic_fanatic_$ETHIC$ ethic_absolute_$ETHIC$ }
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_ideologue_$ETHIC$"
+		RARITY = common
+		COUNCIL = no
+		TIER = none
+	}
+
+	planet_modifier = {
+		pop_ethic_$ETHIC$_attraction_mult = 0.5
+	}
+	sector_modifier = {
+		pop_ethic_$ETHIC$_attraction_mult = 0.25
+	}
+	councilor_modifier = {
+		pop_ethic_$ETHIC$_attraction_mult = 0.1
+	}
+
+	triggered_advocate_modifier = {
+		potential = {
+			has_same_ethic_as_ideology = owner.ideology
+		}
+		advocate_matching_ideological_strength_mult = @ideology_strength_advocate_ideologue_mult
+	}
+
+	leader_potential_add = {
+		has_ethic = ethic_$ETHIC$
+		from? = {
+			if = {
+				limit = { exists = ideology }
+				ideology = { is_$ETHIC$ = yes }
+			}
+			else = {
+				any_system_within_border = {
+					exists = ideology
+				}
+				is_$ETHIC$ = yes
+			}
+		}
+	}
+	leader_class = { official }
+	selectable_weight = {
+		weight = @class_trait_weight
+		inline_script = {
+			script = paragon/dual_subclass_weight_mult
+			SUBCLASS_1 = official_governor
+			SUBCLASS_2 = official_delegate
+		}
+		modifier = {
+			owner.advocate? = {
+				is_same_value = root
+			}
+			factor = @job_weight_mult
+		}
+	}
+}

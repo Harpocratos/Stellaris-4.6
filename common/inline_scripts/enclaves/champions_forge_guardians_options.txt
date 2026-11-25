@@ -1,0 +1,205 @@
+# Champions Forge Enclave
+
+# Join a tournament
+option = {
+	name = "nomads.100.a.invitation"
+	trigger = {
+		is_diplomatic = yes
+		NOT = {
+			has_country_flag = champions_forge_send_invitations
+		}
+	}
+	set_country_flag = champions_forge_send_invitations
+	remove_country_flag = champions_forge_stop_invitations
+	country_event = {
+		id = nomads.110
+	}
+}
+
+# Stop sending invitations
+option = {
+	name = "nomads.100.a.stop"
+	trigger = {
+		is_diplomatic = yes
+		has_country_flag = champions_forge_send_invitations
+		event_target:champions_forge_enclave_country = {
+			has_country_flag = had_first_tournament
+		}
+	}
+	allow = {
+		NOT = { has_relic = r_cfl_trophy }
+	}
+	remove_country_flag = champions_forge_send_invitations
+	set_country_flag = champions_forge_stop_invitations
+	country_event = {
+		id = nomads.115
+	}
+}
+
+# Host a tournament
+option = {
+	name = "nomads.100.b"
+	allow = {
+		if = {
+			limit = {
+				event_target:champions_forge_enclave_country = {
+					NOT = { has_country_flag = hosting_cfl_cooldown }
+				}
+			}
+			resource_stockpile_compare = {
+				resource = trade
+				value >= 5000
+			}
+		}
+		custom_tooltip = {
+			fail_text = hosting_cfl_cooldown_tt
+			event_target:champions_forge_enclave_country = {
+				NOT = { has_country_flag = hosting_cfl_cooldown }
+			}
+		}
+	}
+	trigger = {
+		is_diplomatic = yes
+		event_target:champions_forge_enclave_country = {
+			has_country_flag = had_first_tournament
+			NOT = { has_country_flag = champions_forge_tournament_ongoing }
+			count_relation = {
+				count > 1
+				limit = {
+					is_country_type = default
+					is_diplomatic = yes
+					NOT = { has_country_flag = champions_forge_stop_invitations }
+				}
+			}
+		}
+	}
+
+	custom_tooltip = nomads.100.b.tt
+	hidden_effect = {
+		event_target:champions_forge_enclave_country = {
+			add_trust = {
+				who = root
+				amount = 10
+			}
+			set_timed_country_flag = {
+				flag = hosting_cfl_cooldown
+				years = 20
+			}
+			set_saved_date = {
+				key = cfl_cooldown_timer
+				days_from_present = 7200
+				expires = 7200
+			}
+		}
+		set_timed_country_flag = {
+			flag = cfl_hoster
+			years = 5
+		}
+	}
+
+	ai_chance = {
+		factor = 0
+	}
+
+	is_dialog_only = yes
+	response_text = "nomads.100.b.reply"
+}
+
+# Introduce a Paragon
+option = {
+	name = "nomads.100.c"
+	trigger = {
+		is_diplomatic = yes
+		is_nomadic = yes
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = champions_forge_trust_tt
+			event_target:champions_forge_enclave_country = {
+				trust = {
+					who = root
+					value >= 10
+				}
+			}
+		}
+	}
+	hidden_effect = {
+		country_event = {
+			id = nomads.120
+		}
+	}
+}
+
+# Buy combat data on rivals
+option = {
+	name = "nomads.100.e"
+	response_text = "nomads.100.e.reply"
+	trigger = {
+		is_diplomatic = yes
+		NOT = { has_modifier = cfl_combat_data }
+	}
+	allow = {
+		num_rivals > 0
+		resource_stockpile_compare = {
+			resource = trade
+			value >= 2500
+		}
+	}
+
+	add_resource = {
+		trade = -1
+		mult = 2500
+	}
+
+	add_modifier = {
+		modifier = cfl_combat_data
+		days = 3600
+	}
+	custom_tooltip = opinion10
+	hidden_effect = {
+		event_target:champions_forge_enclave_country = {
+			add_trust = {
+				who = root
+				amount = 10
+			}
+		}
+		country_event = {
+			id = nomads.125
+			days = 3600
+		}
+	}
+}
+
+# Tell Us More
+option = {
+	name = "nomads.100.d"
+	trigger = {
+		is_diplomatic = yes
+	}
+	is_dialog_only = yes
+	response_text = "nomads.100.d.reply"
+}
+
+# Goodbye
+option = {
+	name = {
+		exclusive_trigger = { has_valid_civic = civic_fanatic_purifiers }
+		text = "SCUM"
+	}
+	name = {
+		exclusive_trigger = { has_valid_civic = civic_hive_devouring_swarm }
+		text = "TASTY"
+	}
+	name = {
+		exclusive_trigger = { has_valid_civic = civic_machine_terminator }
+		text = "EXTERMINATE"
+	}
+	name = {
+		exclusive_trigger = { has_valid_civic = civic_inwards_perfection }
+		text = "DOTDOTDOT"
+	}
+	name = {
+		text = "leviathans.502.a"
+	}
+	default_hide_option = yes
+}

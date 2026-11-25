@@ -1,0 +1,69 @@
+modifier = {
+	factor = @cruise_contract_mult
+	cruise_$ISSUER$_angry = yes
+}
+modifier = {
+	factor = 0
+	has_country_flag = contract_shoreleave_$ISSUER$_$VARIANT$_issued
+}
+modifier = {
+	factor = 0
+	has_country_flag = cruise_shoreleave_failed
+}
+random_owned_fleet = {
+	limit = {
+		is_arkship_fleet = yes
+	}
+	solar_system = {
+		save_event_target_as = arkship_system
+	}
+}
+random_system = {
+	limit = {
+		distance = {
+			source = event_target:arkship_system
+			min_jumps = 1
+			max_jumps = 10
+		}
+		owner? = {
+			is_country_type = default
+			is_homicidal = no
+			num_owned_planets > 0
+			has_communications = root
+		}
+		root = {
+			intel_level = {
+				level > none
+				system = prev
+			}
+		}
+		any_system_planet = {
+			is_colony = yes
+			is_under_colonization = no
+			pop_amount >= 200
+			habitable_planet = yes
+		}
+		NOT = {
+			has_star_flag = forever_cruise_contract_issued@root
+		}
+	}
+	save_event_target_as = contract_system
+	event_target:nomad_country = {
+		issue_contract = {
+			contract = contract_shoreleave_$ISSUER$_$VARIANT$
+			location = event_target:contract_system
+			target = root
+		}
+		set_country_flag = cruise_contract_issued
+		set_timed_country_flag = {
+			flag = contract_shoreleave_$ISSUER$_$VARIANT$_issued
+			days = 720
+		}
+	}
+}
+if = {
+	limit = {
+		NOT = { has_country_flag = cruise_contract_issued }
+	}
+	set_country_flag = cruise_shoreleave_failed
+}

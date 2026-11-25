@@ -1,0 +1,12 @@
+# Stately Acclaim
+modifier = {
+	add = 0.5
+	owner? = {
+		has_edict = stately_acclaim
+		any_pop_faction = {
+			is_$ETHIC$ = yes
+			is_faction_extorted = yes
+		}
+	}
+	desc = FROM_STATELY_ACCLAIM_EDICT
+}

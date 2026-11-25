@@ -1,0 +1,133 @@
+sacrifice_dutiful_$TIER$ = {
+	length = 3600
+	icon = "GFX_edict_type_time"
+
+	resources = {
+		category = edicts
+		cost = {
+			unity = 2
+			multiplier = value:sacrifice_cost
+			multiplier = value:edict_size_effect
+		}
+	}
+
+	potential = {
+		OR = { # Stay valid once active, so advancing the tenet tier does not cancel the edict
+			has_edict = sacrifice_dutiful_$TIER$
+			get_tenet_tier = { tenet = tenet_sacrifism value = $TIER$ }
+		}
+		is_death_cult_empire = no
+	}
+
+	allow = {
+		OR = { # Stay valid once active, as the effect itself drops us below the pop requirement
+			has_edict = sacrifice_dutiful_$TIER$
+			count_owned_pop_amount = {
+				count >= @tenet_sacrifism_sacrifice_pops_$TIER$
+			}
+		}
+	}
+
+	modifier = {
+		custom_tooltip = edict_sacrifice_dutiful_tier_$TIER$_tt
+	}
+
+	effect = {
+		hidden_effect = {
+			set_variable = {
+				which = pops_to_sacrifice
+				value = @tenet_sacrifism_sacrifice_pops_$TIER$
+			}
+			if = {
+				limit = { is_variable_set = pops_to_sacrifice }
+				while = {
+					count = pops_to_sacrifice
+					limit = {
+						check_variable = {
+							which = pops_to_sacrifice
+							value > 0
+						}
+					}
+					if = {
+						limit = {
+							any_owned_pop_group = {
+								pop_group_size > prev.pops_to_sacrifice
+							}
+						}
+						random_owned_pop_group = {
+							limit = {
+								pop_group_size > prev.pops_to_sacrifice
+							}
+							sacrifice_pop_group = {
+								pop_group = this
+								amount = prev.pops_to_sacrifice
+							}
+						}
+						set_variable = {
+							which = pops_to_sacrifice
+							value = 0
+						}
+					}
+					else = { #Else we find the biggest pop group out there to kill
+						ordered_owned_pop_group = {
+							position = 0
+							order_by = trigger:pop_group_size
+							export_trigger_value_to_variable = {
+								trigger = pop_group_size
+								variable = sacrificed_pops
+							}
+							change_variable = { #Leave one alive so that you don't lose a colony
+								which = sacrificed_pops
+								value = -1
+							}
+							sacrifice_pop_group = {
+								pop_group = this
+								amount = sacrificed_pops
+							}
+							multiply_variable = {
+								which = sacrificed_pops
+								value = -1
+							}
+							prev = {
+								change_variable = {
+									which = pops_to_sacrifice
+									value = prev.sacrificed_pops
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 0
+		modifier = {
+			weight = @EdictLowPrio
+			AND = {
+				years_passed > 60
+				count_owned_pop_amount = {
+					count > @tenet_sacrifism_sacrifice_pops_$TIER$
+				}
+				has_monthly_income = {
+					resource = unity
+					value <= 60
+				}
+			}
+		}
+		modifier = {
+			weight = @EdictMedPrio
+			AND = {
+				years_passed > 100
+				count_owned_pop_amount = {
+					count > @tenet_sacrifism_sacrifice_pops_$TIER$
+				}
+				has_monthly_income = {
+					resource = unity
+					value <= 80
+				}
+			}
+		}
+	}
+}

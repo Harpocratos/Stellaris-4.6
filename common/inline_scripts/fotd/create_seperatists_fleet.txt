@@ -1,0 +1,64 @@
+create_random_fleet = {
+	name = {
+		key = NAME_fotd_seperatists_fleet
+		variable_string = "[root.capital_scope.GetName]"
+	}
+	size = value:fotd_seperatists_fleet_size
+	ship_designs = {
+		$DESIGNS$
+	}
+	effect = {
+		set_location = {
+			target = root.capital_scope
+			distance = 15
+			angle = 300
+		}
+		set_aggro_range = 1000
+		set_leader = event_target:fotd_patrol_admiral_target
+		fleet_event = {
+			id = origin.6251
+			days = 100
+		}
+		queue_actions = {
+			find_closest_planet = {
+				trigger = {
+					id = fotd.patrol.1.$TIER$@root
+					has_planet_flag = divider_flag
+				}
+				found_planet = {
+					move_to = this
+					orbit_planet = this
+					wait = {
+						duration = 100
+					}
+				}
+			}
+			find_closest_planet = {
+				trigger = {
+					id = fotd.patrol.2.$TIER$@root
+					is_star = yes
+				}
+				found_planet = {
+					move_to = this
+					orbit_planet = this
+					wait = {
+						duration = 80
+					}
+				}
+			}
+			find_closest_planet = {
+				trigger = {
+					id = fotd.patrol.3.$TIER$@root
+					has_planet_flag = haven_flag
+				}
+				found_planet = {
+					move_to = this
+					orbit_planet = this
+					wait = {
+						duration = 10000
+					}
+				}
+			}
+		}
+	}
+}

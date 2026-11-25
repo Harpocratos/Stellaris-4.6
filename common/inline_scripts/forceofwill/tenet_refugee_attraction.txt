@@ -1,0 +1,9 @@
+triggered_country_modifier = {
+	potential = {
+		OR = {
+			is_gestalt = no
+			has_valid_civic = civic_machine_servitor
+		}
+	}
+	refugee_attraction = $VALUE$
+}

@@ -1,0 +1,54 @@
+tenet_propagandism_$ETHIC$ = {
+	ethics = { ethic_$ETHIC$ }
+	priority = low
+	first_tier = 1
+	swappable_data = {
+		swap_type = {
+			trigger = { is_hive_empire = yes }
+			desc = tenet_propagandism_hive_$ETHIC$_desc
+		}
+		swap_type = {
+			trigger = { is_machine_empire = yes }
+			desc = tenet_propagandism_machine_$ETHIC$_desc
+		}
+	}
+
+	on_unlock = {
+		custom_tooltip = tenet_propagandism_$ETHIC$_unlock_tt
+	}
+
+	tier = {
+		triggered_country_modifier = {
+			country_edict_fund_add = @tenet_propagandism_edict_fund_1
+		}
+		# Advocate strength is gated is_gestalt = no, so gestalts see the swap desc instead
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			advocate_ideological_strength_mult = @tenet_propagandism_advocate_strength_1
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_edict_fund_add = @tenet_propagandism_edict_fund_2
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			advocate_ideological_strength_mult = @tenet_propagandism_advocate_strength_2
+		}
+	}
+	tier = {
+		triggered_country_modifier = {
+			country_edict_fund_add = @tenet_propagandism_edict_fund_3
+		}
+		triggered_country_modifier = {
+			potential = {
+				is_gestalt = no
+			}
+			advocate_ideological_strength_mult = @tenet_propagandism_advocate_strength_3
+		}
+	}
+}

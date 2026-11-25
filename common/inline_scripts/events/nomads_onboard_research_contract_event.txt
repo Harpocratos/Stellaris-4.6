@@ -1,0 +1,17 @@
+# increased for materialists and Discovery adopters
+modifier = {
+	factor = 2
+	OR = {
+		is_materialist = yes
+		has_tradition = tr_discovery_adopt
+	}
+}
+# reduced after mid-game
+modifier = {
+	factor = 0.2
+	mid_game_years_passed >= 0
+}
+issue_contract = {
+	contract = contract_onboard_$RESEARCH$_research
+	location = capital_scope
+}

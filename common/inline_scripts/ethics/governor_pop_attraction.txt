@@ -1,0 +1,47 @@
+# Local Governor
+modifier = {
+	add = 0.5
+	from.leader? = {
+		is_$ETHIC$ = yes
+	}
+	desc = FROM_GOVERNOR
+}
+
+modifier = {
+	add = -0.25
+	from.leader? = {
+		is_$ETHIC_OPPOSED$ = yes
+	}
+	desc = FROM_GOVERNOR
+}
+
+# Sector Governor (if no local governor)
+modifier = {
+	add = 0.25
+	NOT = {
+		exists = from.leader
+	}
+	from.sector? = {
+		sector_capital? = {
+			leader? = {
+				is_$ETHIC$ = yes
+			}
+		}
+	}
+	desc = FROM_SECTOR_GOVERNOR
+}
+
+modifier = {
+	add = -0.2
+	NOT = {
+		exists = from.leader
+	}
+	from.sector? = {
+		sector_capital? = {
+			leader? = {
+				is_$ETHIC_OPPOSED$ = yes
+			}
+		}
+	}
+	desc = FROM_SECTOR_GOVERNOR
+}

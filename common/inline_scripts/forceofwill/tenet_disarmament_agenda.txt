@@ -1,0 +1,21 @@
+agenda_disarmament_$TIER$ = {
+	agenda_cost = $COST$
+	potential = {
+		has_active_tenet = tenet_disarmament
+		check_variable = {
+			which = disarmament_tier
+			value = $TIER$
+		}
+	}
+
+	modifier = {
+		ship_fire_rate_mult = @agenda_disarmament_mult_$TIER$
+		ships_upkeep_mult = @agenda_disarmament_mult_$TIER$
+	}
+	effect = {
+		custom_tooltip = agenda_disarmament_ships_destruction_tt
+		hidden_effect = {
+			destroy_percentage_of_ships = { PERCENTAGE = 0.25 }
+		}
+	}
+}
