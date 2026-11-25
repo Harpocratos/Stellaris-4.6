@@ -1,0 +1,14 @@
+# Pharma State Initial Setup
+# Buildings Added:
+#	* Medical Center (no zone set, only if not present)
+
+if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_private_healthcare_corporate
+		}
+	}
+	add_building_if_not_present = {
+		BUILDING = building_medical_1
+	}
+}

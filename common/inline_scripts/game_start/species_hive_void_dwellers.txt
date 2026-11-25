@@ -1,0 +1,28 @@
+# Hive Mind Species Void Dweller Initial Setup
+# Hive Mind empires only
+# Buildings Added:
+#	* Spawning Pools (no zone set), or Offspring Nest (no zone set) for
+#	  Progenitor Hive
+#	* Hive Warren (no zone set)
+
+if = {
+	limit = {
+		owner? = {
+			is_hive_empire = yes
+		}
+	}
+	if = {
+		limit = {
+			owner? = {
+				NOT = {
+					has_origin = origin_progenitor_hive
+				}
+			}
+		}
+		add_building = building_spawning_pool
+	}
+	else = {
+		add_building = building_offspring_nest
+	}
+	add_building = building_hive_warren
+}

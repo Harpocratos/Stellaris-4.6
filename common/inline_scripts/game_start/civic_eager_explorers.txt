@@ -1,0 +1,26 @@
+# Eager Explorers Initial Setup
+# Only for Eager Explorers empires
+# Other:
+#	* Lowers the rural Generator, Mining and Agriculture District counts by 1
+#	  each
+
+if = {
+	limit = {
+		owner? = {
+			is_eager_explorer_empire = yes
+		}
+	}
+	# Fewer rural districts
+	change_variable = {
+		which = energy_districts
+		value = -1
+	}
+	change_variable = {
+		which = mining_districts
+		value = -1
+	}
+	change_variable = {
+		which = farming_districts
+		value = -1
+	}
+}

@@ -1,0 +1,23 @@
+# Shattered Ring Initial Setup
+# Rural Districts Added:
+#	* 2 Mining Districts
+# Flags Set, so rural districts ignore the cap:
+#	* uncapped_energy
+#	* uncapped_mining
+#	* uncapped_farming
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_shattered_ring
+		}
+	}
+	change_variable = {
+		which = mining_districts
+		value = 2
+	}
+
+	set_carrier_flag = uncapped_energy
+	set_carrier_flag = uncapped_mining
+	set_carrier_flag = uncapped_farming
+}

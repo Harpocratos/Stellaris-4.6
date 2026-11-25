@@ -1,0 +1,15 @@
+# Shipset Initial Setup
+# Variables Changed:
+#	* farming_districts +1 if the empire uses biological ships
+
+if = {
+	limit = {
+		owner? = {
+			country_uses_bio_ships = yes
+		}
+	}
+	change_variable = {
+		which = farming_districts
+		value = 1
+	}
+}

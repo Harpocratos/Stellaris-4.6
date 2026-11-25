@@ -1,0 +1,15 @@
+# Egalitarian Ethics Initial Setup
+# Buildings Added, not with Storm Devotion:
+#	* Holo-Theatres (no zone set, only if not present)
+
+if = {
+	limit = {
+		owner? = {
+			is_egalitarian = yes
+			is_storm_callers_empire = no
+		}
+	}
+	add_building_if_not_present = {
+		BUILDING = building_holo_theatres
+	}
+}

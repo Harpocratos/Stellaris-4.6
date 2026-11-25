@@ -1,0 +1,66 @@
+# Additional Subspecies Initial Setup
+# Only with a subspecies civic or origin
+# Country Flags Set, by the last created species, not for Guided Sapience:
+#	* machine_subspecies (Mechanical or Machine trait)
+#	* lithoid_subspecies (Lithoid)
+#	* infernal_subspecies (Infernal)
+#	* non_lithoid_subspecies (all others, and always for Guided Sapience)
+# Variables Changed:
+#	* farming_districts +1 with non_lithoid_subspecies
+
+if = {
+	limit = {
+		has_subspecies_civic_or_origin = yes
+	}
+	if = {
+		limit = {
+			owner? = {
+				is_guided_sapience_empire = no
+				last_created_species = {
+					OR = {
+						has_trait = trait_mechanical
+						has_trait = trait_machine_unit
+					}
+				}
+			}
+		}
+		owner = {
+			set_country_flag = machine_subspecies
+		}
+	}
+	else_if = {
+		limit = {
+			owner? = {
+				is_guided_sapience_empire = no
+				last_created_species = {
+					is_lithoid = yes
+				}
+			}
+		}
+		owner = {
+			set_country_flag = lithoid_subspecies
+		}
+	}
+	else_if = {
+		limit = {
+			owner? = {
+				is_guided_sapience_empire = no
+				last_created_species = {
+					is_infernal = yes
+				}
+			}
+		}
+		owner = {
+			set_country_flag = infernal_subspecies
+		}
+	}
+	else = {
+		owner = {
+			set_country_flag = non_lithoid_subspecies
+		}
+		change_variable = {
+			which = farming_districts
+			value = 1
+		}
+	}
+}

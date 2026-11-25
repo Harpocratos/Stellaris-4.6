@@ -1,0 +1,15 @@
+# Lithoid Species Void Dweller Initial Setup
+# Variables Changed:
+#	* mining_districts +1
+
+if = {
+	limit = {
+		owner? = {
+			is_lithoid = yes
+		}
+	}
+	change_variable = {
+		which = mining_districts
+		value = 1
+	}
+}

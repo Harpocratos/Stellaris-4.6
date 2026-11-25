@@ -1,0 +1,14 @@
+# Obsessional Directive Initial Setup
+# Buildings Added:
+#	* Civilian Industries (industry zone)
+
+if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_machine_obsessional_directive
+		}
+	}
+	add_building_to_starting_industry_zone = {
+		BUILDING = building_factory_1
+	}
+}

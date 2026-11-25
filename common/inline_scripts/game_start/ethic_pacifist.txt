@@ -1,0 +1,28 @@
+# Pacifist Ethics Initial Setup
+# Buildings Added:
+#	* Luxury Residences (no zone set), individualist empires only, not with
+#	  Shared Burdens or Forever Cruise
+#	* Utopian Communal Housing (no zone set), with Shared Burdens
+
+if = {
+	limit = {
+		owner? = {
+			is_pacifist = yes
+			is_regular_empire = yes
+			NOR = {
+				has_valid_civic = civic_shared_burden
+				has_origin = origin_forever_cruise
+			}
+		}
+	}
+	add_building = building_luxury_residence
+}
+else_if = {
+	limit = {
+		owner? = {
+			is_pacifist = yes
+			has_valid_civic = civic_shared_burden
+		}
+	}
+	add_building = building_communal_housing_large
+}

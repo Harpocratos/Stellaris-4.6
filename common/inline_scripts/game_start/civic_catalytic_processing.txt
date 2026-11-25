@@ -1,0 +1,21 @@
+# Catalytic Processing Initial Setup
+# Only for Catalytic Processing empires
+# Other:
+#	* Lowers the rural Mining District count by 1
+#	* Raises the rural Agriculture District count by 2
+
+if = {
+	limit = {
+		owner? = {
+			is_catalytic_empire = yes
+		}
+	}
+	change_variable = {
+		which = mining_districts
+		value = -1
+	}
+	change_variable = {
+		which = farming_districts
+		value = 2
+	}
+}

@@ -1,0 +1,24 @@
+# Arc Welders Initial Setup
+# Not for nomadic empires
+# Other:
+#	* Planet size set to 15
+# Districts Changed:
+#	* All Mining Districts become Generator Districts
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_arc_welders
+			is_nomadic = no
+		}
+	}
+	set_planet_size = 15
+	add_variable = {
+		which = energy_districts
+		value = mining_districts
+	}
+	set_variable = {
+		which = mining_districts
+		value = 0
+	}
+}

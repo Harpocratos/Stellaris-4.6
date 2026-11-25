@@ -1,0 +1,15 @@
+# Free Traders Initial Setup
+# Only for empires with Free Traders
+# Buildings Added:
+#	* Commercial Zones (no zone set), only if the planet has none yet
+
+if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_free_traders
+		}
+	}
+	add_building_if_not_present = {
+		BUILDING = building_commercial_zone
+	}
+}

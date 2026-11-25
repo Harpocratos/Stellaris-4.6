@@ -1,0 +1,14 @@
+# Shroud Forged Initial Setup
+# Buildings Added:
+#	* Shroud Observation Tower (research and unity zone)
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_shroud_forged
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_shroud_observatory_1
+	}
+}

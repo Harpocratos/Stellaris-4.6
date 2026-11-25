@@ -1,0 +1,18 @@
+# Rogue Servitor Initial Setup
+# Not applied for Forever Cruise
+# Buildings Added:
+#	* Organic Sanctuary (research and unity zone)
+
+if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_machine_servitor
+			NOT = {
+				has_origin = origin_forever_cruise
+			}
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_organic_sanctuary
+	}
+}

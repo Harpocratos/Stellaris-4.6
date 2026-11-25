@@ -1,0 +1,78 @@
+# Nomadic Machine Intelligence Initial Setup
+# Only for nomadic machine empires
+# Buildings Added:
+#	* Administrative Array (no zone set)
+#	* Machine Assembly Plants (no zone set)
+#	* Drone Storage (no zone set)
+#	* Civilian Industries (industry zone), Rogue Servitor or Obsessional
+#	  Directive only
+# Districts Added:
+#	* 2 Habitation Decks
+# Zones Added (Habitation Decks):
+#	* Slot 1: Collective Research Complex
+#	* Slot 2: Industrial-Trade Quarter (Rogue Servitor or Obsessional Directive)
+#	* Slot 2: Military Logistics Complex (all other machine empires)
+# Other:
+#	* Sets the rural district counts to 3 Generator, 4 Mining and 0 Agriculture
+#	  Districts
+
+if = {
+	limit = {
+		owner? = {
+			is_machine_empire = yes
+			is_nomadic = yes
+		}
+	}
+	add_building = building_machine_capital
+	add_building = building_machine_assembly_plant
+	add_building = building_drone_storage
+
+	add_district = district_ark_city
+	add_district = district_ark_city
+
+	add_zone = {
+		district = district_ark_city
+		zone = zone_ark_research_unity_gestalt
+		zone_slot = 1
+	}
+
+	if = {
+		limit = {
+			owner? = {
+				OR = {
+					has_valid_civic = civic_machine_servitor
+					has_valid_civic = civic_machine_obsessional_directive
+				}
+			}
+		}
+		add_zone = {
+			district = district_ark_city
+			zone = zone_ark_industrial
+			zone_slot = 2
+		}
+		add_building = {
+			building = building_factory_1
+			zone = zone_ark_industrial
+		}
+	}
+	else = {
+		add_zone = {
+			district = district_ark_city
+			zone = zone_ark_foundry
+			zone_slot = 2
+		}
+	}
+
+	set_variable = {
+		which = energy_districts
+		value = 3
+	}
+	set_variable = {
+		which = mining_districts
+		value = 4
+	}
+	set_variable = {
+		which = farming_districts
+		value = 0
+	}
+}

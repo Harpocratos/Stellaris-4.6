@@ -1,0 +1,16 @@
+# Tankbound Initial Setup
+# Applies to Tankbound and Corporate Thinktank
+# Variables Changed:
+#	* energy_districts increased by 1
+
+if = {
+	limit = {
+		owner? = {
+			is_tankbound_empire = yes
+		}
+	}
+	change_variable = {
+		which = energy_districts
+		value = 1
+	}
+}

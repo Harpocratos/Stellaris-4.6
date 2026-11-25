@@ -1,0 +1,15 @@
+# Astrometeorology Initial Setup
+# Buildings Added:
+#	* Astrometeorology Observatory (research and unity zone)
+# Cybernetic Creed sets no zone: the first zone with room that allows it
+
+if = {
+	limit = {
+		owner? = {
+			is_astrometeorologist_empire = yes
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_astrometeorology_observation_center
+	}
+}

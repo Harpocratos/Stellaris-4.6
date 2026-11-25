@@ -1,0 +1,15 @@
+# Experimental Sentencing Initial Setup
+# Buildings Added:
+#	* Experimentation Chambers (research and unity zone)
+# Cybernetic Creed sets no zone: the first zone with room that allows it
+
+if = {
+	limit = {
+		owner? = {
+			is_twisted_experimenters_empire = yes
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_experimentation_chambers_1
+	}
+}

@@ -1,0 +1,53 @@
+# Prosperous Unification Initial Setup
+# Rural Districts Added:
+#	* 1 Generator District
+#	* 1 Agriculture District if the empire uses food, else 1 Mining District
+# Nomad Arkship Districts:
+#	* Reactor Arrays cap raised by 1
+#	* 1 Arkship Deck
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_default
+		}
+	}
+	change_variable = {
+		which = energy_districts
+		value = 1
+	}
+
+	if = {
+		limit = {
+			owner? = {
+				is_nomadic = yes
+			}
+		}
+		change_variable = {
+			which = ark_energy_district_cap
+			value = 1
+		}
+		change_variable = {
+			which = ark_basic_districts
+			value = 1
+		}
+	}
+
+	if = {
+		limit = {
+			owner? = {
+				country_uses_food_game_start = yes
+			}
+		}
+		change_variable = {
+			which = farming_districts
+			value = 1
+		}
+	}
+	else = {
+		change_variable = {
+			which = mining_districts
+			value = 1
+		}
+	}
+}

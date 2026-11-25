@@ -1,0 +1,12 @@
+# Shared Burdens Initial Setup
+# Buildings Added:
+#	* Communal Housing (no zone set)
+
+if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_shared_burden
+		}
+	}
+	add_building = building_communal_housing
+}

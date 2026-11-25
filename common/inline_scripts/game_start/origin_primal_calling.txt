@@ -1,0 +1,53 @@
+# Primal Calling Initial Setup
+# Buildings Added, first match only:
+#	* Hunting Grounds (no zone set) with Trophy Hunter and Hunter Drone jobs
+#	* Wildlife Sanctuary (no zone set) with the Animal Handler job
+#	* Primal Arena (no zone set) with the Beastfighter job
+#	* Symbiosis Nodule (no zone set) with the Symbiosis Integrator job
+#	* Wildlife Ranch (no zone set) otherwise
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_primal_calling
+			has_trophy_hunter_job = yes
+			has_hunter_drone_job = yes
+		}
+	}
+	add_building = hunting_grounds
+}
+else_if = {
+	limit = {
+		owner? = {
+			has_origin = origin_primal_calling
+			has_animal_handler_job = yes
+		}
+	}
+	add_building = wildlife_sanctuary
+}
+else_if = {
+	limit = {
+		owner? = {
+			has_origin = origin_primal_calling
+			has_beastfighter_job = yes
+		}
+	}
+	add_building = primal_arena
+}
+else_if = {
+	limit = {
+		owner? = {
+			has_origin = origin_primal_calling
+			has_symbiosis_integrator_job = yes
+		}
+	}
+	add_building = symbiosis_nexus
+}
+else_if = {
+	limit = {
+		owner? = {
+			has_origin = origin_primal_calling
+		}
+	}
+	add_building = wildlife_ranch
+}

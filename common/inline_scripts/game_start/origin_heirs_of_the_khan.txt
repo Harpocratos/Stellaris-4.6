@@ -1,0 +1,14 @@
+# Heirs of the Khan Initial Setup
+# Nomadic empires only
+# Districts Added:
+#	* 1× Ordnance Engineering
+
+if = {
+	limit = {
+		owner? = {
+			is_nomadic = yes
+			has_origin = origin_heirs_of_the_khan
+		}
+	}
+	add_district = district_ark_military
+}

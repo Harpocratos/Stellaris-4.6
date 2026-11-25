@@ -1,0 +1,145 @@
+# Broken Shackles Initial Setup
+# Blockers Removed:
+#	* All blockers
+# Deposits Added:
+#	* Crashed Slaver Ship
+#	* 3× random_blocker
+#	* 5× Ship Debris
+# Districts Added:
+#	* 6× Scavenger Site
+# Zones Removed from Scavenger Site:
+#	* Archives
+#	* Mixed Industry
+# Buildings Removed:
+#	* All buildings
+#	* Reassembled Ship Shelter
+# Buildings Added:
+#	* Command Center (government zone)
+#	* Administrative Hub (government zone)
+#	* Laboratory Complex (government zone)
+#	* Scrap Refinery (government zone)
+#	* Makeshift Farms (government zone)
+#	* Power Plant (government zone)
+# Modifiers Added:
+#	* Free at Last for 20 years
+#	* Stellar Culture Shock for 10 years
+# Districts Added with the angler_shackles flag:
+#	* Agriculture District with Aquaculture zone
+# Other:
+#	* Planet buildings and districts validated
+#	* Energy, mining and farming district counts set to 0, so no other rural
+#	  districts
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_broken_shackles
+		}
+	}
+	clear_blockers = yes
+	add_deposit = d_crashed_slaver_ship
+	add_deposit = random_blocker
+	add_deposit = random_blocker
+	add_deposit = random_blocker
+	while = {
+		count = 5
+		add_deposit = d_ship_debris_broken_shackles_blocker
+	}
+
+	add_district_and_planet_size_if_needed_effect_amount = {
+		amount = 6
+		district = district_crashed_slaver_ship
+	}
+	remove_all_buildings = yes
+	validate_and_repair_planet_buildings_and_districts = yes
+
+	remove_zone = {
+		district = district_crashed_slaver_ship
+		zone = zone_research_unity
+	}
+
+	remove_zone = {
+		district = district_crashed_slaver_ship
+		zone = zone_industrial
+	}
+
+	remove_building = building_colony_shelter
+
+	add_building = {
+		district = district_crashed_slaver_ship
+		zone = zone_default
+		building = building_low_tech_capital
+	}
+
+	add_building = {
+		district = district_crashed_slaver_ship
+		zone = zone_default
+		building = building_low_tech_admin_hub
+	}
+
+	add_building = {
+		district = district_crashed_slaver_ship
+		zone = zone_default
+		building = building_low_tech_research_lab
+	}
+
+	add_building = {
+		district = district_crashed_slaver_ship
+		zone = zone_default
+		building = building_low_tech_scrap_refinery
+	}
+
+	add_building = {
+		district = district_crashed_slaver_ship
+		zone = zone_default
+		building = building_low_tech_farm
+	}
+
+	add_building = {
+		district = district_crashed_slaver_ship
+		zone = zone_default
+		building = building_low_tech_power_plant
+	}
+
+	add_modifier = {
+		modifier = free_at_last_broken_shackles
+		days = 7200
+	}
+	add_modifier = {
+		modifier = culture_shock_broken_shackles
+		days = 3600
+	}
+
+	if = {
+		limit = {
+			has_carrier_flag = angler_shackles
+		}
+		add_district_and_planet_size_if_needed_effect_amount = {
+			amount = 1
+			district = district_farming
+		}
+		add_zone = {
+			district = district_farming
+			zone = zone_anglers
+		}
+
+		# We`ve created a farming district, so reduce the count by 1
+		change_variable = {
+			which = farming_districts
+			value = -1
+		}
+	}
+
+	set_variable = {
+		which = energy_districts
+		value = 0
+	}
+	set_variable = {
+		which = mining_districts
+		value = 0
+	}
+	set_variable = {
+		which = farming_districts
+		value = 0
+	}
+}

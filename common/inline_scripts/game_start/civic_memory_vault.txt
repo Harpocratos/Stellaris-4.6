@@ -1,0 +1,21 @@
+# Vaults of Knowledge Initial Setup
+# Only for empires with Vaults of Knowledge
+# Buildings Added:
+#	* Vaults of Knowledge (no zone set)
+# Other:
+#	* Sets the owner variable paragon_memory_vault to 0
+
+if = {
+	limit = {
+		owner? = {
+			is_memory_vault_empire = yes
+		}
+	}
+	add_building = building_paragon_memory_vaults
+	owner = {
+		set_variable = {
+			which = paragon_memory_vault
+			value = 0
+		}
+	}
+}

@@ -1,0 +1,54 @@
+# Hive Mind Initial Setup
+# Only for hive empires that are not nomadic and not Wilderness empires
+# Buildings Added:
+#	* Hive Core (no zone set)
+#	* Spawning Pools (no zone set), or Offspring Nest (no zone set) for
+#	  Progenitor Hive
+#	* Hive Warren (no zone set)
+# Districts Added:
+#	* 2 Hive Cluster, planet size increased if needed
+# Zones Added (Hive Cluster):
+#	* Slot 1: Archives
+#	* Slot 2: Heavy Industry
+
+if = {
+	limit = {
+		owner? = {
+			is_hive_empire = yes
+			is_wilderness_empire = no
+			is_nomadic = no
+		}
+	}
+	add_building = building_hive_capital
+	if = {
+		limit = {
+			owner? = {
+				NOT = {
+					has_origin = origin_progenitor_hive
+				}
+			}
+		}
+		add_building = building_spawning_pool
+	}
+	else = {
+		add_building = building_offspring_nest
+	}
+	add_building = building_hive_warren
+
+	add_district_and_planet_size_if_needed_effect_amount = {
+		amount = 2
+		district = district_hive
+	}
+
+	add_zone = {
+		district = district_hive
+		zone = zone_research_unity
+		zone_slot = 1
+	}
+
+	add_zone = {
+		district = district_hive
+		zone = zone_foundry
+		zone_slot = 2
+	}
+}

@@ -1,0 +1,13 @@
+# Ocean Paradise Initial Setup
+# Also applied for Subaquatic Machines
+# Flags Set:
+#	* uncapped_farming, so Agriculture Districts ignore the planet cap
+
+if = {
+	limit = {
+		owner? = {
+			is_ocean_paradise_empire = yes
+		}
+	}
+	set_carrier_flag = uncapped_farming
+}

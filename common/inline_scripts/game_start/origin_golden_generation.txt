@@ -1,0 +1,13 @@
+
+# Golden Generation Initial Setup
+# Buildings Added:
+#	* Golden Academy
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_golden_generation
+		}
+	}
+	add_building = building_golden_academy
+}

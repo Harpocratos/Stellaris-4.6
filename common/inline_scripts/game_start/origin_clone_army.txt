@@ -1,0 +1,25 @@
+# Clone Army Initial Setup
+# Buildings Added:
+#	* Ancient Clone Vat (research and unity zone)
+#	* Ancient Clone Vat (industry zone)
+# Events:
+#	* Debated Origin queued in 1095 days plus up to 720 random days
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_clone_army
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_clone_army_clone_vat
+	}
+	add_building_to_starting_industry_zone = {
+		BUILDING = building_clone_army_clone_vat
+	}
+	carrier_event = {
+		id = clones.10
+		days = 1095
+		random = 720
+	}
+}

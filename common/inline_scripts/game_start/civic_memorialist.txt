@@ -1,0 +1,15 @@
+# Memorialist Initial Setup
+# Buildings Added:
+#	* Sanctuary of Repose (research and unity zone)
+# Cybernetic Creed sets no zone: the first zone with room that allows it
+
+if = {
+	limit = {
+		owner? = {
+			is_memorialist_empire = yes
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_galactic_memorial_1
+	}
+}

@@ -1,0 +1,13 @@
+# Augmentation Bazaars Initial Setup
+# Only for empires with Augmentation Bazaars
+# Buildings Added:
+#	* Augmentation Bazaar (no zone set)
+
+if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_augmentation_bazaars
+		}
+	}
+	add_building = building_augmentation_bazaars
+}

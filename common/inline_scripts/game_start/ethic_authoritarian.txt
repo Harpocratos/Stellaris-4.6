@@ -1,0 +1,15 @@
+# Authoritarian Ethics Initial Setup
+# Buildings Added, not with Civil Education:
+#	* Precinct Houses (no zone set)
+
+if = {
+	limit = {
+		owner? = {
+			is_authoritarian = yes
+			NOT = {
+				has_valid_civic = civic_civil_education
+			}
+		}
+	}
+	add_building = building_precinct_house
+}

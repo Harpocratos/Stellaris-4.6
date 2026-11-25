@@ -1,0 +1,5 @@
+# Progenitor Hive Initial Setup
+# This file has no effects
+# Other:
+#	* authority_hive.txt and species_hive_void_dwellers.txt add the Offspring
+#	  Nest in place of Spawning Pools

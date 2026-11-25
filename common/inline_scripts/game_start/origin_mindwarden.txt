@@ -1,0 +1,12 @@
+# Mindwardens Initial Setup
+# Buildings Added:
+#	* Ancient Ward (no zone set)
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_mindwardens
+		}
+	}
+	add_building = building_ancient_ward_1
+}

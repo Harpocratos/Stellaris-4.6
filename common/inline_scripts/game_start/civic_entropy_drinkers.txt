@@ -1,0 +1,47 @@
+# Entropy Drinkers and Variants Initial Setup
+# Buildings Added (research and unity zone):
+#	* Leeching Tower for individualist and hive empires
+#	* Siphon Battery for machine empires
+#	* Synergy Headquarters for megacorporations
+# Cybernetic Creed sets no zone: the first zone with room that allows it
+
+if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_entropy_drinkers
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_lifecrypt_1
+	}
+}
+else_if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_entropy_drinkers_machine
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_lifecrypt_machine_1
+	}
+}
+else_if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_entropy_drinkers_hive_mind
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_lifecrypt_hive_mind_1
+	}
+}
+else_if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_entropy_drinkers_corporate
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_lifecrypt_corporate_1
+	}
+}

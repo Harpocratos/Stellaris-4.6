@@ -1,0 +1,53 @@
+# Synthetic Fertility Initial Setup
+# Planet:
+#	* Size set to 20 for non-nomadic empires
+# Buildings Added:
+#	* Abandoned Gene Clinic (no zone set)
+#	* Identity Repository (no zone set)
+# Blockers Added:
+#	* 2 Abandoned Cities
+# Blockers Removed:
+#	* All Lithoid Monoliths
+# Technologies Granted:
+#	* Powered Exoskeletons
+# Variables Set:
+#	* num_dead_identities = 300 on the empire
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_synthetic_fertility
+		}
+	}
+	if = {
+		limit = {
+			owner? = {
+				is_nomadic = no
+			}
+		}
+		set_planet_size = 20
+	}
+	owner = {
+		set_variable = {
+			which = num_dead_identities
+			value = 300
+		}
+		give_technology = {
+			tech = tech_powered_exoskeletons
+			message = no
+		}
+	}
+	add_building = building_abandoned_gene_clinic
+	while = {
+		count = 2
+		add_deposit = d_abandoned_cities
+	}
+	add_building = building_identity_repository # Generating this building after the variable is set to avoid errors
+
+	every_deposit = {
+		limit = {
+			is_deposit_type = d_hibernating_lithoids
+		}
+		remove_deposit = yes
+	}
+}

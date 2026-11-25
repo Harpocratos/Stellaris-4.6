@@ -1,0 +1,14 @@
+# Materialist Ethics Initial Setup
+# Buildings Added:
+#	* Research Labs (research and unity zone)
+
+if = {
+	limit = {
+		owner? = {
+			is_materialist = yes
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_research_lab_1
+	}
+}

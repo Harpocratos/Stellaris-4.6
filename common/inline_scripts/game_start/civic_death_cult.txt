@@ -1,0 +1,15 @@
+# Death Cult Initial Setup
+# Buildings Added:
+#	* Sacrificial Temple (research and unity zone)
+# Cybernetic Creed sets no zone: the first zone with room that allows it
+
+if = {
+	limit = {
+		owner? = {
+			is_death_cult_empire = yes
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_sacrificial_temple_1
+	}
+}

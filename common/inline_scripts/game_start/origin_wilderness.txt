@@ -1,0 +1,73 @@
+# Wilderness Initial Setup
+# Buildings Removed:
+#	* All of them
+# Flags Set:
+#	* wilderness_planet (carrier flag)
+# Districts Added:
+#	* 2 Communal Biome
+# Zones Added (Communal Biome):
+#	* Slot 1: Harmonic Core
+#	* Slot 2: Heartgrove
+# Buildings Added:
+#	* Planetary Root Bundle (government zone)
+#	* Cradle of Rebirth (government zone)
+#	* Smelting Pool (government zone)
+#	* Avatar Cradle (government zone)
+#	* Research Growth (Harmonic Core zone)
+#	* Commensal Clearing (Harmonic Core zone)
+#	* Tendril Cradle (Heartgrove zone)
+# Other:
+#	* Planet size set to 18
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_wilderness
+		}
+	}
+	set_planet_size = 18
+	remove_all_buildings = yes
+	set_carrier_flag = wilderness_planet
+	add_district_and_planet_size_if_needed_effect_amount = {
+		amount = 2
+		district = district_craglands
+	}
+	add_zone = {
+		district = district_craglands
+		zone = zone_research_unity_wilderness
+		zone_slot = 1
+	}
+	add_zone = {
+		district = district_craglands
+		zone = zone_urban_wilderness
+		zone_slot = 2
+	}
+	add_building = {
+		zone = zone_default
+		building = building_capital_wilderness
+	}
+	add_building = {
+		zone = zone_default
+		building = building_cradle_of_rebirth
+	}
+	add_building = {
+		zone = zone_default
+		building = building_natural_furnace_0
+	}
+	add_building = {
+		zone = zone_default
+		building = building_avatar_chamber_1
+	}
+	add_building = {
+		zone = zone_research_unity_wilderness
+		building = building_brain_node_1
+	}
+	add_building = {
+		zone = zone_research_unity_wilderness
+		building = building_commensal_clearing_1
+	}
+	add_building = {
+		zone = 	zone_urban_wilderness
+		building = building_tendril_cradle_1
+	}
+}

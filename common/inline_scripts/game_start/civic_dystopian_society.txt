@@ -1,0 +1,13 @@
+# Oppressive Autocracy Initial Setup
+# Only for empires with Oppressive Autocracy
+# Buildings Added:
+#	* Precinct Houses (no zone set)
+
+if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_dystopian_society
+		}
+	}
+	add_building = building_precinct_house
+}

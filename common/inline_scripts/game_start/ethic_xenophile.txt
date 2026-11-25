@@ -1,0 +1,14 @@
+# Xenophile Ethics Initial Setup
+# Buildings Added:
+#	* Commercial Zones (no zone set, only if not present)
+
+if = {
+	limit = {
+		owner? = {
+			is_xenophile = yes
+		}
+	}
+	add_building_if_not_present = {
+		BUILDING = building_commercial_zone
+	}
+}

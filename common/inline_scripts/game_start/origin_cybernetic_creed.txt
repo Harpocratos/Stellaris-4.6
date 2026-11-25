@@ -1,0 +1,46 @@
+# Cybernetic Creed Initial Setup
+# Flags Set:
+#	* suppress_vanilla_factions
+# Events:
+#	* Cybernetic Creed event chain begun
+#	* The Creeds event queued in 30 days
+# Other:
+#	* Ruler gains the Ritualistic Implants trait
+# Buildings Added:
+#	* Amphitheater of the Mind (research and unity zone)
+#	* Sanctuary of Toil (research and unity zone)
+#	* Battlements of Steel (industry zone)
+#	* Forge of the Fellowship (industry zone)
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_cybernetic_creed
+		}
+	}
+	owner = {
+		set_country_flag = suppress_vanilla_factions
+		begin_event_chain = {
+			event_chain = "cybernetic_creed_chain"
+			target = this
+		}
+		country_event = {
+			id = machine_age.2150
+			days = 30
+		}
+	}
+	set_carrier_flag = ignore_creed_building_limitation
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_amphitheater_of_the_mind
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_sanctuary_of_toil
+	}
+	add_building_to_starting_industry_zone = {
+		BUILDING = building_battlement_of_steel
+	}
+	add_building_to_starting_industry_zone = {
+		BUILDING = building_forge_of_the_fellowship
+	}
+	remove_carrier_flag = ignore_creed_building_limitation
+}

@@ -1,0 +1,47 @@
+# Nomadic Hive Mind Initial Setup
+# Only for nomadic hive empires
+# Buildings Added:
+#	* Hive Core (no zone set)
+#	* Spawning Pools (no zone set), not for Progenitor Hive
+#	* Hive Warren (no zone set)
+# Districts Added:
+#	* 2 Habitation Decks
+# Zones Added (Habitation Decks):
+#	* Slot 1: Collective Research Complex
+#	* Slot 2: Military Logistics Complex
+
+if = {
+	limit = {
+		owner? = {
+			is_hive_empire = yes
+			is_nomadic = yes
+		}
+	}
+	add_building = building_hive_capital
+	if = {
+		limit = {
+			owner? = {
+				NOT = {
+					has_origin = origin_progenitor_hive
+				}
+			}
+		}
+		add_building = building_spawning_pool
+	}
+	add_building = building_hive_warren
+
+	add_district = district_ark_city
+	add_district = district_ark_city
+
+	add_zone = {
+		district = district_ark_city
+		zone = zone_ark_research_unity_gestalt
+		zone_slot = 1
+	}
+
+	add_zone = {
+		district = district_ark_city
+		zone = zone_ark_foundry
+		zone_slot = 2
+	}
+}

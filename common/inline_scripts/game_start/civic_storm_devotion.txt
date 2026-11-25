@@ -1,0 +1,13 @@
+# Storm Devotion Initial Setup
+# Applies to Storm Devotion and Storm Influencers
+# Buildings Added:
+#	* Storm Summoning Theater (no zone set)
+
+if = {
+	limit = {
+		owner? = {
+			is_storm_callers_empire = yes
+		}
+	}
+	add_building = building_storm_summoning_theater
+}

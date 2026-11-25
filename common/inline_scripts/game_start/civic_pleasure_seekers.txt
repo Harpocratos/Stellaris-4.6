@@ -1,0 +1,18 @@
+# Pleasure Seekers Initial Setup
+# Buildings Added:
+#	* Holo-Theatres (no zone set)
+#	* Civilian Industries (industry zone)
+# Cybernetic Creed sets no zone for Civilian Industries: the first zone with
+# room that allows it
+
+if = {
+	limit = {
+		owner? = {
+			is_pleasure_seeker_empire = yes
+		}
+	}
+	add_building = building_holo_theatres
+	add_building_to_starting_industry_zone = {
+		BUILDING = building_factory_1
+	}
+}

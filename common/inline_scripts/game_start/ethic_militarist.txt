@@ -1,0 +1,15 @@
+# Militarist Ethics Initial Setup
+# Buildings Added, not with Reanimators:
+#	* Stronghold (no zone set)
+
+if = {
+	limit = {
+		owner? = {
+			is_militarist = yes
+			NOT = {
+				has_valid_civic = civic_reanimated_armies
+			}
+		}
+	}
+	add_building = building_stronghold
+}

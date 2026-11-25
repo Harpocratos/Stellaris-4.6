@@ -1,0 +1,30 @@
+# Natural Design Initial Setup
+# Buildings Added (research and unity zone):
+#	* Genomic Services Center for individualist empires
+#	* Genomic Safeguard Warren for hive empires
+# Cybernetic Creed sets no zone: the first zone with room that allows it
+
+if = {
+	limit = {
+		owner? = {
+			is_natural_design_empire = yes
+			is_regular_empire = yes
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_transcendental_retreat
+	}
+}
+
+if = {
+	limit = {
+		owner? = {
+			is_natural_design_empire = yes
+			is_hive_empire = yes
+			is_wilderness_empire = no
+		}
+	}
+	add_building_to_starting_research_unity_zone = {
+		BUILDING = building_hive_transcendental_retreat
+	}
+}

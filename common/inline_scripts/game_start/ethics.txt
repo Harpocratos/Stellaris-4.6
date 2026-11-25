@@ -1,0 +1,22 @@
+# Ethics Initial Setup
+# Runs the game_start inline script of each ethic
+# Not for Broken Shackles or Wilderness, which replace all start buildings
+
+if = {
+	limit = {
+		owner? = {
+			NOR = {
+				has_origin = origin_broken_shackles
+				has_origin = origin_wilderness
+			}
+		}
+	}
+	inline_script = "game_start/ethic_spiritualist"
+	inline_script = "game_start/ethic_materialist"
+	inline_script = "game_start/ethic_pacifist"
+	inline_script = "game_start/ethic_militarist"
+	inline_script = "game_start/ethic_egalitarian"
+	inline_script = "game_start/ethic_authoritarian"
+	inline_script = "game_start/ethic_xenophile"
+	inline_script = "game_start/ethic_xenophobe"
+}

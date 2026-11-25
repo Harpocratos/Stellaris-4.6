@@ -1,0 +1,41 @@
+# Infernals Species Initial Setup
+# Variables Set for Infernal empires:
+#	* energy_districts = 2
+#	* mining_districts = 4
+#	* farming_districts = 1 with Tree of Life or Here Be Dragons, otherwise 0
+
+if = { # if you are a normal infernal and don't need food
+	limit = {
+		owner? = {
+			is_infernal_empire = yes
+		}
+	}
+	set_variable = {
+		which = energy_districts
+		value = 2
+	}
+	set_variable = {
+		which = mining_districts
+		value = 4
+	}
+	if = {  # If you are any of these, you get an extra food district.
+		limit = {
+			owner? = {
+				OR = {
+					has_origin = origin_tree_of_life
+					has_origin = origin_here_be_dragons
+				}
+			}
+		}
+		set_variable = {
+			which = farming_districts
+			value = 1
+		}
+	}
+	else = { #dont need special food or the extra food will be added in game_start/species_subspecies or game_start/civics
+		set_variable = {
+			which = farming_districts
+			value = 0
+		}
+	}
+}

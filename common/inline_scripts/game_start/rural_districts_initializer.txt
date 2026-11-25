@@ -1,0 +1,30 @@
+# Rural Districts Initializer
+# Sets the district counts that are read by game_start/rural_districts_placement
+# Variables Set:
+#	* energy_districts = 2
+#	* mining_districts = 2
+#	* farming_districts = 3
+#	* ark_energy_district_cap = 2
+#	* ark_basic_districts = 1
+
+set_variable = {
+	which = energy_districts
+	value = 2
+}
+set_variable = {
+	which = mining_districts
+	value = 2
+}
+set_variable = {
+	which = farming_districts
+	value = 3
+}
+
+set_variable = {
+	which = ark_energy_district_cap
+	value = 2
+}
+set_variable = {
+	which = ark_basic_districts
+	value = 1
+}

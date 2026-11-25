@@ -1,0 +1,12 @@
+# Reanimators Initial Setup
+# Buildings Added:
+#	* Dread Encampment (no zone set)
+
+if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_reanimated_armies
+		}
+	}
+	add_building = building_dread_encampment
+}

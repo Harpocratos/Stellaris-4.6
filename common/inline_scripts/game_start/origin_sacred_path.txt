@@ -1,0 +1,17 @@
+# The Sacred Path Initial Setup
+# Zones Replaced (Habitation Decks):
+#	* Slot 1: Consecrated Community
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_sacred_path
+		}
+	}
+	add_zone = {
+		district = district_ark_city
+		zone = zone_ark_sacred_path_pilgrims
+		zone_slot = 1
+		replace = yes
+	}
+}

@@ -1,0 +1,14 @@
+# Warrior Culture Initial Setup
+# Buildings Added:
+#	* Holo-Theatres (no zone set, only if not present)
+
+if = {
+	limit = {
+		owner? = {
+			has_valid_civic = civic_warrior_culture
+		}
+	}
+	add_building_if_not_present = {
+		BUILDING = building_holo_theatres
+	}
+}

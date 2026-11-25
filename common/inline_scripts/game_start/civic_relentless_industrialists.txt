@@ -1,0 +1,15 @@
+# Relentless Industrialists Initial Setup
+# Buildings Added:
+#	* Coordinated Fulfillment Center (industry zone)
+# Cybernetic Creed sets no zone: the first zone with room that allows it
+
+if = {
+	limit = {
+		owner? = {
+			is_relentless_industrialist_empire = yes
+		}
+	}
+	add_building_to_starting_industry_zone = {
+		BUILDING = building_coordinated_fulfillment_center_1
+	}
+}

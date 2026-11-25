@@ -1,0 +1,31 @@
+# Machine Species Void Dweller Initial Setup
+# Buildings Added:
+#	* Machine Assembly Plants (no zone set)
+#	* Drone Storage (no zone set)
+# Variables Set:
+#	* energy_districts = 3
+#	* mining_districts = 4
+#	* farming_districts = 0
+
+if = {
+	limit = {
+		owner? = {
+			is_machine_empire = yes
+		}
+	}
+	add_building = building_machine_assembly_plant
+	add_building = building_drone_storage
+
+	set_variable = {
+		which = energy_districts
+		value = 3
+	}
+	set_variable = {
+		which = mining_districts
+		value = 4
+	}
+	set_variable = {
+		which = farming_districts
+		value = 0
+	}
+}
