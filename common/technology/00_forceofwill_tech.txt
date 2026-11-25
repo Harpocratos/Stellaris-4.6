@@ -1,0 +1,209 @@
+############################
+# Willpower - Technologies #
+############################
+
+##################
+# Galactic Halls #
+##################
+
+tech_galactic_halls = {
+	cost = @tier2cost1
+	area = society
+	tier = 2
+	category = { statecraft }
+	weight = @tier2weight1
+
+	potential = {
+		has_force_of_will_dlc = yes
+		OR = {
+			exists = ideology
+			is_country_type = rebel # since when copying techs, rebels don't have an ideology yet
+		}
+	}
+
+	prereqfor_desc = {
+		custom = {
+			title = tech_galactic_halls_unlock_tt
+			desc = tech_galactic_halls_unlock_details
+		}
+	}
+
+	weight_modifier = {
+		modifier = {
+			exists = ideology
+			is_fanatic = yes
+			mult = 2
+		}
+    }
+
+	ai_weight = {
+		weight = 1
+		modifier = {
+			add = 10
+			any_owned_colony = {
+				is_affected_by_bad_ideology = { COUNTRY = root }
+			}
+		}
+		modifier = {
+			add = 1
+			any_owned_planet = { is_planet_revolting = yes }
+		}
+		modifier = {
+			add = 5
+			ideology? = { is_ideology_custodian = prev }
+		}
+		modifier = {
+			add = 1
+			ideological_momentum < @ideology_momentum_low
+		}
+		modifier = {
+			add = 5
+			ideological_momentum < @ideology_momentum_moderately_low
+		}
+		modifier = {
+			add = 5
+			ideological_momentum < @ideology_momentum_dangerously_low
+		}
+	}
+}
+
+tech_ideology_projection_1 = {
+	cost = @tier3cost1
+	area = society
+	tier = 3
+	category = { statecraft }
+	weight = @tier3weight1
+
+	prerequisites = { "tech_galactic_halls" }
+	potential = {
+		has_force_of_will_dlc = yes
+		has_country_flag = unlock_tech_ideology_projection
+	}
+
+	modifier = {
+		megastructure_module_capacity_add = 1
+		hall_ideological_reach_mult = 0.25
+		hall_relocate_cost = -0.25
+		hall_colony_effect_mult = 0.25
+	}
+
+	technology_swap = {
+		name = tech_nomads_ideology_projection_1
+		inherit_icon = yes
+		inherit_effects = no
+
+		trigger = {
+			is_nomadic = yes
+		}
+
+		modifier = {
+			hall_colony_effect_mult = 0.25
+		}
+	}
+
+	ai_weight = {
+		weight = 1
+		modifier = {
+			add = 10
+			any_owned_colony = {
+				is_affected_by_bad_ideology = { COUNTRY = root }
+			}
+		}
+		modifier = {
+			add = 1
+			any_owned_planet = { is_planet_revolting = yes }
+		}
+		modifier = {
+			add = 5
+			ideology? = { is_ideology_custodian = prev }
+		}
+		modifier = {
+			add = 1
+			ideological_momentum < @ideology_momentum_low
+		}
+		modifier = {
+			add = 5
+			ideological_momentum < @ideology_momentum_moderately_low
+		}
+		modifier = {
+			add = 5
+			ideological_momentum < @ideology_momentum_dangerously_low
+		}
+	}
+}
+
+tech_ideology_projection_2 = {
+	cost = @tier4cost1
+	area = society
+	tier = 4
+	category = { statecraft }
+	weight = @tier4weight1
+
+	prerequisites = { "tech_ideology_projection_1" }
+	potential = {
+		has_force_of_will_dlc = yes
+	}
+
+	modifier = {
+		megastructure_module_capacity_add = 1
+		hall_ideological_reach_mult = 0.25
+		hall_relocate_cost = -0.25
+		hall_colony_effect_mult = 0.25
+	}
+
+	technology_swap = {
+		name = tech_nomads_ideology_projection_2
+		inherit_icon = yes
+		inherit_effects = no
+
+		trigger = {
+			is_nomadic = yes
+		}
+
+		modifier = {
+			hall_colony_effect_mult = 0.25
+		}
+	}
+
+	ai_weight = {
+		weight = 1
+		modifier = {
+			add = 10
+			any_owned_colony = {
+				is_affected_by_bad_ideology = { COUNTRY = root }
+			}
+		}
+		modifier = {
+			add = 1
+			any_owned_planet = { is_planet_revolting = yes }
+		}
+		modifier = {
+			add = 5
+			ideology? = { is_ideology_custodian = prev }
+		}
+		modifier = {
+			add = 1
+			ideological_momentum < @ideology_momentum_low
+		}
+		modifier = {
+			add = 5
+			ideological_momentum < @ideology_momentum_moderately_low
+		}
+		modifier = {
+			add = 5
+			ideological_momentum < @ideology_momentum_dangerously_low
+		}
+	}
+}
+
+tech_cultural_envoys = {
+	cost = @tier2cost1
+	area = society
+	tier = 2
+	category = { statecraft }
+	weight = 0
+
+	potential = {
+		has_force_of_will_dlc = yes
+	}
+}
