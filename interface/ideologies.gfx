@@ -1,0 +1,902 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_ideology_tab_bottom_background"
+		texturefile = "gfx/interface/ideologies/ideology_tab_bottom_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_ideology_header_background"
+		texturefile = "gfx/interface/ideologies/header_background.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		borderSize = { x = 5 y = 4 }
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_ideology_content_background_decorated"
+		textureFile = "gfx/interface/ideologies/content_background_decorated.dds"
+		borderSize = { x = 0 y = 0 }
+		effectFile = "gfx/FX/buttonstate_onlyanim.shader"
+		noOfFrames = 4
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_ideology_content_background"
+		textureFile = "gfx/interface/ideologies/content_background.dds"
+		borderSize = { x = 2 y = 2 }
+		effectFile = "gfx/FX/buttonstate_onlyanim.shader"
+		noOfFrames = 4
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_ideology_subcontent_background"
+		textureFile = "gfx/interface/ideologies/subcontent_background.dds"
+		borderSize = { x = 1 y = 1 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		noOfFrames = 2
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_ideology_actions_background"
+		textureFile = "gfx/interface/ideologies/actions_background.dds"
+		borderSize = { x = 0 y = 0 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_ideology_strength_pin"
+		textureFile = "gfx/interface/ideologies/strength_pin.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		transparenceCheck = yes
+		noOfFrames = 2
+	}
+
+	spriteType = {
+		name = "GFX_custodian_crown"
+		textureFile = "gfx/interface/ideologies/custodian_crown.dds"
+		transparenceCheck = yes
+	}
+
+	spriteType = {
+		name = "GFX_ideology_hazard"
+		texturefile = "gfx/interface/ideologies/ideology_hazard.dds"
+		transparenceCheck = yes
+	}
+
+	flagSpriteType = {
+		name = "GFX_ideology_flag_200"
+		textureFile = "gfx/interface/ideologies/flags/ideology_flag_200_frame.dds"		#this one will determine the size of the sprite
+		masking_texture = "gfx/interface/ideologies/flags/ideology_flag_200_mask.dds"
+		effectFile = "gfx/FX/flag_sprite.shader"
+		noOfFrames = 3
+
+		bg_position = { x = 40 y = 40 }
+		bg_size = { width = 186 height = 186 }
+		symbol_position = { x = 85 y = 85 }
+		symbol_size = { width = 130 height = 130 }
+
+		ideology = yes
+	}
+
+	flagSpriteType = {
+		name = "GFX_ideology_flag_128"
+		textureFile = "gfx/interface/ideologies/flags/ideology_flag_128_frame.dds"		#this one will determine the size of the sprite
+		masking_texture = "gfx/interface/ideologies/flags/ideology_flag_128_mask.dds"
+		effectFile = "gfx/FX/flag_sprite.shader"
+		noOfFrames = 3
+
+		bg_position = { x = 32 y = 32 }
+		bg_size = { width = 111 height = 111 }
+		symbol_position = { x = 50 y = 50 }
+		symbol_size = { width = 83 height = 83 }
+
+		ideology = yes
+	}
+
+	flagSpriteType = {
+		name = "GFX_ideology_flag_64"
+		textureFile = "gfx/interface/ideologies/flags/ideology_flag_64_frame.dds"		#this one will determine the size of the sprite
+		masking_texture = "gfx/interface/ideologies/flags/ideology_flag_64_mask.dds"
+		effectFile = "gfx/FX/flag_sprite.shader"
+		noOfFrames = 3
+
+		bg_position = { x = 19 y = 19 }
+		bg_size = { width = 60 height = 60 }
+		symbol_position = { x = 24	y = 24 }
+		symbol_size = { width = 46 height = 46 }
+
+		ideology = yes
+	}
+
+	flagSpriteType = {
+		name = "GFX_ideology_flag_48"
+		textureFile = "gfx/interface/ideologies/flags/ideology_flag_48_frame.dds"		#this one will determine the size of the sprite
+		masking_texture = "gfx/interface/ideologies/flags/ideology_flag_48_mask.dds"
+		effectFile = "gfx/FX/flag_sprite.shader"
+		noOfFrames = 3
+
+		bg_position = { x = 14 y = 14 }
+		bg_size = { width = 45 height = 45 }
+		symbol_position = { x = 15	y = 15 }
+		symbol_size = { width = 35 height = 35 }
+
+		ideology = yes
+	}
+
+	flagSpriteType = {
+		name = "GFX_ideology_flag_32"
+		textureFile = "gfx/interface/ideologies/flags/ideology_flag_32_frame.dds"		#this one will determine the size of the sprite
+		masking_texture = "gfx/interface/ideologies/flags/ideology_flag_32_mask.dds"
+		effectFile = "gfx/FX/flag_sprite.shader"
+		noOfFrames = 3
+
+		bg_position = { x = 10 y = 10 }
+		bg_size = { width = 30 height = 30 }
+		symbol_position = { x = 11 y = 11 }
+		symbol_size = { width = 24 height = 24 }
+
+		texture_size = small
+		ideology = yes
+	}
+
+	spriteType = {
+		name = "GFX_ideology_flag_glow"
+		textureFile = "gfx/interface/ideologies/ideology_flag_glow.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		noOfFrames = 3
+	}
+
+	flagSpriteType = {
+		name = "GFX_ideology_flag_no_mask" # duplicate of GFX_flag_no_mask for ideology view
+		textureFile = "gfx/interface/flags/flag_no_frame.dds"		#this one will determine the size of the sprite
+		masking_texture = "gfx/interface/flags/flag_full_mask.dds"
+		effectFile = "gfx/FX/flag_sprite.shader"
+		ideology = yes
+	}
+
+	spriteType = {
+		name = "GFX_ideology_momentum_state"
+		textureFile = "gfx/interface/ideologies/ideology_momentum_state.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		noOfFrames = 3
+		transparenceCheck = yes
+	}
+
+	spriteType = {
+		name = "GFX_momentum_disruption_mod"
+		textureFile = "gfx/interface/icons/modifiers/mod_planet_stability_mult_negative.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_background"
+		textureFile = "gfx/interface/ideologies/tenet_background.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 4
+		transparenceCheck = yes
+	}
+
+	spriteType = {
+		name = "GFX_ideology_decoration"
+		textureFile = "gfx/interface/ideologies/ideology_decoration.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_indicator"
+		textureFile = "gfx/interface/ideologies/tenet_indicator.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		alwaysTransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_tenet_number"
+		textureFile = "gfx/interface/ideologies/tenet_numbers.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		noOfFrames = 8
+		alwaysTransparent = yes
+	}
+
+	# Tenets icons
+
+	spriteType = {
+		name = "GFX_tenet_spectacle_of_authority"
+		texturefile = "gfx/interface/icons/tenets/tenet_spectacle_of_authority.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_juvenile_employment"
+		texturefile = "gfx/interface/icons/tenets/tenet_juvenile_employment.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_idolism"
+		texturefile = "gfx/interface/icons/tenets/tenet_idolism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_surveillance"
+		texturefile = "gfx/interface/icons/tenets/tenet_surveillance.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_administrative_enforcement"
+		texturefile = "gfx/interface/icons/tenets/tenet_administrative_enforcement.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_nepotism"
+		texturefile = "gfx/interface/icons/tenets/tenet_nepotism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_free_passage"
+		texturefile = "gfx/interface/icons/tenets/tenet_free_passage.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_epistocracy"
+		texturefile = "gfx/interface/icons/tenets/tenet_epistocracy.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_laterality"
+		texturefile = "gfx/interface/icons/tenets/tenet_laterality.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_participation"
+		texturefile = "gfx/interface/icons/tenets/tenet_participation.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_efficient_legislature"
+		texturefile = "gfx/interface/icons/tenets/tenet_efficient_legislature.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_personal_accountability"
+		texturefile = "gfx/interface/icons/tenets/tenet_personal_accountability.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_security"
+		texturefile = "gfx/interface/icons/tenets/tenet_security.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_sovereignty"
+		texturefile = "gfx/interface/icons/tenets/tenet_sovereignty.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_self_sufficiency"
+		texturefile = "gfx/interface/icons/tenets/tenet_self_sufficiency.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_pluralism"
+		texturefile = "gfx/interface/icons/tenets/tenet_pluralism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_networking"
+		texturefile = "gfx/interface/icons/tenets/tenet_networking.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_concordance"
+		texturefile = "gfx/interface/icons/tenets/tenet_concordance.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_integration"
+		texturefile = "gfx/interface/icons/tenets/tenet_integration.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_unism"
+		texturefile = "gfx/interface/icons/tenets/tenet_unism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_higher_law"
+		texturefile = "gfx/interface/icons/tenets/tenet_higher_law.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_sacred_union"
+		texturefile = "gfx/interface/icons/tenets/tenet_sacred_union.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_humility"
+		texturefile = "gfx/interface/icons/tenets/tenet_humility.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_jubilation"
+		texturefile = "gfx/interface/icons/tenets/tenet_jubilation.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_sacred_counsel"
+		texturefile = "gfx/interface/icons/tenets/tenet_sacred_counsel.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_curiosity"
+		texturefile = "gfx/interface/icons/tenets/tenet_curiosity.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_consumerism"
+		texturefile = "gfx/interface/icons/tenets/tenet_consumerism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_open_sourcing"
+		texturefile = "gfx/interface/icons/tenets/tenet_open_sourcing.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_observation"
+		texturefile = "gfx/interface/icons/tenets/tenet_observation.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_physicality"
+		texturefile = "gfx/interface/icons/tenets/tenet_physicality.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_engineering"
+		texturefile = "gfx/interface/icons/tenets/tenet_engineering.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_peaceful_prosperity"
+		texturefile = "gfx/interface/icons/tenets/tenet_peaceful_prosperity.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_autonomy"
+		texturefile = "gfx/interface/icons/tenets/tenet_autonomy.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_moral_pacifism"
+		texturefile = "gfx/interface/icons/tenets/tenet_moral_pacifism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_readiness"
+		texturefile = "gfx/interface/icons/tenets/tenet_readiness.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_militia_conscription"
+		texturefile = "gfx/interface/icons/tenets/tenet_militia_conscription.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_crucible_principle"
+		texturefile = "gfx/interface/icons/tenets/tenet_crucible_principle.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_chain_of_command"
+		texturefile = "gfx/interface/icons/tenets/tenet_chain_of_command.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_force_projection"
+		texturefile = "gfx/interface/icons/tenets/tenet_force_projection.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_lost_makers_vultaum"
+		texturefile = "gfx/interface/icons/tenets/tenet_lost_makers_vultaum.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_lost_makers_yuht"
+		texturefile = "gfx/interface/icons/tenets/tenet_lost_makers_yuht.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_lost_makers_first_league"
+		texturefile = "gfx/interface/icons/tenets/tenet_lost_makers_first_league.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_lost_makers_irassian"
+		texturefile = "gfx/interface/icons/tenets/tenet_lost_makers_irassian.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_lost_makers_cybrex"
+		texturefile = "gfx/interface/icons/tenets/tenet_lost_makers_cybrex.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_lost_makers_zroni"
+		texturefile = "gfx/interface/icons/tenets/tenet_lost_makers_zroni.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_lost_makers_baol"
+		texturefile = "gfx/interface/icons/tenets/tenet_lost_makers_baol.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_lost_makers_inetian"
+		texturefile = "gfx/interface/icons/tenets/tenet_lost_makers_inetian.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_lost_makers_adakkaria"
+		texturefile = "gfx/interface/icons/tenets/tenet_lost_makers_adakkaria.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_harmonicism"
+		texturefile = "gfx/interface/icons/tenets/tenet_harmonicism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_rationality"
+		texturefile = "gfx/interface/icons/tenets/tenet_rationality.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_techno_synergy"
+		texturefile = "gfx/interface/icons/tenets/tenet_techno_synergy.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_peacekeeping"
+		texturefile = "gfx/interface/icons/tenets/tenet_peacekeeping.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_disarmament"
+		texturefile = "gfx/interface/icons/tenets/tenet_disarmament.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_war_bonds"
+		texturefile = "gfx/interface/icons/tenets/tenet_war_bonds.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_homogeneity"
+		texturefile = "gfx/interface/icons/tenets/tenet_homogeneity.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_assertion"
+		texturefile = "gfx/interface/icons/tenets/tenet_assertion.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_diaspora"
+		texturefile = "gfx/interface/icons/tenets/tenet_diaspora.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_mutualism"
+		texturefile = "gfx/interface/icons/tenets/tenet_mutualism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	# Stats
+
+	spriteType = {
+		name = "GFX_tenet_pillars_leadership"
+		texturefile = "gfx/interface/icons/tenets/tenet_pillars_leadership.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_excellence_doctrine"
+		texturefile = "gfx/interface/icons/tenets/tenet_excellence_doctrine.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_high_command"
+		texturefile = "gfx/interface/icons/tenets/tenet_high_command.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_favoritist_leadership"
+		texturefile = "gfx/interface/icons/tenets/tenet_favoritist_leadership.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_equitable_leadership"
+		texturefile = "gfx/interface/icons/tenets/tenet_equitable_leadership.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_life_reverence"
+		texturefile = "gfx/interface/icons/tenets/tenet_life_reverence.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_seclusionism"
+		texturefile = "gfx/interface/icons/tenets/tenet_seclusionism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_strategism_authoritarian"
+		texturefile = "gfx/interface/icons/tenets/tenet_strategism_authoritarian.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_strategism_egalitarian"
+		texturefile = "gfx/interface/icons/tenets/tenet_strategism_egalitarian.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_strategism_xenophobe"
+		texturefile = "gfx/interface/icons/tenets/tenet_strategism_xenophobe.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_strategism_xenophile"
+		texturefile = "gfx/interface/icons/tenets/tenet_strategism_xenophile.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_strategism_militarist"
+		texturefile = "gfx/interface/icons/tenets/tenet_strategism_militarist.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_strategism_pacifist"
+		texturefile = "gfx/interface/icons/tenets/tenet_strategism_pacifist.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_strategism_materialist"
+		texturefile = "gfx/interface/icons/tenets/tenet_strategism_materialist.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_strategism_spiritualist"
+		texturefile = "gfx/interface/icons/tenets/tenet_strategism_spiritualist.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_hedonism"
+		texturefile = "gfx/interface/icons/tenets/tenet_hedonism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_supreme_will"
+		texturefile = "gfx/interface/icons/tenets/tenet_supreme_will.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_sacrifism"
+		texturefile = "gfx/interface/icons/tenets/tenet_sacrifism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_environmentalism"
+		texturefile = "gfx/interface/icons/tenets/tenet_environmentalism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_dimensionalism"
+		texturefile = "gfx/interface/icons/tenets/tenet_dimensionalism.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_cult_of_the_composer"
+		texturefile = "gfx/interface/icons/tenets/tenet_cult_of_the_composer.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_cult_of_the_cradle"
+		texturefile = "gfx/interface/icons/tenets/tenet_cult_of_the_cradle.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_cult_of_the_eater"
+		texturefile = "gfx/interface/icons/tenets/tenet_cult_of_the_eater.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_cult_of_the_instrument"
+		texturefile = "gfx/interface/icons/tenets/tenet_cult_of_the_instrument.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_galactic_purification"
+		texturefile = "gfx/interface/icons/tenets/tenet_galactic_purification.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_secrecy"
+		texturefile = "gfx/interface/icons/tenets/tenet_secrecy.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_propagandism_authoritarian"
+		texturefile = "gfx/interface/icons/tenets/tenet_propagandism_authoritarian.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_propagandism_egalitarian"
+		texturefile = "gfx/interface/icons/tenets/tenet_propagandism_egalitarian.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_propagandism_xenophobe"
+		texturefile = "gfx/interface/icons/tenets/tenet_propagandism_xenophobe.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_propagandism_xenophile"
+		texturefile = "gfx/interface/icons/tenets/tenet_propagandism_xenophile.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_propagandism_militarist"
+		texturefile = "gfx/interface/icons/tenets/tenet_propagandism_militarist.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_propagandism_pacifist"
+		texturefile = "gfx/interface/icons/tenets/tenet_propagandism_pacifist.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_propagandism_materialist"
+		texturefile = "gfx/interface/icons/tenets/tenet_propagandism_materialist.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_propagandism_spiritualist"
+		texturefile = "gfx/interface/icons/tenets/tenet_propagandism_spiritualist.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_stability"
+		texturefile = "gfx/interface/icons/tenets/tenet_stability.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_unity"
+		texturefile = "gfx/interface/icons/tenets/tenet_unity.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_tenet_civility"
+		texturefile = "gfx/interface/icons/tenets/tenet_civility.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_ideology_stats_frame"
+		texturefile = "gfx/interface/ideologies/piechart.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		transparenceCheck = yes
+	}
+
+	spriteType = {
+		name = "GFX_ideology_stats_bar"
+		texturefile = "gfx/interface/ideologies/piechart_bar.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		transparenceCheck = yes
+	}
+
+	pieChartType = {
+		name = "GFX_ideology_stats_pie_chart"
+		size = 122
+	}
+
+	spriteType = {
+		name = "GFX_ideology"
+		texturefile = "gfx/interface/ideologies/ideology.dds"
+	}
+
+	# Empire strength bars
+
+	spriteType = {
+		name = "GFX_adopted_ideology_strength_bar_left_margin"
+		texturefile = "gfx/interface/ideologies/adopted_strength_bar_left_margin.dds"
+	}
+	spriteType = {
+		name = "GFX_adopted_ideology_strength_bar_right_margin"
+		texturefile = "gfx/interface/ideologies/adopted_strength_bar_right_margin.dds"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_tenet_selection_title_bg"
+		texturefile = "gfx/interface/ideologies/tenet_selection_title_bg.dds"
+		borderSize = { x=5 y=5 }
+	}
+
+	spriteType = {
+		name = "GFX_tenet_selection_icon_background"
+		texturefile = "gfx/interface/ideologies/tenet_selection_icon_background.dds"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_priority_tenet_title_glow"
+		texturefile = "gfx/interface/ideologies/priority_tenet_title_glow.dds"
+		borderSize = { x=5 y=5 }
+	}
+
+	progressbarType = {
+		name = "GFX_adopted_ideology_strength_bar"
+		color = { 1.0 1.0 1.0 }
+		colorTwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/ideologies/adopted_strength_bar.dds"
+		textureFile2 = "gfx/interface/ideologies/adopted_strength_bar_empty.dds"
+		size = { x = 323 y = 18 }
+		effectFile = "gfx/FX/progress.shader"
+	}
+
+	spriteType = {
+		name = "GFX_adopted_ideology_momentum_bar_positive"
+		textureFile = "gfx/interface/ideologies/momentum_bar_empty.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		alwaysTransparent = yes
+		animation = {
+			animationmaskfile = "gfx/interface/ideologies/momentum_bar_mask.dds"
+			animationtexturefile = "gfx/interface/ideologies/momentum_bar_positive.dds"
+			animationrotation = -90
+			animationtime = 75.0
+			animationtype = "scrolling"
+		}
+	}
+	spriteType = {
+		name = "GFX_adopted_ideology_momentum_bar_negative"
+		textureFile = "gfx/interface/ideologies/momentum_bar_empty.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		alwaysTransparent = yes
+		animation = {
+			animationmaskfile = "gfx/interface/ideologies/momentum_bar_mask.dds"
+			animationtexturefile = "gfx/interface/ideologies/momentum_bar_negative.dds"
+			animationrotation = 90
+			animationtime = 75.0
+			animationtype = "scrolling"
+		}
+	}
+
+	spriteType = {
+		name = "GFX_ideology_momentum_limiter"
+		texturefile = "gfx/interface/ideologies/momentum_line.dds"
+		noOfFrames = 2
+	}
+
+	spriteType = {
+		name = "GFX_ideology_momentum_time"
+		texturefile = "gfx/interface/ideologies/momentum_time.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		transparenceCheck = yes
+		noOfFrames = 2
+		default_frame = 1
+	}
+
+	progressbartype = {
+		name = "GFX_foreign_ideology_strength_bar"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/ideologies/foreign_strength_bar.dds"
+		textureFile2 = "gfx/interface/ideologies/foreign_strength_bar_empty.dds"
+		size = { x = 236 y = 11 }
+		effectFile = "gfx/FX/progress.shader"
+	}
+
+	progressbartype = {
+		name = "GFX_ideology_highlight"
+		color = { 1.0 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 0.0 }
+		textureFile1 = "gfx/interface/ideologies/ideology_highlight_fill.dds"
+		textureFile2 = "gfx/interface/shroud/eotc_situation_progress_empty.dds"
+		size = { x = 265 y = 260 }
+		effectFile = "gfx/FX/progress_radial.shader"
+	}
+
+	spriteType = {
+		name = "GFX_ideology_piechart_background"
+		textureFile = "gfx/interface/ideologies/piechart_background.dds"
+	}
+}

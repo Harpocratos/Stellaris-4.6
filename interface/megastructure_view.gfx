@@ -1,0 +1,479 @@
+spriteTypes = {
+
+### Megastructure Backgrounds
+
+	spriteType = {
+		name = "GFX_megastructure_construction_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/megastructure.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_habitat_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/habitat.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_dyson_sphere_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/dyson_sphere.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_spy_orb_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/spy_orb.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_mega_shipyard_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/megashipyard.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_think_tank_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/think_tank.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_matter_decompressor_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/matter_decompressor.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_strategic_coordination_center_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/strategic_coordination_center.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_quantum_catapult_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/quantum_catapult.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_dyson_gun_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/dyson_gun.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_interstellar_assembly_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/interstellar_assembly.dds"
+	}
+
+	spriteType = {
+		name = "GFX_mega_art_installation_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/mega_art_installation.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_hyper_relay_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/hyper_relay.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_arc_furnace_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/arc_crucible.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_dyson_swarm_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/dyson_swarm.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_behemoth_egg_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/behemoth_egg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_grand_archive_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/grand_archive.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_shroud_seal_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/shroud_seal.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_crucible_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/crisis_crucible.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_crucible_complete_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/crisis_crucible_complete.dds"
+	}
+
+	spriteType = {
+		name = "GFX_megastructure_galactic_halls_background"
+		textureFile = "gfx/interface/planetview/megastructure_background/galactic_halls.dds"
+	}
+
+### OVERCLOCKING BUTTONS
+
+	spriteType = {
+		name = "GFX_overclock_gc_default"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_gc_default.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_gc_default_selected"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_gc_default_selected.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+
+	spriteType = {
+		name = "GFX_overclock_gc_high"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_gc_high.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_gc_high_selected"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_gc_high_selected.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+
+	spriteType = {
+		name = "GFX_overclock_gc_eco"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_gc_eco.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_gc_eco_selected"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_gc_eco_selected.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+
+	spriteType = {
+		name = "GFX_overclock_gc_war"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_gc_war.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_gc_war_selected"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_gc_war_selected.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+
+### Assets Megstructure Rework
+
+	spriteType = {
+		name = "GFX_megastructure_background_gradient"
+		textureFile = "gfx/interface/planetview/megastructure_background_gradient.dds"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_green_frame_gradient_tile"
+		texturefile = "gfx/interface/tiles/green_frame_gradient_tile.dds"
+		borderSize = { x = 2 y = 2 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_drop_shadow_tile"
+		texturefile = "gfx/interface/tiles/drop_shadow_tile.dds"
+		borderSize = { x = 12 y = 12 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+
+	spriteType = {
+		name = "GFX_button_go_to_collection"
+		texturefile = "gfx/interface/buttons/button_go_to_collection.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/standard_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+
+
+	spriteType = {
+		name = "GFX_overclock_arc_minerals"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_arc_minerals.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_arc_minerals_selected"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_arc_minerals_selected.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_arc_balanced"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_arc_balanced.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_arc_balanced_selected"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_arc_balanced_selected.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_arc_alloys"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_arc_alloys.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_arc_alloys_selected"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_arc_alloys_selected.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_arc_obsessional_directive"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_arc_obsessional_directive.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+	spriteType = {
+		name = "GFX_overclock_arc_obsessional_directive_selected"
+		texturefile = "gfx/interface/icons/megastructures/overclocking/overclock_arc_obsessional_directive_selected.dds"
+		effectFile = "gfx/FX/buttonstate.shader"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x = 4 y = 4 }
+	}
+}

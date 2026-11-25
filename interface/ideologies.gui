@@ -1,0 +1,1633 @@
+guiTypes = {
+	containerWindowType = {
+		name = ideologies_view
+		size = { width = 1272 height = 640 }
+		position = { x = 35 y = 40 }
+		orientation = upper_left
+		moveable = no
+		clipping = no
+		show_sound = interface
+
+		buttonType = {
+			name = background
+			position = { x = 0 y = 0 }
+			size = { x = 1272 y = 640 }
+			quadTextureSprite = GFX_tile_outliner_bg_solid
+			no_clicksound = yes
+		}
+
+		iconType = {
+			name = bottom_background
+			spriteType = GFX_ideology_tab_bottom_background
+			position = { x = 20 y = 270 }
+			alwaysTransparent = yes
+		}
+
+		# HEADER #
+		iconType = {
+			name = ideologies_title_background
+			spriteType = GFX_hex_bg
+			position = { x = 5 y = -12 }
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = ideologies_title_line
+			quadTextureSprite = GFX_line_long
+			position = { x = 6 y = 25 }
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = ideologies_title_textbox
+			font = malgun_goth_24
+			text = IDEOLOGIES
+			position = { x = 35 y = 5 }
+			maxWidth = 300
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+
+		buttonType = {
+			name = close_button
+			quadTextureSprite = GFX_close
+			position = { x = -44 y = 16 }
+			orientation = upper_right
+			shortcut = ESCAPE
+			clickSound = back_click
+			pdx_tooltip = CLOSE_TITLE
+		}
+
+		# TABS #
+		buttonType = {
+			name = tab_council
+			quadTextureSprite = GFX_tab_1_inactive
+			position = { x = -20 y = 638 }
+			buttonText = COUNCIL
+			buttonFont = cg_16b
+			clickSound = tab_click
+			shortcut = z
+			overSound = no_sound
+		}
+
+		buttonType = {
+			name = tab_edicts_policies
+			quadTextureSprite = GFX_tab_2_inactive
+			position = { x = 100 y = 638 }
+			buttonText = EDICTS_AND_POLICIES
+			buttonFont = cg_16b
+			clickSound = tab_click
+			shortcut = x
+			overSound = no_sound
+		}
+
+		buttonType = {
+			name = tab_factions
+			quadTextureSprite = GFX_tab_2_inactive
+			position = { x = 220 y = 638 }
+			buttonText = FACTIONS
+			buttonFont = cg_16b
+			clickSound = tab_click
+			shortcut = c
+			overSound = no_sound
+		}
+
+		buttonType = {
+			name = tab_ideologies
+			quadTextureSprite = GFX_tab_2_active
+			position = { x = 340 y = 638 }
+			buttonText = IDEOLOGIES
+			buttonFont = cg_16b
+			clickSound = tab_click
+			shortcut = v
+			overSound = no_sound
+		}
+
+		# IDEOLOGIES #
+		instantTextBoxType = {
+			name = adopted_ideology_textbox
+			text = ADOPTED_IDEOLOGY
+			multiline = no
+			font = malgun_goth_24
+			text_color_code = H
+			position = { x = 30 y = 45 }
+			maxWidth = 250
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			vertical_alignment = center
+			alwaysTransparent = no
+		}
+
+		instantTextBoxType = {
+			name = no_adopted_ideology_textbox
+			text = NO_ADOPTED_IDEOLOGY
+			multiline = no
+			font = cg_16b
+			position = { x = 65 y = 85 }
+			maxWidth = 400
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			vertical_alignment = center
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = adopt_hints_textbox
+			text = NO_ADOPTED_IDEOLOGY_HINT
+			multiline = no
+			font = cg_16b
+			position = { x = 65 y = 112 }
+			maxWidth = 700
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			vertical_alignment = center
+			alwaysTransparent = yes
+		}
+
+		smoothListboxType = {
+			name = fanatic_factions_list
+			position = { x = 70 y = 150 }
+			size = { x = 1132 y = 80 }
+			spacing = 10
+			horizontal = 1
+			scrollbartype = "standardlistbox_slider_horizontal"
+		}
+
+		containerWindowType = {
+			name = adopted_ideology_window
+			size = { width = 1200 height = 160 }
+			position = { x = 25 y = 83 }
+			moveable = no
+			clipping = no
+
+			iconType = {
+				name = adopted_ideology_decoration
+				spriteType = GFX_ideology_decoration
+				position = { x = 0 y = 0 }
+				centerPosition = no
+				orientation = upper_left
+				scale = 0.72
+				alwaysTransparent = yes
+			}
+
+			containerWindowType = {
+				name = adopted_ideology_entry_window
+				size = { width = 780 height = 120 }
+				position = { x = 40 y = 0 }
+				moveable = no
+				clipping = no
+			}
+		}
+
+		instantTextBoxType = {
+			name = ideologies_textbox
+			text = FOREIGN_IDEOLOGIES
+			multiline = no
+			font = malgun_goth_24
+			text_color_code = H
+			position = { x = 30 y = 270 }
+			maxWidth = 250
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			vertical_alignment = center
+			alwaysTransparent = no
+		}
+
+		instantTextBoxType = {
+			name = no_foreign_ideology_textbox
+			text = NO_FOREIGN_IDEOLOGY
+			multiline = no
+			font = cg_16b
+			position = { x = 65 y = 310 }
+			maxWidth = 400
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			vertical_alignment = center
+			alwaysTransparent = yes
+		}
+
+		smoothListBoxType = {
+			name = ideologies_list
+			orientation = upper_left
+			size = { x = 780 y = 316 }
+			position = { x = 36 y = 303 }
+			borderSize = { x = 0 y = 4 }
+			scrollbarType = standardlistbox_slider
+			autohide_scrollbar = yes
+			spacing = 10
+			alwaysTransparent = no
+		}
+
+		instantTextBoxType = {
+			name = ideology_stats_textbox
+			text = IDEOLOGY_STATS_TITLE
+			multiline = no
+			font = malgun_goth_24
+			text_color_code = H
+			position = { x = 842 y = 270 }
+			maxWidth = 250
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			vertical_alignment = center
+			alwaysTransparent = no
+			pdx_tooltip = IDEOLOGY_STATS_TT
+		}
+
+		iconType = {
+			name = piechart_background
+			spriteType = GFX_ideology_piechart_background
+			position = { x = -353 y = -320 }
+			orientation = lower_right
+		}
+
+		iconType = {
+			name = ideology_stats_pie_chart
+			spriteType = GFX_ideology_stats_pie_chart
+			position = { x = -230 y = -320 }
+			orientation = lower_right
+		}
+
+		containerWindowType = {
+			name = ideology_highlight_container
+			position = { x = -230 y = -200 }
+			orientation = lower_right
+			size = { width = 265 height = 260 }
+			origo = center
+
+			iconType = {
+				name = ideology_highlight
+				spriteType = GFX_ideology_highlight
+				position = { x = 0 y = 0 }
+				alwaysTransparent = yes
+			}
+		}
+
+		iconType = {
+			name = ideology_stats_pie_chart_frame
+			spriteType = GFX_ideology_stats_frame
+			position = { x = -230 y = -200 }
+			centerPosition = yes
+			orientation = lower_right
+			alwaysTransparent = no
+		}
+
+		gridBoxType = {
+			name = ideology_stats_bars
+			position = { x = -230 y = -200 }
+			orientation = lower_right
+		}
+
+		buttonType = {
+			name = galaxy_stats_button
+			quadTextureSprite = GFX_button_dark
+			position = { x = -215 y = -60 }
+			size = { x = 150 y = 40 }
+			buttonText = GALAXY_STATS_STATE
+			font = cg_16b
+			orientation = lower_right
+			pdx_tooltip = "GALAXY_STATS_TT"
+		}
+
+		buttonType = {
+			name = galaxy_stats_button_selected
+			quadTextureSprite = GFX_glow_tile_orange_no_padding
+			position = { x = -215 y = -60 }
+			size = { x = 150 y = 40 }
+			buttonText = GALAXY_STATS_STATE
+			font = cg_16b
+			orientation = lower_right
+			pdx_tooltip = "GALAXY_STATS_TT"
+		}
+
+		buttonType = {
+			name = empire_stats_button
+			quadTextureSprite = GFX_button_dark
+			position = { x = -395 y = -60 }
+			size = { x = 150 y = 40 }
+			buttonText = EMPIRE_STATS_STATE
+			font = cg_16b
+			orientation = lower_right
+			pdx_tooltip = "EMPIRE_STATS_TT"
+		}
+
+		buttonType = {
+			name = empire_stats_button_selected
+			quadTextureSprite = GFX_glow_tile_orange_no_padding
+			position = { x = -395 y = -60 }
+			size = { x = 150 y = 40 }
+			buttonText = EMPIRE_STATS_STATE
+			font = cg_16b
+			orientation = lower_right
+			pdx_tooltip = "EMPIRE_STATS_TT"
+		}
+	}
+
+	containerWindowType = {
+		name = adopted_ideology_entry
+		size = { width = 780 height = 120 }
+		position = { x = 0 y = 0 }
+		moveable = no
+		clipping = no
+
+		containerWindowType = {
+			name = momentum_content
+			position = { x = 15 y = 117 }
+			size = { width = 750 height = 40 }
+			clipping = no
+
+			background = {
+				name = momentum_content_bg
+				quadTextureSprite = GFX_ideology_subcontent_background
+				alwaysTransparent = yes
+				frame = 1
+			}
+		}
+
+		containerWindowType = {
+			name = advocate_content
+			position = { x = 775 y = 11 }
+			size = { width = 405 height = 100 }
+			clipping = no
+
+			background = {
+				name = advocate_content_bg
+				quadTextureSprite = GFX_ideology_subcontent_background
+				alwaysTransparent = yes
+				frame = 1
+			}
+		}
+
+		instantTextBoxType = {
+			name = advocate_gestalt_textbox
+			position = { x = 775 y = 11 }
+			multiline = yes
+			font = cg_16b
+			maxWidth = 405
+			maxHeight = 100
+			fixedSize = yes
+			format = center
+			vertical_alignment = center
+			alwaysTransparent = yes
+		}
+
+		containerWindowType = {
+			name = ideology_content
+			position = { x = 5 y = 33 }
+			size = { width = 770 height = 85 }
+			clipping = no
+
+			background = {
+				name = ideology_content_bg
+				quadTextureSprite = GFX_ideology_content_background_decorated
+				alwaysTransparent = no
+			}
+
+			containerWindowType = {
+				name = ideology_flag_window
+				position = { x = -4 y = -10 }
+				size = { width = 90 height = 90 }
+				clipping = no
+			}
+
+			containerWindowType = {
+				name = ideology_faction_container
+				position = { x = 90 y = 7 }
+				size = { width = 240 height = 72 }
+				clipping = no
+
+				background = {
+					name = ideology_faction_bg
+					quadTextureSprite = GFX_ideology_actions_background
+					alwaysTransparent = no
+				}
+
+				instantTextBoxType = {
+					name = no_faction
+					font = cg_16b
+					format = center
+					text = IDEOLOGY_NO_FACTION
+					vertical_alignment = center
+					maxHeight = 72
+					maxWidth = 235
+					alwaysTransparent = yes
+					multiline = no
+				}
+
+				containerWindowType = {
+					name = faction_panel
+					position = { x = 0 y = 0 }
+					size = { width = 240 height = 72 }
+					clipping = no
+
+					instantTextBoxType = {
+						name = faction_name_textbox
+						position = { x = 7 y = 2 }
+						font = cg_16b
+						text_color_code = H
+						maxWidth = 233
+						maxHeight = 20
+						fixedSize = yes
+						format = left
+						vertical_alignment = top
+						multiline = no
+						alwaysTransparent = yes
+					}
+
+					containerWindowType = {
+						name = faction_name_window
+						position = { x = 0 y = 0 }
+						size = { width = 240 height = 20 }
+
+						background = {
+							name = faction_name_background
+							quadTextureSprite = gfx_transparency_button
+							alwaysTransparent = no
+						}
+					}
+
+					buttonType = {
+						name = faction_icon
+						quadTextureSprite = GFX_faction_icon_imperialist
+						position = { x = 12 y = 20 }
+						orientation = upper_left
+						scale = 0.8
+					}
+
+					instantTextBoxType = {
+						name = faction_num_pops
+						position = { x = -37 y = 45 }
+						orientation = center_up
+						font = cg_16b
+						maxWidth = 66
+						maxHeight = 20
+						fixedSize = yes
+						format = center
+						vertical_alignment = center
+						alwaysTransparent = no
+						multiline = no
+					}
+
+					instantTextBoxType = {
+						name = faction_approval
+						position = { x = -37 y = 22 }
+						orientation = center_up
+						font = cg_16b
+						maxWidth = 66
+						maxHeight = 20
+						fixedSize = yes
+						format = center
+						vertical_alignment = center
+						alwaysTransparent = no
+						multiline = no
+					}
+
+					buttonType = {
+						name = faction_manage_button
+						quadTextureSprite = GFX_accept_hammer
+						position = { x = -55 y = -53 }
+						orientation = lower_right
+					}
+				}
+
+				containerWindowType = {
+					name = faction_panel_gestalt_adopted
+					position = { x = 0 y = 0 }
+					size = { width = 235 height = 72 }
+					clipping = yes
+
+					instantTextBoxType = {
+						name = ruler_name_textbox
+						position = { x = 75 y = 10 }
+						font = cg_16b
+						text_color_code = H
+						maxWidth = 160
+						maxHeight = 20
+						fixedSize = yes
+						format = left
+						vertical_alignment = top
+						alwaysTransparent = yes
+						multiline = no
+					}
+
+					containerWindowType = {
+						name = ruler_portrait
+						position = { x = 5 y = 5 }
+						size = { width = 65 height = 69 }
+						clipping = yes
+					}
+
+					instantTextBoxType = {
+						name = ruler_attraction
+						position = { x = 90 y = -40 }
+						orientation = lower_left
+						font = cg_16b
+						maxWidth = 130
+						maxHeight = 20
+						fixedSize = yes
+						format = center
+						vertical_alignment = center
+						alwaysTransparent = no
+						multiline = no
+					}
+				}
+			}
+
+			gridBoxType = {
+				name = "tenets_grid"
+				position = { x = 0 y = 2 }
+			}
+
+			iconType = {
+				name = ideological_strength_progressbar
+				spriteType = GFX_adopted_ideology_strength_bar
+				position = { x = 160 y = 72 }
+				centerPosition = yes
+				orientation = center_up
+			}
+
+			iconType = {
+				name = ideological_strength_progressbar_left_margin
+				spriteType = GFX_adopted_ideology_strength_bar_left_margin
+				position = { x = -14 y = 72 }
+				centerPosition = yes
+				orientation = center_up
+			}
+
+			iconType = {
+				name = ideological_strength_progressbar_right_margin
+				spriteType = GFX_adopted_ideology_strength_bar_right_margin
+				position = { x = 334 y = 72 }
+				centerPosition = yes
+				orientation = center_up
+			}
+
+			containerWindowType = {
+				name = ideological_momentum_bar_window
+				size = { width = 323 height = 12 }
+				clipping = yes
+
+				background = {
+					name = ideological_momentum_bar_bg
+					quadTextureSprite = GFX_invisible
+					alwaysTransparent = no
+				}
+
+				iconType = {
+					name = ideological_momentum_bar
+					spriteType = GFX_adopted_ideology_momentum_bar_positive
+					position = { x = 0 y = 0 }
+					alwaysTransparent = yes
+				}
+			}
+
+			containerWindowType = {
+				name = ideology_strength_pin_window
+				clipping = no
+
+				iconType = {
+					name = ideological_strength_pin_icon
+					spriteType = GFX_ideology_strength_pin
+					frame = 1
+					position = { x = 0 y = 21 }
+					centerPosition = yes
+					alwaysTransparent = no
+				}
+
+				instantTextBoxType = {
+					name = ideological_strength_change_text
+					text = "4.50"
+					font = cg_16b
+					position = { x = -32 y = 21 }
+					maxWidth = 40
+					maxHeight = 22
+					fixedSize = yes
+					format = center
+					vertical_alignment = center
+					orientation = center_up
+					alwaysTransparent = yes
+					multiline = no
+				}
+
+				iconType = {
+					name = ideological_strength_change_icon
+					spriteType = "GFX_situation_progress_directions" # Mirrored in code as needed
+					position = { x = 17 y = 32 }
+					centerPosition = yes
+					alwaysTransparent = yes
+					scale = 0.95
+				}
+			}
+
+			iconType = {
+				name = old_ideological_strength_pin_icon
+				spriteType = GFX_ideology_momentum_limiter
+				centerPosition = yes
+				alwaysTransparent = no
+				scale = 0.7
+				frame = 1
+			}
+
+			iconType = {
+				name = ideological_momentum_time_icon
+				position = { x = 0 y = 0 }
+				spriteType = GFX_ideology_momentum_time
+				centerPosition = yes
+				alwaysTransparent = no
+				scale = 0.7
+			}
+
+			iconType = {
+				name = ideology_hazard_icon
+				spriteType = GFX_ideology_hazard
+				position = { x = 0 y = -2 }
+				centerPosition = yes
+				orientation = upper_left
+				alwaysTransparent = no
+				scale = 0.8
+				pdx_tooltip = IDEOLOGY_HAZARD
+			}
+
+			instantTextBoxType = {
+				name = ideology_momentum_textbox
+				text = "Momentum"
+				font = cg_16b
+				position = { x = 175 y = 86 }
+				maxWidth = 140
+				maxHeight = 38
+				fixedSize = yes
+				format = left
+				vertical_alignment = center
+				orientation = upper_left
+				alwaysTransparent = no
+				multiline = yes
+			}
+
+			iconType = {
+				name = ideological_momentum_icon
+				spriteType = GFX_ideology_momentum_time
+				position = { x = 158 y = 105 }
+				centerPosition = yes
+				orientation = upper_left
+			}
+
+			instantTextBoxType = {
+				name = no_tenet_textbox
+				text = NO_TENET_IDEOLOGY
+				font = cg_16b
+				position = { x = -30 y = 18 }
+				maxWidth = 400
+				maxHeight = 50
+				fixedSize = yes
+				format = center
+				vertical_alignment = center
+				orientation = center_up
+				multiline = yes
+				alwaysTransparent = yes
+			}
+
+			instantTextBoxType = {
+				name = no_tenet_intel_textbox
+				text = IDEOLOGY_NEEDS_MORE_INTEL
+				font = cg_16b
+				position = { x = -30 y = 18 }
+				maxWidth = 400
+				maxHeight = 50
+				fixedSize = yes
+				format = center
+				vertical_alignment = center
+				orientation = center_up
+				multiline = yes
+				alwaysTransparent = yes
+			}
+
+			containerWindowType = {
+				name = actions_container
+				position = { x = 18 y = 88 }
+				size = { width = 125 height = 35 }
+
+				instantTextBoxType = {
+					name = no_action
+					text = IDEOLOGY_NO_ACTIONS
+					font = cg_16b
+					position = { x = 0 y = 0 }
+					maxWidth = 105
+					maxHeight = 30
+					fixedSize = yes
+					format = center
+					vertical_alignment = center
+					alwaysTransparent = yes
+				}
+
+				smoothListBoxType = {
+					name = actions_list
+					orientation = UPPER_LEFT
+					position = { x = -2 y = 3 }
+					size = { x = 115 y = 35 }
+					borderSize = { x = 0 y = 0 }
+					spacing = 1
+					scrollbarType = standardtext_slider_small
+					autohide_scrollbar = yes
+				}
+			}
+		}
+
+		containerWindowType = {
+			name = ideology_header
+			position = { x = -2 y = 0 }
+			size = { width = 785 height = 35 }
+			clipping = no
+
+			background = {
+				name = ideology_header_bg
+				quadTextureSprite = GFX_ideology_header_background
+				alwaysTransparent = yes
+			}
+
+			iconType = {
+				name = ethic_icon
+				spriteType = GFX_ethics_materialist
+				position = { x = 16 y = 16 }
+				alwaysTransparent = yes
+				centerPosition = yes
+				scale = 0.8
+			}
+
+			instantTextBoxType = {
+				name = ideology_name_textbox
+				text = "Ideology name"
+				multiline = yes
+				font = cg_16b
+				position = { x = 32 y = 2 }
+				maxWidth = 358
+				maxHeight = 30
+				fixedSize = yes
+				format = left
+				vertical_alignment = center
+				alwaysTransparent = yes
+			}
+
+			buttonType = {
+				name = "customize_ideology_button_name"
+				quadTextureSprite = "gfx_transparency_button"
+				position = { x = 32 y = 2 }
+				size = { x = 358 y = 30 }
+				overSound = no_sound
+			}
+			buttonType = {
+				name = "customize_ideology_button_flag"
+				quadTextureSprite = "gfx_transparency_button"
+				position = { x = 24 y = 44 }
+				size = { x = 64 y = 64 }
+				overSound = no_sound
+			}
+
+			overlappingElementsBoxType = {
+				name = adopting_empires_list
+				position = { x = 390 y = 1 }
+				size = { x = 210 y = 30 }
+				format = right
+			}
+
+			instantTextBoxType = {
+				name = galactic_strength_textbox
+				text = "Galactic Strength"
+				font = cg_16b
+				position = { x = 605 y = 2 }
+				maxWidth = 95
+				maxHeight = 30
+				fixedSize = yes
+				format = center
+				vertical_alignment = center
+				orientation = upper_left
+				alwaysTransparent = no
+			}
+
+			instantTextBoxType = {
+				name = reach_text
+				position = { x = 702 y = 7 }
+				orientation = upper_left
+				font = cg_16b
+				maxWidth = 69
+				maxHeight = 20
+				fixedSize = yes
+				format = center
+				vertical_alignment = center
+				alwaysTransparent = no
+				multiline = no
+			}
+		}
+
+		containerWindowType = {
+			name = "delegates_container"
+			position = { x = 778 y = 11 }
+			size = { width = 405 height = 100 }
+
+			buttonType = {
+				name = "delegates_container_background"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+				position = { x = 7 y = 5 }
+				size = { x = 70 y = 90 }
+			}
+
+			containerWindowType = {
+				name = "portrait_container"
+				position = { x = 7 y = 5 }
+				size = { width = 75 height = 95 }
+            }
+
+			containerWindowType = {
+				name = "assigned_delegate"
+				position = { x = 86 y = 6 }
+				size = { width = 310 height = 40 }
+
+				background = {
+					name = "delegates_bg"
+					spriteType = "GFX_dark_area_cut"
+					alwaysTransparent = yes
+				}
+				iconType = {
+					name = "leader_type"
+					spriteType = "GFX_leader_icons"
+					position = { x = 5 y = 5 }
+				}
+				iconType = {
+					name = "leader_level"
+					spriteType = "GFX_leader_skill"
+					position = { x = 21 y = 18 }
+				}
+				overlappingElementsBoxType = {
+					name = "leader_traits"
+					position = { x = 45 y = 3 }
+					size = { x = 200 y = 24 }
+				}
+			}
+
+			instantTextBoxType = {
+				name = "leader_function"
+				font = "cg_16b"
+				text = ADVOCATE_TITLE
+				position = { x = 87 y = 55 }
+				maxWidth = 210
+				maxHeight = 30
+				text_color_code = "H"
+				tooltip = ADVOCATE_DESC
+			}
+			instantTextBoxType = {
+				name = "leader_name"
+				font = "cg_16b"
+				text = "Maximus Leaderus, the third of his name"
+				position = { x = 87 y = 73 }
+				maxWidth = 275
+				maxHeight = 30
+			}
+
+			buttonType = {
+				name = "assign_button"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+				position = { x = 7 y = 5 }
+				size = { x = 70 y = 90 }
+			}
+
+			instantTextBoxType = {
+				name = "no_leader"
+				font = "cg_16b"
+				text = ADVOCATE_SLOT_TITLE
+				pdx_tooltip = ADVOCATE_DESC
+				position = { x = 87 y = 10 }
+				maxWidth = 310
+				maxHeight = 80
+				fixedSize = yes
+				format = left
+				vertical_alignment = center
+				alwaysTransparent = no
+			}
+		}
+	}
+
+	containerWindowType = {
+		name = foreign_ideology_entry
+		size = { width = 780 height = 118 }
+		position = { x = 0 y = 0 }
+		moveable = no
+		clipping = no
+
+		containerWindowType = {
+			name = ideology_content
+			position = { x = 5 y = 33 }
+			size = { width = 770 height = 85 }
+			clipping = no
+
+			background = {
+				name = ideology_content_bg
+				quadTextureSprite = GFX_ideology_content_background
+				alwaysTransparent = no
+			}
+
+			containerWindowType = {
+				name = ideology_flag_window
+				position = { x = -4 y = -10 }
+				size = { width = 90 height = 90 }
+				clipping = no
+			}
+
+			containerWindowType = {
+				name = ideology_faction_container
+				position = { x = 90 y = 7 }
+				size = { width = 240 height = 72 }
+				clipping = no
+
+				background = {
+					name = ideology_faction_bg
+					quadTextureSprite = GFX_ideology_actions_background
+					alwaysTransparent = no
+				}
+
+				instantTextBoxType = {
+					name = no_faction
+					font = cg_16b
+					format = center
+					text = IDEOLOGY_NO_FACTION
+					vertical_alignment = center
+					maxHeight = 72
+					maxWidth = 235
+					alwaysTransparent = no
+					multiline = yes
+				}
+
+				containerWindowType = {
+					name = faction_panel
+					position = { x = 0 y = 0 }
+					size = { width = 240 height = 72 }
+					clipping = no
+
+					instantTextBoxType = {
+						name = faction_name_textbox
+						position = { x = 7 y = 2 }
+						font = cg_16b
+						text_color_code = H
+						maxWidth = 233
+						maxHeight = 20
+						fixedSize = yes
+						format = left
+						vertical_alignment = top
+						multiline = no
+						alwaysTransparent = yes
+					}
+
+					containerWindowType = {
+						name = faction_name_window
+						position = { x = 0 y = 0 }
+						size = { width = 240 height = 20 }
+
+						background = {
+							name = faction_name_background
+							quadTextureSprite = gfx_transparency_button
+							alwaysTransparent = no
+						}
+					}
+
+					buttonType = {
+						name = faction_icon
+						quadTextureSprite = GFX_faction_icon_imperialist
+						position = { x = 12 y = 20 }
+						orientation = upper_left
+						scale = 0.8
+					}
+
+					instantTextBoxType = {
+						name = faction_num_pops
+						position = { x = -37 y = 45 }
+						orientation = center_up
+						font = cg_16b
+						maxWidth = 66
+						maxHeight = 20
+						fixedSize = yes
+						format = center
+						vertical_alignment = center
+						alwaysTransparent = no
+						multiline = no
+					}
+
+					instantTextBoxType = {
+						name = faction_approval
+						position = { x = -37 y = 22 }
+						orientation = center_up
+						font = cg_16b
+						maxWidth = 66
+						maxHeight = 20
+						fixedSize = yes
+						format = center
+						vertical_alignment = center
+						alwaysTransparent = no
+						multiline = no
+					}
+
+					buttonType = {
+						name = faction_manage_button
+						quadTextureSprite = GFX_accept_hammer
+						position = { x = -55 y = -53 }
+						orientation = lower_right
+					}
+				}
+			}
+
+			iconType = {
+				name = ideological_strength_progressbar
+				spriteType = GFX_foreign_ideology_strength_bar
+				position = { x = 75 y = 46 }
+				centerPosition = yes
+				orientation = center_up
+			}
+
+			instantTextBoxType = {
+				name = no_tenet_textbox
+				text = NO_TENET_IDEOLOGY
+				font = cg_16b
+				position = { x = -48 y = 18 }
+				maxWidth = 250
+				maxHeight = 50
+				fixedSize = yes
+				format = center
+				vertical_alignment = center
+				orientation = center_up
+				multiline = yes
+				alwaysTransparent = yes
+			}
+
+			instantTextBoxType = {
+				name = no_tenet_intel_textbox
+				text = IDEOLOGY_NEEDS_MORE_INTEL
+				font = cg_16b
+				position = { x = -48 y = 18 }
+				maxWidth = 250
+				maxHeight = 50
+				fixedSize = yes
+				format = center
+				vertical_alignment = center
+				orientation = center_up
+				multiline = yes
+				alwaysTransparent = yes
+			}
+
+			containerWindowType = {
+				name = actions_container
+				position = { x = 590 y = 4 }
+				size = { width = 176 height = 77 }
+
+				background = {
+					name = actions_container_bg
+					quadTextureSprite = GFX_ideology_actions_background
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = no_action
+					text = IDEOLOGY_NO_ACTIONS
+					font = cg_16b
+					position = { x = 0 y = 0 }
+					maxWidth = 175
+					maxHeight = 85
+					fixedSize = yes
+					format = center
+					vertical_alignment = center
+					alwaysTransparent = yes
+				}
+
+				smoothListBoxType = {
+					name = actions_list
+					orientation = UPPER_LEFT
+					position = { x = 13 y = 3 }
+					size = { x = 150 y = 78 }
+					borderSize = { x = 0 y = 0 }
+					spacing = 1
+					scrollbarType = standardtext_slider_small
+					autohide_scrollbar = yes
+				}
+			}
+
+			gridBoxType = {
+				name = "tenets_grid"
+				position = { x = 0 y = 15 }
+			}
+		}
+
+		containerWindowType = {
+			name = ideology_header
+			position = { x = 0 y = 0 }
+			size = { width = 780 height = 35 }
+			clipping = no
+
+			background = {
+				name = ideology_header_bg
+				quadTextureSprite = GFX_ideology_header_background
+				alwaysTransparent = yes
+			}
+
+			iconType = {
+				name = ethic_icon
+				spriteType = GFX_ethics_materialist
+				position = { x = 16 y = 16 }
+				alwaysTransparent = yes
+				centerPosition = yes
+				scale = 0.8
+			}
+
+			instantTextBoxType = {
+				name = ideology_name_textbox
+				text = "Ideology name"
+				multiline = yes
+				font = cg_16b
+				position = { x = 32 y = 2 }
+				maxWidth = 390
+				maxHeight = 30
+				fixedSize = yes
+				format = left
+				vertical_alignment = center
+				alwaysTransparent = no
+			}
+
+			overlappingElementsBoxType = {
+				name = adopting_empires_list
+				position = { x = 442 y = 1 }
+				size = { x = 195 y = 30 }
+				format = right
+			}
+
+			instantTextBoxType = {
+				name = galactic_strength_textbox
+				text = "Galactic Strength"
+				font = cg_16b
+				position = { x = 637 y = 2 }
+				maxWidth = 95
+				maxHeight = 30
+				fixedSize = yes
+				format = center
+				vertical_alignment = center
+				orientation = upper_left
+				alwaysTransparent = no
+			}
+
+			iconType = {
+				name = hazard_icon
+				spriteType = GFX_ideology_hazard
+				position = { x = 750 y = 5 }
+				orientation = upper_left
+				alwaysTransparent = no
+				scale = 0.8
+			}
+
+			instantTextBoxType = {
+				name = colonies_text
+				position = { x = 732 y = 7 }
+				orientation = upper_left
+				font = cg_16b
+				maxWidth = 38
+				maxHeight = 20
+				fixedSize = yes
+				format = left
+				vertical_alignment = center
+				alwaysTransparent = no
+				multiline = no
+			}
+		}
+	}
+
+	containerWindowType = {
+		name = ideology_listbox_item
+		size = { width = 780 height = 120 }
+	}
+
+	containerWindowType = {
+		name = fanatic_faction_entry
+		size = { width = 240 height = 75 }
+		moveable = no
+		clipping = no
+
+		background = {
+			name = fanatic_faction_bg
+			quadTextureSprite = GFX_ideology_actions_background
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = faction_name_textbox
+			position = { x = 0 y = 4 }
+			font = cg_16b
+			text_color_code = H
+			maxWidth = 240
+			maxHeight = 20
+			fixedSize = yes
+			format = center
+			vertical_alignment = top
+			multiline = no
+			alwaysTransparent = no
+		}
+
+		buttonType = {
+			name = faction_icon
+			quadTextureSprite = GFX_faction_icon_imperialist
+			position = { x = 10 y = 20 }
+			scale = 0.9
+		}
+
+		instantTextBoxType = {
+			name = faction_support
+			position = { x = -35 y = 25 }
+			orientation = center_up
+			font = cg_16b
+			maxWidth = 70
+			maxHeight = 20
+			fixedSize = yes
+			format = center
+			vertical_alignment = center
+			alwaysTransparent = no
+			multiline = no
+		}
+
+		instantTextBoxType = {
+			name = faction_approval
+			position = { x = -35 y = 48 }
+			orientation = center_up
+			font = cg_16b
+			maxWidth = 70
+			maxHeight = 20
+			fixedSize = yes
+			format = center
+			vertical_alignment = center
+			alwaysTransparent = no
+			multiline = no
+		}
+
+		buttonType = {
+			name = faction_manage_button
+			quadTextureSprite = GFX_accept_hammer
+			position = { x = -55 y = -53 }
+			orientation = lower_right
+		}
+	}
+
+	containerWindowType = {
+		name = tenet_entry_window
+		size = { width = 60 height = 70 }
+		position = { x = 0 y = 0 }
+		moveable = no
+		clipping = no
+
+		iconType = {
+			name = tenet_pin
+			quadTextureSprite = GFX_tenet_indicator
+			position = { x = 0 y = 60 }
+			centerPosition = yes
+			orientation = center_up
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = tenet_background
+			spriteType = GFX_tenet_background
+			position = { x = 0 y = 30 }
+			centerPosition = yes
+			orientation = center_up
+			alwaysTransparent = no
+		}
+
+		iconType = {
+			name = tenet_icon
+			spriteType = GFX_tenet_spectacle_of_authority
+			position = { x = 0 y = 30 }
+			centerPosition = yes
+			orientation = center_up
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = tenet_number
+			spriteType = GFX_tenet_number
+			position = { x = 25 y = 45 }
+			centerPosition = yes
+			orientation = center_up
+			scale = 0.35
+			alwaysTransparent = yes
+		}
+	}
+
+	containerWindowType = {
+		name = tenet_item
+		size = { width = 60 height = 70 }
+		position = { x = 0 y = 0 }
+		moveable = no
+		clipping = no
+	}
+
+	containerWindowType = {
+		name = ideology_action_entry
+		size = { width = 100% height = 30 }
+		position = { x = 0 y = 0 }
+		moveable = no
+		clipping = no
+
+		background = {
+			name = action_entry_bg
+			quadTextureSprite = gfx_transparency_button
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = execute_action_button
+			quadTextureSprite = GFX_button_light
+			size = { x = 100 y = 30 } # The x value will be used as a % of the window size
+			position = { x = 0 y = 0 }
+			buttonText = action_abandon_ideology_short
+			font = cg_16b
+		}
+
+		buttonType = {
+			name = toggle_action_button
+			quadTextureSprite = GFX_checkbox_20_20_01
+			position = { x = 70 y = 0 } # The x value will be used as a % of the window size
+		}
+
+		instantTextBoxType = {
+			name = action_button_text
+			font = cg_16b
+			text = action_abandon_ideology_short
+			position = { x = 0 y = 0 } # The x value will be used as a % of the window size
+			maxWidth = 70 # Will be used as a % of the window size
+			maxHeight = 30
+			fixedSize = yes
+			format = center
+			vertical_alignment = center
+			alwaysTransparent = no
+		}
+	}
+
+	containerWindowType = {
+		name = ideology_action_list_item
+		size = { width = 150 height = 30 }
+		position = { x = 0 y = 0 }
+		moveable = no
+		clipping = no
+	}
+
+	containerWindowType = {
+		name = ideology_action_list_item_short
+		size = { width = 115 height = 30 }
+	}
+
+	containerWindowType = {
+		name = adopting_empire_item
+		size = { width = 32 height = 32 }
+
+		buttonType = {
+			name = "empire_flag_button"
+			quadTextureSprite = "GFX_empire_flag_32"
+			position = { x = 0 y = 0 }
+			size = { x = 32 y = 32 }
+		}
+
+		iconType = {
+			name = custodian_crown
+			spriteType = GFX_custodian_crown
+			position = { x = 0 y = 3 }
+			centerPosition = yes
+			orientation = center_up
+			scale = 0.7
+		}
+	}
+
+	containerWindowType = {
+		name = ideology_stats_bar_entry
+		position = { x = 0 y = 0 }
+		moveable = no
+
+		iconType = {
+			name = elem_icon
+			spriteType = GFX_ideology_stats_bar
+			centerPosition = yes
+			orientation = lower_right
+			alwaysTransparent = no
+		}
+	}
+
+	### Ideology Flag containers ###
+
+	containerWindowType = {
+		name = ideology_flag_200_entry_window
+		size = { width = 268 height = 268 }
+		moveable = no
+
+		iconType = {
+			name = ideology_glow_bg
+			spriteType = GFX_ideology_flag_glow
+			position = { x = 12 y = 10 }
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = ideology_flag_button
+			spriteType = GFX_ideology_flag_200
+			position = { x = 16 y = 17 }
+		}
+
+		iconType = {
+			name = ethic_icon
+			spriteType = GFX_ethics_materialist
+			position = { x = 62 y = 62 }
+			alwaysTransparent = no
+		}
+	}
+
+	containerWindowType = {
+		name = ideology_flag_128_entry_window
+		size = { width = 172 height = 172 }
+		moveable = no
+
+		iconType = {
+			name = ideology_glow_bg
+			spriteType = GFX_ideology_flag_glow
+			position = { x = 10 y = 8 }
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = ideology_flag_button
+			spriteType = GFX_ideology_flag_128
+			position = { x = 14 y = 14 }
+		}
+
+		iconType = {
+			name = ethic_icon
+			spriteType = GFX_ethics_materialist
+			position = { x = 53 y = 54 }
+			alwaysTransparent = no
+			scale = 1.2
+		}
+	}
+
+	containerWindowType = {
+		name = ideology_flag_64_entry_window
+		size = { width = 100 height = 100 }
+		moveable = no
+
+		iconType = {
+			name = ideology_glow_bg
+			spriteType = GFX_ideology_flag_glow
+			position = { x = 12 y = 10 }
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = ideology_flag_button
+			spriteType = GFX_ideology_flag_64
+			position = { x = 2 y = 5 }
+		}
+
+		iconType = {
+			name = ethic_icon
+			spriteType = GFX_ethics_materialist
+			position = { x = 62 y = 62 }
+			alwaysTransparent = no
+			scale = 0.9
+		}
+	}
+
+	containerWindowType = {
+		name = ideology_flag_48_entry_window
+		size = { width = 56 height = 56 }
+		moveable = no
+
+		iconType = {
+			name = ideology_glow_bg
+			spriteType = GFX_ideology_flag_glow
+			position = { x = 7 y = 4 }
+			alwaysTransparent = yes
+			scale = 0.66
+		}
+
+		buttonType = {
+			name = ideology_flag_button
+			spriteType = GFX_ideology_flag_48
+			position = { x = 1 y = 2 }
+		}
+
+		iconType = {
+			name = ethic_icon
+			spriteType = GFX_ethics_materialist
+			position = { x = 38 y = 38 }
+			alwaysTransparent = no
+			scale = 0.7
+		}
+	}
+
+	containerWindowType = {
+		name = ideology_flag_32_entry_window
+		size = { width = 40 height = 40 }
+		moveable = no
+
+		iconType = {
+			name = ideology_glow_bg
+			spriteType = GFX_ideology_flag_glow
+			position = { x = 5 y = 2 }
+			alwaysTransparent = yes
+			scale = 0.5
+		}
+
+		buttonType = {
+			name = ideology_flag_button
+			spriteType = GFX_ideology_flag_32
+			position = { x = 1 y = 1 }
+		}
+
+		iconType = {
+			name = ethic_icon
+			spriteType = GFX_ethics_materialist
+			position = { x = 26 y = 26 }
+			alwaysTransparent = no
+			scale = 0.58
+		}
+	}
+
+	# Hosts an ideology_flag_32_entry_window inside an overlapping elements box
+	containerWindowType = {
+		name = ideology_flag_32_box_entry_window
+		size = { width = 40 height = 40 }
+		moveable = no
+	}
+
+	containerWindowType = {
+		name = faction_actions_window
+		moveable = yes
+		clipping = yes
+		position = { x = 5 y = 0 } # Used as an offset (since this window starts next to the Manage Faction button)
+		size = { width = 382 height = 382 }
+
+		background = {
+			name = "background"
+			spriteType = "GFX_tile_outliner_bg"
+		}
+
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = 29 y = -12 }
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = "header_line"
+			quadTextureSprite = "GFX_line"
+			position = { x = 6 y = 30 }
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "header"
+			font = "malgun_goth_24"
+			text = MANAGE_FACTION
+			position = { x = 15 y = 5 }
+			maxWidth = 300
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close"
+			position = { x = -45 y = 16 }
+			orientation = upper_right
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+			pdx_tooltip = "CLOSE_TITLE"
+		}
+
+		containerWindowType = {
+			name = "faction_actions_list_window"
+			position = { x = 6 y = 55 }
+			size = { width = 370 height = 321 }
+			clipping = yes
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_frame_light"
+			}
+
+			smoothListboxType = {
+				name = "faction_actions_list"
+				position = { x = 10 y = 10 }
+				size = { x = 340 y = 300 }
+				spacing = 5
+				scrollbartype = "standardlistbox_slider"
+				borderSize = { x = 0 y = 0 }
+				orientation = "UPPER_LEFT"
+			}
+		}
+	}
+}
