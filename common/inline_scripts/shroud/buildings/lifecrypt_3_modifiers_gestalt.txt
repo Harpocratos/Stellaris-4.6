@@ -1,0 +1,19 @@
+planet_modifier = {
+    planet_jobs_unity_produces_mult = 0.15
+}
+
+inline_script = {
+	script = jobs/culture_workers_add
+	COUNT = @building_static_jobs_medium
+}
+
+triggered_planet_modifier = {
+	modifier = {
+    	job_drone_energy_thrall_add = @b3_jobs
+	}
+}
+
+triggered_desc = {
+	# Same effect as Hypercomms Forum
+	text = building_hypercomms_forum_effect
+}

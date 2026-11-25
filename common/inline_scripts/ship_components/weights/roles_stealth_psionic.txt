@@ -1,0 +1,17 @@
+# Psionic-shield variant of roles_stealth. Psionic shields are not reduced by psionic cloaking, so when psionic
+# cloaking is researched a stealth ship or cloaked station keeps them (use both) rather than dropping them for armor.
+modifier = {
+	factor = $MULT$
+	from = {
+		has_stealth_ship_role = yes
+	}
+	NOT = {
+		has_technology = tech_cloaking_psi
+	}
+}
+modifier = {
+	factor = $MULT$
+	prev? = {
+		starbase_psionic_shields_negated = yes
+	}
+}

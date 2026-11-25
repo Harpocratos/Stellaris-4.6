@@ -1,0 +1,12 @@
+modifier = {
+	factor = $MULT$
+	from = {
+		has_stealth_ship_role = yes
+	}
+}
+modifier = {
+	factor = $MULT$
+	prev? = {
+		starbase_shields_negated = yes
+	}
+}

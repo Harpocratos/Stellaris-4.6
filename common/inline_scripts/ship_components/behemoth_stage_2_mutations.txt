@@ -1,0 +1,9 @@
+# Growing Pains Stage II Mutations, granted by biocrisis.215
+
+scripted_action = { behemoth_turbo behemoth_reflexes }
+
+# Jump Drive
+# Added by switching ship design to NAME_Behemoth_04_jump
+
+# Cloaking
+# Added by switching ship design to NAME_Behemoth_04_cloaking

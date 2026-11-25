@@ -1,0 +1,39 @@
+# Scientific Observation
+	key = "CONTRACT_SCIENTIFIC_OBSERVATION_$RESOURCE$_INTERNAL_PROJECT"
+	event_chain = contract_scientific_observation_$RESOURCE$_internal_chain
+	days_to_research = 30
+	project_type = project_type_contract
+	picture = GFX_evt_mining_station
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = yes
+	remove_when_completed = yes
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		owner = {
+			add_mission_counter = {
+				mission = contract_scientific_observation_$RESOURCE$_internal
+				counter = contract_progress_counter
+				amount = 1
+			}
+		}
+	}
+
+	on_fail = {
+		owner = { end_event_chain = contract_scientific_observation_$RESOURCE$_internal_chain }
+	}
+
+	abort_trigger = {
+		NOT = {
+			owner = { has_event_chain = contract_scientific_observation_$RESOURCE$_internal_chain }
+		}
+	}
+
+	on_cancel = {
+		# Do nothing
+	}

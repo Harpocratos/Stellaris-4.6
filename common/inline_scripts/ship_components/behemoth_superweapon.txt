@@ -1,0 +1,3 @@
+# Growing Pains Finished Superweapon, granted by biocrisis.250
+
+scripted_action = { behemoth_superweapon }

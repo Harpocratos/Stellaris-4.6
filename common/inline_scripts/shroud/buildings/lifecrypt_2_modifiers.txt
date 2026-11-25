@@ -1,0 +1,25 @@
+planet_modifier = {
+    planet_jobs_unity_produces_mult = 0.10
+    job_energy_thrall_add = @b2_jobs
+}
+
+inline_script = {
+	script = jobs/culture_workers_add
+	COUNT = @building_static_jobs
+}
+
+# Homogeneity Tenet - Non Gestalt
+triggered_planet_modifier = {
+	potential = {
+		owner = {
+			has_active_tenet = tenet_homogeneity
+		}
+	}
+	founder_species_growth_mult = 1
+	mult = owner.modifier:non_gestalt_memorials_species_growth_mult
+}
+
+triggered_desc = {
+	# Same effect as Heritage Site
+	text = building_heritage_site_effect
+}

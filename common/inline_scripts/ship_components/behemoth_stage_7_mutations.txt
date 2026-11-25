@@ -1,0 +1,3 @@
+# Growing Pains Stage VII Abilities, granted by biocrisis.240
+
+scripted_action = { behemoth_buff behemoth_heal behemoth_summon } 

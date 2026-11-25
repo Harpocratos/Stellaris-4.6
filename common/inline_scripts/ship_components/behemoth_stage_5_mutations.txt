@@ -1,0 +1,3 @@
+# Growing Pains Stage V Mutations, granted by biocrisis.230
+
+scripted_action = { behemoth_drain behemoth_spike behemoth_burst }

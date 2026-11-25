@@ -1,0 +1,93 @@
+# Fortress weight per offensive starbase weapon module. Param: MULT = weight per module.
+# If you add a new offensive starbase weapon module, add it here too.
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_laser_battery }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_archaeo_laser_battery }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_mass_driver_battery }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_archaeo_mass_driver_battery }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_swarmer_missile_battery }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_particle_launcher }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_psionic_torpedo }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_scourge_missile_battery }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_hangar_bay }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_archaeo_hangar_bay }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_psionic_hangar_bay }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_amoeba_hangar_bay }
+	mode = add
+	mult = $MULT$
+}
+complex_trigger_modifier = {
+	trigger = count_starbase_modules
+	trigger_scope = starbase
+	parameters = { type = starbase_swarm_hangar_bay }
+	mode = add
+	mult = $MULT$
+}

@@ -1,0 +1,6 @@
+triggered_ship_modifier = {
+	potential = {
+		is_cloaked = yes
+	}
+	ship_shield_reduction = 0.5
+}

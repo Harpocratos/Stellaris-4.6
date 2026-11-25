@@ -1,0 +1,36 @@
+# Onboard Contract Project
+	key = "CONTRACT_ONBOARD_$RESEARCH$_RESEARCH_PROJECT"
+	event_chain = contract_onboard_$RESEARCH$_research_chain
+	cost = 1000
+	tech_department = $RESEARCH$_technology
+	timelimit = -1
+	picture = GFX_evt_$RESEARCH$_research
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = no
+	remove_when_completed = yes
+
+	event_scope = country_event
+
+	on_success = {
+		owner = {
+			add_mission_counter = {
+				mission = contract_onboard_$RESEARCH$_research
+				counter = contract_progress_counter
+				amount = 1
+			}
+		}
+	}
+
+	on_fail = {
+		owner = { end_event_chain = contract_onboard_$RESEARCH$_research_chain }
+	}
+
+	abort_trigger = {
+		NOT = {
+			owner = { has_event_chain = contract_onboard_$RESEARCH$_research_chain }
+		}
+	}
+
+	on_cancel = {
+		# Do nothing
+	}

@@ -1,0 +1,3 @@
+# Growing Pains Stage I Mutations, granted by biocrisis.210
+
+scripted_action = { behemoth_fast_egg behemoth_slow_egg behemoth_strong_egg }
