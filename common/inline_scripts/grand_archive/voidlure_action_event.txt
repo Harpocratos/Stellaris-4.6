@@ -1,0 +1,56 @@
+# Fired by on_arkship_voidlure_$CATEGORY$ when an arkship voidlure lure action completes.
+# THIS = target system, FROM = arkship fleet
+# The lure goes on cooldown immediately, but the fauna only arrives 30-90 days later.
+system_event = {
+	id = $SPAWN_EVENT_ID$
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		from.starbase? = {
+			set_timed_starbase_flag = {
+				flag = voidlure_action_cooldown
+				days = @voidlure_action_cooldown
+			}
+		}
+		system_event = {
+			id = $DELAYED_SPAWN_EVENT_ID$
+			days = @voidlure_spawn_delay_min
+			random = @voidlure_spawn_delay_random
+			scopes = {
+				from = from
+			}
+		}
+	}
+}
+
+# Spawns the lured fauna 30-90 days after the lure action completed.
+# THIS = target system, FROM = arkship fleet
+system_event = {
+	id = $DELAYED_SPAWN_EVENT_ID$
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		create_lured_fauna_country = yes
+		event_target:lured_fauna_country = {
+			set_faction_hostility = {
+				target = from.owner
+				set_hostile = no
+			}
+		}
+		from.owner = {
+			spawn_from_location_$CATEGORY$ = { LOCATION = root }
+			last_created_fleet = {
+				set_owner = event_target:lured_fauna_country
+				set_fleet_flag = voidlure_fleet
+				fleet_event = {
+					id = $FLEET_HANDBACK_EVENT_ID$
+					days = 360
+				}
+			}
+			create_voidlure_capture_message = yes
+			set_country_flag = voidlure_attracted_$CATEGORY$
+		}
+	}
+}

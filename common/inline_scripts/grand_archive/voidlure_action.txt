@@ -1,0 +1,50 @@
+arkship_voidlure_$CATEGORY$ = {
+	user_scope = fleet
+	scope = galactic_object
+
+	on_completed = on_arkship_voidlure_$CATEGORY$
+	context_menu_name = arkship_voidlure_$CATEGORY$
+	tooltip = arkship_voidlure_ship_button
+	activity_key = arkship_voidlure_activity
+	progress_activity_key = arkship_voidlure_progress
+	required_progress = @arkship_voidlure_required_progress
+	required_progress_key = arkship_voidlure_required_progress_key
+	cooldown = @voidlure_action_cooldown
+
+	# Context-menu-only: button_visible = always no hides the fleet-bar button; hide_from_context_menu
+	# is the visibility gate (module present + fauna encountered), possible is the runtime gate.
+	button_visible = {
+		always = no
+	}
+
+	hide_from_context_menu = {
+		NOT = {
+			AND = {
+				from.starbase? = {
+					has_starbase_module = arkship_voidlure
+				}
+				from.owner = {
+					OR = {
+						has_encountered_$CATEGORY$ = yes
+						has_country_flag = force_voidlure_without_communication
+					}
+				}
+			}
+		}
+	}
+
+	possible = {
+		custom_tooltip = {
+			fail_text = arkship_voidlure_cooldown_fail_tt
+			from.starbase? = {
+				NOT = {
+					has_starbase_flag = voidlure_action_cooldown
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = arkship_voidlure_invalid_system_fail_tt
+			is_system_home_to_$CATEGORY$ = yes
+		}
+	}
+}

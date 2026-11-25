@@ -1,0 +1,17 @@
+ethic = ethic_fanatic_$ETHIC$
+faction = $FACTION$
+inline_script = ideologies/ideology_common_data
+inline_script = {
+	script = ideologies/faction_weight
+	ETHIC = $ETHIC$
+	FACTION = $FACTION$
+}
+
+on_monthly = {
+	inline_script = ideologies/ideology_common_on_monthly
+}
+
+triggered_country_modifier = {
+	pop_ethic_$ETHIC$_attraction_mult = 1
+	mult = value:adopted_ideology_ethic_attraction
+}

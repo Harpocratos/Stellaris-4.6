@@ -1,0 +1,428 @@
+value = {
+	possible = { is_scope_type = colony }
+	modifier = {
+		add = value:calc_resource_income_weighted|RESOURCE|unity|WEIGHT|6|
+		desc = FROM_COLONY_UNITY_INCOME
+		planet_resource_compare = {
+			resource = unity
+			value > 0
+		}
+	}
+	modifier = {
+		add = value:calc_resource_income_weighted|RESOURCE|trade|WEIGHT|2|
+		desc = FROM_COLONY_TRADE_INCOME
+		planet_resource_compare = {
+			resource = trade
+			value > 0
+		}
+	}
+	modifier = {
+		add = value:free_amenities_weighted|WEIGHT|0.04|
+		desc = FROM_COLONY_AMENITIES
+		free_amenities > 0
+	}
+	modifier = {
+		add = value:pop_ideology_amount_value|IDEOLOGY|root.from|WEIGHT|0.025|
+		desc = FROM_IDEOLOGY_POPS
+		pop_ideology_amount = {
+			amount > 0
+			ideology = root.from
+		}
+	}
+	modifier = {
+		add = value:num_job_workforce_with_tag|TAG|soldier|DIVIDE|6.67| # 15 per 100 pops
+		desc = FROM_SOLDIERS
+
+		from = { is_militarist = yes }
+		total_workforce_with_job_tag = { tags = { soldier } value > 0 }
+	}
+	modifier = {
+		add = value:count_owned_job_workforce|JOB|entertainer|DIVIDE|10| # 10 per 100 pops
+		desc = FROM_ENTERTAINERS
+
+		owner? = { is_gestalt = no }
+		from = { is_pacifist = yes }
+		num_assigned_jobs = { job = entertainer value > 0 }
+	}
+	modifier = {
+		add = value:count_owned_job_workforce|JOB|trader|DIVIDE|10| # 10 per 100 pops
+		desc = FROM_TRADERS
+
+		owner? = { is_gestalt = no }
+		from = { is_xenophile = yes }
+		num_assigned_jobs = { job = trader value > 0 }
+	}
+	modifier = {
+		add = value:ideological_influence_from_researchers
+		desc = FROM_RESEARCHERS
+
+		from = { is_materialist = yes }
+		total_workforce_with_job_tag = { tags = { research } value > 0 }
+	}
+	modifier = {
+		add = value:count_assigned_priests|DIVIDE|12.5| # 8 per 100 pops
+		desc = FROM_PRIESTS
+
+		owner? = { is_gestalt = no }
+		from = { is_spiritualist = yes }
+		check_variable_arithmetic = { which = value:count_assigned_priests|DIVIDE|1| value > 0 }
+	}
+	modifier = {
+		add = value:count_owned_job_workforce|JOB|civilian|DIVIDE|12.5| # 8 per 100 pops
+		desc = FROM_CIVILIANS
+
+		owner? = { is_gestalt = no }
+		from = { is_egalitarian = yes }
+		num_assigned_jobs = { job = civilian value > 0 }
+	}
+	modifier = {
+		add = value:num_job_workforce_with_tag|TAG|enforcer|DIVIDE|6.67| # 15 per 100 pops
+		desc = FROM_ENFORCERS
+
+		from = { is_authoritarian = yes }
+		total_workforce_with_job_tag = { tags = { enforcer } value > 0 }
+	}
+	modifier = {
+		add = value:count_owned_job_workforce|JOB|spawning_drone|DIVIDE|4| # 25 per 100 pops
+		desc = FROM_SPAWNING_DRONES
+
+		owner? = { is_hive_empire = yes }
+		from = { is_xenophile = yes }
+		num_assigned_jobs = { job = spawning_drone value > 0 }
+	}
+	modifier = {
+		add = value:count_owned_job_workforce|JOB|replicator|DIVIDE|4| # 25 per 100 pops
+		desc = FROM_REPLICATORS
+
+		owner? = { is_machine_empire = yes }
+		from = { is_xenophile = yes }
+		num_assigned_jobs = { job = replicator value > 0 }
+	}
+	modifier = {
+		add = value:count_owned_job_workforce|JOB|maintenance_drone|DIVIDE|12.5| # 8 per 100 pops
+		desc = FROM_MAINTENANCE_DRONES
+
+		owner? = { is_gestalt = yes }
+		from = { is_egalitarian = yes }
+		num_assigned_jobs = { job = maintenance_drone value > 0 }
+	}
+	modifier = {
+		add = value:count_owned_job_workforce|JOB|coordinator|DIVIDE|33.3| # 3 per 100 pops
+		desc = FROM_COORDINATORS
+		owner? = { is_gestalt = yes }
+		from = {
+			OR = {
+				is_pacifist = yes
+				is_spiritualist = yes
+			}
+		}
+		num_assigned_jobs = { job = coordinator value > 0 }
+	}
+	modifier = {
+		add = value:num_job_workforce_with_tag|TAG|telepath|DIVIDE|6.67| # 15 per 100 pops
+		desc = FROM_TELEPATHS
+		total_workforce_with_job_tag = { tags = { telepath } value > 0 }
+	}
+	modifier = {
+		add = value:reach_from_civic_dystopian_society
+		owner? = { has_valid_civic = civic_dystopian_society }
+		desc = IDEOLOGICAL_PUSH_FROM_DYSTOPIAN_SOCIETY
+	}
+	modifier = {
+		add = value:reach_from_civic_shared_burden
+		owner? = { has_valid_civic = civic_shared_burden }
+		desc = IDEOLOGICAL_PUSH_FROM_SHARED_BURDEN
+	}
+
+	# Arkship debuff
+	modifier = {
+		mult = 0.75
+		desc = ARKSHIP_MALUS_DESC
+		is_planet_class = pc_ark
+	}
+}
+
+value = {
+	possible = {
+		is_scope_type = megastructure
+		is_megastructure_galactic_halls = yes
+		exists = owner
+	}
+	modifier = {
+		add = owner.value:galactic_hall_reach_score
+		desc = IDEOLOGY_STRENGTH
+	}
+}
+
+value = {
+	possible = {
+		is_scope_type = starbase
+		has_starbase_module = waystation_ideology_array
+		exists = owner
+		fleet? = { is_disabled = no }
+	}
+	modifier = {
+		add = value:get_combined_arkship_reach
+		desc = COMBINED_ARKSHIP_REACH
+	}
+}
+
+weight = {
+	possible = { is_scope_type = colony }
+	modifier = {
+		mult = value:scripted_modifier_mult|MODIFIER|colony_ideological_reach_mult|
+		desc = mod_colony_ideological_reach_mult
+		check_modifier_value = {
+			modifier = colony_ideological_reach_mult
+			value != 0
+		}
+	}
+	modifier = {
+		mult = owner.value:scripted_modifier_mult|MODIFIER|civic_megacity_architects_ideological_reach_mult|
+		is_planet_class = pc_city
+		owner? = {
+			is_megacity_architects_empire = yes
+		}
+		desc = FROM_CIVIC_MEGACITY_ARCHITECTS
+	}
+	modifier = {
+		min = 0
+		display_level = hide_desc
+	}
+}
+
+weight = {
+	possible = {
+		is_scope_type = megastructure
+		is_megastructure_galactic_halls = yes
+		exists = owner
+	}
+	modifier = {
+		mult = owner.value:galactic_hall_galactic_strength_reach
+		desc = GALACTIC_STRENGTH
+	}
+	modifier = {
+		mult = value:scripted_modifier_mult|MODIFIER|hall_ideological_reach_mult|
+		desc = mod_hall_ideological_reach_mult
+		exists = owner
+		owner = {
+			check_modifier_value = {
+				modifier = hall_ideological_reach_mult
+				value != 0
+			}
+		}
+	}
+	modifier = {
+		min = 0
+		display_level = hide_desc
+	}
+	modifier = {
+		max = @galactic_hall_max_reach
+	}
+}
+
+ideological_push = {
+	base = 0
+	modifier = {
+		add = value:ideological_influence_from_fleets|BASE|$FLEET_PUSH$|
+		starbase? = {
+			any_fleet_in_orbit = {
+				is_owned_by = root.owner
+				is_ship_class = shipclass_military
+			}
+		}
+		desc = IDEOLOGICAL_PUSH_FROM_FLEETS
+	}
+	modifier = {
+		add = @consecrated_world_ideological_push
+		any_system_planet = {
+			has_planet_flag = consecrated@root.from
+		}
+		desc = IDEOLOGICAL_PUSH_FROM_CONSECRATED_WORLD
+	}
+}
+
+ideological_resistance = {
+	base = 0
+	# Commented out for opinion_level performance issues (AUG-59674)
+	# modifier = {
+	# 	add = 0.25
+	# 	from = { opinion_level = { who = root.fromfrom level = terrible } }
+	# }
+	# modifier = {
+	# 	add = 0.125
+	# 	from = { opinion_level = { who = root.fromfrom level = poor } }
+	# }
+	# modifier = {
+	# 	add = -0.05
+	# 	from = { opinion_level = { who = root.fromfrom level = good } }
+	# }
+	# modifier = {
+	# 	add = -0.1
+	# 	from = { opinion_level = { who = root.fromfrom level = excellent } }
+	# }
+	modifier = {
+		add = -0.025
+		from = { has_embassy = root.fromfrom }
+		desc = IDEOLOGICAL_RESISTANCE_FROM_EMBASSY
+	}
+	modifier = {
+		add = -0.025
+		from = { has_commercial_pact = root.fromfrom }
+		desc = IDEOLOGICAL_RESISTANCE_FROM_COMMERCIAL_PACT
+	}
+	modifier = {
+		add = -0.025
+		from = { has_research_agreement = root.fromfrom }
+		desc = IDEOLOGICAL_RESISTANCE_FROM_RESEARCH
+	}
+	modifier = {
+		add = -0.05
+		from = { has_diplo_migration_treaty = root.fromfrom }
+		desc = IDEOLOGICAL_RESISTANCE_FROM_TREATY
+	}
+	modifier = {
+		add = -0.1
+		from = { is_in_federation_with = root.fromfrom }
+		desc = IDEOLOGICAL_RESISTANCE_FROM_FEDERATION
+	}
+	modifier = {
+		add = value:ideological_resistance_from_borders
+		desc = IDEOLOGICAL_RESISTANCE_FROM_BORDERS
+	}
+	modifier = {
+		add = -0.25
+		any_system_planet_colony = {
+			has_branch_office = yes
+			branch_office_owner = { is_same_value = root.from }
+		}
+		desc = IDEOLOGICAL_RESISTANCE_FROM_BRANCH_OFFICE
+	}
+	modifier = {
+		add = 0.25
+		from = { is_rival = root.fromfrom }
+		desc = IDEOLOGICAL_RESISTANCE_FROM_RIVALRY
+	}
+	modifier = {
+		add = value:ideological_resistance_from_rival_ideology
+		OR = {
+			from = { is_ideology_rival = root.fromfrom }
+			fromfrom = { is_ideology_rival = root.from }
+		}
+		desc = IDEOLOGICAL_RESISTANCE_FROM_RIVAL_IDEOLOGY
+	}
+	# Commented out for opinion_level performance issues (AUG-59674)
+	# modifier = {
+	# 	add = value:foreign_starbase_resistance
+	# 	exists = starbase
+	# 	from = { opinion_level = { who = root.fromfrom level <= poor } }
+	# }
+	modifier = {
+		add = 0.25
+		fromfrom = { is_at_war_with = root.from }
+		desc = IDEOLOGICAL_RESISTANCE_FROM_WAR
+	}
+	# Commented out for opinion_level performance issues (AUG-59674)
+	# modifier = {
+	# 	add = value:ideological_influence_from_fleets|BASE|$FLEET_RES$|
+	# 	exists = starbase
+	# 	from = { opinion_level = { who = root.fromfrom level <= poor } }
+	# 	starbase = {
+	# 		any_fleet_in_orbit = {
+	# 			is_owned_by = root.fromfrom
+	# 			is_ship_class = shipclass_military
+	# 		}
+	# 	}
+	# }
+
+	modifier = {
+		add = fromfrom.value:reach_resistance_from_encryption|SCOPE|root.from|
+		desc = IDEOLOGICAL_RESISTANCE_FROM_ENCRYPTION
+	}
+
+	# Emitter (from) was the victim of Information Manipulation by the system owner (fromfrom)
+	modifier = {
+		add = @information_manipulation_reach_bonus
+		from = { has_country_flag = operation_information_manipulation_victim@root.fromfrom }
+		fromfrom = { has_country_flag = operation_information_manipulation_instigator@root.from }
+		desc = IDEOLOGICAL_RESISTANCE_FROM_INFORMATION_MANIPULATION
+	}
+
+	# System owner (fromfrom) was the victim of Information Manipulation by the emitter (from)
+	modifier = {
+		add = @information_manipulation_reach_malus
+		from = { has_country_flag = operation_information_manipulation_instigator@root.fromfrom }
+		fromfrom = { has_country_flag = operation_information_manipulation_victim@root.from }
+		desc = IDEOLOGICAL_RESISTANCE_FROM_INFORMATION_MANIPULATION
+	}
+
+	modifier = {
+		add = @resolution_council_ideology_denouncement_resistance
+		from.ideology? = { has_ideology_flag = denounced_ideology }
+		fromfrom = {
+			OR = {
+				NOT = { exists = ideology }
+				ideology = { NOT = { is_same_value = root.from.ideology } }
+			}
+		}
+		desc = IDEOLOGICAL_RESISTANCE_FROM_DENOUNCEMENT
+	}
+
+	modifier = {
+		add = @resolution_ideology_act_resistance
+		from.ideology? = { has_ideology_flag = ideology_act_voted }
+		fromfrom = {
+			is_galactic_community_member = yes
+			NOT = { exists = ideology }
+		}
+		desc = IDEOLOGICAL_RESISTANCE_FROM_IDEOLOGY_ACT
+	}
+
+	modifier = {
+		add = @the_last_word_planet_spiritualist_resistance
+		from.ideology? = { is_spiritualist = yes }
+		any_system_planet_colony = {
+			exists = leader
+			leader = { has_trait = leader_trait_the_last_word }
+		}
+		desc = IDEOLOGICAL_RESISTANCE_FROM_THE_LAST_WORD
+	}
+	modifier = {
+		add = @the_last_word_sector_spiritualist_resistance
+		from.ideology? = { is_spiritualist = yes }
+		any_system_planet_colony = {
+			is_sector_capital = no
+			NOT = { exists = leader }
+			exists = sector
+			sector.sector_capital = {
+				exists = leader
+				leader = { has_trait = leader_trait_the_last_word }
+			}
+		}
+		NOT = {
+			any_system_planet_colony = {
+				exists = leader
+				leader = { has_trait = leader_trait_the_last_word }
+			}
+		}
+		desc = IDEOLOGICAL_RESISTANCE_FROM_THE_LAST_WORD
+	}
+	modifier = {
+		add = @consecrated_world_foreign_resistance
+		any_system_planet = {
+			has_planet_flag = consecrated@root.fromfrom
+		}
+		desc = IDEOLOGICAL_RESISTANCE_FROM_CONSECRATED_WORLD
+	}
+	modifier = {
+		add = @holding_propaganda_office_ideological_resistance
+		any_system_planet_colony = {
+			owner.overlord? = { exists = ideology }
+			has_holding = {
+				holding = holding_propaganda_office
+				owner = owner.overlord
+			}
+		}
+		desc = IDEOLOGICAL_RESISTANCE_FROM_PROPAGANDA_OFFICE
+	}
+}

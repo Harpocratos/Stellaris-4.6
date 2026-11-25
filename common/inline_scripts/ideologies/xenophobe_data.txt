@@ -1,0 +1,24 @@
+reach = default_reach
+inline_script = {
+	script = ideologies/ideology_ethic_data
+	ETHIC = xenophobe
+	FACTION = $FACTION$
+}
+
+# This = Country
+# From = Origin faction (if any)
+weight = {
+	base = 1
+	modifier = {
+		add = 50
+		is_$SEC_ETHIC$ = yes
+	}
+	modifier = {
+		factor = 0
+		is_$OPPOSED_SEC_ETHIC$ = yes
+	}
+	modifier = {
+		add = 10000 # The faction should prevail
+		from? = { is_pop_faction_type = $FACTION$ }
+	}
+}

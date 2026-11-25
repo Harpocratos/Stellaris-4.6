@@ -1,0 +1,32 @@
+# This = Pop faction
+# From = Ideology
+# The faction without an ideology and with the highest weight is picked
+faction_weight = {
+	base = 0
+	modifier = {
+		is_$ETHIC$ = yes
+		add = 1
+	}
+	modifier = {
+		is_$ETHIC$ = yes
+		add = trigger:support
+	}
+	modifier = {
+		is_pop_faction_type = $FACTION$
+		add = 10 # Prefer the fallback faction by default
+	}
+	modifier = {
+		factor = 0
+		is_faction_fanatic = no
+	}
+	modifier = {
+		factor = 0
+		is_undecided_cyber_creed_faction = yes
+	}
+	modifier = { # A foreign ideology creates its own faction
+		factor = 0
+		owner = {
+			NOT = { ideology? = { is_same_value = root.from } }
+		}
+	}
+}
