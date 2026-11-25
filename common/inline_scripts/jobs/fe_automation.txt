@@ -1,0 +1,24 @@
+triggered_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = no
+			NOT = {
+				has_country_flag = virtuality_traditions_unlocked
+			}
+		}
+	}
+	job_$JOB$_automated_workforce_mult = @fe_automation_$TIER$
+}
+
+triggered_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+			is_wilderness_empire = no
+			NOT = {
+				has_country_flag = virtuality_traditions_unlocked
+			}
+		}
+	}
+	job_$GESTALT_JOB$_automated_workforce_mult = @fe_automation_$TIER$
+}

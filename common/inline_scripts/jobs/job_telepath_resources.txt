@@ -1,0 +1,51 @@
+resources = {
+	category = planet_telepaths
+	inline_script = "jobs/job_enforcer_triggered_resources"
+	produces = {
+		unity = 4.5
+	}
+	produces = {
+		trigger = {
+			has_shroud_dlc = no
+			owner? = {
+				has_country_flag = whisperers_covenant_confirmed
+			}
+		}
+		physics_research = @telepath_whisperers_research_confirmed
+		engineering_research = @telepath_whisperers_research_confirmed
+		society_research = @telepath_whisperers_research_confirmed
+	}
+	produces = {
+		trigger = {
+			has_shroud_dlc = no
+			owner? = {
+				has_country_flag = whisperers_covenant_rank_1
+			}
+		}
+		physics_research = @telepath_whisperers_research_rank_1
+		engineering_research = @telepath_whisperers_research_rank_1
+		society_research = @telepath_whisperers_research_rank_1
+	}
+	produces = {
+		trigger = {
+			has_shroud_dlc = yes
+			owner? = {
+				has_covenant_with_whisperers_in_the_void = yes
+			}
+		}
+		physics_research = @telepath_whisperers_research
+		engineering_research = @telepath_whisperers_research
+		society_research = @telepath_whisperers_research
+	}
+	upkeep = {
+		energy = 1
+	}
+	upkeep = {
+		trigger = {
+			colony? = {
+				has_modifier = anticrime_campaign
+			}
+		}
+		energy = 2
+	}
+}

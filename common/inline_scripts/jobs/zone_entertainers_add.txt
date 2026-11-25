@@ -1,0 +1,189 @@
+### Regular Empires
+# Planets
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = no
+		}
+		planet_is_habitat_equivalent = no
+		planet_is_ecu_equivalent = no
+		planet_is_ring_world_equivalent = no
+	}
+	job_entertainer_add = $AMOUNT$
+}
+
+# Habitats
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = no
+		}
+		planet_is_habitat_equivalent = yes
+	}
+	job_entertainer_add = $AMOUNT$
+	mult = owner.value:hab_void_dweller_jobs
+}
+
+# Ecus
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = no
+		}
+		planet_is_ecu_equivalent = yes
+	}
+	job_entertainer_add = $AMOUNT$
+	mult = 3
+}
+
+# Ringworld
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = no
+		}
+		planet_is_ring_world_equivalent = yes
+	}
+	job_entertainer_add = $AMOUNT$
+	mult = 5
+}
+
+# Nomads
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = no
+			is_nomadic = yes
+		}
+	}
+	job_entertainer_add = $AMOUNT$
+}
+
+### Regular Empires
+# Planets
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+		}
+		planet_is_habitat_equivalent = no
+		planet_is_ecu_equivalent = no
+		planet_is_ring_world_equivalent = no
+	}
+	job_logistics_drone_add = $AMOUNT$
+}
+
+# Habitats
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+		}
+		planet_is_habitat_equivalent = yes
+	}
+	job_logistics_drone_add = $AMOUNT$
+	mult = owner.value:hab_void_dweller_jobs
+}
+
+# Ecus
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+		}
+		planet_is_ecu_equivalent = yes
+	}
+	job_logistics_drone_add = $AMOUNT$
+	mult = 3
+}
+
+# Ringworld
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+		}
+		planet_is_ring_world_equivalent = yes
+	}
+	job_logistics_drone_add = $AMOUNT$
+	mult = 5
+}
+
+# Nomads
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+			is_nomadic = yes
+		}
+	}
+	job_logistics_drone_add = $AMOUNT$
+}
+
+### Regular Empires
+# Planets
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+			has_active_tradition = tr_logistics_2
+		}
+		planet_is_habitat_equivalent = no
+		planet_is_ecu_equivalent = no
+		planet_is_ring_world_equivalent = no
+	}
+	job_logistics_drone_add = $AMOUNT$
+	mult = 0.5
+}
+
+# Habitats
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+			has_active_tradition = tr_logistics_2
+		}
+		planet_is_habitat_equivalent = yes
+	}
+	job_logistics_drone_add = $AMOUNT$
+	mult = owner.value:hab_void_dweller_jobs_mult|MULT|0.5|
+}
+
+# Ecus
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+			has_active_tradition = tr_logistics_2
+		}
+		planet_is_ecu_equivalent = yes
+	}
+	job_logistics_drone_add = $AMOUNT$
+	mult = 1.5
+}
+
+# Ringworld
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+			has_active_tradition = tr_logistics_2
+		}
+		planet_is_ring_world_equivalent = yes
+	}
+	job_logistics_drone_add = $AMOUNT$
+	mult = 2.5
+}
+
+# Nomads
+triggered_district_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+			is_nomadic = yes
+			has_active_tradition = tr_logistics_2
+		}
+	}
+	job_logistics_drone_add = $AMOUNT$
+	mult = 0.5
+}

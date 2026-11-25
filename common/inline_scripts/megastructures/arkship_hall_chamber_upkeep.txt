@@ -1,0 +1,40 @@
+# Arkship Galactic Hall chamber upkeep, split by empire type (consumer goods / energy / minerals).
+# Params: ETHIC = ideology gate, JOB = job category, CG / ENERGY / MINERALS = upkeep rates.
+triggered_country_modifier = {
+	potential = {
+		owner? = {
+			ideology? = {
+				is_$ETHIC$ = yes
+			}
+			is_hive_empire = no
+			is_machine_empire = no
+		}
+	}
+	planet_$JOB$_consumer_goods_upkeep_add = $CG$
+	multiplier = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+}
+triggered_country_modifier = {
+	potential = {
+		owner? = {
+			ideology? = {
+				is_$ETHIC$ = yes
+			}
+			is_machine_empire = yes
+		}
+	}
+	planet_$JOB$_energy_upkeep_add = $ENERGY$
+	multiplier = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+}
+triggered_country_modifier = {
+	potential = {
+		owner? = {
+			ideology? = {
+				is_$ETHIC$ = yes
+			}
+			is_hive_empire = yes
+			is_machine_empire = no
+		}
+	}
+	planet_$JOB$_minerals_upkeep_add = $MINERALS$
+	multiplier = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+}

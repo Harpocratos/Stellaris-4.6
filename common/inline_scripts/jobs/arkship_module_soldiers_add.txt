@@ -1,0 +1,36 @@
+
+# Adds soldier/warrior drone jobs when a relevant combat zone is present on the colony
+# Params: ZONE (the zone to check for)
+triggered_planet_modifier = {
+	potential = {
+		colony? = {
+			has_zone = { zone = $ZONE$ }
+			owner = { is_gestalt = no }
+			NOT = { has_knights_zone = yes }
+		}
+	}
+	job_soldier_add = $AMOUNT$
+}
+
+# Knights colonies convert soldier jobs into knight jobs
+triggered_planet_modifier = {
+	potential = {
+		colony? = {
+			has_zone = { zone = $ZONE$ }
+			owner = { is_gestalt = no }
+			has_knights_zone = yes
+		}
+	}
+	job_knight_add = $AMOUNT$
+	mult = 0.5
+}
+
+triggered_planet_modifier = {
+	potential = {
+		colony? = {
+			has_zone = { zone = $ZONE$ }
+			owner = { is_gestalt = yes }
+		}
+	}
+	job_warrior_drone_add = $AMOUNT$
+}

@@ -1,0 +1,19 @@
+triggered_planet_modifier = {
+	potential = {
+		owner? = {
+			is_regular_empire = yes
+		}
+	}
+	modifier = {
+		job_cruise_crew_overseer_add = $AMOUNT$
+	}
+}
+
+triggered_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+		}
+	}
+	job_cruise_crew_overseer_drone_add = $AMOUNT$
+}
