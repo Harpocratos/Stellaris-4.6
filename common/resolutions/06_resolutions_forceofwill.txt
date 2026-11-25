@@ -1,0 +1,410 @@
+# Proclaim Imperial Truth
+resolution_emperor_proclaim_imperial_truth = {
+	icon = "GFX_resolution_proclaim_imperial_truth"
+
+	resources = {
+		category = resolutions
+		cost = {
+			influence = @resolution_cost_t5
+		}
+	}
+	target = no
+
+	modifier = {
+	}
+
+	effect = {
+		custom_tooltip = resolution_emperor_proclaim_imperial_truth_tooltip
+		hidden_effect = {
+			galactic_emperor.ideology = { save_event_target_as = ideology_target }
+			every_playable_country = {
+				limit = {
+					is_galactic_community_member = yes
+					is_galactic_emperor = no
+					NOT = { has_ascension_perk = ap_force_of_will }
+				}
+				if = {
+					limit = {
+					    exists = event_target:ideology_target
+						NOR = {
+							has_country_flag = imposed_ideology_@event_target:ideology_target
+							ideology? = { is_same_value = event_target:ideology_target }
+						}
+					}
+					if = {
+						limit = {
+							exists = ideology
+						}
+						set_country_flag = post_abandon_should_adopt_ideology_@event_target:ideology_target
+						start_abandon_ideology_process = yes
+					}
+					else = {
+						abort_adopt_ideology_special_project = yes
+						country_event = {
+							id = forceofwill.1040
+							scopes = { from = event_target:ideology_target }
+						}
+					}
+					set_country_flag = imposed_ideology_@event_target:ideology_target
+					add_modifier = {
+						modifier = imposed_ideology_not_accomplished
+					}
+				}
+			}
+		}
+	}
+
+	fail_effects = {
+	}
+
+	potential = {
+		has_force_of_will_dlc = yes
+		is_galactic_emperor = yes
+		ideology? = { is_ideology_custodian = root }
+	}
+
+	active = {
+		has_galactic_emperor = yes
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "resolution_already_active"
+			NOT = { is_active_resolution = "resolution_emperor_proclaim_imperial_truth" }
+		}
+	}
+
+	ai_weight = {
+		base = @resolution_weight_disliked
+
+		modifier = {
+			factor = 4
+			galactic_emperor.ideology? = { is_ideology_custodian = root }
+			desc = gal_com_is_ideology_authority
+		}
+
+		modifier = {
+			factor = 1.5
+			exists = ideology
+			galactic_emperor.ideology = {
+				is_same_value = root.ideology
+			}
+			desc = same_ideology_as_emperor_desc
+		}
+
+		modifier = {
+			factor = 0.25
+			OR = {
+				NOT = { exists = ideology }
+				galactic_emperor.ideology = {
+					NOT = { is_same_value = root.ideology }
+				}
+			}
+			desc = does_not_have_emperor_ideology_desc
+		}
+
+		modifier = {
+			factor = 1.5
+			imperial_authority >= 100
+			desc = gal_com_high_imperial_authority
+		}
+
+		modifier = {
+			factor = 1.25
+			opinion = {
+				who = galactic_emperor
+				value > 0
+			}
+			desc = gal_com_positive_opinion_of_emperor
+		}
+	}
+}
+
+resolution_council_ideology_denouncement = {
+	icon = "GFX_resolution_purges"
+
+	potential = {
+		has_force_of_will_dlc = yes
+		is_galactic_council_established = yes
+		is_part_of_galactic_council = yes
+	}
+
+	resources = {
+		category = resolutions
+		cost = {
+			influence = @resolution_cost_t1
+		}
+	}
+
+	target = yes
+	is_target_ideology = yes
+	harmful = yes
+	valid_target = {
+		if = {
+			limit = {
+				from = { exists = ideology }
+			}
+			NOT = { is_same_value = from.ideology } # don't denounce your own ideology
+		}
+		any_adopting_country = {
+			is_country_type = default
+			is_galactic_community_member = yes
+			OR = {
+				opinion_level = { who = root.from level < neutral }
+				from = { is_rival = prev }
+				is_in_breach_of_any = yes
+			}
+		}
+	}
+
+	effect = {
+		custom_tooltip = resolution_council_ideology_effect_tt
+		tooltip = {
+			add_modifier = { modifier = resolution_adopted_ideology_denounced days = 3600 }
+		}
+		hidden_effect = {
+			set_timed_ideology_flag = {
+				flag = denounced_ideology
+				days = 3600
+			}
+			every_adopting_country = {
+				limit = { is_galactic_community_member = yes }
+				add_modifier = { modifier = resolution_adopted_ideology_denounced days = 3600 }
+			}
+		}
+		custom_tooltip = resolution_council_ideology_denouncement_resistance_effect
+	}
+
+	allow = {
+		is_part_of_galactic_council = yes
+	}
+
+	ai_weight = {
+		base = @resolution_weight_disliked
+
+		modifier = {
+			factor = 0
+			ideology? = { is_same_value = root.from }
+			desc = gal_com_ideology_member
+		}
+
+		modifier = {
+			factor = 1.25
+			from = {
+				any_adopting_country = {
+					OR = {
+						root = { is_ideology_rival = prev }
+						is_ideology_rival = root
+					}
+				}
+			}
+			desc = gal_com_ideology_rival_with_target
+		}
+
+		modifier = {
+			factor = 1.5
+			from = {
+				any_adopting_country = {
+					root = {
+						foreign_empire_ideology_affinity = {
+							who = prev
+							value <= 0
+						}
+					}
+				}
+			}
+			desc = gal_com_negative_affinity_with_member
+		}
+
+		modifier = {
+			factor = 1.25
+			foreign_empire_ideology_affinity = {
+				who = from.owner
+				value <= 0
+			}
+			desc = gal_com_negative_affinity_with_authority
+		}
+
+		modifier = {
+			factor = 2
+			from.owner? = {
+				has_ascension_perk = ap_force_of_will
+			}
+			desc = gal_com_authority_has_force_of_will_ambition
+		}
+
+		modifier = {
+			factor = 0.5
+			from = {
+				NOT = {
+					any_adopting_country = {
+						NOT = {
+							root = {
+								foreign_empire_ideology_affinity = {
+									who = prev
+									value > 0
+								}
+							}
+						}
+					}
+				}
+			}
+			desc = gal_com_positive_affinity_with_all_members
+		}
+	}
+}
+
+resolution_ideology_act = {
+	icon = "GFX_resolution_ideology_act"
+
+	resources = {
+		category = resolutions
+		cost = {
+			influence = 50
+		}
+	}
+
+	potential = {
+		has_force_of_will_dlc = yes
+		ideology? = { is_ideology_custodian = root }
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = "resolution_already_active"
+			ideology = { NOT = { has_ideology_flag = ideology_act_voted } }
+		}
+		num_tenets >= 2
+	}
+
+	target = yes
+	is_target_ideology = yes
+	valid_target = {
+		from = { exists = ideology }
+		is_same_value = from.ideology
+	}
+
+	active = {
+		ideology? = { has_ideology_flag = ideology_act_voted }
+	}
+
+	effect = {
+		custom_tooltip = resolution_council_ideology_effect_tt
+		tooltip = {
+			if = {
+				limit = { is_gestalt = yes }
+				add_modifier = { modifier = resolution_ideology_act_modifier_gestalt days = 7200 }
+			}
+			else = {
+				add_modifier = { modifier = resolution_ideology_act_modifier days = 7200 }
+			}
+		}
+		hidden_effect = {
+			set_timed_ideology_flag = {
+				flag = ideology_act_voted
+				days = 7200
+			}
+			every_adopting_country = {
+				limit = { is_galactic_community_member = yes }
+				if = {
+					limit = { is_gestalt = yes }
+					add_modifier = { modifier = resolution_ideology_act_modifier_gestalt days = 7200 }
+				}
+				else = {
+					add_modifier = { modifier = resolution_ideology_act_modifier days = 7200 }
+				}
+			}
+		}
+		custom_tooltip = resolution_ideology_act_resistance_effect
+	}
+
+	ai_weight = {
+		base = @resolution_weight_normal
+
+		modifier = {
+			factor = 0
+			from = {
+				any_adopting_country = {
+					OR = {
+						root = { is_ideology_rival = prev }
+						is_ideology_rival = root
+					}
+				}
+			}
+			desc = gal_com_ideology_rival_with_target
+		}
+		modifier = {
+			factor = 2
+			ideology? = { is_same_value = root.from }
+			desc = gal_com_ideology_member
+		}
+		modifier = {
+			factor = 1.5
+			from = { is_ideology_custodian = root }
+			desc = gal_com_is_ideology_authority
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { ideology? = { is_same_value = root.from } }
+			has_same_ethic_as_ideology = root.from
+			NOT = { has_same_fanatic_ethic_as_ideology = root.from }
+			desc = gal_com_share_ethics_with_ideology
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { ideology? = { is_same_value = root.from } }
+			has_same_fanatic_ethic_as_ideology = root.from
+			desc = gal_com_share_ethics_with_ideology
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { ideology? = { is_same_value = root.from } }
+			has_opposite_ethic_as_ideology = root.from
+			NOT = {
+				ideology_ethic_fanatic_level = {
+					ideology = root.from
+					level >= 2
+				}
+			}
+			desc = gal_com_opposite_ethics_with_ideology
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { ideology? = { is_same_value = root.from } }
+			has_opposite_ethic_as_ideology = root.from
+			ideology_ethic_fanatic_level = {
+				ideology = root.from
+				level >= 2
+			}
+			desc = gal_com_opposite_fanatic_ethics_with_ideology
+		}
+		modifier = {
+			factor = 1.25
+			from = {
+				any_adopting_country = {
+					root = {
+						foreign_empire_ideology_affinity = {
+							who = prev
+							value > 0
+						}
+					}
+				}
+			}
+			desc = gal_com_positive_affinity_with_member
+		}
+		modifier = {
+			factor = 0.5
+			from = {
+				any_adopting_country = {
+					root = {
+						foreign_empire_ideology_affinity = {
+							who = prev
+							value <= 0
+						}
+					}
+				}
+			}
+			desc = gal_com_negative_affinity_with_member
+		}
+	}
+}

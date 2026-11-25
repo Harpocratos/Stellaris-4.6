@@ -1,0 +1,7245 @@
+#############################
+# Scripted Effects - Nomads #
+#############################
+
+# This effect should be called as set_country_as_nomad_effect = { IS_NOMAD = yes|no }
+set_country_as_nomad_effect = {
+	set_country_code_flags = { is_nomadic = $IS_NOMAD$ }
+}
+
+# Removes every modifier the Grand Refurbishment situation (situation_grand_refurbishment) can apply to an arkship.
+# Called both from the situation's on_abort and from on_colony_transfer (via arkship.1450), so a
+# new owner is never left stuck with the situation's modifiers after the situation itself is gone. on_abort alone is
+# not enough: when the former owner is destroyed the situation is torn down without running on_abort in a valid scope.
+# Only lists modifiers that can be live mid-situation; the completion rewards (arkship.1380) are never present on abort.
+# This = arkship colony.
+remove_grand_refurbishment_arkship_modifiers_effect = {
+	remove_modifier = refurbishment_ongoing
+	remove_modifier = refurbishment_low_morale
+	remove_modifier = refurbishment_low_morale_2
+	remove_modifier = refurbishment_low_morale_3
+	remove_modifier = refurbishment_allowances_granted
+	remove_modifier = refurbishment_construction_fatigue
+	remove_modifier = refurbishment_construction_fatigue_2
+	remove_modifier = refurbishment_power_restoration
+	remove_modifier = refurbishment_extended_displacement
+	remove_modifier = refurbishment_administrative_burden
+	remove_modifier = refurbishment_administrative_burden_gestalt
+	remove_modifier = refurbishment_rework_zone
+	remove_modifier = refurbishment_inspection_hold
+	remove_modifier = refurbishment_bypass_routing
+}
+
+# Removes every modifier the nomad onboarding checklist (nomad_checklist_chain) can apply to the capital arkship.
+# The checklist applies these in capital_scope (i.e. on the arkship colony, not the country), so they transfer to a
+# conqueror who takes the arkship. Called from arkship.1450 on colony transfer so the new owner is not left with them.
+# Covers both the in-progress penalties and the temporary completion rewards. This = arkship colony.
+remove_checklist_arkship_modifiers_effect = {
+	remove_modifier = checklist_unaligned_shields
+	remove_modifier = checklist_aligned_shields
+	remove_modifier = checklist_sensor_calibration
+	remove_modifier = checklist_calibrated_sensors
+	remove_modifier = checklist_corrosive_coolant
+	remove_modifier = checklist_flushed_coolant
+	remove_modifier = checklist_replicating_signal
+	remove_modifier = checklist_deciphered_signal
+	remove_modifier = checklist_harvest_resources_bonus
+}
+
+# Ends an in-progress Festival: stops the Celebration approach, starts the 5-year cooldown, and returns any encamped arkships to mobile.
+# Guarded by the celebration_active flag so it is safe to call from multiple end paths (timer, manual un-encamp, Conserve approach).
+# This = country
+end_nomad_festival_effect = {
+	if = {
+		limit = {
+			has_country_flag = celebration_active
+		}
+		remove_country_flag = celebration_active
+		set_timed_country_flag = {
+			flag = festival_cooldown
+			days = @festival_cooldown_days_1800
+		}
+		random_situation = {
+			limit = {
+				is_situation_type = situation_nomad_economy
+			}
+			# Only revert the approach if the Festival is still the active one (the player may have switched to Conserve, etc.).
+			if = {
+				limit = {
+					current_situation_approach = situation_nomad_economy_harvest_everything
+				}
+				set_situation_approach = situation_nomad_economy_smooth_spending
+			}
+			clear_variable = celebration_reserves_at_start
+			clear_variable = celebration_months_remaining
+		}
+		every_owned_ship = {
+			limit = {
+				is_arkship_ship = yes
+				is_system_locked = yes
+			}
+			# Clear the Festival tent ambient objects spread across the system's planets,
+			# otherwise they linger until their duration expires after the arkship has left.
+			solar_system = {
+				every_system_ambient_object = {
+					limit = {
+						is_ambient_object_type = tent_ship_object
+					}
+					destroy_ambient_object = this
+				}
+			}
+			set_system_locked = no
+		}
+	}
+}
+
+generate_arkship_event = {
+	random_owned_colony = {
+		limit = {
+			is_planet_class = pc_ark
+		}
+		weights = {
+			base = 10
+			modifier = {# Reduced chance if you have recently had some bad stuff happen to you, but never impossible
+				factor = 0.1
+				has_carrier_flag = nomad_recent_combat
+			}
+			modifier = {
+				factor = 0.1
+				has_carrier_flag = nomad_recent_accepted_contract
+			}
+			modifier = {
+				factor = 0.1
+				has_carrier_flag = nomad_recent_arkship_event
+			}
+		}
+		fire_on_action = { on_action = mobile_arkship_random_events }
+	}
+}
+
+# Called from a Nomad-conquest vassal scope inside nomads.1 / nomads.5, after
+# save_event_target_as = nomad_vassal and give_planet_and_system_to_rebel have
+# run. For every war the overlord is in where fromfrom is also a participant,
+# the new vassal (event_target:nomad_vassal) joins the war on the overlord's
+# side. Determines the side explicitly so the engine doesn't reassign sides
+# when a fresh subject is added.
+nomad_vassal_join_overlord_wars_effect = {
+	event_target:nomad_vassal = {
+		random_agreement = {
+			if = {
+				limit = {
+					NOT = {
+						agreement_preset = preset_nomadic_purger
+					}
+				}
+				set_agreement_preset = {
+					preset = preset_nomad_tributary
+				}
+			}
+			set_agreement_terms = {
+				joins_overlord_wars = joins_overlord_wars_all
+			}
+		}
+	}
+	overlord = {
+		every_war = {
+			limit = {
+				any_war_participant = {
+					is_same_value = fromfrom
+				}
+				NOT = {
+					any_war_participant = {
+						is_same_value = event_target:nomad_vassal
+					}
+				}
+			}
+			save_event_target_as = nomad_war
+			event_target:nomad_vassal = {
+				if = {
+					limit = {
+						overlord = {
+							is_war_participant = {
+								war = event_target:nomad_war
+								side = attackers
+							}
+						}
+					}
+					join_war_on_side = {
+						war = event_target:nomad_war
+						side = attackers
+					}
+				}
+				else = {
+					join_war_on_side = {
+						war = event_target:nomad_war
+						side = defenders
+					}
+				}
+			}
+		}
+	}
+}
+
+give_planet_and_system_to_rebel = {
+	$PLANET$ = {
+		set_owner = $REBEL$
+		solar_system = {
+			if = {
+				limit = { exists = starbase }
+				starbase = {
+					if = {
+						limit = {
+							is_owned_by = $OLD_OWNER$
+						}
+						set_owner = $REBEL$
+						if = {
+							limit = { has_starbase_size = starbase_outpost }
+							set_starbase_size = starbase_starport
+							set_starbase_module = {
+								slot = 1
+								module = shipyard
+							}
+							set_starbase_module = {
+								slot = 2
+								module = shipyard
+							}
+						}
+						else_if = {
+							limit = {
+								NOT = { has_starbase_module = shipyard }
+							}
+							set_starbase_module = {
+								slot = 1
+								module = shipyard
+							}
+							set_starbase_module = {
+								slot = 2
+								module = shipyard
+							}
+						}
+					}
+				}
+			}
+			else = {
+				$REBEL$ = {
+					give_technology = { tech = tech_starbase_2 message = no }
+					refresh_auto_generated_ship_designs = yes
+				}
+				create_starbase = {
+					size = starbase_starport
+					module = shipyard
+					module = shipyard
+					owner = $REBEL$
+				}
+			}
+			add_claims = {
+				who = $OLD_OWNER$
+				show_notification = no
+			}
+			every_system_planet = {
+				limit = {
+					is_colony = yes
+					NOT = { is_same_value = $PLANET$ }
+					is_owned_by = $OLD_OWNER$
+				}
+				set_owner = $REBEL$
+			}
+		}
+	}
+}
+
+# Champions Forge Enclave Effects
+
+create_champions_forge = { #NOTE The CFL doesn't have a capital to avoid intel spreading, if this breaks something you can give them the capital back
+	random_system = {
+		limit = {
+			is_fe_cluster = no
+			is_marauder_cluster = no
+			NOR = {
+				has_star_flag = empire_cluster
+				has_star_flag = hostile_system
+				has_star_flag = space_critter_system
+			}
+			OR = {
+				NOT = { exists = space_owner }
+				space_owner = {
+					will_champions_forge_visit = yes
+				}
+			}
+		}
+		set_star_flag = spawned_champions_forge
+		create_species = {
+			name = random
+			class = random
+			portrait = random
+			traits = {
+				ideal_planet_class = pc_ark
+				trait = random_traits
+			}
+		}
+		create_country = {
+			name = "NAME_Champions_Forge_Enclave"
+			adjective = "NAME_Champions_Forge_Enclave_adj"
+			type = enclave
+			authority = "auth_corporate"
+			civics = {
+				civic = civic_champions_forge_enclave
+			}
+			origin = "origin_default"
+			species = last_created_species
+			flag = {
+				icon = {
+					category = "special"
+					file = "champions_forge.dds"
+				}
+				background = {
+					category = "backgrounds"
+					file = "circle.dds"
+				}
+				colors = {
+					"yellow"
+					"black"
+					"null"
+					"null"
+				}
+			}
+			ethos = {
+				ethic = ethic_fanatic_militarist
+				ethic = ethic_materialist
+			}
+			ignore_initial_colony_error = yes
+		}
+		last_created_country = {
+			save_global_event_target_as = champions_forge_enclave_country
+			set_country_flag = champions_forge_enclave_country
+			set_variable = {
+				which = cfl_tournament_count
+				value = 0
+			}
+			set_graphical_culture = nemesis_01
+			create_fleet = {
+				name = "NAME_Champions_Forge_Arena"
+				settings = { spawn_debris = no }
+				effect = {
+					set_owner = prev
+					create_ship = {
+						name = random
+						design = NAME_Champions_Forge_Arkship
+						effect = {
+							set_graphical_culture = military_arkship
+							starbase = {
+								set_starbase_module = {
+									slot = 1
+									module = arkship_engineering_bay
+								}
+								set_starbase_module = {
+									slot = 2
+									module = arkship_docking_bay
+								}
+								set_starbase_module = {
+									slot = 3
+									module = arkship_sensor_array
+								}
+								set_starbase_module = {
+									slot = 4
+									module = arkship_habitation_module
+								}
+								set_starbase_module = {
+									slot = 5
+									module = arkship_habitation_module
+								}
+								set_starbase_module = {
+									slot = 6
+									module = arkship_engineering_bay
+								}
+								set_starbase_building = {
+									slot = 1
+									building = arkship_armor
+								}
+								set_starbase_building = {
+									slot = 2
+									building = arkship_shield
+								}
+								set_starbase_building = {
+									slot = 3
+									building = arkship_armor
+								}
+								set_starbase_building = {
+									slot = 4
+									building = arkship_shield
+								}
+								set_starbase_building = {
+									slot = 5
+									building = arkship_armor
+								}
+								set_starbase_building = {
+									slot = 6
+									building = arkship_shield
+								}
+								set_starbase_building = {
+									slot = 7
+									building = arkship_armor
+								}
+								set_starbase_building = {
+									slot = 8
+									building = arkship_shield
+								}
+							}
+						}
+					}
+					set_location = {
+						target = prevprev
+						distance = 90
+					}
+					save_global_event_target_as = champions_forge_enclave_fleet
+					champions_forge_pathfinding = yes
+				}
+			}
+			create_leader = {
+				class = commander
+				species = this
+				name = random
+				skill = 5
+			}
+			set_leader = last_created_leader
+			every_country = {
+				limit = {
+					NOR = {
+						is_country_type = default
+						is_same_value = prev
+					}
+				}
+				set_faction_hostility = {
+					target = prev
+					set_hostile = no
+					set_neutral = yes
+				}
+			}
+		}
+	}
+}
+
+champions_forge_pathfinding = {
+	save_event_target_as = pathfinding_origin
+	random_system = {
+		limit = {
+			NOR = {
+				has_star_flag = guardian
+				has_star_flag = hostile_system
+			}
+			OR = {
+				NOT = { exists = space_owner }
+				space_owner = { # We avoid evil systems. Makes for bad TV
+					will_champions_forge_visit = yes
+				}
+			}
+		}
+		weights = {
+			base = 1
+			modifier = {
+				add = 5
+				is_capital_system = yes
+			}
+			modifier = {
+				add = 5
+				any_starbase_in_system = {
+					has_starbase_size >= starbase_waystation_2
+					owner? = {
+						will_champions_forge_visit = yes
+					}
+				}
+			}
+			modifier = { # We are okay with short jumps
+				add = 2
+				distance = {
+					source = prev
+					type = hyperlane
+					bypass_empire = prev.owner
+					min_jumps = 1
+					max_jumps = 5
+				}
+			}
+			modifier = { # We prefer medium jumps
+				add = 5
+				distance = {
+					source = prev
+					type = hyperlane
+					bypass_empire = prev.owner
+					min_jumps = 6
+					max_jumps = 10
+				}
+			}
+			modifier = { # Long jumps are okay
+				add = 2
+				distance = {
+					source = prev
+					type = hyperlane
+					bypass_empire = prev.owner
+					min_jumps = 11
+					max_jumps = 15
+				}
+			}
+			modifier = { # Super Long jumps are bad
+				add = 0.25
+				distance = {
+					source = prev
+					type = hyperlane
+					bypass_empire = prev.owner
+					min_jumps = 16
+					max_jumps = 1000
+				}
+			}
+			modifier = {
+				factor = 0.01
+				OR = {
+					space_owner? = {
+						has_country_flag = champions_forge_recent_visit
+					}
+					any_starbase_in_system = {
+						has_starbase_size >= starbase_waystation_2
+						owner? = {
+							has_country_flag = champions_forge_recent_visit
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				NOR = {
+					space_owner? = {
+						has_communications = event_target:pathfinding_origin.owner
+					}
+					any_starbase_in_system = {
+						has_starbase_size >= starbase_waystation_2
+						owner? = {
+							has_communications = event_target:pathfinding_origin.owner
+						}
+					}
+				}
+			}
+		}
+		random_system_planet = {
+			limit = {
+				is_colonizable = no
+			}
+			save_event_target_as = champions_forge_target
+		}
+		prev = {
+			auto_move_to_planet = {
+				target = event_target:champions_forge_target
+				clear_auto_move_on_arrival = no
+				arrival_effect = champions_forge_arrival_effect
+			}
+		}
+	}
+}
+
+champions_forge_arrival_effect = {
+	orbit = {
+		while = {
+			count = 10
+			random_list = {
+				1 = {
+					create_ambient_object = {
+						type = caravaneer_billboard_1
+						use_3d_location = yes
+						entity_offset_height = { min = 5 max = 25 }
+						entity_offset = { min = 10 max = 50 }
+						entity_offset_angle = { min = 0 max = 350 }
+						location = prev
+					}
+				}
+				1 = {
+					create_ambient_object = {
+						type = caravaneer_billboard_2
+						use_3d_location = yes
+						entity_offset_height = { min = 5 max = 25 }
+						entity_offset = { min = 10 max = 50 }
+						entity_offset_angle = { min = 0 max = 350 }
+						location = prev
+					}
+				}
+				1 = {
+					create_ambient_object = {
+						type = caravaneer_billboard_3
+						use_3d_location = yes
+						entity_offset_height = { min = 5 max = 25 }
+						entity_offset = { min = 10 max = 50 }
+						entity_offset_angle = { min = 0 max = 350 }
+						location = prev
+					}
+				}
+			}
+			last_created_ambient_object = {
+				set_ambient_object_flag = champions_forge_arrive_object
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_fleet_flag = champions_forge_match_cooldown
+			}
+			owner = {
+				count_relation = {
+					count >= 3
+					limit = {
+						is_ai = yes
+						is_country_type = default
+						is_diplomatic = yes
+					}
+				}
+			}
+		}
+		owner = {
+			set_country_flag = had_first_tournament
+			fire_on_action = { on_action = on_champions_forge_tournament_start }
+		}
+	}
+	else = {
+		queue_actions = {
+			wait = {
+				duration = 180
+			}
+			effect = champions_forge_departure_effect
+		}
+	}
+}
+
+champions_forge_contract_arrival_effect = {
+	orbit = {
+		while = {
+			count = 10
+			random_list = {
+				1 = {
+					create_ambient_object = {
+						type = caravaneer_billboard_1
+						use_3d_location = yes
+						entity_offset_height = { min = 5 max = 25 }
+						entity_offset = { min = 10 max = 50 }
+						entity_offset_angle = { min = 0 max = 350 }
+						location = prev
+					}
+				}
+				1 = {
+					create_ambient_object = {
+						type = caravaneer_billboard_2
+						use_3d_location = yes
+						entity_offset_height = { min = 5 max = 25 }
+						entity_offset = { min = 10 max = 50 }
+						entity_offset_angle = { min = 0 max = 350 }
+						location = prev
+					}
+				}
+				1 = {
+					create_ambient_object = {
+						type = caravaneer_billboard_3
+						use_3d_location = yes
+						entity_offset_height = { min = 5 max = 25 }
+						entity_offset = { min = 10 max = 50 }
+						entity_offset_angle = { min = 0 max = 350 }
+						location = prev
+					}
+				}
+			}
+			last_created_ambient_object = {
+				set_ambient_object_flag = champions_forge_arrive_object
+			}
+		}
+	}
+	owner = {
+		fire_on_action = { on_action = on_champions_forge_tournament_start }
+	}
+}
+
+champions_forge_departure_effect = {
+	clear_fleet_actions = this
+	solar_system = {
+		every_system_ambient_object = {
+			limit = {
+				has_ambient_object_flag = champions_forge_arrive_object
+			}
+			destroy_ambient_object = this
+		}
+		space_owner? = {
+			set_timed_country_flag = {
+				flag = champions_forge_recent_visit
+				years = 20
+			}
+		}
+		if = {
+			limit = {
+				any_starbase_in_system = {
+					has_starbase_size >= starbase_waystation_2
+				}
+			}
+			random_starbase_in_system = {
+				limit = {
+					is_waystation_starbase = yes
+				}
+				owner? = {
+					set_timed_country_flag = {
+						flag = champions_forge_recent_visit
+						years = 20
+					}
+				}
+			}
+		}
+	}
+	champions_forge_pathfinding = yes
+}
+
+# Fallback effect if no winner is declared, cleaning up countries and removing disabled effects.
+champions_forge_tournament_cleanup_effect = {
+	every_country = {
+		limit = {
+			is_country_type = champions_forge_contestant
+		}
+
+		# Return the leased player fleets this vassal controls to their owners
+		every_controlled_fleet = {
+			limit = {
+				has_fleet_flag = player_champions_forge_contestant_fleet
+			}
+			remove_fleet_flag = champions_forge_contestant_fleet
+			remove_fleet_flag = player_champions_forge_contestant_fleet
+			owner = {
+				if = {
+					limit = {
+						any_owned_leader = {
+							has_leader_flag = temp_contestant_admiral
+						}
+					}
+					random_owned_leader = {
+						limit = { has_leader_flag = temp_contestant_admiral }
+						kill_leader = { show_notification = no }
+					}
+				}
+			}
+			# Undo the tournament's disable-at-health rigging and re-enable any ships
+			# that were knocked out, wherever the fleet ended up.
+			every_owned_ship = {
+				set_disabled = no
+				set_disable_at_health = no
+			}
+			end_fleet_contract = {
+				initiator = this.controller
+				reason = cancelled
+			}
+			clear_orders = yes
+			set_mia = mia_return_home
+			set_mia_return_delay = 180
+		}
+
+		# Destroy this vassal's own (AI) contestant fleets
+		every_controlled_fleet = {
+			limit = {
+				has_fleet_flag = champions_forge_contestant_fleet
+				NOT = { has_fleet_flag = player_champions_forge_contestant_fleet }
+			}
+			destroy_fleet = this
+		}
+
+		# Remove the temporary team country
+		destroy_country = yes
+	}
+
+	# Clear the flag for ongoing Champions Forge tournaments
+	event_target:champions_forge_enclave_country = {
+		remove_country_flag = champions_forge_tournament_ongoing
+		remove_country_flag = champions_forge_battle_started
+	}
+
+	# Send the enclave back out into the galaxy
+	event_target:champions_forge_enclave_fleet = {
+		set_timed_fleet_flag = {
+			flag = champions_forge_match_cooldown
+			years = 20
+		}
+		champions_forge_departure_effect = yes
+	}
+}
+
+# Called from a country scope, the empire that is sending the contestant fleet
+create_champions_forge_contestant = {
+	save_event_target_as = champions_forge_contestant
+	create_country = {
+		name = {
+			key = NAME_Contestant_Fleet
+			variable_string = "\\[event_target:champions_forge_contestant.GetName\\]"
+		}
+		contact_rule = always
+		ignore_initial_colony_error = yes
+		type = champions_forge_contestant
+		flag = event_target:champions_forge_contestant
+		species = event_target:champions_forge_contestant
+		effect = {
+			save_event_target_as = champions_forge_contestant_team
+			every_country = {
+				limit = {
+					NOR = {
+						is_country_type = default
+						is_same_value = prev
+					}
+				}
+				set_faction_hostility = { # No more fighting amoeba
+					target = prev
+					set_hostile = no
+					set_neutral = yes
+					set_friendly = no
+				}
+			}
+			if = {
+				limit = {
+					event_target:champions_forge_contestant_fleet = {
+						exists = leader
+					}
+				}
+				event_target:champions_forge_contestant_fleet.leader = {
+					save_event_target_as = contestant_admiral
+				}
+			}
+			else = {
+				create_leader = {
+					class = commander
+					species = this
+					name = random
+					skill = 5
+					traits = {
+						trait = subclass_commander_admiral
+					}
+					effect = {
+						save_event_target_as = contestant_admiral
+						set_leader_flag = temp_contestant_admiral
+					}
+				}
+			}
+			event_target:champions_forge_contestant_fleet = {
+				set_leader = event_target:contestant_admiral
+				set_fleet_flag = player_champions_forge_contestant_fleet
+			}
+
+			set_subject_of = {
+				who = event_target:champions_forge_contestant
+			}
+			set_relation_flag = {
+				who = event_target:champions_forge_contestant
+				flag = cfl_parent_empire
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					who = event_target:champions_forge_contestant
+					modifier = opinion_imperial_vassal_new_overlord
+				}
+			}
+		}
+	}
+
+	event_target:champions_forge_contestant_fleet = {
+		clear_orders = yes
+		give_fleet = {
+			controller = last_created_country
+			days = 1500
+		}
+		every_owned_ship = {
+			set_disable_at_health = 0.01
+		}
+		set_location = {
+			target = event_target:champions_forge_enclave_system
+			distance = 100
+			angle = random
+		}
+	}
+}
+
+# AI Fleet spawner for Champions Forge
+
+create_ai_champions_forge_contestant = {
+	save_event_target_as = champions_forge_contestant
+	create_country = {
+		default_ships = no
+		name = {
+			key = NAME_Contestant_Fleet
+			variable_string = "\\[event_target:champions_forge_contestant.GetName\\]"
+		}
+		contact_rule = always
+		ignore_initial_colony_error = yes
+		type = champions_forge_contestant
+		flag = event_target:champions_forge_contestant
+		species = event_target:champions_forge_contestant
+		effect = {
+			save_event_target_as = champions_forge_contestant_team
+			every_country = {
+				limit = {
+					NOT = { is_country_type = default }
+				}
+				set_faction_hostility = { # No more fighting amoeba
+					target = prev
+					set_hostile = no
+					set_neutral = yes
+					set_friendly = no
+				}
+			}
+			create_leader = {
+				class = commander
+				species = this
+				name = random
+				skill = 5
+			}
+
+			set_subject_of = {
+				who = event_target:champions_forge_contestant
+			}
+			set_relation_flag = {
+				who = event_target:champions_forge_contestant
+				flag = cfl_parent_empire
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					who = event_target:champions_forge_contestant
+					modifier = opinion_imperial_vassal_new_overlord
+				}
+			}
+		}
+	}
+
+	create_balanced_fleet = {
+		size = $FLEET_SIZE$
+		can_overflow = no
+		effect = {
+			set_owner = event_target:champions_forge_contestant
+			set_fleet_flag = champions_forge_contestant_fleet
+			set_leader = last_created_leader
+			give_fleet = {
+				controller = last_created_country
+				days = 1500
+			}
+			every_owned_ship = {
+				set_disable_at_health = 0.01
+			}
+			set_location = {
+				target = event_target:champions_forge_enclave_system
+				distance = 100
+				angle = random
+			}
+		}
+	}
+}
+
+# Defenders of the Galaxy Effects
+
+clear_crisis_analysis_modifiers = {
+	remove_modifier = crisis_analysis_khan_modifier
+	remove_modifier = crisis_analysis_tempest_modifier
+	remove_modifier = crisis_analysis_voidworms_modifier
+	remove_modifier = crisis_analysis_cetana_modifier
+	remove_modifier = crisis_analysis_prethoryn_modifier
+	remove_modifier = crisis_analysis_contingency_modifier
+	remove_modifier = crisis_analysis_unbidden_modifier
+}
+
+# Forever Cruise Effects
+
+# Increase the country variable Passenger Satisfaction Index for
+# the Forever Cruise origin. It can never be 0, so a special check
+# avoids this. The variable is used to set the monthly change
+# of the situation.
+increase_passenger_satisfaction = {
+	hidden_effect = {
+		random_situation = {
+			limit = {
+				is_situation_type = situation_passenger_satisfaction
+			}
+			if = {
+				limit = {
+					check_variable_arithmetic = {
+						which = passenger_satisfaction_index
+						value = @cruise_contract_sub
+					}
+				}
+				set_variable = {
+					which = passenger_satisfaction_index
+					value = @cruise_contract_add
+				}
+			}
+			else = {
+				change_variable = {
+					which = passenger_satisfaction_index
+					value = @cruise_contract_add
+				}
+			}
+			if = {
+				limit = {
+					situation_monthly_progress <= 0
+				}
+				set_timed_situation_flag = {
+					flag = satisfaction_passengers_grace_period
+					months = 24
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						current_stage = situation_passenger_satisfaction_stage_incensed
+						current_stage = situation_passenger_satisfaction_stage_bored
+					}
+				}
+				add_situation_progress = owner.value:passenger_satisfaction_passenger_contract
+			}
+		}
+	}
+}
+
+# Decrease the country variable Passenger Satisfaction Index for
+# the Forever Cruise origin. It can never be 0, so a special check
+# avoids this. The variable is used to set the monthly change
+# of the situation.
+decrease_passenger_satisfaction = {
+	hidden_effect = {
+		random_situation = {
+			limit = {
+				is_situation_type = situation_passenger_satisfaction
+			}
+			if = {
+				limit = {
+					check_variable_arithmetic = {
+						which = passenger_satisfaction_index
+						value = @cruise_contract_add
+					}
+				}
+				set_variable = {
+					which = passenger_satisfaction_index
+					value = @cruise_contract_sub
+				}
+			}
+			else = {
+				change_variable = {
+					which = passenger_satisfaction_index
+					value = @cruise_contract_sub
+				}
+			}
+			if = {
+				limit = {
+					situation_monthly_progress >= 0
+				}
+				set_timed_situation_flag = {
+					flag = satisfaction_crew_grace_period
+					months = 24
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						current_stage = situation_passenger_satisfaction_stage_overworked
+						current_stage = situation_passenger_satisfaction_stage_stressed
+					}
+				}
+				add_situation_progress = owner.value:passenger_satisfaction_crew_contract
+			}
+		}
+	}
+}
+
+aborted_passenger_contract_effect = {
+	custom_tooltip = "aborted_passenger_contract"
+	hidden_effect = {
+		if = {
+			limit = {
+				has_event_chain = $CHAIN$
+			}
+			random_situation = {
+				limit = {
+					is_situation_type = situation_passenger_satisfaction
+				}
+				add_situation_progress = owner.value:aborted_contract_penalty|BASE|-20|
+			}
+		}
+	}
+}
+
+aborted_crew_contract_effect = {
+	custom_tooltip = "aborted_crew_contract"
+	hidden_effect = {
+		if = {
+			limit = {
+				has_event_chain = $CHAIN$
+			}
+			random_situation = {
+				limit = {
+					is_situation_type = situation_passenger_satisfaction
+				}
+				add_situation_progress = owner.value:aborted_contract_penalty|BASE|20|
+			}
+		}
+	}
+}
+
+# Changes the Passenger and Crew citizenships to Full Citizenship.
+# this = country
+remove_forever_cruise_citizenships = {
+	# Change the Crew citizenship to Full Citizenship
+	every_owned_species = {
+		limit = {
+			has_citizenship_type = {
+				type = citizenship_cruise_crew
+				country = prev
+			}
+		}
+		remove_species_flag = cruise_founding_crew
+		set_citizenship_type = {
+			type = citizenship_full
+			country = prev
+		}
+	}
+
+	# Change the Passenger citizenship to Residence Citizenship and make them civilians
+	every_owned_species = {
+		limit = {
+			has_citizenship_type = {
+				type = citizenship_cruise_passenger
+				country = prev
+			}
+		}
+		remove_species_flag = cruise_founding_passenger
+		set_citizenship_type = {
+			type = citizenship_limited
+			country = prev
+		}
+	}
+	every_owned_pop_group = {
+		limit = {
+			pop_group_size > 0
+			OR = {
+				is_pop_category = cruise_passenger
+				is_pop_category = cruise_passenger_unemployment
+			}
+
+		}
+		save_event_target_as = change_group
+		pop_percentage_change_category = {
+			POP_GROUP = event_target:change_group
+			CATEGORY = civilian
+			PERCENTAGE = 1
+		}
+	}
+}
+
+## The Dyson Gun converts your entire energy stockpile into a shot, dealing 100th, 10th, full damage per level of the Dyson Gun
+# THIS = Target System
+# FROM = Megastructure
+dyson_gun_firing = {
+	from.owner = {
+		export_resource_stockpile_to_variable = {
+			resource = energy
+			variable = dyson_gun_charge
+		}
+		set_resource = {
+			resource = energy
+			value = 0
+		}
+	}
+
+	if = {
+		# The Elder Voidspawn shrugs off the blast, then surges through space for two years
+		limit = {
+			any_ship_in_system = { is_ship_size = leviathan_01_voidspawn }
+		}
+		every_fleet_in_system = {
+			limit = {
+				any_owned_ship = { is_ship_size = leviathan_01_voidspawn }
+			}
+			add_modifier = {
+				modifier = voidspawn_dyson_surge
+				days = 730
+			}
+		}
+	}
+	else_if = {
+		# A Contingency Sterilization Hub scatters the shot to a random system
+		limit = {
+			any_system_planet = {
+				is_planet_class = pc_ai
+				owner = { is_country_type = ai_empire }
+			}
+		}
+		random_system = {
+			limit = {
+				NOT = { is_same_value = root }
+			}
+			dyson_gun_apply_damage = yes
+		}
+		# The Contingency reports that it has hijacked our targeting (FROM = the Contingency)
+		random_system_planet = {
+			limit = {
+				is_planet_class = pc_ai
+				owner = { is_country_type = ai_empire }
+			}
+			owner = { from.owner = { country_event = { id = nomads.8050 } } }
+		}
+	}
+	else_if = {
+		# Striking an Unbidden Dimensional Anchor only tears open a new rift, dealing no damage
+		limit = {
+			any_ship_in_system = { is_ship_size = dimensional_portal_ed }
+		}
+		create_unbidden_fleet = yes
+		# The Unbidden savor the energy we just fed them (FROM = the Unbidden anchor's owner)
+		random_ship_in_system = {
+			limit = { is_ship_size = dimensional_portal_ed }
+			owner = { from.owner = { country_event = { id = nomads.8055 } } }
+		}
+	}
+	else_if = {
+		# Once struck, Cetana reflects every following shot back at the attacker's capital
+		limit = {
+			any_ship_in_system = { is_ship_size = synth_queen_titan }
+			from.owner = { has_country_flag = dyson_gun_struck_cetana }
+		}
+		from.owner = {
+			capital_scope = {
+				solar_system = {
+					dyson_gun_apply_damage = yes
+				}
+			}
+		}
+		# Cetana reproaches us as she turns the shot back on our capital (FROM = Cetana)
+		event_target:synth_queen_country_global = {
+			from.owner = { country_event = { id = nomads.8065 } }
+		}
+	}
+	else = {
+		dyson_gun_apply_damage = yes
+		# The first strike on Cetana primes her to reflect every shot to come
+		if = {
+			limit = {
+				any_ship_in_system = { is_ship_size = synth_queen_titan }
+			}
+			from.owner = { set_country_flag = dyson_gun_struck_cetana }
+			# Cetana voices her disappointment (FROM = Cetana)
+			event_target:synth_queen_country_global = {
+				from.owner = { country_event = { id = nomads.8060 } }
+			}
+		}
+	}
+
+	set_timed_star_flag = {
+		flag = ai_dyson_gun_limit
+		days = 3600
+	}
+}
+
+## Devastates one colony from a Dyson Gun impact. A planetary shield generator blocks 90% of the devastation.
+## Only fires while the shot cleared the energy threshold flag.
+# THIS = Colony being hit
+# FROM = Megastructure
+# $AMOUNT$ = devastation on an unshielded colony, $SHIELDED$ = devastation behind a planetary shield generator
+dyson_gun_devastate_colony = {
+	if = {
+		limit = {
+			from.owner = { has_country_flag = dyson_gun_devastating_shot }
+		}
+		if = {
+			limit = { has_planetary_shield_building = yes }
+			add_planet_devastation = $SHIELDED$
+		}
+		else = {
+			add_planet_devastation = $AMOUNT$
+		}
+	}
+}
+
+## Applies a Dyson Gun hit to one ship. Under the Synchronized Shielding doctrine, defense platforms and ion cannons take 60% less damage.
+## This reduction is exclusive to the Stellar Cannon; normal combat is unaffected.
+# THIS = Ship being hit
+# FROM = Megastructure
+dyson_gun_damage_ship = {
+	if = {
+		limit = {
+			is_defense_platform_ship = yes
+			# Synchronized Shielding doctrine shields platforms empire-wide
+			owner = { has_policy_flag = defense_platform_synchronized_shielding }
+		}
+		damage_ship = {
+			amount = from.owner.dyson_gun_damage_shielded
+			attacker = from.owner
+		}
+	}
+	else = {
+		damage_ship = {
+			amount = from.owner.dyson_gun_damage
+			attacker = from.owner
+		}
+	}
+}
+
+## Resolves a Dyson Gun impact against the system it runs in: damages ships, devastates colonies, and raises the relevant diplomatic flags
+# THIS = System being hit
+# FROM = Megastructure
+dyson_gun_apply_damage = {
+	# Devastation is only inflicted when at least 10,000 energy was spent charging the shot
+	from.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = dyson_gun_charge
+					value >= 10000
+				}
+			}
+			set_country_flag = dyson_gun_devastating_shot
+		}
+		else = {
+			remove_country_flag = dyson_gun_devastating_shot
+		}
+	}
+
+	if = {
+		limit = {
+			from = {
+				is_megastructure_type = dyson_gun_1
+			}
+		}
+		from.owner = {
+			set_variable = {
+				which = dyson_gun_damage
+				value = dyson_gun_charge
+			}
+			divide_variable = {
+				which = dyson_gun_damage
+				value = 100
+			}
+			set_variable = {
+				which = dyson_gun_damage_shielded
+				value = dyson_gun_damage
+			}
+			multiply_variable = {
+				which = dyson_gun_damage_shielded
+				value = 0.4
+			}
+		}
+		every_ship_in_system = {
+			dyson_gun_damage_ship = yes
+		}
+		every_system_planet = {
+			limit = {
+				is_colony = yes
+			}
+			dyson_gun_devastate_colony = {
+				AMOUNT = 10
+				SHIELDED = 1
+			}
+		}
+	}
+	if = {
+		limit = {
+			from = {
+				is_megastructure_type = dyson_gun_2
+			}
+		}
+		from.owner = {
+			set_variable = {
+				which = dyson_gun_damage
+				value = dyson_gun_charge
+			}
+			divide_variable = {
+				which = dyson_gun_damage
+				value = 50
+			}
+			set_variable = {
+				which = dyson_gun_damage_shielded
+				value = dyson_gun_damage
+			}
+			multiply_variable = {
+				which = dyson_gun_damage_shielded
+				value = 0.4
+			}
+		}
+		every_ship_in_system = {
+			dyson_gun_damage_ship = yes
+		}
+		every_system_planet = {
+			limit = {
+				is_colony = yes
+			}
+			dyson_gun_devastate_colony = {
+				AMOUNT = 25
+				SHIELDED = 2.5
+			}
+		}
+	}
+	if = {
+		limit = {
+			from = {
+				is_megastructure_type = dyson_gun_3
+			}
+		}
+		from.owner = {
+			set_variable = {
+				which = dyson_gun_damage
+				value = dyson_gun_charge
+			}
+			divide_variable = {
+				which = dyson_gun_damage
+				value = 10
+			}
+			set_variable = {
+				which = dyson_gun_damage_shielded
+				value = dyson_gun_damage
+			}
+			multiply_variable = {
+				which = dyson_gun_damage_shielded
+				value = 0.4
+			}
+		}
+
+		every_ship_in_system = {
+			dyson_gun_damage_ship = yes
+		}
+		every_system_planet = {
+			limit = {
+				is_colony = yes
+			}
+			dyson_gun_devastate_colony = {
+				AMOUNT = 50
+				SHIELDED = 5
+			}
+		}
+		every_system_planet = {
+			limit = {
+				from.owner = {
+					check_variable = {
+						which = dyson_gun_charge
+						value > 50000
+					}
+				}
+				# A planetary shield generator blocks the terraforming heat
+				has_planetary_shield_building = no
+			}
+			increase_planet_temperature_without_habitables = yes
+		}
+		if = {
+			limit = {
+				OR = {
+					is_active_resolution = "resolution_ecology_environmental_control_board"
+					is_active_resolution = "resolution_ecology_paradise_initiative"
+				}
+				from.owner = {
+					check_variable = {
+						which = dyson_gun_charge
+						value > 50000
+					}
+				}
+			}
+			from.owner = {
+				set_timed_country_flag = { flag = resolution_breached_terraformed days = 3600 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			space_owner? = {
+				NOT = {
+					is_same_value = from.owner
+				}
+			}
+		}
+		space_owner = {
+			create_message = {
+				type = MESSAGE_DYSON_SHOT
+				localization =  MESSAGE_DYSON_SHOT_DESC
+				days = @toast_message_days
+			}
+			add_opinion_modifier = {
+				who = from.owner
+				modifier = opinion_dyson_gun_target
+			}
+		}
+	}
+	if = {
+		limit = {
+			any_system_planet = { is_colony = yes }
+			OR = {
+				is_active_resolution = "resolution_rulesofwar_independent_tribunals"
+				is_active_resolution = "resolution_rulesofwar_last_resort_doctrine"
+				is_active_resolution = "resolution_rulesofwar_demobilization_initiative"
+			}
+		}
+		from.owner = {
+			set_timed_country_flag = { flag = resolution_breached_fired_dyson_gun days = 3600 }
+		}
+	}
+	if = {
+		limit = {
+			any_system_planet = { is_homeworld = yes }
+		}
+		from.owner = {
+			set_country_flag = fired_dyson_gun_at_homeworld
+		}
+	}
+}
+
+## This places the entity with the impact animation
+# THIS = Target System
+# FROM = Megastructure
+dyson_gun_impact_placement = {
+	if = {
+		limit = {
+			from = {
+				is_megastructure_type = dyson_gun_1
+			}
+		}
+		create_ambient_object = {
+			type = "dyson_gun_stage_1_impact"
+			location = this
+			duration = @dyson_gun_impact_duration
+		}
+	}
+	if = {
+		limit = {
+			from = {
+				is_megastructure_type = dyson_gun_2
+			}
+		}
+		create_ambient_object = {
+			type = "dyson_gun_stage_2_impact"
+			location = this
+			duration = @dyson_gun_impact_duration
+		}
+	}
+	if = {
+		limit = {
+			from = {
+				is_megastructure_type = dyson_gun_3
+			}
+		}
+		create_ambient_object = {
+			type = "dyson_gun_stage_3_impact"
+			location = this
+			duration = @dyson_gun_impact_duration
+		}
+	}
+	last_created_ambient_object = {
+		save_event_target_as = dyson_gun_impact
+	}
+}
+
+increase_planet_temperature_without_habitables = {
+	if = {
+		limit = { is_planet_class = pc_barren }
+		change_pc = pc_molten
+		reroll_planet = yes
+		clear_blockers = yes
+	}
+	else_if = {
+		limit = { is_planet_class = pc_ocean }
+		change_pc = pc_desert
+		reroll_planet = yes
+		clear_blockers = yes
+	}
+	else_if = {
+		limit = { is_planet_class = pc_continental }
+		change_pc = pc_arid
+		reroll_planet = yes
+		clear_blockers = yes
+	}
+	else_if = {
+		limit = { is_planet_class = pc_tropical }
+		change_pc = pc_savannah
+		reroll_planet = yes
+		clear_blockers = yes
+	}
+	else_if = {
+		limit = { is_planet_class = pc_arctic }
+		change_pc = pc_ocean
+		reroll_planet = yes
+		clear_blockers = yes
+	}
+	else_if = {
+		limit = { is_planet_class = pc_alpine }
+		change_pc = pc_continental
+		reroll_planet = yes
+		clear_blockers = yes
+	}
+	else_if = {
+		limit = { is_planet_class = pc_tundra }
+		change_pc = pc_tropical
+		reroll_planet = yes
+		clear_blockers = yes
+	}
+}
+
+# Heirs of the Khan Effects
+
+marauder_heir_contract_effect = {
+	set_owner = event_target:marauder_heir
+	set_location = {
+		target = from.star
+		distance = 300
+		angle = random
+	}
+	create_ambient_object = {
+		type = horror_spawn_object
+		scale = 1
+		location = this
+		entity_scale_to_size = yes
+		play_animation_once = yes
+		duration = 10
+	}
+	set_fleet_stance = aggressive
+	set_fleet_bombardment_stance = indiscriminate
+	set_aggro_range_measure_from = self
+	set_aggro_range = 1000
+	set_owner = event_target:marauder_hunters #Real Owner
+	event_target:marauder_hunters = {
+		set_relation_flag = {
+			who = root.owner
+			flag = contract_heirs_hunter_raid
+		}
+	}
+	save_event_target_as = raider_fleet
+	set_fleet_flag = heirs_raider_fleet
+}
+
+clean_up_heirs_bargain_description = {
+	remove_country_flag = heirs_bargain_after_1
+	remove_country_flag = heirs_bargain_after_2
+	remove_country_flag = heirs_bargain_after_3
+}
+
+clean_up_heirs_bargain_before_description = {
+	remove_country_flag = heirs_bargain_before_1
+	remove_country_flag = heirs_bargain_before_2
+	remove_country_flag = heirs_bargain_before_3
+}
+
+clean_up_heirs_bargain_before_option = {
+	remove_country_flag = heirs_option_before_1
+	remove_country_flag = heirs_option_before_2
+	remove_country_flag = heirs_option_before_3
+}
+
+clean_up_heirs_bargain_option = {
+	remove_country_flag = heirs_option_after_1
+	remove_country_flag = heirs_option_after_2
+	remove_country_flag = heirs_option_after_3
+	remove_country_flag = heirs_option_after_4
+	remove_country_flag = heirs_option_after_5
+}
+
+heirs_hunter_retreat_effect = {
+	hidden_effect = {
+		from = {
+			owner = {
+				set_faction_hostility = {
+					target = root
+					set_hostile = no
+					set_neutral = yes
+				}
+			}
+			fleet = {
+				set_fleet_flag = retreating_marauders
+				remove_fleet_flag = will_surrender_heirs
+				if = {
+					limit = {
+						is_disabled = yes
+					}
+					every_owned_ship = {
+						repair_amount = 1000 # Healing the ships so they don't die to weapons in flight
+						set_disabled = no
+						set_disable_at_health = no
+					}
+				}
+				random_system = {
+					limit = {
+						distance = {
+							source = prev.solar_system
+							use_bypasses = no
+							min_jumps = 2
+							max_jumps = 4
+						}
+					}
+					save_event_target_as = retreat_system # Find a system a few jumps away and go there
+				}
+				queue_actions = {
+					move_to = event_target:retreat_system
+				}
+				fleet_event = { id = nomads.560 days = 200 }
+			}
+		}
+	}
+}
+
+make_heirs_khan = {
+	set_global_flag = marauder_crisis_started
+	set_global_flag = marauder_crisis_ongoing
+	save_global_event_target_as = raider_khanate
+	save_global_event_target_as = great_khan_empire
+	if = {
+		limit = {
+			exists = event_target:marauder_country_1
+		}
+		event_target:marauder_country_1 = {
+			set_subject_of = {
+				who = prev
+				preset = preset_relic_satrapy
+			}
+			set_country_flag = heirs_of_khan_host
+		}
+		every_relation = {
+			limit = {
+				NOT = { is_same_value = event_target:marauder_country_1 }
+			}
+			establish_communications_no_message = event_target:marauder_country_1
+			if = {
+				limit = {
+					NOT = { is_hostile = root }
+				}
+				set_faction_hostility = {
+					target = event_target:marauder_country_1
+					set_hostile = no
+					set_neutral = yes
+					set_friendly = no
+				}
+			}
+		}
+	}
+	else = {
+		heirs_khan_dummy_country_system_finder = yes
+	}
+
+	if = {
+		limit = { has_federation = yes }
+		leave_alliance = { override_requirements = yes }
+	}
+	if = {
+		limit = { is_galactic_community_member = yes }
+		remove_from_galactic_community = yes
+	}
+	if = {
+		limit = {
+			is_galactic_council_established = yes
+			is_part_of_galactic_council = yes
+		}
+		remove_from_galactic_council = yes
+	}
+	if = {
+		limit = {
+			exists = overlord
+			NOT = {
+				is_same_species = root.species
+			}
+		}
+		release_subject = yes
+	}
+	every_agreement = {
+		if = {
+			limit = { NOT = { agreement_preset = preset_relic_satrapy } }
+			set_agreement_preset = { preset = preset_relic_satrapy }
+		}
+	}
+
+	set_country_flag = heir_of_the_khan_khan
+	event_target:marauder_country_1 = {
+		random_system_within_border = {
+			random_system_planet = {
+				save_global_event_target_as = marauder_rally_point
+				set_planet_flag = marauder_rally_point
+			}
+		}
+		every_owned_fleet = {
+			limit = {
+				is_mobile = yes
+			}
+			set_owner = root
+		}
+		while = {
+			count = 3
+			create_fleet = {
+				effect = {
+					set_owner = event_target:marauder_country_1
+					create_ship = {
+						name = random
+						design = "NAME_Clan_Builder"
+					}
+					set_location = {
+						target = event_target:marauder_rally_point
+						distance = 20
+						angle = random
+					}
+				}
+			}
+		}
+		country_event = { id = marauder.521 days = 180 } # Start reinforcement cycle
+	}
+	force_add_civic = civic_great_khans_vision
+	store_country_backup_data = {
+		flag = yes
+		room = yes
+	}
+	change_country_flag = {
+		icon = {
+			category = "pirate"
+			file = "flag_pirate_11.dds"
+		}
+		background= {
+			category = "backgrounds"
+			file = "00_solid.dds"
+		}
+		colors={
+			"red"
+			"red"
+			"null"
+			"null"
+		}
+	}
+	room_name_override = ""
+
+	create_ship_design = { design = "NAME_Pirate_Transport" }
+	add_ship_design = last_created_design
+
+	### Ruler Khan
+	ruler = {
+		set_leader_flag = great_khan
+		save_global_event_target_as = great_khan_ruler
+		save_global_event_target_as = great_khan
+		add_trait = { trait = leader_trait_ruler_great_khan }
+	}
+	set_ruler_title_male = RT_GREAT_KHAN
+	set_ruler_title_female = RT_GREAT_KHAN
+	random_owned_leader = {
+		limit = {
+			leader_class = commander
+		}
+		weights = {
+			base = 1
+			modifier = {
+				add = trigger:has_base_skill
+			}
+			modifier = {
+				add = 10
+				has_trait = subclass_commander_admiral
+			}
+		}
+		save_event_target_as = khan_fleet_admiral
+	}
+	refresh_auto_generated_ship_designs = yes
+	create_1st_khan_fleet = yes
+	create_marauder_fleet = yes
+	create_marauder_fleet = yes
+	create_marauder_fleet = yes
+	create_marauder_armies = yes
+	create_marauder_armies = yes
+	create_marauder_armies = yes
+	create_marauder_armies = yes
+	observer_event = { id = observer.13 }
+	every_playable_country = {
+		limit = { NOT = { is_same_value = root } }
+		establish_communications_no_message = root
+		country_event = { id = marauder.501 }
+	}
+
+	# Mercenaries Defect (Marauder 1)
+	if = {
+		every_country = {
+			limit = {
+				OR = {
+					any_controlled_fleet = {
+						OR = {
+							has_fleet_flag = armada_of_the_voidborn
+							has_fleet_flag = star_rider_flotilla
+							has_fleet_flag = first_storm_wing
+						}
+					}
+					any_owned_leader = {
+						has_leader_flag = hired_merc_leader_1
+					}
+				}
+			}
+			country_event = { id = marauder.77 days = 20 }
+		}
+	}
+}
+
+make_heirs_khan_tiny = {
+	set_global_flag = marauder_crisis_started
+	set_global_flag = marauder_crisis_ongoing
+	save_global_event_target_as = raider_khanate
+	save_global_event_target_as = great_khan_empire
+	heirs_khan_dummy_country_system_finder = yes
+
+	set_country_flag = heir_of_the_khan_khan
+	force_add_civic = civic_great_khans_vision
+	store_country_backup_data = {
+		flag = yes
+		room = yes
+	}
+	change_country_flag = {
+		icon = {
+			category = "pirate"
+			file = "flag_pirate_11.dds"
+		}
+		background= {
+			category = "backgrounds"
+			file = "00_solid.dds"
+		}
+		colors={
+			"red"
+			"red"
+			"null"
+			"null"
+		}
+	}
+	room_name_override = ""
+	create_ship_design = { design = "NAME_Pirate_Transport" }
+	add_ship_design = last_created_design
+
+	if = {
+		limit = { has_federation = yes }
+		leave_alliance = { override_requirements = yes }
+	}
+	if = {
+		limit = { is_galactic_community_member = yes }
+		remove_from_galactic_community = yes
+	}
+	if = {
+		limit = {
+			is_galactic_council_established = yes
+			is_part_of_galactic_council = yes
+		}
+		remove_from_galactic_council = yes
+	}
+	if = {
+		limit = {
+			exists = overlord
+			NOT = {
+				is_same_species = root.species
+			}
+		}
+		release_subject = yes
+	}
+	every_agreement = {
+		if = {
+			limit = { NOT = { agreement_preset = preset_relic_satrapy } }
+			set_agreement_preset = { preset = preset_relic_satrapy }
+		}
+	}
+
+	event_target:marauder_country_1 = {
+		random_system_within_border = {
+			random_system_planet = {
+				save_global_event_target_as = marauder_rally_point
+				set_planet_flag = marauder_rally_point
+			}
+		}
+		every_owned_fleet = {
+			limit = {
+				is_mobile = yes
+			}
+			set_owner = root
+		}
+		while = {
+			count = 3
+			create_fleet = {
+				effect = {
+					set_owner = event_target:marauder_country_1
+					create_ship = {
+						name = random
+						design = "NAME_Clan_Builder"
+					}
+					set_location = {
+						target = event_target:marauder_rally_point
+						distance = 20
+						angle = random
+					}
+				}
+			}
+		}
+		country_event = { id = marauder.521 days = 180 } # Start reinforcement cycle
+	}
+
+	### Ruler Khan
+	ruler = {
+		set_leader_flag = great_khan
+		save_global_event_target_as = great_khan_ruler
+		save_global_event_target_as = great_khan
+		add_trait = { trait = leader_trait_ruler_great_khan }
+	}
+	set_ruler_title_male = RT_GREAT_KHAN
+	set_ruler_title_female = RT_GREAT_KHAN
+	random_owned_leader = {
+		limit = {
+			leader_class = commander
+		}
+		weights = {
+			base = 1
+			modifier = {
+				add = trigger:has_base_skill
+			}
+			modifier = {
+				add = 10
+				has_trait = subclass_commander_admiral
+			}
+		}
+		save_event_target_as = khan_fleet_admiral
+	}
+	refresh_auto_generated_ship_designs = yes
+	create_1st_khan_fleet = yes
+	create_marauder_armies = yes
+	create_marauder_armies = yes
+	observer_event = { id = observer.13 }
+	every_playable_country = {
+		limit = { NOT = { is_same_value = root } }
+		establish_communications_no_message = root
+		country_event = { id = marauder.501 }
+	}
+}
+
+heirs_khan_dummy_country_system_finder = {
+	if = {
+		limit = {
+			any_owned_colony = {
+				solar_system? = {
+					NOT = { exists = space_owner }
+				}
+			}
+		}
+		random_owned_colony = {
+			limit = {
+				solar_system? = {
+					NOT = { exists = space_owner }
+				}
+			}
+			weights = {
+				base = 1
+				modifier = {
+					factor = 100
+					is_capital = yes
+				}
+			}
+			solar_system = { make_heirs_khan_dummy_country = { PLAYER_COUNTRY = root } }
+		}
+	}
+	else_if = {
+		limit = {
+			any_owned_nonprimary_starbase = {
+				is_waystation_starbase = yes
+				solar_system? = {
+					NOT = { exists = space_owner }
+				}
+			}
+		}
+		random_owned_nonprimary_starbase = {
+			limit = {
+				is_waystation_starbase = yes
+				solar_system? = {
+					NOT = { exists = space_owner }
+				}
+			}
+			solar_system = { make_heirs_khan_dummy_country = { PLAYER_COUNTRY = root } }
+		}
+	}
+	else = {
+		random_system = {
+			limit = {
+				count_system_planet_colony = {
+					count = 0
+				}
+				count_system_megastructure = {
+					count = 0
+				}
+			}
+			weights = {
+				base = 1
+				modifier = {
+					factor = 100
+					NOT = { exists = space_owner }
+				}
+				modifier = {
+					factor = 10
+					root = {
+						any_owned_colony = {
+							solar_system? = {
+								is_same_value = prevprevprev
+							}
+						}
+					}
+				}
+				modifier = {
+					factor = 5
+					root = {
+						any_owned_nonprimary_starbase = {
+							is_waystation_starbase = yes
+							solar_system? = {
+								is_same_value = prevprevprev
+							}
+						}
+					}
+				}
+			}
+			make_system_ownerless_effect = yes
+			make_heirs_khan_dummy_country = { PLAYER_COUNTRY = root }
+		}
+	}
+}
+
+make_heirs_khan_dummy_country = {
+	create_country = {
+		name_list = $PLAYER_COUNTRY$
+		species = $PLAYER_COUNTRY$.species
+		type = awakened_marauders
+		civics = { civic = civic_great_khans_vision }
+		origin = "origin_default"
+		flag = {
+			icon = {
+				category = "pirate"
+				file = "flag_pirate_11.dds"
+			}
+			background= {
+				category = "backgrounds"
+				file = "00_solid.dds"
+			}
+			colors={
+				"red"
+				"red"
+				"null"
+				"null"
+			}
+		}
+		ethos = {
+			ethic = ethic_fanatic_militarist
+			ethic = ethic_xenophobe
+		}
+		ignore_initial_colony_error = yes
+	}
+	last_created_country = {
+		set_graphical_culture = pirate_01
+		save_global_event_target_as = marauder_country_1
+		set_country_flag = marauder_1
+		set_country_flag = heirs_of_khan_host
+		set_name = random
+		create_ship_design = { design = "NAME_Marauder_Starbase" }
+		add_ship_design = last_created_design
+		set_custom_capital_location = prev
+		establish_communications_no_message = root
+		root = {
+			every_relation = {
+				limit = {
+					NOT = { is_same_value = prevprev }
+				}
+				establish_communications_no_message = prevprev
+				set_faction_hostility = {
+					target = prevprev
+					set_hostile = no
+					set_neutral = yes
+					set_friendly = no
+				}
+			}
+			set_faction_hostility = {
+				target = prev
+				set_hostile = no
+				set_neutral = no
+				set_friendly = yes
+			}
+		}
+		set_subject_of = {
+			who = $PLAYER_COUNTRY$
+			preset = preset_relic_satrapy
+		}
+	}
+	event_target:marauder_country_1 = { save_event_target_as = marauder_starbase_owner }
+	create_marauder_starbase = yes
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Warrior_Freehold"
+				graphical_culture = "pirate_01"
+			}
+			set_location = {
+				target = prev
+				distance = 230
+				angle = 40
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Warrior_Freehold"
+				graphical_culture = "pirate_01"
+			}
+			set_location = {
+				target = prev
+				distance = 230
+				angle = 90
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Warrior_Freehold"
+				graphical_culture = "pirate_01"
+			}
+			set_location = {
+				target = prev
+				distance = 230
+				angle = 140
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Warrior_Freehold"
+				graphical_culture = "pirate_01"
+			}
+			set_location = {
+				target = prev
+				distance = 230
+				angle = 200
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Warrior_Freehold"
+				graphical_culture = "pirate_01"
+			}
+			set_location = {
+				target = prev
+				distance = 230
+				angle = 250
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Warrior_Freehold"
+				graphical_culture = "pirate_01"
+			}
+			set_location = {
+				target = prev
+				distance = 230
+				angle = 280
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Warrior_Freehold"
+				graphical_culture = "pirate_01"
+			}
+			set_location = {
+				target = prev
+				distance = 230
+				angle = 330
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Warrior_Freehold"
+				graphical_culture = "pirate_01"
+			}
+			set_location = {
+				target = prev
+				distance = 230
+				angle = 0
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Ancestral_Glory"
+				graphical_culture = "pirate_01"
+			}
+			set_formation_scale = 2
+			set_fleet_stance = aggressive
+			set_aggro_range_measure_from = self
+			set_aggro_range = 250
+			set_location = {
+				target = prev
+				distance = 20
+				angle = 120
+			}
+		}
+		settings = {
+			garrison = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				any_system_planet = {
+					has_planet_flag = raid_source
+				}
+			}
+		}
+		random_system_planet = {
+			set_planet_flag = raid_source
+		}
+	}
+	random_system_planet = {
+		limit = {
+			has_planet_flag = raid_source
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:marauder_country_1
+				create_ship = {
+					name = random
+					design = "NAME_Void_Dwelling"
+					graphical_culture = "pirate_01"
+				}
+				set_location = {
+					target = prev
+					distance = 10
+					angle = 0
+				}
+			}
+		}
+	}
+}
+
+# Called in system scope on a heir_marauder_system; spawns generic marauder defenses (static + mobile) owned by event_target:marauder_country_1.
+populate_heir_marauder_system_defenses = {
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Void_Dwelling"
+				graphical_culture = "pirate_01"
+			}
+			set_location = {
+				target = prev
+				distance = 80
+				angle = random
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			create_ship = {
+				name = random
+				design = "NAME_Void_Dwelling"
+				graphical_culture = "pirate_01"
+			}
+			set_location = {
+				target = prev
+				distance = 80
+				angle = random
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:marauder_country_1
+			while = {
+				count = 5
+				create_ship = {
+					name = random
+					design = "NAME_Outrider"
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 3
+				create_ship = {
+					name = random
+					design = "NAME_Lancer"
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 1
+				create_ship = {
+					name = random
+					design = "NAME_Void_Champion"
+					graphical_culture = "pirate_01"
+				}
+			}
+			set_fleet_stance = aggressive
+			set_aggro_range_measure_from = self
+			set_aggro_range = 150
+			set_location = {
+				target = prev
+				distance = 60
+				angle = random
+			}
+		}
+		settings = {
+			garrison = yes
+		}
+	}
+}
+
+
+# Start Your Engines arkship event randomizer
+
+generate_start_your_engines_pilots = {
+	random_list = {
+		0 = {
+			modifier = {
+				add = 2
+				any_owned_leader = {
+					OR = {
+						has_trait = leader_trait_gale_speed
+						has_trait = leader_trait_gale_speed_2
+					}
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_gale_speed
+			}
+			random_owned_leader = {
+				limit = {
+					OR = {
+						has_trait = leader_trait_gale_speed
+						has_trait = leader_trait_gale_speed_2
+					}
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_gale_speed
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 9
+				any_owned_leader = {
+					has_trait = leader_trait_dragonslayer
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_dragonslayer
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_dragonslayer
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_dragonslayer
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 4
+				any_owned_leader = {
+					has_trait = leader_trait_mercenary_warrior
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_mercenary_warrior
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_mercenary_warrior
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_mercenary_warrior
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 7
+				any_owned_leader = {
+					has_trait = leader_trait_admiral_hells_heart
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_hells_heart
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_admiral_hells_heart
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_hells_heart
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 9
+				any_owned_leader = {
+					has_trait = leader_trait_great_khan
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_great_khan
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_great_khan
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_great_khan
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 4
+				any_owned_leader = {
+					has_trait = leader_trait_brainslug
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_brainslug
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_brainslug
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_brainslug
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 8
+				has_country_flag = gray_warship_active
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = pilot_gray
+			}
+			set_country_flag = pilot_gray
+		}
+		0 = {
+			modifier = {
+				add = 2
+				any_owned_leader = {
+					OR = {
+						has_trait = leader_trait_tuner
+						has_trait = leader_trait_tuner_2
+					}
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_tuner
+			}
+			random_owned_leader = {
+				limit = {
+					OR = {
+						has_trait = leader_trait_tuner
+						has_trait = leader_trait_tuner_2
+					}
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_tuner
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 5
+				any_owned_leader = {
+					has_trait = leader_trait_frontier_adventurer
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_frontier_adventurer
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_frontier_adventurer
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_frontier_adventurer
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 3
+				any_owned_leader = {
+					has_trait = leader_trait_scholarium_explorer
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_scholarium_explorer
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_scholarium_explorer
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_scholarium_explorer
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 2
+				any_owned_leader = {
+					OR = {
+						has_trait = leader_trait_slippery
+						has_trait = leader_trait_slippery_2
+					}
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_slippery
+			}
+			random_owned_leader = {
+				limit = {
+					OR = {
+						has_trait = leader_trait_slippery
+						has_trait = leader_trait_slippery_2
+					}
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_slippery
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 4
+				any_owned_leader = {
+					has_trait = leader_trait_psionic
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_psionic
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_psionic
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_psionic
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 4
+				any_owned_leader = {
+					has_trait = leader_trait_synthetic
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_synthetic
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_synthetic
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_synthetic
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 4
+				any_owned_leader = {
+					has_trait = leader_trait_virtual
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_virtual
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_virtual
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_virtual
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 4
+				any_owned_leader = {
+					OR = {
+						has_trait = leader_trait_cyborg
+						has_trait = leader_trait_limited_cyborg
+						has_trait = leader_trait_ritualistic_implants_cyborg
+					}
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_cyborg
+			}
+			random_owned_leader = {
+				limit = {
+					OR = {
+						has_trait = leader_trait_cyborg
+						has_trait = leader_trait_limited_cyborg
+						has_trait = leader_trait_ritualistic_implants_cyborg
+					}
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_cyborg
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 4
+				any_owned_leader = {
+					has_trait = leader_trait_erudite
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_erudite
+			}
+			random_owned_leader = {
+				limit = {
+					has_trait = leader_trait_erudite
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_erudite
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 10
+				any_owned_leader = {
+					has_patron_chosen_one_leader_trait = yes
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_chosen_one
+			}
+			random_owned_leader = {
+				limit = {
+					has_patron_chosen_one_leader_trait = yes
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_chosen_one
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 4
+				any_owned_leader = {
+					species = {
+						OR = {
+							has_trait = trait_flight
+							has_trait = trait_spatial_mastery
+						}
+					}
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+			}
+			modifier = {
+				factor = 0
+				exists = event_target:pilot_flight
+			}
+			random_owned_leader = {
+				limit = {
+					species = {
+						OR = {
+							has_trait = trait_flight
+							has_trait = trait_spatial_mastery
+						}
+					}
+					NOT = { has_leader_flag = selected_pilot }
+					is_gestalt_node = no
+				}
+				save_event_target_as = pilot_flight
+				set_leader_flag = selected_pilot
+			}
+		}
+		0 = {
+			modifier = {
+				add = 4
+				is_eager_explorer_empire = yes
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = pilot_eager_explorer
+			}
+			set_country_flag = pilot_eager_explorer
+		}
+		0 = {
+			modifier = {
+				add = 3
+				is_hyperspace_specialty_empire = yes
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = pilot_hyperspace_specialty
+			}
+			set_country_flag = pilot_hyperspace_speciality
+		}
+		0 = {
+			modifier = {
+				add = 4
+				has_valid_civic = civic_void_hive
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = pilot_void_hive
+			}
+			set_country_flag = pilot_void_hive
+		}
+		1 = {
+			set_country_flag = pilot_default
+		}
+	}
+}
+
+start_your_engines_pilots_test = {
+	create_leader = {
+		class = commander
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_mercenary_warrior
+		}
+	}
+	create_leader = {
+		class = commander
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_gale_speed
+		}
+	}
+	create_leader = {
+		class = commander
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_dragonslayer
+		}
+	}
+	create_leader = {
+		class = commander
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_admiral_hells_heart
+		}
+	}
+	create_leader = {
+		class = commander
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_great_khan
+		}
+	}
+	create_leader = {
+		class = commander
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_brainslug
+		}
+	}
+	create_leader = {
+		class = scientist
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_tuner
+		}
+	}
+	create_leader = {
+		class = scientist
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_frontier_adventurer
+		}
+	}
+	create_leader = {
+		class = scientist
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_scholarium_explorer
+		}
+	}
+	create_leader = {
+		class = scientist
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_slippery
+		}
+	}
+	create_leader = {
+		class = scientist
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_psionic
+		}
+	}
+	create_leader = {
+		class = scientist
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_synthetic
+		}
+	}
+	create_leader = {
+		class = scientist
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_virtual
+		}
+	}
+	create_leader = {
+		class = scientist
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_cyborg
+		}
+	}
+	create_leader = {
+		class = scientist
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_erudite
+		}
+	}
+	create_leader = {
+		class = scientist
+		species = root.owner
+		name = random
+		randomize_traits = no
+		skill = 3
+		traits = {
+			trait = leader_trait_composer_chosen
+		}
+	}
+}
+
+
+# Waystation Effects
+
+# Must be run in the solar_system scope with OWNER and ANGLE as provided parameters
+create_waystation_effect = {
+	spawn_megastructure = {
+		type = waystation_megastructure
+		owner = $OWNER$
+		planet = star
+		orbit_distance = trigger:inner_radius
+		orbit_angle = $ANGLE$
+	}
+}
+
+# Nomad Raid War Effects
+# Transfers the connected wayline of event_target:nomad_raid_defender that borders
+# the winner's waystation network. Flood-fills along the chain from the border point.
+# this = attacker country
+nomad_raid_loot_waystations_effect = {
+	save_event_target_as = nomad_raider
+	event_target:nomad_raid_defender = {
+		# Step 1: Flag defender waystation systems directly bordering the attacker's network
+		every_controlled_fleet = {
+			limit = {
+				is_waystation_ship = yes
+				solar_system? = {
+					any_neighbor_system = {
+						any_fleet_in_system = {
+							is_waystation_ship = yes
+							owner = { is_same_value = event_target:nomad_raider }
+						}
+					}
+				}
+			}
+			solar_system = { set_star_flag = nomad_raid_contested_waystation }
+		}
+		# Step 2: Flood-fill along the connected wayline
+		while = {
+			limit = {
+				any_controlled_fleet = {
+					is_waystation_ship = yes
+					NOT = { solar_system? = { has_star_flag = nomad_raid_contested_waystation } }
+					solar_system? = {
+						any_neighbor_system = { has_star_flag = nomad_raid_contested_waystation }
+					}
+				}
+			}
+			every_controlled_fleet = {
+				limit = {
+					is_waystation_ship = yes
+					NOT = { solar_system? = { has_star_flag = nomad_raid_contested_waystation } }
+					solar_system? = {
+						any_neighbor_system = { has_star_flag = nomad_raid_contested_waystation }
+					}
+				}
+				solar_system = { set_star_flag = nomad_raid_contested_waystation }
+			}
+		}
+		# Step 3: Transfer all flagged waystations to the attacker
+		every_controlled_fleet = {
+			limit = {
+				is_waystation_ship = yes
+				solar_system? = { has_star_flag = nomad_raid_contested_waystation }
+			}
+			set_owner = event_target:nomad_raider
+		}
+	}
+	# Step 4: Clean up flags (transferred waystations now belong to the attacker)
+	every_controlled_fleet = {
+		limit = {
+			is_waystation_ship = yes
+			solar_system? = { has_star_flag = nomad_raid_contested_waystation }
+		}
+		solar_system = { remove_star_flag = nomad_raid_contested_waystation }
+	}
+}
+
+
+# Transfers ownership of the defender's arkship fleet (with colony and all pops) to the attacker.
+# this = attacker country
+# event_target:nomad_raid_defender = defender country
+nomad_raid_seize_ark_effect = {
+	save_event_target_as = nomad_raider
+	event_target:nomad_raid_defender = {
+		every_owned_fleet = {
+			limit = {
+				is_arkship_fleet = yes
+				NOT = { has_fleet_flag = nomad_raid_recently_seized }
+				any_owned_ship = {
+					is_arkship_ship = yes
+					is_disabled = yes
+				}
+			}
+			set_owner = event_target:nomad_raider
+			set_timed_fleet_flag = {
+				flag = nomad_raid_recently_seized
+				days = 30
+			}
+		}
+	}
+}
+
+# Transfer the disabled waystations of event_target:nomad_raid_defender to the seizing country, flagging each for 30 days so it cannot bounce back when status quo runs the other side's war goal.
+# this = seizing country
+# event_target:nomad_raid_defender = country being seized from
+nomad_raid_seize_disabled_waystations_effect = {
+	save_event_target_as = nomad_raider
+	event_target:nomad_raid_defender = {
+		every_owned_fleet = {
+			limit = {
+				NOT = { has_fleet_flag = nomad_raid_recently_seized }
+				any_owned_ship = {
+					is_waystation_ship = yes
+					is_disabled = yes
+				}
+			}
+			set_owner = event_target:nomad_raider
+			set_timed_fleet_flag = {
+				flag = nomad_raid_recently_seized
+				days = 30
+			}
+		}
+	}
+}
+
+# Flags a defeated nomad's enemy-captured arkships, then schedules their destruction for after the war fully ends.
+annihilate_captured_arks_effect = {
+	every_owned_fleet = {
+		limit = {
+			is_arkship_fleet = yes
+			NOT = { is_controlled_by = owner }   # enemy-controlled == counts toward 100% occupation
+		}
+		set_fleet_flag = arkship_pending_annihilation
+	}
+	country_event = { id = nomads.3110 days = 1 }
+}
+
+# Absorbs a fraction of a doomed planet's population onto the conqueror's capital arkship, mirroring how a settled empire retains conquered pops.
+# Applied before the temporary purger vassal displaces the remainder (which then flee as refugees through the normal pipeline).
+# this = planet being cleared
+# NOMAD = the nomadic conqueror
+nomad_assimilate_displaced_pops_effect = {
+	$NOMAD$ = {
+		capital_scope? = { save_event_target_as = assimilation_arkship }
+	}
+	if = {
+		limit = { exists = event_target:assimilation_arkship }
+		every_owned_pop_group = {
+			limit = { is_valid_refugee_pop = yes }
+			resettle_pop_group = {
+				POP_GROUP = this
+				PLANET = event_target:assimilation_arkship
+				PERCENTAGE = @nomad_displace_assimilation_percentage
+			}
+		}
+		$NOMAD$ = { refresh_species_rights = yes }
+	}
+}
+
+expel_nomads_destroy_waystation_effect = {
+	save_event_target_as = system_owner
+	every_system_within_border = {
+		limit = {
+			any_fleet_in_system = {
+				is_waystation_ship = yes
+				owner? = {
+					is_same_value = event_target:defender
+				}
+			}
+		}
+		every_fleet_in_system = {
+			limit = {
+				is_waystation_ship = yes
+				owner? = {
+					is_same_value = event_target:defender
+				}
+			}
+			destroy_fleet = this
+		}
+	}
+	# Safety net (lowest priority): an unclaimed bordering system.
+	random_system_within_border = {
+		limit = {
+			is_on_border = yes
+			any_neighbor_system = { has_owner = no }
+		}
+		random_neighbor_system = {
+			limit = { has_owner = no }
+			save_event_target_as = expulsion_system
+		}
+	}
+	# Preferred: a bordering system whose owner still admits the expelled empire. Overrides the safety net when one exists.
+	# Exclude owners at war with us: they grant fleet access by default, but the impending truce would trap the fleets there.
+	random_system_within_border = {
+		limit = {
+			is_on_border = yes
+			any_neighbor_system = {
+				has_owner = yes
+				has_access_fleet = event_target:defender
+				owner = { NOT = { is_at_war_with = event_target:defender } }
+			}
+		}
+		random_neighbor_system = {
+			limit = {
+				has_owner = yes
+				has_access_fleet = event_target:defender
+				owner = { NOT = { is_at_war_with = event_target:defender } }
+			}
+			save_event_target_as = expulsion_system
+		}
+	}
+	every_system_within_border = {
+		limit = {
+			any_fleet_in_system = {
+				owner? = {
+					is_same_value = event_target:defender
+				}
+				is_expellable_nomad_fleet = yes
+			}
+		}
+		every_fleet_in_system = {
+			limit = {
+				owner? = {
+					is_same_value = event_target:defender
+				}
+				is_expellable_nomad_fleet = yes
+			}
+			# Stop the fleet first so the relocation settles it into orbit instead of letting it resume its old course.
+			clear_orders = yes
+			set_location = {
+				target = event_target:expulsion_system
+			}
+		}
+	}
+	event_target:defender = {
+		set_timed_country_flag = {
+			flag = expelled_from_@event_target:system_owner
+			years = 10 		# This should match the TRUCE_YEARS define
+		}
+	}
+}
+
+expel_nomads_destroy_waystation_and_take_stockpile_effect = {
+	save_event_target_as = system_owner
+	every_system_within_border = {
+		limit = {
+			any_fleet_in_system = {
+				is_waystation_ship = yes
+				owner? = {
+					is_same_value = event_target:defender
+				}
+			}
+		}
+		every_fleet_in_system = {
+			limit = {
+				is_waystation_ship = yes
+				owner? = {
+					is_same_value = event_target:defender
+				}
+			}
+			starbase? = {
+				ship? = {
+					transfer_resource_stockpile = {
+						target = event_target:system_owner
+					}
+				}
+			}
+			destroy_fleet = this
+		}
+	}
+	# Safety net (lowest priority): an unclaimed bordering system.
+	random_system_within_border = {
+		limit = {
+			is_on_border = yes
+			any_neighbor_system = { has_owner = no }
+		}
+		random_neighbor_system = {
+			limit = { has_owner = no }
+			save_event_target_as = expulsion_system
+			set_star_flag = expulsion_system
+		}
+	}
+	# Preferred: a bordering system whose owner still admits the expelled empire. Overrides the safety net when one exists.
+	# Exclude owners at war with us: they grant fleet access by default, but the impending truce would trap the fleets there.
+	random_system_within_border = {
+		limit = {
+			is_on_border = yes
+			any_neighbor_system = {
+				has_owner = yes
+				has_access_fleet = event_target:defender
+				owner = { NOT = { is_at_war_with = event_target:defender } }
+			}
+		}
+		random_neighbor_system = {
+			limit = {
+				has_owner = yes
+				has_access_fleet = event_target:defender
+				owner = { NOT = { is_at_war_with = event_target:defender } }
+			}
+			save_event_target_as = expulsion_system
+			set_star_flag = expulsion_system
+		}
+	}
+	every_system_within_border = {
+		limit = {
+			any_fleet_in_system = {
+				owner? = {
+					is_same_value = event_target:defender
+				}
+				is_expellable_nomad_fleet = yes
+			}
+		}
+		every_fleet_in_system = {
+			limit = {
+				owner? = {
+					is_same_value = event_target:defender
+				}
+				is_expellable_nomad_fleet = yes
+			}
+			# Stop the fleet first so the relocation settles it into orbit instead of letting it resume its old course.
+			clear_orders = yes
+			set_location = event_target:expulsion_system
+		}
+	}
+	event_target:defender = {
+		set_timed_country_flag = {
+			flag = expelled_from_@event_target:system_owner
+			years = 10 		# This should match the TRUCE_YEARS define
+		}
+	}
+}
+
+# Moves the scoped fleet to orbit a random non-star planet in its current system.
+# Requires the fleet to already be placed in the target system before calling.
+# Called in nomads.20 for Nomadic empires on game start.
+# this = fleet
+move_nomadic_fleet_to_random_system_planet_effect = {
+		if = {
+			limit = {
+				owner = { is_nomadic = yes }
+				is_mobile = yes
+			}
+		solar_system = {
+			random_system_planet = {
+				limit = {
+					is_star = no
+					count_fleet_in_orbit = {
+						count = 0
+					}
+				}
+				save_event_target_as = initial_orbit_planet
+			}
+		}
+		if = {
+			limit = {
+				exists = event_target:initial_orbit_planet
+			}
+			set_location = {
+				target = event_target:initial_orbit_planet
+			}
+		}
+	}
+}
+
+# Arkship Setup
+initialize_arkship_starbase_effect = {
+	starbase = {
+		if = {
+			limit = { owner = { is_beastmasters_empire = yes } }
+			set_starbase_module = {
+				slot = 1
+				module = arkship_beastport
+			}
+		}
+		else = {
+			set_starbase_module = {
+				slot = 1
+				module = arkship_engineering_bay
+			}
+		}
+		if = {
+			limit = {
+				owner? = {
+					has_origin = origin_primal_calling
+				}
+			}
+			set_starbase_module = {
+				slot = 2
+				module = arkship_voidlure
+			}
+		}
+		else = {
+			set_starbase_module = {
+				slot = 2
+				module = arkship_docking_bay
+			}
+		}
+		if = {
+			limit = {
+				owner? = {
+					has_origin = origin_progenitor_hive
+				}
+			}
+			set_starbase_building = {
+				slot = 1
+				building = arkship_offspring_outlook
+			}
+		}
+		else = {
+				set_starbase_building = {
+				slot = 1
+				building = arkship_armor
+			}
+		}
+		set_starbase_building = {
+			slot = 2
+			building = arkship_shield
+		}
+	}
+}
+
+# Arkship Actions
+arkship_deep_scan_increment_effect = {
+	event_target:arkship.leader? = {
+		add_experience = 10
+	}
+	if = {
+		limit = {
+			NOT = {
+				is_variable_set = times_deep_scanned
+			}
+		}
+		set_variable = {
+			which = times_deep_scanned
+			value = 1
+		}
+	}
+	else = {
+		change_variable = {
+			which = times_deep_scanned
+			value = 1
+		}
+	}
+}
+
+arkship_deep_scan_effect = {
+	arkship_deep_scan_increment_effect = yes
+	deep_scan_contract_tracker_effect = yes
+	deep_scan_intel_effect = yes
+	random_list = {
+		50 = {   # Fail
+			modifier = {
+				subtract = value:arkship_scan_success_bonus|MAX|50|
+			}
+			modifier = {
+				factor = value:times_deep_scanned_mult
+				is_variable_set = times_deep_scanned
+			}
+		}
+		50 = {   # Success
+			modifier = {
+				add = value:arkship_scan_success_bonus|MAX|50|
+			}
+			deep_scan_success_effect = yes
+		}
+	}
+}
+
+arkship_subspace_image_planet_effect = {
+	deep_scan_contract_tracker_effect = yes
+	deep_scan_intel_effect = yes
+	event_target:arkship.leader? = {
+		add_experience = 10
+	}
+	random_list = {
+		30 = {   # Fail
+			modifier = {
+				subtract = value:arkship_scan_success_bonus|MAX|30|
+			}
+		}
+		70 = {   # Success
+			modifier = {
+				add = value:arkship_scan_success_bonus|MAX|30|
+			}
+			deep_scan_success_effect = yes
+		}
+	}
+}
+
+akashic_library_artifacts_effect = {
+	if = {
+		limit = {
+			has_ancrel = yes
+			event_target:arkship = {
+				has_deposit = d_relic_arkship
+			}
+		}
+		random_list = {
+			15 = { # nothing found
+				modifier = {
+					add = value:akashic_artifact_saturation|MAX|70|
+				}
+			}
+			85 = { # minor artifacts, matched to the body's station class (research by default)
+				modifier = {
+					subtract = value:akashic_artifact_saturation|MAX|70|
+				}
+				if = {
+					limit = {
+						OR = {
+							has_deposit_for = shipclass_research_station
+							has_deposit = no
+						}
+					}
+					uncover_artifacts_effect = {
+						TYPE = research
+					}
+				}
+				else = {
+					uncover_artifacts_effect = {
+						TYPE = mining
+					}
+				}
+			}
+		}
+	}
+}
+
+uncover_artifacts_effect = {
+	random_list = {
+		1 = {
+			add_deposit = d_artifacts_$TYPE$_1
+		}
+		4 = {
+			add_deposit = d_artifacts_$TYPE$_2
+		}
+		1 = {
+			add_deposit = d_artifacts_$TYPE$_3
+		}
+	}
+}
+
+arkship_subspace_image_system_effect = {
+	if = {
+		limit = {
+			NOR = {
+				has_star_flag = sealed_system
+				has_star_flag = surveillance_supercomputer_system
+				is_bottleneck_system = yes
+			}
+		}
+		random_list = {
+			950 = { # 95% Nothing
+			}
+			# 2.5% Spawn a Hyperlane, if possible.
+			25 = {
+				add_extra_hyperlane_to_this_system_effect = yes
+			}
+			# 2.5% Spawn a Wormhole, if possible
+			25 = {
+				modifier = {
+					factor = 39			# 25 × 39 = 975
+										# 975 ÷ (950 + 25 + 975) = 975 ÷ 1950 = 0.50
+										# Ergo 50% of a wormhole in the Sol system.
+					has_star_flag = sol	# Hyperspace Bypass
+				}
+				modifier = {
+					factor = 0
+					has_natural_wormhole = yes
+				}
+				random_system = {
+					limit = {
+						has_natural_wormhole = no
+						is_fe_cluster = no
+						distance = {
+							source = prev
+							min_distance >= 50
+							max_distance <= 300
+						}
+						NOR = {
+							is_bottleneck_system = yes
+							has_star_flag = chosen_system
+						}
+					}
+					spawn_natural_wormhole = {
+						bypass_type = wormhole
+						random_pos = yes
+					}
+					prev = {
+						spawn_natural_wormhole = {
+							bypass_type = wormhole
+							random_pos = yes
+						}
+						link_wormholes = prev
+					}
+				}
+			}
+		}
+	}
+}
+
+roll_resources_effect = {
+	if = {
+		limit = {
+			has_modifier = harvested_resources_mining
+		}
+		remove_modifier = harvested_resources_mining
+	}
+	random_list = {
+		# Energy
+		200 = {
+			modifier = {
+				factor = 0
+				OR = {
+					energy_candidate = no
+					has_deposit_for = shipclass_research_station
+				}
+			}
+			uncover_basic_resource_effect = {
+				RESOURCE = energy
+			}
+		}
+		# Minerals
+		200 = {
+			modifier = {
+				factor = 0
+				OR = {
+					mineral_candidate = no
+					has_deposit_for = shipclass_research_station
+				}
+			}
+			uncover_basic_resource_effect = {
+				RESOURCE = minerals
+			}
+		}
+		# Physics
+		75 = {
+			modifier = {
+				factor = 0
+				OR = {
+					physics_candidate = no
+					has_deposit_for = shipclass_mining_station
+				}
+			}
+			modifier = {
+				factor = 1.2
+				event_target:arkship.leader? = {
+					has_leader_flag = nomadic_naturalist
+				}
+			}
+			modifier = {
+				factor = 1.2
+				event_target:arkship = {
+					has_deposit = d_relic_arkship
+				}
+			}
+			uncover_research_effect = {
+				RESOURCE = physics
+			}
+		}
+		# Society
+		75 = {
+			modifier = {
+				factor = 0
+				OR = {
+					society_candidate = no
+					has_deposit_for = shipclass_mining_station
+				}
+			}
+			modifier = {
+				factor = 1.2
+				event_target:arkship.leader? = {
+					has_leader_flag = nomadic_naturalist
+				}
+			}
+			modifier = {
+				factor = 1.2
+				event_target:arkship = {
+					has_deposit = d_relic_arkship
+				}
+			}
+			uncover_research_effect = {
+				RESOURCE = society
+			}
+		}
+		# Engineering
+		75 = {
+			modifier = {
+				factor = 0
+				OR = {
+					engineering_candidate = no
+					has_deposit_for = shipclass_mining_station
+				}
+			}
+			modifier = {
+				factor = 1.2
+				event_target:arkship.leader? = {
+					has_leader_flag = nomadic_naturalist
+				}
+			}
+			modifier = {
+				factor = 1.2
+				event_target:arkship = {
+					has_deposit = d_relic_arkship
+				}
+			}
+			uncover_research_effect = {
+				RESOURCE = engineering
+			}
+		}
+		# Alloys
+		100 = {
+			modifier = {
+				factor = 0
+				OR = {
+					alloy_candidate = no
+					has_deposit_for = shipclass_research_station
+				}
+			}
+			uncover_resource_effect = {
+				RESOURCE = alloys
+			}
+		}
+		# Exotic Gases
+		50 = {
+			modifier = {
+				factor = 0
+				OR = {
+					exotic_gas_candidate = no
+					has_deposit_for = shipclass_research_station
+				}
+			}
+			uncover_resource_effect = {
+				RESOURCE = exotic_gases
+			}
+		}
+		# Rare Crystals
+		50 = {
+			modifier = {
+				factor = 0
+				OR = {
+					rare_crystal_candidate = no
+					has_deposit_for = shipclass_research_station
+				}
+			}
+			uncover_resource_effect = {
+				RESOURCE = rare_crystals
+			}
+		}
+		# Volatile Motes
+		50 = {
+			modifier = {
+				factor = 0
+				OR = {
+					volatile_motes_candidate = no
+					has_deposit_for = shipclass_research_station
+				}
+			}
+			uncover_resource_effect = {
+				RESOURCE = volatile_motes
+			}
+		}
+	}
+}
+
+uncover_basic_resource_effect = {
+	random_list = {
+		1 = {
+			add_deposit = d_$RESOURCE$_3
+		}
+		4 = {
+			add_deposit = d_$RESOURCE$_5
+		}
+		1 = {
+			add_deposit = d_$RESOURCE$_7
+		}
+	}
+}
+
+uncover_research_effect = {
+	random_list = {
+		1 = {
+			add_deposit = d_$RESOURCE$_2
+		}
+		4 = {
+			add_deposit = d_$RESOURCE$_3
+		}
+		1 = {
+			add_deposit = d_$RESOURCE$_4
+		}
+	}
+}
+
+uncover_resource_effect = {
+	random_list = {
+		1 = {
+			add_deposit = d_$RESOURCE$_1
+		}
+		4 = {
+			add_deposit = d_$RESOURCE$_3
+		}
+		1 = {
+			add_deposit = d_$RESOURCE$_5
+		}
+	}
+}
+
+discover_deep_scan_cache = {
+	random_list = {
+		# Energy
+		200 = {
+			modifier = {
+				factor = 0
+				OR = {
+					energy_candidate = no
+					has_deposit_for = shipclass_research_station
+				}
+			}
+			modifier = {
+				factor = 10
+				has_orbital_energy_deposit = yes
+			}
+			resource_cache_effect = {
+				TYPE = energy
+			}
+		}
+		# Minerals
+		200 = {
+			modifier = {
+				factor = 0
+				OR = {
+					mineral_candidate = no
+					has_deposit_for = shipclass_research_station
+				}
+			}
+			modifier = {
+				factor = 10
+				has_orbital_mineral_deposit = yes
+			}
+			resource_cache_effect = {
+				TYPE = minerals
+			}
+		}
+		# Physics
+		75 = {
+			modifier = {
+				factor = 0
+				OR = {
+					physics_candidate = no
+					has_deposit_for = shipclass_mining_station
+				}
+			}
+			modifier = {
+				factor = 10
+				has_orbital_physics_deposit = yes
+			}
+			resource_cache_effect = { TYPE = physics_research }
+		}
+		# Society
+		75 = {
+			modifier = {
+				factor = 0
+				OR = {
+					society_candidate = no
+					has_deposit_for = shipclass_mining_station
+				}
+			}
+			modifier = {
+				factor = 10
+				has_orbital_society_deposit = yes
+			}
+			resource_cache_effect = { TYPE = society_research }
+		}
+		# Engineering
+		75 = {
+			modifier = {
+				factor = 0
+				OR = {
+					engineering_candidate = no
+					has_deposit_for = shipclass_mining_station
+				}
+			}
+			modifier = {
+				factor = 10
+				has_orbital_engineering_deposit = yes
+			}
+			resource_cache_effect = { TYPE = engineering_research }
+		}
+		# Alloys
+		100 = {
+			modifier = {
+				factor = 0
+				OR = {
+					alloy_candidate = no
+					has_deposit_for = shipclass_research_station
+				}
+			}
+			modifier = {
+				factor = 10
+				has_orbital_alloys_deposit = yes
+			}
+			resource_cache_effect = {
+				TYPE = alloys
+			}
+		}
+	}
+}
+
+resource_cache_effect = {
+	event_target:arkship.owner = {
+		if = {
+			limit = {
+				event_target:arkship = {
+					is_arkship_tier_3 = yes
+				}
+				has_tradition = tr_discovery_finish
+				is_galactic_community_member = yes
+				is_active_resolution = resolution_galacticstudies_advanced_xenostudies
+			}
+			add_resource = {
+				$TYPE$ = 6000
+			}
+			set_variable = {
+				which = deep_scan_resource_gained
+				value = 6000
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:arkship = {
+					is_arkship_tier_3 = yes
+				}
+				has_tradition = tr_discovery_finish
+			}
+			add_resource = {
+				$TYPE$ = 4000
+			}
+			set_variable = {
+				which = deep_scan_resource_gained
+				value = 4000
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:arkship = {
+					is_arkship_tier_2 = yes
+				}
+				is_galactic_community_member = yes
+				is_active_resolution = resolution_galacticstudies_advanced_xenostudies
+			}
+			add_resource = {
+				$TYPE$ = 4500
+			}
+			set_variable = {
+				which = deep_scan_resource_gained
+				value = 4500
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:arkship = {
+					is_arkship_tier_2 = yes
+				}
+			}
+			add_resource = {
+				$TYPE$ = 3000
+			}
+			set_variable = {
+				which = deep_scan_resource_gained
+				value = 3000
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:arkship = {
+					is_arkship_tier_1 = yes
+				}
+				is_galactic_community_member = yes
+				is_active_resolution = resolution_galacticstudies_advanced_xenostudies
+			}
+			add_resource = {
+				$TYPE$ = 3000
+			}
+			set_variable = {
+				which = deep_scan_resource_gained
+				value = 3000
+			}
+		}
+		else = {
+			add_resource = {
+				$TYPE$ = 2000
+			}
+			set_variable = {
+				which = deep_scan_resource_gained
+				value = 2000
+			}
+		}
+		# Fire notification
+		create_message = {
+			type = MESSAGE_DISCOVERED_RESOURCE_CACHE
+			localization = MESSAGE_DISCOVERED_RESOURCE_CACHE
+			days = 30
+			variable = {
+				type = variable
+				varname = deep_scan_resource_gained
+				localization = AMOUNT
+				scope = this
+			}
+			variable = {
+				type = key
+				value = $TYPE$_icon
+				localization = RESOURCE_ICON
+			}
+			variable = {
+				type = key
+				value = concept_$TYPE$
+				localization = RESOURCE_NAME
+			}
+		}
+		clear_variable = deep_scan_resource_gained
+	}
+}
+
+deep_scan_contract_tracker_effect = {
+	if = {
+		limit = {
+			is_point_of_interest = {
+				id = deep_scan_poi@this
+				event_chain = contract_deep_scan_chain
+				owner = event_target:arkship.owner
+			}
+		}
+		event_target:arkship.owner = {
+			remove_point_of_interest = deep_scan_poi@prev
+		}
+		if = {
+			limit = {
+				solar_system = {
+					NOT = {
+						any_system_planet = {
+							is_point_of_interest = {
+								id = deep_scan_poi@this
+								event_chain = contract_deep_scan_chain
+								owner = event_target:arkship.owner
+							}
+						}
+					}
+				}
+			}
+			event_target:arkship.owner = {
+				add_mission_counter = {
+					mission = contract_deep_scan
+					counter = contract_progress_counter
+					amount = 1
+				}
+			}
+		}
+	}
+}
+
+deep_scan_success_effect = {
+	random_list = {
+		# Uncover Resource Cache
+		30 = {
+			discover_deep_scan_cache = yes
+		}
+		# Uncover Resource Deposit
+		50 = {
+			roll_resources_effect = yes
+			survey_deposit_increase_effect = {
+				SHIP = event_target:arkship
+			}
+			akashic_library_artifacts_effect = yes
+		}
+		# Anomaly
+		14 = {
+			modifier = {
+				factor = 0
+				OR = {
+					has_anomaly = yes
+					is_preventing_anomaly = yes
+					NOT = {
+						can_spawn_random_anomaly = event_target:arkship
+					}
+				}
+			}
+			spawn_random_anomaly = {
+				target = event_target:arkship.controller
+				surveyor = event_target:arkship
+			}
+			modifier = {
+				factor = event_target:arkship.value:scripted_modifier_mult|MODIFIER|ship_anomaly_generation_chance_mult|
+			}
+		}
+		# Dig Site
+		6 = {
+			modifier = {
+				factor = 0
+				NOT = {
+					can_spawn_random_archaeological_site = yes
+				}
+			}
+			create_archaeological_site = random
+			modifier = {
+				factor = event_target:arkship.value:scripted_modifier_mult|MODIFIER|find_arc_site_on_survey_chance_mult|
+			}
+		}
+	}
+}
+
+deep_scan_intel_effect = {
+	if = {
+		limit = {
+			colony? = {
+				capital_tier > 2
+			}
+		}
+		event_target:arkship.owner = {
+			add_intel = {
+				amount = @deep_scan_station_intel_high
+				who = prev.controller
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_orbital_station = yes
+				colony? = {
+					capital_tier = 2
+				}
+			}
+		}
+		event_target:arkship.owner = {
+			add_intel = {
+				amount = @deep_scan_station_intel_mid
+				who = prev.orbital_station.controller
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			exists = space_owner
+		}
+		event_target:arkship.owner = {
+			add_intel = {
+				amount = @deep_scan_station_intel_low
+				who = prev.space_owner
+			}
+		}
+	}
+	else = {
+		# Do nothing
+	}
+}
+
+arkship_harvest_resources_effect = {
+	# Save the ship as an event target so we can scope to it.
+	from = {
+		every_owned_ship = {
+			save_event_target_as = harvesting_ship
+		}
+	}
+	# Harvest Resources returns resources depending on the deposit and deposit size.
+	# Firstly, get resources from the deposit itself, if the planet is surveyed.
+	if = {
+		limit = {
+			is_surveyed = {
+				who = from
+				status = yes
+			}
+		}
+		arkship_harvest_resources_from_deposit_effect = {
+			DURATION = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+		}
+	}
+	harvest_resource_contract_tracker_effect_1 = yes
+
+	# Then you get resources depending on the planet class of the target.
+	arkship_harvest_primary_resources_from_planet_class_effect = {
+		DURATION = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+	arkship_harvest_secondary_resources_from_planet_class_effect = {
+		DURATION = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+	# Apply modifier to block the action for a given duration.
+	# and impose a penalty to mining stations in orbit of the planet.
+	add_modifier = {
+		modifier = harvested_resources_mining
+		months = $DURATION$
+		time_multiplier = from.controller.value:arkship_harvest_resources_duration_calc
+	}
+	if = {
+		limit = {
+			from.controller = {
+				can_access_shroud = yes
+			}
+			solar_system = {
+				NOT = {
+					any_system_planet = {
+						is_harvestable_planet = yes
+					}
+				}
+			}
+		}
+		from.controller = {
+			add_patron_objective_counter = {
+				counter = po_harvest_system
+				amount = 1
+			}
+		}
+	}
+}
+
+arkship_harvest_resources_from_deposit_effect = {
+	inline_script = {
+		script = scripted_actions/harvest_resources_from_deposit
+		RESOURCE = energy
+		BASE = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+	inline_script = {
+		script = scripted_actions/harvest_resources_from_deposit
+		RESOURCE = minerals
+		BASE = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+	inline_script = {
+		script = scripted_actions/harvest_resources_from_deposit
+		RESOURCE = consumer_goods
+		BASE = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+	inline_script = {
+		script = scripted_actions/harvest_resources_from_deposit
+		RESOURCE = alloys
+		BASE = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+	# The matching mining tech grants a harvest bonus via arkship_harvest_resources_<resource>_produces_mult.
+	inline_script = {
+		script = scripted_actions/harvest_resources_from_deposit
+		RESOURCE = volatile_motes
+		BASE = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+	inline_script = {
+		script = scripted_actions/harvest_resources_from_deposit
+		RESOURCE = exotic_gases
+		BASE = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+	inline_script = {
+		script = scripted_actions/harvest_resources_from_deposit
+		RESOURCE = rare_crystals
+		BASE = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+	inline_script = {
+		script = scripted_actions/harvest_resources_from_deposit
+		RESOURCE = sr_living_metal
+		BASE = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+	inline_script = {
+		script = scripted_actions/harvest_resources_from_deposit
+		RESOURCE = nanites
+		BASE = $DURATION$
+		TARGET = $TARGET$
+		EFFECT = $EFFECT$
+	}
+}
+
+arkship_harvest_primary_resources_from_planet_class_effect = {
+	# Each planet class has primary and secondary resources.
+	# These resources use the total deposit sizes of harvestable resources on the planet
+	# to determine the amount that you get.
+
+	# Energy
+	if = {
+		limit = {
+			is_planet_class = pc_ice_asteroid
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = energy
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_primary_scaling_factor
+		}
+	}
+
+	# Food
+	if = {
+		limit = {
+			is_planet_class = pc_egg_cracked
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = food
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_primary_scaling_factor
+		}
+	}
+
+	# Minerals
+	if = {
+		limit = {
+			OR = {
+				is_planet_class = pc_asteroid
+				is_planet_class = pc_barren
+				is_planet_class = pc_barren_cold
+				is_planet_class = pc_broken
+				is_planet_class = pc_shattered
+				is_planet_class = pc_shattered_2
+			}
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = minerals
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_primary_scaling_factor
+		}
+	}
+
+	# Alloys
+	if = {
+		limit = {
+			is_planet_class = pc_junk
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = alloys
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_primary_scaling_factor
+		}
+	}
+
+	# Exotic Gases
+	if = {
+		limit = {
+			OR = {
+				is_planet_class = pc_gas_giant
+				is_planet_class = pc_toxic
+			}
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = exotic_gases
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_primary_scaling_factor
+		}
+	}
+
+	# Rare Crystals
+	if = {
+		limit = {
+			OR = {
+				is_planet_class = pc_rare_crystal_asteroid
+				is_planet_class = pc_crystal_asteroid
+				is_planet_class = pc_frozen
+			}
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = rare_crystals
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_primary_scaling_factor
+		}
+	}
+
+	# Volatile Motes
+	if = {
+		limit = {
+			is_planet_class = pc_molten
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = volatile_motes
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_primary_scaling_factor
+		}
+	}
+
+	# Nanites
+	if = {
+		limit = {
+			is_planet_class = pc_gray_goo
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = nanites
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_primary_scaling_factor
+		}
+	}
+
+	# Zro
+	if = {
+		limit = {
+			is_planet_class = pc_shrouded
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = sr_zro
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_primary_scaling_factor
+		}
+	}
+}
+
+arkship_harvest_secondary_resources_from_planet_class_effect = {
+	# Each planet class has primary and secondary resources.
+	# These resources use the total deposit sizes of harvestable resources on the planet
+	# to determine the amount that you get.
+
+	# Minerals
+	if = {
+		limit = {
+			OR = {
+				is_planet_class = pc_barren
+				is_planet_class = pc_barren_cold
+			}
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = minerals
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_secondary_scaling_factor
+		}
+	}
+
+	# Alloys
+	if = {
+		limit = {
+			OR = {
+				is_planet_class = pc_junk
+				is_planet_class = pc_broken
+				is_planet_class = pc_shattered
+				is_planet_class = pc_shattered_2
+			}
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = alloys
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_secondary_scaling_factor
+		}
+	}
+
+	# Exotic Gases
+	if = {
+		limit = {
+			OR = {
+				is_planet_class = pc_gas_giant
+				is_planet_class = pc_toxic
+				is_planet_class = pc_ice_asteroid
+				is_planet_class = pc_egg_cracked
+			}
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = exotic_gases
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_secondary_scaling_factor
+		}
+	}
+
+	# Rare Crystals
+	if = {
+		limit = {
+			OR = {
+				is_planet_class = pc_rare_crystal_asteroid
+				is_planet_class = pc_crystal_asteroid
+				is_planet_class = pc_frozen
+			}
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = rare_crystals
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_secondary_scaling_factor
+		}
+	}
+
+	# Volatile Motes
+	if = {
+		limit = {
+			OR = {
+				is_planet_class = pc_molten
+				is_planet_class = pc_asteroid
+			}
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = volatile_motes
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_secondary_scaling_factor
+		}
+	}
+
+	# Nanites
+	if = {
+		limit = {
+			is_planet_class = pc_gray_goo
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = nanites
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_secondary_scaling_factor
+		}
+	}
+
+	# Zro
+	if = {
+		limit = {
+			is_planet_class = pc_shrouded
+		}
+		inline_script = {
+			script = scripted_actions/harvest_resources_from_planet_class
+			RESOURCE = sr_zro
+			BASE = $DURATION$
+			TARGET = $TARGET$
+			EFFECT = $EFFECT$
+			FACTOR = @arkship_harvest_resource_from_planet_secondary_scaling_factor
+		}
+	}
+}
+
+harvest_resource_contract_tracker_effect_1 = {
+	# Minerals
+	harvest_resource_contract_tracker_effect_2 = {
+		RESOURCE = minerals
+	}
+	# Energy
+	harvest_resource_contract_tracker_effect_2 = {
+		RESOURCE = energy
+	}
+	# CG
+	harvest_resource_contract_tracker_effect_2 = {
+		RESOURCE = consumer_goods
+	}
+	# Alloys
+	harvest_resource_contract_tracker_effect_2 = {
+		RESOURCE = alloys
+	}
+	# Motes
+	harvest_resource_contract_tracker_effect_2 = {
+		RESOURCE = volatile_motes
+	}
+	# Gases
+	harvest_resource_contract_tracker_effect_2 = {
+		RESOURCE = exotic_gases
+	}
+	# Crystals
+	harvest_resource_contract_tracker_effect_2 = {
+		RESOURCE = rare_crystals
+	}
+	# Living Metal
+	harvest_resource_contract_tracker_effect_2 = {
+		RESOURCE = sr_living_metal
+	}
+	# Nanites
+	harvest_resource_contract_tracker_effect_2 = {
+		RESOURCE = nanites
+	}
+}
+
+harvest_resource_contract_tracker_effect_2 = {
+	if = {
+		limit = {
+			is_point_of_interest = {
+				id = harvest_poi@this
+				event_chain = contract_harvest_$RESOURCE$_chain
+				owner = event_target:arkship.owner
+			}
+		}
+		event_target:arkship.owner = {
+			remove_point_of_interest = harvest_poi@prev
+		}
+		remove_carrier_flag = harvest_$RESOURCE$_target@root
+		if = {
+			limit = {
+				solar_system = {
+					NOT = {
+						any_system_planet = {
+							is_point_of_interest = {
+								id = harvest_poi@this
+								event_chain = contract_harvest_$RESOURCE$_chain
+								owner = event_target:arkship.owner
+							}
+						}
+					}
+				}
+			}
+			event_target:arkship.owner = {
+				add_mission_counter = {
+					mission = contract_harvest_$RESOURCE$
+					counter = contract_progress_counter
+					amount = 1
+				}
+			}
+		}
+	}
+}
+
+arkship_strip_mine_effect = {
+	arkship_harvest_resources_effect = {
+		DURATION = @arkship_strip_mine_duration
+		TARGET = event_target:arkship.controller
+		EFFECT = add_resource
+	}
+	if = {
+		limit = {
+			planet_size > 5
+		}
+		change_planet_size = -1
+	}
+	harvest_resource_contract_tracker_effect_1 = yes
+}
+
+arkship_planetary_reprocessor_effect = {
+	arkship_harvest_resources_effect = {
+		DURATION = @arkship_reprocess_planet_duration
+		TARGET = event_target:arkship.controller
+		EFFECT = add_resource
+	}
+	if = {
+		limit = {
+			is_planet_class = pc_gas_giant
+		}
+		change_planet_size = -10
+	}
+	if = {
+		limit = {
+			NOR = {
+				is_planet_class = pc_shattered
+				is_asteroid = yes
+			}
+		}
+		fire_on_action = {
+			on_action = on_destroy_planet_with_arkship_reprocess_planet
+			scopes = {
+				from = from
+			}
+		}
+	}
+	if = {
+		limit = {
+			is_asteroid = yes
+		}
+		fire_on_action = {
+			on_action = on_arkship_reprocess_asteroid
+			scopes = {
+				from = from
+			}
+		}
+	}
+	clear_deposits = yes
+	clear_planet_modifiers = yes
+	add_deposit = d_minerals_3
+	add_deposit = d_alloys_1
+	set_carrier_flag = reprocessed_planet
+}
+
+arkship_stellar_ignition_effect = {
+	add_modifier = {
+		modifier = stellar_ignition_mod
+		days = -1
+	}
+	if = {
+		limit = {
+			has_deposit_for = shipclass_mining_station
+		}
+		add_deposit = d_energy_5
+	}
+	else = {
+		add_deposit = d_physics_3
+	}
+	create_ambient_object = {
+		type = stellar_ignition_star
+		location = this
+		scale = 0.1
+		duration = -1
+		use_3d_location = yes
+	}
+}
+
+arkship_protostar_effect = {
+	change_pc = pc_protostar
+	clear_deposits = yes
+	clear_planet_modifiers = yes
+	if = {
+		limit = {
+			has_mining_station = yes
+		}
+		mining_station = {
+			dismantle = yes
+		}
+	}
+	add_deposit = d_protostar
+	add_modifier = {
+		modifier = stellar_ignition_mod
+		days = -1
+	}
+	create_ambient_object = {
+		type = stellar_ignition_planet
+		location = this
+		scale = 0.04
+		duration = -1
+		use_3d_location = yes
+	}
+	if = {
+		limit = { has_planet_flag = planet_jupiter }
+		random_moon = {
+			limit = { has_planet_flag = moon_europa }
+			change_pc = pc_tropical
+			reroll_planet = yes
+			clear_blockers = yes
+			add_deposit = d_dark_matter_monolith
+		}
+	}
+	every_moon = {
+		limit = { NOT = { has_planet_flag = moon_europa } }
+		fire_on_action = {
+			on_action = on_destroy_planet_with_arkship_stellar_ignition
+			scopes = {
+				from = from
+			}
+		}
+		remove_planet = yes
+	}
+	set_ring = yes
+}
+
+apply_stellar_ignition_habitability_penalties = {
+	solar_system = {
+		every_system_planet = {
+			limit = {
+				is_artificial = no
+				OR = {
+					is_colonizable = yes
+					is_colony = yes
+					is_terraforming_candidate = yes
+				}
+			}
+			switch = {
+				trigger = has_modifier
+				default = {
+					add_modifier = {
+						modifier = stellar_ignition_habitability_mod_1
+					}
+				}
+				stellar_ignition_habitability_mod_1 = {
+					remove_modifier = stellar_ignition_habitability_mod_1
+					add_modifier = {
+						modifier = stellar_ignition_habitability_mod_2
+					}
+				}
+				stellar_ignition_habitability_mod_2 = {
+					remove_modifier = stellar_ignition_habitability_mod_2
+					add_modifier = {
+						modifier = stellar_ignition_habitability_mod_3
+					}
+				}
+				stellar_ignition_habitability_mod_3 = {
+					remove_modifier = stellar_ignition_habitability_mod_3
+					add_modifier = {
+						modifier = stellar_ignition_habitability_mod_4
+					}
+				}
+				stellar_ignition_habitability_mod_4 = {
+					remove_modifier = stellar_ignition_habitability_mod_4
+					add_modifier = {
+						modifier = stellar_ignition_habitability_mod_5
+					}
+				}
+				stellar_ignition_habitability_mod_5 = {
+					# Do nothing, as the modifier is capped
+				}
+			}
+		}
+	}
+}
+
+arkship_exodus_jump_system_effects = {
+	# Apply VFX
+	create_ambient_object = {
+		type = "dyson_gun_stage_2_impact"
+		location = event_target:arkship
+		duration = @dyson_gun_impact_duration
+	}
+	# Damage every ship in the system
+	every_ship_in_system = {
+		limit = {
+			controller? = {
+				NOT = {
+					is_same_value = event_target:arkship.controller
+				}
+			}
+		}
+		damage_ship = {
+			amount = 10000
+			attacker = event_target:arkship
+		}
+		if = {
+			limit = {
+				is_arkship_ship = yes
+			}
+			controller? = {
+				add_opinion_modifier = {
+					who = event_target:arkship.controller
+					modifier = opinion_arkship_exodus_jump
+				}
+				create_message = {
+					type = TOAST_EXODUS_JUMP_AFTERMATH
+					localization =  TOAST_EXODUS_JUMP_AFTERMATH_DESC
+					days = @toast_message_days
+					variable = {
+						type = name
+						localization = ARKSHIP
+						scope = event_target:arkship
+					}
+					variable = {
+						type = name
+						localization = SYSTEM
+						scope = from
+					}
+				}
+			}
+		}
+	}
+	# Damage every colonised planet in the system
+	every_system_planet = {
+		limit = {
+			is_colony = yes
+		}
+		add_planet_devastation = 33
+	}
+	# Fire a Toast for the system owner
+	# And nuke their opinion of us
+	if = {
+		limit = {
+			exists = space_owner
+		}
+		space_owner = {
+			add_opinion_modifier = {
+				who = event_target:arkship.controller
+				modifier = opinion_arkship_exodus_jump
+			}
+			create_message = {
+				type = TOAST_EXODUS_JUMP_AFTERMATH
+				localization =  TOAST_EXODUS_JUMP_AFTERMATH_DESC
+				days = @toast_message_days
+				variable = {
+					type = name
+					localization = ARKSHIP
+					scope = event_target:arkship
+				}
+				variable = {
+					type = name
+					localization = SYSTEM
+					scope = from
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			any_system_planet = { is_colony = yes }
+			OR = {
+				is_active_resolution = "resolution_rulesofwar_independent_tribunals"
+				is_active_resolution = "resolution_rulesofwar_last_resort_doctrine"
+				is_active_resolution = "resolution_rulesofwar_demobilization_initiative"
+			}
+		}
+		event_target:arkship.controller = {
+			set_timed_country_flag = { flag = resolution_breached_exodus_jump days = 3600 }
+		}
+	}
+}
+
+life_in_motion_effect = {
+	arkship_deep_scan_increment_effect = yes
+	deep_scan_contract_tracker_effect = yes
+	deep_scan_intel_effect = yes
+	random_list = {
+		60 = {   # Fail
+			modifier = {
+				subtract = value:arkship_scan_success_bonus|MAX|60|
+			}
+			modifier = {
+				factor = value:times_deep_scanned_mult
+				is_variable_set = times_deep_scanned
+			}
+		}
+		40 = {   # Success
+			modifier = {
+				add = value:arkship_scan_success_bonus|MAX|60|
+			}
+			life_in_motion_success_effect = yes
+		}
+	}
+}
+
+life_in_motion_success_effect = {
+	random_list = {
+		# Find some pre-sapients
+		45 = {
+			save_event_target_as = pre_sapient_planet
+			spawn_presapient_species_randomizer_effect = yes
+			last_created_species = { save_event_target_as = nomadic_naturalist_presapients }
+			event_target:arkship.controller = {
+				country_event = {
+					id = nomads.1523
+					days = 10
+				}
+			}
+		}
+		# Uncover Resource Deposit
+		45 = {
+			modifier = {
+				factor = 0
+				NOT = {
+					can_add_random_non_blocker_deposit = yes
+				}
+			}
+			add_random_non_blocker_deposit = yes
+		}
+		# Anomaly
+		7 = {
+			modifier = {
+				factor = 0
+				OR = {
+					is_colony = yes
+					has_anomaly = yes
+					is_preventing_anomaly = yes
+					NOT = {
+						can_spawn_random_anomaly = event_target:arkship
+					}
+				}
+			}
+			spawn_random_anomaly = {
+				target = event_target:arkship.controller
+				surveyor = event_target:arkship
+			}
+			modifier = {
+				factor = event_target:arkship.value:scripted_modifier_mult|MODIFIER|ship_anomaly_generation_chance_mult|
+			}
+		}
+		# Dig Site
+		3 = {
+			modifier = {
+				factor = 0
+				OR = {
+					is_colony = yes
+					NOT = {
+						can_spawn_random_archaeological_site = yes
+					}
+				}
+			}
+			create_archaeological_site = random
+			modifier = {
+				factor = event_target:arkship.value:scripted_modifier_mult|MODIFIER|find_arc_site_on_survey_chance_mult|
+			}
+		}
+	}
+}
+
+arkship_settle_planet_effect = {
+	hidden_effect = {
+		$SETTLING_COUNTRY$ = {
+			set_country_as_nomad_effect = { IS_NOMAD = no }
+			set_resource_converter = none
+			set_country_flag = settled_as_nomadic_empire
+			set_faction_properties = {
+				needs_border_access = yes
+			}
+			set_resource_converter = none
+			# Grant starting techs that are blocked for nomadic empires via starting_potential.
+			give_technology = { tech = tech_colonization_1				message = no }
+			give_technology = { tech = tech_starbase_1					message = no }
+			give_technology = { tech = tech_starbase_2					message = no }
+			give_technology = { tech = tech_space_defense_station_1		message = no }
+			give_technology = { tech = tech_solar_panel_network			message = no }
+			give_technology = { tech = tech_mechanized_mining			message = no }
+			# Grant higher-tier starbase techs if the empire has researched equivalent waystation technologies.
+			if = {
+				limit = { has_technology = tech_waystation_2 }
+				give_technology = { tech = tech_starbase_3				message = no }
+			}
+			if = {
+				limit = { has_technology = tech_waystation_3 }
+				give_technology = { tech = tech_starbase_4				message = no }
+			}
+			refresh_auto_generated_ship_designs = yes
+			every_issued_mission = {
+				cancel_contract = {
+					refund = no
+					show_message = no
+				}
+			}
+			every_owned_contract = {
+				cancel_contract = {
+					refund = no
+				}
+			}
+			if = {
+				limit = { has_country_flag = has_arkship_grand_archive_module }
+				remove_country_flag = ga_destroyed_contains_space_fauna
+				if = {
+					limit = { num_vivarium_slots > 0 }
+					set_country_flag = ga_destroyed_contains_space_fauna
+					release_all_vivarium_fauna = { LOCATION = $SETTLED_SYSTEM$ }
+				}
+				set_country_flag = grand_archive_destroyed
+				remove_country_flag = has_arkship_grand_archive_module
+			}
+			clear_arkship_galactic_hall_flags = yes
+			if = {
+				limit = { has_ascension_perk = ap_eternal_vigilance_nomads }
+				remove_ascension_perk = ap_eternal_vigilance_nomads
+				add_ascension_perk = ap_eternal_vigilance
+			}
+		}
+		$SETTLED_SYSTEM$ = {
+			remove_star_flag = nomad_settling_in_progress
+			create_starbase = {
+				size = starbase_starport
+				module = shipyard
+				module = solar_panel_network
+				building = crew_quarters
+				owner = $SETTLING_COUNTRY$
+			}
+			every_system_planet = {
+				limit = { has_deposit_for = shipclass_mining_station }
+				create_mining_station = { owner = $SETTLING_COUNTRY$ }
+			}
+			every_system_planet = {
+				limit = { has_deposit_for = shipclass_research_station }
+				create_research_station = { owner = $SETTLING_COUNTRY$ }
+			}
+		}
+		$SETTLED_PLANET$ = {
+			set_timed_carrier_flag = {
+				flag = nomad_recently_settled_flag
+				days = 1
+			}
+			if = {
+				limit = {
+					$SETTLING_COUNTRY$ = {
+						has_origin = origin_toxic_knights
+					}
+				}
+				$SETTLING_COUNTRY$ = {
+					remove_modifier = knights_detox_unlocked
+				}
+				if = {
+					limit = {
+						$SETTLING_ARKSHIP$ = {
+							has_carrier_flag = toxic_knights_arkship
+						}
+					}
+					if = {
+						limit = {
+							uses_district_set = habitat
+						}
+						set_planet_flag = toxic_knights_habitat
+					}
+					else = {
+						set_planet_flag = toxic_knights_settled_world
+					}
+				}
+				copy_deposit_from = {
+					SCOPE = $SETTLING_ARKSHIP$
+					DEPOSIT = d_toxic_god_pools_most_venemous_upgraded
+				}
+				copy_deposit_from = {
+					SCOPE = $SETTLING_ARKSHIP$
+					DEPOSIT = d_toxic_god_blight_upon_the_land_upgraded
+				}
+				copy_deposit_from = {
+					SCOPE = $SETTLING_ARKSHIP$
+					DEPOSIT = d_toxic_god_pestilential_wasteland_upgraded
+				}
+				copy_deposit_from = {
+					SCOPE = $SETTLING_ARKSHIP$
+					DEPOSIT = d_toxic_god_deitys_swarms_upgraded
+				}
+				copy_deposit_from = {
+					SCOPE = $SETTLING_ARKSHIP$
+					DEPOSIT = d_toxic_god_envenomed_seas_upgraded
+				}
+				if = {
+					limit = {
+						has_carrier_flag = toxic_knights_homeworld
+					}
+					$SETTLING_COUNTRY$ = {
+						country_event = {
+							id = toxoids.8030
+						}
+					}
+				}
+			}
+			transfer_carrier = {
+				source = $SETTLING_ARKSHIP$
+				target = this
+				transfer_ownership = yes
+				transfer_controller = yes
+				merge_pops = yes
+				destroy_colony = yes
+			}
+			create_sector = yes
+		}
+
+		$SETTLING_ARKSHIP$.fleet? = {
+			destroy_fleet = {
+				target = this
+				kill_leader = no
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = $SETTLING_COUNTRY$
+				create_ship = {
+					name = random
+					random_existing_design = constructor
+				}
+				set_fleet_stance = evasive
+				set_location = $SETTLED_PLANET$
+			}
+		}
+		create_ambient_object = {
+			type = ambient_arkship_destroyed
+		}
+		# Delayed so any scuttled arkship's pops have arrived and the converted districts have recalculated their jobs.
+		$SETTLED_PLANET$ = {
+			carrier_event = {
+				id = nomads.4706
+				days = 1
+			}
+		}
+	}
+	$SETTLED_PLANET$ = {
+		add_modifier = {
+			modifier = arkship_parts
+		}
+	}
+}
+
+convert_logistic_ships_into_construction_ships_effects = {
+	# If we settle down, all logistic ships are repurposed into construction ships.
+	hidden_effect = {
+		every_owned_fleet = {
+			limit = {
+				is_ship_size = nomads_constructor
+			}
+			save_event_target_as = logistic_ship
+			create_fleet = {
+				effect = {
+					set_name = event_target:logistic_ship
+					set_owner = event_target:logistic_ship.owner
+					create_ship = {
+						name = event_target:logistic_ship
+						random_existing_design = constructor
+					}
+					set_fleet_stance = evasive
+					set_location = event_target:logistic_ship
+				}
+			}
+			destroy_fleet = this
+		}
+		every_owned_fleet = {
+			limit = {
+				is_ship_size = nomads_engineer_vessel
+			}
+			save_event_target_as = logistic_ship
+			create_fleet = {
+				effect = {
+					set_name = event_target:logistic_ship
+					set_owner = event_target:logistic_ship.owner
+					create_ship = {
+						name = event_target:logistic_ship
+						random_existing_design = engineer_vessel
+					}
+					set_fleet_stance = evasive
+					set_location = event_target:logistic_ship
+				}
+			}
+			destroy_fleet = this
+		}
+	}
+}
+
+give_embarking_empire_logistic_ship = {
+	create_fleet = {
+		effect = {
+			set_owner = prev
+			create_ship = {
+				name = random
+				random_existing_design = nomads_constructor
+			}
+			set_fleet_stance = evasive
+			set_location = {
+				target = $EMBARKING_PLANET$
+				distance = 10
+				angle = 200
+			}
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = prev
+			create_ship = {
+				name = random
+				random_existing_design = science
+			}
+			set_fleet_stance = evasive
+			set_location = {
+				target = $EMBARKING_PLANET$
+				distance = 10
+				angle = 100
+			}
+		}
+	}
+	every_owned_fleet = {
+		limit = {
+			OR = {
+				is_ship_size = constructor
+				is_ship_size = engineer_vessel
+			}
+		}
+		destroy_fleet = this
+	}
+}
+
+
+embark_planet_effect = {
+	hidden_effect = {
+		$NEW_ARKSHIP$ = {
+			transfer_carrier = {
+				source = $EMBARKING_PLANET$
+				target = this
+				transfer_ownership = no
+				merge_pops = no
+				destroy_colony = yes
+			}
+		}
+	}
+	$EMBARKING_PLANET$ = {
+		add_modifier = {
+			modifier = stripped_planet
+		}
+		remove_modifier = celebrate_ideology
+		remove_modifier = suppress_foreign_ideology
+		add_planet_devastation = 90
+	}
+}
+
+convert_starbases_into_waystation_effect = {
+	hidden_effect = {
+		$PLAYER_COUNTRY$? = {
+			every_owned_starbase = {
+				limit = {
+					has_starbase_size >= starbase_outpost
+				}
+				if = {
+					limit = {
+						has_starbase_size > starbase_outpost
+						solar_system = {
+							NOT = {
+								any_ship_in_system = {
+									is_waystation_ship = yes
+								}
+							}
+						}
+					}
+					solar_system = {
+						create_waystation_effect = {
+							OWNER = $EMBARKING_COUNTRY$
+							ANGLE = 120
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = { exists = event_target:subject_country }
+					}
+					fleet = {
+						destroy_fleet = this
+					}
+				}
+				else_if = {
+					limit = {
+						event_target:subject_country = {
+							is_nomadic = no
+						}
+					}
+					set_owner = event_target:subject_country
+				}
+			}
+		}
+	}
+}
+
+create_embarking_arkship = {
+	$NOMAD_COUNTRY$ = {
+		set_country_as_nomad_effect = { IS_NOMAD = yes }
+		country_event = {
+			id = nomads.20
+		}
+		set_resource_converter = nomadic_operational_reserves
+		set_variable = { which = contract_completed value = 0 }
+		# Arkship Random Event Director
+		country_event = {
+			id = arkship.1
+			random = 1800
+		}
+		set_country_flag = embarked_as_settled_empire
+		if = {
+			limit = {
+				$EMBARKED_PLANET$ = {
+					planet_devastation >= 70
+				}
+			}
+			set_country_flag = embarked_from_devastated_homeworld
+		}
+		set_faction_properties = {
+			needs_border_access = no
+		}
+		give_technology = { tech = tech_$ARKSHIP_TYPE$_arkship }
+		give_technology = { tech = tech_waystation_1 }
+		refresh_auto_generated_ship_designs = yes
+		create_fleet = {
+			effect = {
+				set_owner = prev
+				create_ship = {
+					create_colony = no
+					random_existing_design = $ARKSHIP_TYPE$_arkship_tier_1
+					effect = {
+						save_event_target_as = embarking_arkship
+						initialize_arkship_starbase_effect = yes
+						switch = {
+							trigger = is_ship_size
+							civilian_arkship_tier_1 = {
+								set_graphical_culture = civilian_arkship
+							}
+							science_arkship_tier_1 = {
+								set_graphical_culture = science_arkship
+							}
+							military_arkship_tier_1 = {
+								set_graphical_culture = military_arkship
+							}
+						}
+					}
+				}
+				set_location = {
+					target = $EMBARKED_PLANET$
+					distance = 0
+					angle = random
+				}
+			}
+		}
+	}
+}
+
+convert_waystations_into_outposts_effect = {
+	hidden_effect = {
+		$SETTLING_COUNTRY$? = {
+			every_owned_nonprimary_starbase = {
+				limit = {
+					is_waystation_starbase = yes
+				}
+				set_starbase_flag = block_waystation_lost_toast
+				ship? = {
+					transfer_resource_stockpile = {
+						target = $SETTLING_COUNTRY$
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							exists = space_owner
+						}
+					}
+					solar_system = {
+						create_starbase = {
+							size = "starbase_outpost"
+							owner = $SETTLING_COUNTRY$
+						}
+					}
+				}
+				fleet = {
+					destroy_fleet = this
+				}
+			}
+		}
+	}
+}
+
+# This = the purge-vassal country. Adds its stockpile of one resource to purge_xfer_total, which gates the toast's "gained." text.
+set_purge_xfer_resource_effect = {
+	if = {
+		limit = { num_owned_planets <= 1 }
+		export_resource_stockpile_to_variable = { resource = $RESOURCE$  variable = purge_xfer_stock_tmp }
+		change_variable = { which = purge_xfer_total  value = purge_xfer_stock_tmp }
+	}
+}
+
+nomad_purge_vassal_abandon_colony_effect = {
+	# Snapshot the pops we hand up on the owner for the toast; nomads.13 delivers the resources and toast from on_colony_destroyed.
+	if = {
+		limit = { exists = owner }
+		owner = {
+			set_variable = { which = purge_resettled_pops  value = 0 }
+		}
+	}
+	if = {
+		limit = {
+			exists = owner
+			owner = { exists = overlord }
+			owner.overlord = { exists = capital_scope }
+		}
+		# Count the pops only once the hand-over is known to succeed, so the toast never reports pops that die with the colony.
+		set_variable = { which = purge_resettled_pops  value = 0 }
+		export_trigger_value_to_variable = {
+			trigger = count_owned_pop_amount
+			variable = purge_resettled_pops
+			rounded = yes
+		}
+		owner = {
+			set_variable = { which = purge_resettled_pops  value = prev.purge_resettled_pops }
+		}
+		owner.overlord.capital_scope = {
+			save_event_target_as = nomad_purger_overlord_capital
+		}
+		every_owned_pop_group = {
+			limit = {
+				pop_group_size > 0
+			}
+			resettle_pop_group = {
+				POP_GROUP = this
+				PLANET = event_target:nomad_purger_overlord_capital
+				PERCENTAGE = 100
+			}
+		}
+	}
+	destroy_colony = yes
+}
+
+settlement_scuttle_arkships_effect = {
+	hidden_effect = {
+		every_owned_colony = {
+			limit = {
+				carrier_is_type = ship
+				ship? = {
+					NOT = {
+						is_same_value = $SETTLING_ARKSHIP$
+					}
+				}
+			}
+			every_owned_pop_group = {
+				resettle_pop_group = {
+					POP_GROUP = this
+					PLANET = $SETTLED_PLANET$
+					PERCENTAGE = 100
+				}
+			}
+			if = {
+				limit = {
+					ship = {
+						is_arkship_tier_1 = yes
+					}
+				}
+				$SETTLING_COUNTRY$ = {
+					add_resource = {
+						minerals = @arkship_cost_alloys_10000
+						alloys = @arkship_cost_alloys_10000
+						mult = @arkship_scuttle_recovery_percentage
+					}
+				}
+			}
+			if = {
+				limit = {
+					ship = {
+						is_arkship_tier_2 = yes
+					}
+				}
+				$SETTLING_COUNTRY$ = {
+					add_resource = {
+						minerals = @\[ arkship_cost_alloys_10000 + arkship_cost_alloys_5000 ]
+						alloys = @\[ arkship_cost_alloys_10000 + arkship_cost_alloys_5000 ]
+						mult = @arkship_scuttle_recovery_percentage
+					}
+				}
+			}
+			if = {
+				limit = {
+					ship = {
+						is_arkship_tier_3 = yes
+					}
+				}
+				$SETTLING_COUNTRY$ = {
+					add_resource = {
+						minerals = @\[ arkship_cost_alloys_10000 + arkship_cost_alloys_5000 + arkship_cost_alloys_5000 ]
+						alloys = @\[ arkship_cost_alloys_10000 + arkship_cost_alloys_5000 + arkship_cost_alloys_5000 ]
+						mult = @arkship_scuttle_recovery_percentage
+					}
+				}
+			}
+		}
+	}
+}
+
+create_settlement_subject_country_effect = {
+	create_country = {
+		ignore_initial_colony_error = yes
+		type = default
+		name = random
+		ethos = $NOMAD_COUNTRY$
+		authority = $NOMAD_COUNTRY$
+		civics = random
+		origin = origin_default							# Temp origin for country creation.
+		species = $NOMAD_COUNTRY$.species
+		flag = random
+		effect = {
+			save_event_target_as = subject_country
+			set_country_flag = nomad_vassal@$NOMAD_COUNTRY$
+			establish_communications_no_message = $NOMAD_COUNTRY$
+			$NOMAD_COUNTRY$ = {
+				every_relation = {
+					establish_communications_no_message = event_target:subject_country
+				}
+			}
+		}
+	}
+}
+
+create_embarking_subject_country_effect = {
+	create_country = {
+		ignore_initial_colony_error = yes
+		type = default
+		name = random
+		ethos = $PLAYER_COUNTRY$
+		authority = $PLAYER_COUNTRY$
+		civics = $PLAYER_COUNTRY$
+		origin = origin_default							# Temp origin for country creation.
+		species = $PLAYER_COUNTRY$.species
+		flag = random
+		effect = {
+			save_event_target_as = subject_country
+			set_country_flag = nomad_vassal@$PLAYER_COUNTRY$
+			establish_communications_no_message = $PLAYER_COUNTRY$
+			$PLAYER_COUNTRY$ = {
+				every_relation = {
+					establish_communications_no_message = event_target:subject_country
+				}
+			}
+		}
+	}
+}
+
+clean_up_settlement_subject_country_effect = {
+	refresh_auto_generated_ship_designs = yes
+	add_opinion_modifier = {
+		modifier = opinion_liberated_us
+		who = $OVERLORD$
+	}
+	copy_techs_from = {
+		target = $OVERLORD$
+		except = {
+			# Horizon Signal
+			tech_akx_worm_1
+			tech_akx_worm_2
+			tech_akx_worm_3
+		}
+	}
+	copy_traditions_from = {
+		target = $OVERLORD$
+	}
+	copy_ascension_perks_from = {
+		target = $OVERLORD$
+		exceptions = {
+			ap_defender_of_the_galaxy
+			ap_force_of_will
+			ap_become_the_crisis
+			ap_cosmogenesis
+			ap_behemoths
+			ap_galactic_hyperthermia
+		}
+	}
+	set_subject_of = {
+		who = $OVERLORD$
+		preset = preset_vassal
+	}
+	$OVERLORD$ = {
+		add_intel = {
+			amount = 100
+			who = event_target:subject_country
+		}
+	}
+	random_agreement = {
+		add_loyalty = 200
+		if = {
+			limit = {
+				$OVERLORD$ = {
+					is_megacorp = yes
+				}
+			}
+			set_agreement_preset = {
+				preset = preset_subsidiary
+			}
+		}
+		if = {
+			limit = {
+				$OVERLORD$ = {
+					has_valid_civic = civic_inwards_perfection
+				}
+			}
+			set_agreement_preset = {
+				preset = preset_tributary
+			}
+		}
+	}
+}
+
+create_outposts_in_waystation_systems_effect = {
+	hidden_effect = {
+		$NOMAD_COUNTRY$? = {
+			every_owned_nonprimary_starbase = {
+				limit = {
+					is_waystation_starbase = yes
+					solar_system = {
+						distance = {
+							source = $SETTLED_SYSTEM$
+							use_bypasses = no
+							min_jumps = 1
+							max_jumps = $RANGE$
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							exists = space_owner
+						}
+					}
+					solar_system = {
+						create_starbase = {
+							size = "starbase_outpost"
+							owner = $SETTLING_COUNTRY$
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+nomad_give_arkships_to_subject_effect = {
+	hidden_effect = {
+		every_owned_colony = {
+			limit = {
+				carrier_is_type = ship
+				ship? = {
+					NOT = {
+						is_same_value = $SETTLING_ARKSHIP$
+					}
+				}
+			}
+			set_owner = $NOMAD_COUNTRY$
+		}
+	}
+}
+
+nomad_give_waystations_to_subject_effect = {
+	hidden_effect = {
+		$SETTLING_COUNTRY$? = {
+			every_owned_nonprimary_starbase = {
+				limit = {
+					is_waystation_starbase = yes
+				}
+				set_owner = $NOMAD_COUNTRY$
+			}
+		}
+	}
+}
+
+nomad_give_logistic_ships_to_subject_effect = {
+	hidden_effect = {
+		$SETTLING_COUNTRY$? = {
+			every_owned_fleet = {
+				limit = {
+					is_ship_size = nomads_constructor
+				}
+				set_owner = $NOMAD_COUNTRY$
+			}
+			every_owned_fleet = {
+				limit = {
+					is_ship_size = nomads_engineer_vessel
+				}
+				set_owner = $NOMAD_COUNTRY$
+			}
+		}
+	}
+}
+
+hired_guns_modifier_cleanup = {
+	if = {
+		limit = {
+			exists = root
+			has_modifier = hired_guns_modifier
+			NOT = {
+				OR = {
+					has_contract_of_category = military_contract
+					has_contract_of_category = military_contract_special
+					has_contract_of_category = military_contract_internal
+				}
+				any_war = {
+					has_war_flag = nomad_mercs
+					root = {
+						has_country_flag = war@prev
+					}
+				}
+			}
+		}
+		#remove hired_gun modifier
+		remove_modifier = hired_guns_modifier
+	}
+}
+
+# Nomad Contracts
+
+create_espionage_contract = {
+	target = {
+		random_system_within_border = {
+			limit = {
+				any_system_planet = {
+					is_colony = yes
+				}
+			}
+			save_event_target_as = contract_system
+		}
+	}
+	owner = {
+		issue_contract = {
+			contract = $CONTRACT$
+			location = event_target:contract_system
+		}
+	}
+	set_timed_spynetwork_flag = { flag = issued_spy_support_contract years = 10 }
+}
+
+generate_additional_espionage_support_project = {
+	random_list = {
+		1 = {
+			random_owned_planet = {
+				limit = {
+					NOT = { has_carrier_flag = spy_support_target@root }
+				}
+				enable_special_project = {
+					name = "CONTRACT_ESPIONAGE_SUPPORT_PROJECT_01"
+					location = this
+					owner = ROOT
+				}
+				set_carrier_flag = spy_support_target@root
+			}
+		}
+		1 = {
+			random_owned_planet = {
+				limit = {
+					NOT = { has_carrier_flag = spy_support_target@root }
+				}
+				enable_special_project = {
+					name = "CONTRACT_ESPIONAGE_SUPPORT_PROJECT_02"
+					location = this
+					owner = ROOT
+				}
+				set_carrier_flag = spy_support_target@root
+			}
+		}
+		1 = {
+			random_owned_ship = {
+				limit = {
+					is_ship_class = shipclass_starbase
+					NOT = { has_ship_flag = spy_support_target@root }
+				}
+				enable_special_project = {
+					name = "CONTRACT_ESPIONAGE_SUPPORT_PROJECT_03"
+					location = this
+					owner = ROOT
+				}
+				set_ship_flag = spy_support_target@root
+			}
+		}
+	}
+}
+
+espionage_support_effect = {
+	random_spynetwork = {
+		limit = {
+			has_spynetwork_flag = spy_support_contract_network@root
+		}
+		remove_spynetwork_flag = spy_support_contract_network@root
+		if = {
+			limit = {
+				exists = root
+			}
+			hidden_effect = {
+				random_list = { #sometimes you get small bonus, sometimes bigger bonus
+					7 = {
+						add_modifier = {
+							modifier = nomad_espionage_support
+							days = 1200
+						}
+					}
+					1 = {
+						modifier = {
+							add = root.espionage_support_counter
+						}
+						add_modifier = {
+							modifier = nomad_espionage_support
+							days = 1200
+							mult = 2
+						}
+					}
+					1 = {
+						modifier = {
+							factor = root.espionage_support_counter
+						}
+						add_modifier = {
+							modifier = nomad_espionage_support
+							days = 1200
+							mult = root.espionage_support_counter
+						}
+					}
+				}
+				root = { clear_variable = espionage_support_counter }
+			}
+		}
+	}
+	add_intel = {
+		amount = $INTEL_AMOUNT$
+		who = fromfrom.space_owner
+	}
+}
+
+espionage_support_cleanup_effect = {
+	fromfrom.owner = {
+		every_owned_planet = {
+			limit = {
+				has_carrier_flag = spy_support_target@root
+			}
+			root = {
+				abort_special_project = {
+					type = CONTRACT_ESPIONAGE_SUPPORT_PROJECT_01
+					location = prev
+				}
+				abort_special_project = {
+					type = CONTRACT_ESPIONAGE_SUPPORT_PROJECT_02
+					location = prev
+				}
+			}
+			remove_carrier_flag = spy_support_target@root
+		}
+		every_owned_ship = {
+			limit = {
+				has_ship_flag = spy_support_target@root
+			}
+			root = {
+				abort_special_project = {
+					type = CONTRACT_ESPIONAGE_SUPPORT_PROJECT_03
+					location = prev
+				}
+			}
+			remove_ship_flag = spy_support_target@root
+		}
+	}
+	prev = {
+		random_spynetwork = {
+			limit = {
+				target = {
+					is_same_value = fromfrom.owner
+				}
+			}
+			remove_spynetwork_flag = spy_support_contract_network@root
+		}
+	}
+}
+
+increase_espionage_counter_effect = {
+	if = {
+		limit = {
+			has_contract = contract_espionage_support
+		}
+		add_mission_counter = {
+			mission = contract_espionage_support
+			counter = contract_progress_counter
+			amount = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_contract = contract_espionage_support_2
+		}
+		add_mission_counter = {
+			mission = contract_espionage_support_2
+			counter = contract_progress_counter
+			amount = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_contract = contract_espionage_support_3
+		}
+		add_mission_counter = {
+			mission = contract_espionage_support_3
+			counter = contract_progress_counter
+			amount = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_contract = contract_espionage_support_4
+		}
+		add_mission_counter = {
+			mission = contract_espionage_support_4
+			counter = contract_progress_counter
+			amount = 1
+		}
+	}
+}
+
+clear_natural_blockers_effect = {
+	remove_fauna_yuht = yes
+	every_deposit = {
+		limit = { is_deposit_type = d_mountain_range }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_active_volcano }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_dense_jungle }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_toxic_kelp }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_deep_sinkhole }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_quicksand_basin }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_noxious_swamp }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_massive_glacier }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_radioactive_wasteland }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_city_ruins }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_raging_lavafalls }
+		clear_blocker = yes
+	}
+	every_deposit = {
+		limit = { is_deposit_type = d_rugged_landscape }
+		clear_blocker = yes
+	}
+}
+
+contract_scaling_reward_effect = {
+	if = {
+		limit = {
+			is_variable_set = contract_completed
+		}
+		root = {
+			if = {
+				limit = { has_country_flag = contract_downtime_taken }
+				add_resource = {
+					trade = $TRADE$
+					mult = value:contract_bonus_value_penalized
+				}
+				hidden_effect = { country_event = { id = nomads.6998 days = 1 } }
+			}
+			else = {
+				add_resource = {
+					trade = $TRADE$
+					mult = value:contract_bonus_value
+				}
+				add_resource = {
+					$RESOURCE$ = $RESOURCE_AMOUNT$
+					mult = value:contract_bonus_value
+				}
+			}
+		}
+	}
+}
+
+cruise_contract_scaling_reward_effect = {
+	if = {
+		limit = {
+			is_variable_set = cruise_contract_completed
+		}
+		root = {
+			if = {
+				limit = { has_country_flag = contract_downtime_taken }
+				add_resource = {
+					trade = $TRADE$
+					mult = value:contract_bonus_value_penalized
+				}
+				hidden_effect = { country_event = { id = nomads.6998 days = 1 } }
+			}
+			else = {
+				add_resource = {
+					trade = $TRADE$
+					mult = value:contract_bonus_value
+				}
+			}
+		}
+	}
+}
+
+create_princess_poi = {
+	random_system = {
+		limit = {
+			NOR = {
+				has_star_flag = sealed_system
+				has_star_flag = hostile_system
+				has_star_flag = princess_poi_system
+			}
+			distance = {
+				source = root.capital_scope.solar_system
+				min_jumps = 2
+			}
+			any_system_planet = {
+				has_any_flag = no
+				OR = {
+					is_planet_class = pc_asteroid
+					is_planet_class = pc_gas_giant
+					is_planet_class = pc_barren
+				}
+			}
+		}
+		set_star_flag = princess_poi_system
+		random_system_planet = {
+			limit = {
+				has_any_flag = no
+				OR = {
+					is_planet_class = pc_asteroid
+					is_planet_class = pc_gas_giant
+					is_planet_class = pc_barren
+				}
+			}
+			set_planet_flag = princess_poi_planet_$NUMBER$
+			save_event_target_as = nomadic_princess_poi_target_$NUMBER$
+			create_ambient_object = {
+				type = small_debris_object
+			}
+			last_created_ambient_object = {
+				set_location = {
+					target = event_target:nomadic_princess_poi_target_$NUMBER$
+					distance = 10
+					angle = 180
+				}
+			}
+		}
+	}
+	create_point_of_interest = {
+		id = nomadic_princess_poi_$NUMBER$
+		name = nomadic_princess_poi_title_$NUMBER$
+		desc = nomadic_princess_poi_desc_$NUMBER$
+		event_chain = nomadic_princess_chain
+		location = event_target:nomadic_princess_poi_target_$NUMBER$
+	}
+}
+
+begin_checklist_shield_realignment_effect = {
+	set_country_flag = checklist_shield_realignment
+	enable_mission = {
+		name = NOMAD_CHECKLIST_SHIELD_REALIGNMENT
+	}
+	capital_scope = {
+		add_modifier = { modifier = checklist_unaligned_shields }
+	}
+}
+
+complete_checklist_shield_realignment_effect = {
+	remove_country_flag = checklist_shield_realignment
+	hidden_effect = {
+		add_event_chain_counter = {
+			event_chain = "nomad_checklist_chain"
+			counter = "checklist_items"
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_checklist_chain
+					counter = checklist_items
+				}
+			}
+			end_event_chain = nomad_checklist_chain
+		}
+	}
+	capital_scope? = {
+		remove_modifier = checklist_unaligned_shields
+		add_modifier = {
+			modifier = checklist_aligned_shields
+			years = @nomad_checklist_reward_years
+		}
+	}
+}
+
+begin_checklist_sensor_calibration_effect = {
+	set_country_flag = checklist_sensors_calibration
+	enable_mission = {
+		name = NOMAD_CHECKLIST_SENSOR_CALIBRATION
+	}
+	capital_scope? = {
+		add_modifier = { modifier = checklist_sensor_calibration }
+	}
+}
+
+complete_checklist_sensor_calibration_effect = {
+	remove_country_flag = checklist_sensors_calibration
+	capital_scope? = {
+		remove_modifier = checklist_sensor_calibration
+		add_modifier = {
+			modifier = checklist_calibrated_sensors
+			years = @nomad_checklist_reward_years
+		}
+	}
+	hidden_effect = {
+		add_event_chain_counter = {
+			event_chain = "nomad_checklist_chain"
+			counter = "checklist_items"
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_checklist_chain
+					counter = checklist_items
+				}
+			}
+			end_event_chain = nomad_checklist_chain
+		}
+	}
+}
+
+begin_checklist_flush_coolant_effect = {
+	set_country_flag = checklist_flush_coolant
+	enable_mission = {
+		name = NOMAD_CHECKLIST_FLUSH_COOLANT
+	}
+	capital_scope? = {
+		add_modifier = { modifier = checklist_corrosive_coolant }
+	}
+}
+
+complete_checklist_flush_coolant_effect = {
+	remove_country_flag = checklist_flush_coolant
+	hidden_effect = {
+		add_event_chain_counter = {
+			event_chain = "nomad_checklist_chain"
+			counter = "checklist_items"
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_checklist_chain
+					counter = checklist_items
+				}
+			}
+			end_event_chain = nomad_checklist_chain
+		}
+	}
+	capital_scope? = {
+		remove_modifier = checklist_corrosive_coolant
+		add_modifier = {
+			modifier = checklist_flushed_coolant
+			years = @nomad_checklist_reward_years
+		}
+	}
+}
+
+begin_checklist_clear_hangar_bays_effect = {
+	set_country_flag = checklist_cluttered_hangars
+	enable_mission = {
+		name = NOMAD_CHECKLIST_CLEAR_HANGAR_BAYS
+	}
+	capital_scope = {
+		while = {
+			count = 2
+			add_deposit = d_cluttered_hangar_bay
+		}
+	}
+}
+
+complete_checklist_clear_hangar_bays_effect = {
+	remove_country_flag = checklist_cluttered_hangars
+	custom_tooltip = NOMAD_CHECKLIST_CLEAR_HANGAR_BAYS_REWARD
+	hidden_effect = {
+		add_event_chain_counter = {
+			event_chain = "nomad_checklist_chain"
+			counter = "checklist_items"
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_checklist_chain
+					counter = checklist_items
+				}
+			}
+			end_event_chain = nomad_checklist_chain
+		}
+	}
+}
+
+begin_checklist_decipher_signal_effect = {
+	set_country_flag = checklist_decipher_signal
+	closest_system = {
+		min_steps = 5
+		limit = {
+			OR = {
+				# Is the capital system of a regular empire.
+				AND = {
+					is_capital_system = yes
+					owner? = {
+						is_candidate_for_early_contact = yes
+						NOT = {
+							has_communications = root
+						}
+					}
+				}
+				# Is an enclave system and the enclave hasn't been killed.
+				AND = {
+					has_star_flag = enclave
+					any_fleet_in_system = {
+						owner? = {
+							OR = {
+								is_same_value = event_target:artist_enclave_country
+								is_same_value = event_target:curator_enclave_country
+								has_country_flag = trader_enclave_country
+								is_same_value = event_target:mindwarden_enclave_country
+								is_same_value = event_target:salvager_enclave_country
+								is_same_value = event_target:shroudwalker_enclave_country
+								is_same_value = event_target:mindwarden_enclave_country
+							}
+							NOT = {
+								has_communications = root
+							}
+						}
+					}
+				}
+				# Is Chor's Compass
+				AND = {
+					has_star_flag = caravaneer_home
+					any_fleet_in_system = {
+						owner? = {
+							is_same_value = event_target:caravaneer_home_country
+							NOT = {
+								has_communications = root
+							}
+						}
+					}
+				}
+			}
+		}
+		save_global_event_target_as = comms_signal_system@root
+		random_fleet_in_system = {
+			limit = {
+				owner = {
+					is_space_critter_country = no
+				}
+			}
+			owner = {
+				save_global_event_target_as = comms_source@root
+			}
+		}
+	}
+	enable_mission = {
+		name = NOMAD_CHECKLIST_DECIPHER_SIGNAL
+		location = event_target:comms_signal_system@root
+	}
+	add_modifier = {
+		modifier = checklist_replicating_signal
+		days = -1
+	}
+}
+
+complete_checklist_decipher_signal_effect = {
+	remove_country_flag = checklist_decipher_signal
+	hidden_effect = {
+		add_event_chain_counter = {
+			event_chain = "nomad_checklist_chain"
+			counter = "checklist_items"
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_checklist_chain
+					counter = checklist_items
+				}
+			}
+			end_event_chain = nomad_checklist_chain
+		}
+	}
+	establish_communications = event_target:comms_source@root
+	remove_modifier = checklist_replicating_signal
+	add_modifier = {
+		modifier = checklist_deciphered_signal
+		years = @nomad_checklist_reward_years
+	}
+}
+
+calculate_nomads_exploration_targets = {
+	set_variable = {
+		which = ancient_wonders_system_count
+		value = value:num_ancient_wonders_system
+	}
+	set_variable = {
+		which = antique_threat_system_count
+		value = value:num_antique_threat_system
+	}
+	set_variable = {
+		which = enclave_system_count
+		value = value:num_enclave_system
+	}
+	set_variable = {
+		which = galactic_landmark_system_count
+		value = value:num_galactic_landmark_system
+	}
+	set_variable = {
+		which = marauder_system_count
+		value = value:num_marauder_system
+	}
+	set_variable = {
+		which = natural_spectacle_system_count
+		value = value:num_natural_spectacle_system
+	}
+	set_variable = {
+		which = precursor_system_count
+		value = value:num_precursor_system
+	}
+	set_variable = {
+		which = space_ecology_system_count
+		value = value:num_space_ecology_system
+	}
+
+	# reduce by 20% so you don't have to see absolutely everything
+	multiply_variable = {
+		which = ancient_wonders_system_count
+		value = 0.8
+	}
+	multiply_variable = {
+		which = antique_threat_system_count
+		value = 0.8
+	}
+	multiply_variable = {
+		which = enclave_system_count
+		value = 0.8
+	}
+	multiply_variable = {
+		which = galactic_landmark_system_count
+		value = 0.8
+	}
+	multiply_variable = {
+		which = marauder_system_count
+		value = 0.8
+	}
+	multiply_variable = {
+		which = natural_spectacle_system_count
+		value = 0.8
+	}
+	multiply_variable = {
+		which = precursor_system_count
+		value = 0.8
+	}
+	multiply_variable = {
+		which = space_ecology_system_count
+		value = 0.8
+	}
+	round_variable = ancient_wonders_system_count
+	round_variable = antique_threat_system_count
+	round_variable = enclave_system_count
+	round_variable = galactic_landmark_system_count
+	round_variable = marauder_system_count
+	round_variable = natural_spectacle_system_count
+	round_variable = precursor_system_count
+	round_variable = space_ecology_system_count
+}
+
+setup_nomad_exploration_trackers = {
+	set_variable = {
+		which = ancient_wonders_system_seen
+		value = 0
+	}
+	set_variable = {
+		which = antique_threat_system_seen
+		value = 0
+	}
+	set_variable = {
+		which = enclave_system_seen
+		value = 0
+	}
+	set_variable = {
+		which = galactic_landmark_system_seen
+		value = 0
+	}
+	set_variable = {
+		which = marauder_system_seen
+		value = 0
+	}
+	set_variable = {
+		which = natural_spectacle_system_seen
+		value = 0
+	}
+	set_variable = {
+		which = precursor_system_seen
+		value = 0
+	}
+	set_variable = {
+		which = space_ecology_system_seen
+		value = 0
+	}
+	#set a series of variables to serve as ratios to mult the modifiers later
+	set_variable = {
+		which = ancient_wonders_system_ratio
+		value = 0
+	}
+	set_variable = {
+		which = antique_threat_system_ratio
+		value = 0
+	}
+	set_variable = {
+		which = enclave_system_ratio
+		value = 0
+	}
+	set_variable = {
+		which = galactic_landmark_system_ratio
+		value = 0
+	}
+	set_variable = {
+		which = marauder_system_ratio
+		value = 0
+	}
+	set_variable = {
+		which = natural_spectacle_system_ratio
+		value = 0
+	}
+	set_variable = {
+		which = precursor_system_ratio
+		value = 0
+	}
+	set_variable = {
+		which = space_ecology_system_ratio
+		value = 0
+	}
+}
+
+complete_nomad_exploration_effect = {
+	# Called when the final (8th) Nomadic Wanderlust category completes.
+	# Marks the chain done, tears down the exploration trackers, and ends the chain.
+	# The nomad_exploration_complete flag also gates nomads.4720 so the chain cannot be
+	# resurrected by a later arkship visit to a not-yet-visited category system.
+	set_country_flag = nomad_exploration_complete
+	clear_variable = ancient_wonders_system_count
+	clear_variable = ancient_wonders_system_seen
+	clear_variable = ancient_wonders_system_ratio
+	clear_variable = antique_threat_system_count
+	clear_variable = antique_threat_system_seen
+	clear_variable = antique_threat_system_ratio
+	clear_variable = enclave_system_count
+	clear_variable = enclave_system_seen
+	clear_variable = enclave_system_ratio
+	clear_variable = galactic_landmark_system_count
+	clear_variable = galactic_landmark_system_seen
+	clear_variable = galactic_landmark_system_ratio
+	clear_variable = marauder_system_count
+	clear_variable = marauder_system_seen
+	clear_variable = marauder_system_ratio
+	clear_variable = natural_spectacle_system_count
+	clear_variable = natural_spectacle_system_seen
+	clear_variable = natural_spectacle_system_ratio
+	clear_variable = precursor_system_count
+	clear_variable = precursor_system_seen
+	clear_variable = precursor_system_ratio
+	clear_variable = space_ecology_system_count
+	clear_variable = space_ecology_system_seen
+	clear_variable = space_ecology_system_ratio
+	end_event_chain = nomad_exploration_chain
+}
+
+begin_checklist_harvest_resources_effect = {
+	set_country_flag = checklist_harvest_resources
+	enable_mission = {
+		name = NOMAD_CHECKLIST_HARVEST_RESOURCES
+	}
+}
+
+complete_checklist_harvest_resources_effect = {
+	remove_country_flag = checklist_harvest_resources
+	hidden_effect = {
+		add_event_chain_counter = {
+			event_chain = "nomad_checklist_chain"
+			counter = "checklist_items"
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_checklist_chain
+					counter = checklist_items
+				}
+			}
+			end_event_chain = nomad_checklist_chain
+		}
+	}
+	capital_scope? = {
+		add_modifier = {
+			modifier = checklist_harvest_resources_bonus
+			years = @nomad_checklist_reward_years
+		}
+	}
+
+}
+
+add_spiritual_equality_modifiers = {
+	add_modifier = {
+		modifier = spiritual_equality_pilgrims
+	}
+	add_modifier = {
+		modifier = spiritual_equality_devoted
+	}
+	if = {
+		limit = {
+			is_lithoid_or_infernal_empire = no
+			is_synthetic_empire = no
+		}
+		add_modifier = {
+			modifier = spiritual_equality_faithful
+		}
+	}
+	else_if = {
+		limit = {
+			is_lithoid_empire = yes
+		}
+		add_modifier = {
+			modifier = spiritual_equality_faithful_lithoid
+		}
+	}
+	else = {
+		add_modifier = {
+			modifier = spiritual_equality_faithful_infernal
+		}
+	}
+}
+
+spread_tent_ships_tier_1 = {
+	solar_system = {
+		every_system_planet = {
+			create_ambient_object = {
+				type = tent_ship_object
+				location = this
+				duration = @festival_tent_duration_days_180
+			}
+			last_created_ambient_object = {
+				set_location = {
+					target = prev
+					distance = 0
+					angle = 0
+				}
+			}
+		}
+	}
+}
+
+spread_tent_ships_tier_2 = {
+	solar_system = {
+		every_system_planet = {
+			create_ambient_object = {
+				type = tent_ship_object
+				location = this
+				duration = @festival_tent_duration_days_180
+			}
+			last_created_ambient_object = {
+				set_location = {
+					target = prev
+					distance = 5
+					angle = 340
+				}
+			}
+		}
+		every_system_planet = {
+			create_ambient_object = {
+				type = tent_ship_object
+				location = this
+				duration = @festival_tent_duration_days_180
+			}
+			last_created_ambient_object = {
+				set_location = {
+					target = prev
+					distance = 10
+					angle = 160
+				}
+			}
+		}
+	}
+}
+
+spread_tent_ships_tier_3 = {
+	solar_system = {
+		every_system_planet = {
+			create_ambient_object = {
+				type = tent_ship_object
+				location = this
+				duration = @festival_tent_duration_days_180
+			}
+			last_created_ambient_object = {
+				set_location = {
+					target = prev
+					distance = 0
+					angle = 0
+				}
+			}
+		}
+		every_system_planet = {
+			create_ambient_object = {
+				type = tent_ship_object
+				location = this
+				duration = @festival_tent_duration_days_180
+			}
+			last_created_ambient_object = {
+				set_location = {
+					target = prev
+					distance = 8
+					angle = 120
+				}
+			}
+		}
+		every_system_planet = {
+			create_ambient_object = {
+				type = tent_ship_object
+				location = this
+				duration = @festival_tent_duration_days_180
+			}
+			last_created_ambient_object = {
+				set_location = {
+					target = prev
+					distance = 12
+					angle = 240
+				}
+			}
+		}
+	}
+}
+
+# Spawns a precursor special project on a valid uninhabitable planet in a precursor system.
+# Non-nomads pick a system within border; Nomads search the own system and neighbors of a
+# deployed waystation that is adjacent to the relevant precursor system.
+# Usage: spawn_precursor_anomaly_effect = { PRECURSOR_FLAG = precursor_1 PROJECT_NAME = VULTAUM_ARTIFACT_FOUND }
+spawn_precursor_anomaly_effect = {
+	if = {
+		limit = { is_nomadic = no }
+		random_system_within_border = {
+			limit = {
+				has_star_flag = $PRECURSOR_FLAG$
+				any_system_planet = {
+					uninhabitable_regular_planet = yes
+					NOT = { has_planet_flag = precursor_world }
+					has_owner = no
+					has_anomaly = no
+					is_surveyed = {
+						who = root
+						status = yes
+					}
+				}
+			}
+			random_system_planet = {
+				limit = {
+					uninhabitable_regular_planet = yes
+					NOT = { has_planet_flag = precursor_world }
+					has_owner = no
+					has_anomaly = no
+					is_surveyed = {
+						who = root
+						status = yes
+					}
+				}
+				save_event_target_as = precursor_planet
+				set_planet_flag = precursor_world
+				enable_special_project = {
+					name = $PROJECT_NAME$
+					location = this
+					owner = root
+				}
+			}
+		}
+	}
+	else = {
+		# Nomad path: find a waystation whose own system or a neighbor contains the precursor system
+		random_owned_nonprimary_starbase = {
+			limit = {
+				is_waystation_starbase = yes
+				solar_system = {
+					OR = {
+						AND = {
+							has_star_flag = $PRECURSOR_FLAG$
+							any_system_planet = {
+								uninhabitable_regular_planet = yes
+								NOT = { has_planet_flag = precursor_world }
+								has_owner = no
+								has_anomaly = no
+								is_surveyed = {
+									who = root
+									status = yes
+								}
+							}
+						}
+						any_neighbor_system = {
+							has_star_flag = $PRECURSOR_FLAG$
+							any_system_planet = {
+								uninhabitable_regular_planet = yes
+								NOT = { has_planet_flag = precursor_world }
+								has_owner = no
+								has_anomaly = no
+								is_surveyed = {
+									who = root
+									status = yes
+								}
+							}
+						}
+					}
+				}
+			}
+			solar_system = {
+				if = {
+					limit = {
+						has_star_flag = $PRECURSOR_FLAG$
+						any_system_planet = {
+							uninhabitable_regular_planet = yes
+							NOT = { has_planet_flag = precursor_world }
+							has_owner = no
+							has_anomaly = no
+							is_surveyed = {
+								who = root
+								status = yes
+							}
+						}
+					}
+					random_system_planet = {
+						limit = {
+							uninhabitable_regular_planet = yes
+							NOT = { has_planet_flag = precursor_world }
+							has_owner = no
+							has_anomaly = no
+							is_surveyed = {
+								who = root
+								status = yes
+							}
+						}
+						save_event_target_as = precursor_planet
+						set_planet_flag = precursor_world
+						enable_special_project = {
+							name = $PROJECT_NAME$
+							location = this
+							owner = root
+						}
+					}
+				}
+				else = {
+					random_neighbor_system = {
+						limit = {
+							has_star_flag = $PRECURSOR_FLAG$
+							any_system_planet = {
+								uninhabitable_regular_planet = yes
+								NOT = { has_planet_flag = precursor_world }
+								has_owner = no
+								has_anomaly = no
+								is_surveyed = {
+									who = root
+									status = yes
+								}
+							}
+						}
+						random_system_planet = {
+							limit = {
+								uninhabitable_regular_planet = yes
+								NOT = { has_planet_flag = precursor_world }
+								has_owner = no
+								has_anomaly = no
+								is_surveyed = {
+									who = root
+									status = yes
+								}
+							}
+							save_event_target_as = precursor_planet
+							set_planet_flag = precursor_world
+							enable_special_project = {
+								name = $PROJECT_NAME$
+								location = this
+								owner = root
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	set_country_flag = ongoing_precursor_artifact
+}
+
+enable_star_journal_missions_and_add_counter = {
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = $check_mission_flag$
+			}
+		}
+		enable_mission = {
+			name = $mission$
+		}
+		set_country_flag = $set_mission_flag$
+	}
+	add_mission_counter = {
+		mission = $mission$
+		counter = $counter$
+		amount = 1
+	}
+}
+
+# Selects precursor_spawn_system for use with spawn_system.
+# Works for both regular empires (uses border systems) and nomads (uses waystations/colonies).
+# Called from country scope.
+precursor_capital_spawn_system_effect = {
+	if = {
+		limit = { is_nomadic = no }
+		if = {
+			limit = { any_system_within_border = { has_star_flag = $PRECURSOR_FLAG$ } }
+			random_system_within_border = {
+				limit = { has_star_flag = $PRECURSOR_FLAG$ }
+				save_event_target_as = precursor_spawn_system
+			}
+		}
+		else = {
+			random_system_within_border = {
+				save_event_target_as = precursor_spawn_system
+			}
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				any_owned_nonprimary_starbase = {
+					is_waystation_starbase = yes
+					solar_system? = { has_star_flag = $PRECURSOR_FLAG$ }
+				}
+			}
+			random_owned_nonprimary_starbase = {
+				limit = {
+					is_waystation_starbase = yes
+					solar_system? = { has_star_flag = $PRECURSOR_FLAG$ }
+				}
+				solar_system = { save_event_target_as = precursor_spawn_system }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_nonprimary_starbase = { is_waystation_starbase = yes }
+			}
+			random_owned_nonprimary_starbase = {
+				limit = { is_waystation_starbase = yes }
+				solar_system = { save_event_target_as = precursor_spawn_system }
+			}
+		}
+		else = {
+			random_owned_colony = {
+				solar_system? = { save_event_target_as = precursor_spawn_system }
+				weights = {
+					base = 1
+					modifier = {
+						add = 10
+						solar_system? = { has_star_flag = $PRECURSOR_FLAG$ }
+					}
+				}
+			}
+		}
+	}
+}
+
+create_arkship_effect = {
+	# $TYPE$     = civilian_arkship / science_arkship / military_arkship
+	# $OWNER$    = the owning country
+	# $LOCATION$ = the solar system to place the fleet in
+	create_fleet = {
+		effect = {
+			set_owner = $OWNER$
+			create_ship = {
+				name = random
+				random_existing_design = $TYPE$_tier_1
+				graphical_culture = $TYPE$
+			}
+			set_location = $LOCATION$
+		}
+	}
+}
+
+add_advanced_empire_arkship_capital_districts_effect = {
+	# scope: colony (capital Arkship)
+	fleet = {
+		starbase? = {
+			set_starbase_module = {
+				slot = 3
+				module = arkship_mining_array
+			}
+		}
+	}
+	add_district_and_planet_size_if_needed_effect = { district = district_ark_generator }
+	add_district_and_planet_size_if_needed_effect = { district = district_ark_generator }
+
+	add_district_and_planet_size_if_needed_effect = { district = district_ark_city }
+	add_district_and_planet_size_if_needed_effect = { district = district_ark_city }
+
+	if = {
+		limit = {
+			owner = {
+				is_machine_empire = yes
+			}
+		}
+		add_district_and_planet_size_if_needed_effect = { district = district_ark_generator }
+		add_district_and_planet_size_if_needed_effect = { district = district_ark_generator }
+	}
+	else = {
+		add_district_and_planet_size_if_needed_effect = { district = district_ark_basic }
+		add_district_and_planet_size_if_needed_effect = { district = district_ark_basic }
+		add_zone = {
+			district = district_ark_basic
+			zone = zone_ark_food
+			zone_slot = 0
+			replace = yes
+		}
+	}
+}
+
+add_advanced_empire_arkship_colony_districts_effect = {
+	# scope: colony (non-capital Arkship)
+	fleet = {
+		starbase? = {
+			set_starbase_module = {
+				slot = 1
+				module = arkship_mining_array
+			}
+		}
+	}
+	add_district_and_planet_size_if_needed_effect = { district = district_ark_generator }
+
+	if = {
+		limit = {
+			owner = {
+				is_machine_empire = yes
+			}
+		}
+		add_district_and_planet_size_if_needed_effect = { district = district_ark_city }
+		add_district_and_planet_size_if_needed_effect = { district = district_ark_generator }
+		add_district_and_planet_size_if_needed_effect = { district = district_ark_generator }
+	}
+	else = {
+		add_district_and_planet_size_if_needed_effect = { district = district_ark_city }
+		add_district_and_planet_size_if_needed_effect = { district = district_ark_basic }
+		add_zone = {
+			district = district_ark_basic
+			zone = zone_ark_food
+			zone_slot = 0
+			replace = yes
+		}
+	}
+}
+
+# Performs a population exchange between event_target:migrating_arkship and event_target:migrating_planet,
+# applies the per-host-planet 5-year cooldown, and notifies the host empire.
+# Callers must save migrating_planet and migrating_arkship before invoking.
+arkship_migration_effect = {
+	event_target:migrating_planet = {
+		set_timed_carrier_flag = {
+			flag = migration_happened_planet
+			years = 5
+		}
+		owner = {
+			create_message = {
+				type = MESSAGE_NOMAD_MIGRATION_HOST
+				localization = MESSAGE_NOMAD_MIGRATION_HOST_DESC
+				days = 30
+				target = root
+				variable = {
+					type = name
+					localization = COUNTRY
+					scope = root
+				}
+				variable = {
+					type = name
+					localization = PLANET
+					scope = event_target:migrating_planet
+				}
+				variable = {
+					type = name
+					localization = ARKSHIP
+					scope = event_target:migrating_arkship
+				}
+			}
+		}
+		random_owned_pop_group = {
+			resettle_pop_group = {
+				POP_GROUP = this
+				PLANET = event_target:migrating_arkship
+				AMOUNT = value:compare_resettle_attraction|ORIGIN|event_target:migrating_planet|DEST|event_target:migrating_arkship|
+			}
+		}
+	}
+	event_target:migrating_arkship = {
+		random_owned_pop_group = {
+			resettle_pop_group = {
+				POP_GROUP = this
+				PLANET = event_target:migrating_planet
+				AMOUNT = value:compare_resettle_attraction|ORIGIN|event_target:migrating_arkship|DEST|event_target:migrating_planet|
+			}
+		}
+	}
+	# Forever Cruise: set new migrant species to passenger citizenship
+	if = {
+		limit = {
+			event_target:migrating_arkship.owner = {
+				has_origin = origin_forever_cruise
+				NOT = { has_country_flag = forever_cruise_over }
+				is_hospitality_servitor_empire = no
+			}
+		}
+		event_target:migrating_arkship.owner = {
+			every_owned_species = {
+				limit = {
+					NOR = {
+						is_same_species = prev
+						has_citizenship_type = { type = citizenship_cruise_crew country = prev }
+						has_citizenship_type = { type = citizenship_cruise_passenger country = prev }
+					}
+				}
+				set_citizenship_type = {
+					type = citizenship_cruise_passenger
+					country = prev
+				}
+				set_living_standard = {
+					type = living_standard_cruise_passenger
+					country = prev
+				}
+			}
+		}
+	}
+	# Hospitality Servitor: set new migrant species to organic trophy
+	else_if = {
+		limit = {
+			event_target:migrating_arkship.owner = {
+				is_hospitality_servitor_empire = yes
+			}
+		}
+		event_target:migrating_arkship.owner = {
+			every_owned_species = {
+				limit = {
+					NOR = {
+						is_same_species = prev
+						has_citizenship_type = { type = citizenship_cruise_crew country = prev }
+						has_citizenship_type = { type = citizenship_organic_trophy country = prev }
+					}
+				}
+				set_citizenship_type = {
+					type = citizenship_organic_trophy
+					country = prev
+				}
+				set_living_standard = {
+					type = living_standard_organic_trophy
+					country = prev
+				}
+			}
+		}
+	}
+}
+
+# Releases ownership of the scoped system by destroying every starbase in it.
+# Sends mobile fleets MIA and dismantles planetary orbital stations.
+# Scope: galactic_object
+# Optional params:
+#   DONT_DISPLACE = <country target> # fleets owned by this country are left in place
+make_system_ownerless_effect = {
+	hidden_effect = {
+		every_fleet_in_system = {
+			limit = {
+				is_mobile = yes
+				exists = owner
+				[[DONT_DISPLACE]
+					NOT = { is_owned_by = $DONT_DISPLACE$ }
+				]
+			}
+			set_mia = mia_return_home
+		}
+		every_system_planet = {
+			limit = { exists = orbital_station }
+			orbital_station = { dismantle = yes }
+		}
+		space_owner? = {
+			every_owned_nonprimary_starbase = {
+				limit = { solar_system = { is_same_value = prev.prev.prev } }
+				ship = { destroy_fleet = this }
+			}
+		}
+		every_starbase_in_system = {
+			ship = { destroy_fleet = this }
+		}
+	}
+}
+
+# Scope: subject country. Erases and re-applies tribute_vault_loyalty based on tribute_vault_count.
+refresh_tribute_vault_loyalty = {
+	erase_modifier = {
+		MOD = tribute_vault_loyalty
+	}
+	if = {
+		limit = {
+			is_variable_set = tribute_vault_count
+			check_variable = {
+				which = tribute_vault_count
+				value > 0
+			}
+		}
+		add_modifier = {
+			modifier = tribute_vault_loyalty
+			multiplier = value:tribute_vault_count_mult
+			days = -1
+		}
+	}
+}

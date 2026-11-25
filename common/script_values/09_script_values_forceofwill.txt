@@ -1,0 +1,1995 @@
+meditation_bonus_pool_probability = {
+	base = 0
+	add = spirit_cultivation_bonus_pity_factor
+	mult = 10
+	add = 10
+	min = 0
+	max = 100
+}
+
+spirit_cultivation_completion_length_bonus = {
+	base = 0
+	add = spirit_cultivation_count
+	mult = 25
+}
+
+spirit_cultivation_councilor_speed_bonus = {
+	base = @path_of_the_self_council_situation_progress
+	mult = value:councilor_level|TYPE|$TYPE$|
+}
+
+spirit_cultivation_unity_bonus_percent = {
+	base = @path_of_the_self_unity_per_roll
+	mult = spirit_cultivation_unity_roll_count
+	mult = 100
+}
+
+spirit_cultivation_happiness_bonus_percent = {
+	base = @path_of_the_self_happiness_per_roll
+	mult = spirit_cultivation_happiness_roll_count
+	mult = 100
+}
+
+spirit_cultivation_stability_bonus = {
+	base = @path_of_the_self_stability_per_roll
+	mult = spirit_cultivation_stability_roll_count
+}
+
+spirit_cultivation_leader_upkeep_bonus_percent = {
+	base = @path_of_the_self_leader_upkeep_per_roll
+	mult = spirit_cultivation_leader_upkeep_roll_count
+	mult = 100
+}
+
+spirit_cultivation_leader_lifespan_bonus_percent = {
+	base = @path_of_the_self_leader_lifespan_per_roll
+	mult = spirit_cultivation_leader_lifespan_roll_count
+	mult = 100
+}
+
+spirit_cultivation_death_cult_bonus = {
+	base = 0.1
+	mult = spirit_cultivation_death_cult_roll_count
+	max = 0.5
+}
+
+spirit_cultivation_death_cult_bonus_percent = {
+	base = 0
+	add = value:spirit_cultivation_death_cult_bonus
+	mult = 100
+	max = 50
+}
+
+spirit_cultivation_death_cult_bonus_plus_one = {
+	base = 0
+	add = value:spirit_cultivation_death_cult_bonus
+	add = 1
+	max = 1.5
+}
+
+spirit_cultivation_ascensionist_bonus_percent = {
+	base = @path_of_the_self_ascensionist_per_roll
+	mult = spirit_cultivation_ascensionist_roll_count
+	mult = 100
+}
+
+spirit_cultivation_dimensional_worship_bonus = {
+	base = @path_of_the_self_dimensional_worship_per_roll
+	mult = spirit_cultivation_dimensional_worship_roll_count
+}
+
+spirit_cultivation_exalted_priesthood_bonus = {
+	base = @path_of_the_self_exalted_priesthood_per_roll
+	mult = spirit_cultivation_exalted_priesthood_roll_count
+}
+
+spirit_cultivation_exalted_priesthood_high_priest_bonus = {
+	base = @path_of_the_self_exalted_priesthood_high_priest_per_roll
+	mult = spirit_cultivation_exalted_priesthood_roll_count
+}
+
+spirit_cultivation_gospel_masses_bonus = {
+	base = 1
+	mult = spirit_cultivation_gospel_masses_roll_count
+	max = 3
+}
+
+leader_level_half_experience = {
+	base = 1
+	complex_trigger_modifier = {
+		trigger = get_leader_exp_to_level
+		parameters = {
+			target = $LEADER$
+		}
+		mode = mult
+	}
+	mult = 0.5
+}
+
+spirit_cultivation_bonus_per_planet_meditation = {
+	base = @path_of_the_self_meditation_situation_progress
+	mult = spirit_cultivation_planet_decision_pops
+	divide = 100
+}
+
+meditation_cost_per_pop_value = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		mode = add
+		mult = 0.001
+	}
+	ceiling = yes
+	max = 10
+}
+
+# Ideology Reach calculation
+
+calc_resource_income_weighted = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = planet_resource_compare
+		parameters = {
+			resource = $RESOURCE$
+		}
+		mode = add
+	}
+	mult = $WEIGHT|1$
+}
+
+free_amenities_weighted = {
+	base = 0
+	modifier = {
+		add = trigger:free_amenities
+	}
+	mult = $WEIGHT|1$
+}
+
+# Pop followers
+
+pop_ideology_amount_value = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = pop_ideology_amount
+		parameters = {
+			ideology = $IDEOLOGY$
+		}
+		mode = add
+	}
+	mult = $WEIGHT|1$
+}
+
+pop_ideology_percentage_value = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = pop_ideology_percentage
+		parameters = {
+			ideology = $IDEOLOGY$
+		}
+		mode = add
+	}
+	min = 0
+}
+
+pop_any_ideology_percentage_value = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = pop_ideology_percentage
+		parameters = {
+			ideology = any
+		}
+		mode = add
+	}
+	min = 0
+}
+
+pop_other_ideology_percentage_value = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = pop_ideology_percentage
+		parameters = {
+			ideology = any
+		}
+		mode = add
+	}
+	complex_trigger_modifier = {
+		trigger = pop_ideology_percentage
+		parameters = {
+			ideology = $IDEOLOGY$
+		}
+		mode = subtract
+	}
+	min = 0
+}
+
+species_on_council = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_species_on_council
+		mode = add
+	}
+}
+
+ideology_intel_from_galcom_total = {
+	base = 5
+	complex_trigger_modifier = {
+		trigger = count_galcom_member
+		parameters = {
+			limit = {
+				ideology? = {
+					is_same_value = root.from
+				}
+			}
+		}
+		mode = mult
+	}
+}
+
+calc_downplay_ai_selection = {
+	base = 0
+	add = value:pop_ideology_amount_value|IDEOLOGY|root.owner.ideology|WEIGHT|0.01|
+	mult = 3
+}
+
+ideology_intel_from_galcom = {
+	base = 0
+	modifier = {
+		add = value:ideology_intel_from_galcom_total
+		is_galactic_community_member = yes
+	}
+}
+
+# Root = Country
+# From = Ideology
+ideology_intel_from_country_intel = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger_scope = from
+		trigger = total_intel_towards_adopting_countries
+		parameters = {
+			who = prev
+		}
+		mode = add
+	}
+	divide = 10
+	mult = 5
+}
+
+# Root = Country
+# Pop growth speed modifier
+logistic_growth_mult = {
+	base = 1
+	add = root.modifier:logistic_growth_mult
+}
+
+# Immigration bureau amount of generated pops base
+calc_immigration_bureau_pops_per_month_base = {
+	base = @immigration_bureau_pops_per_month
+	mult = value:logistic_growth_mult
+	complex_trigger_modifier = {
+		trigger_scope = $OWNER$
+		trigger = growth_scale
+		mode = divide
+	}
+}
+
+# Immigration bureau amount of generated pops for neighbor
+calc_immigration_bureau_pops_per_neighbor = {
+	base = 0
+	add = value:calc_immigration_bureau_pops_per_month_base|OWNER|$OWNER$|
+	modifier = {
+		mult = @immigration_bureau_closed_borders_mult
+		OR = {
+			$OWNER$ = { has_closed_borders = $NEIGHBOR$ }
+			$NEIGHBOR$ = { has_closed_borders = $OWNER$ }
+		}
+	}
+}
+
+# Immigration bureau amount of generated pops for localization
+calc_immigration_bureau_pops_loc = {
+	base = 0
+	add = value:calc_immigration_bureau_pops_per_month_base|OWNER|$OWNER$|
+	mult = value:calc_immigration_bureau_pops_loc_system_mult|OWNER|$OWNER$|
+	round_to = 0.01
+}
+
+calc_immigration_bureau_pops_loc_system_mult = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_country_neighbor_to_system
+		trigger_scope = from.solar_system
+		parameters = {
+			limit = {
+				is_immigration_bureau_neighbor_valid = { OWNER = $OWNER$ }
+				any_owned_pop_group = { can_pop_group_generate = yes }
+				OR = {
+					has_closed_borders = $OWNER$
+					$OWNER$ = { has_closed_borders = prev }
+				}
+			}
+		}
+		mult = @immigration_bureau_closed_borders_mult
+		mode = add
+	}
+	complex_trigger_modifier = {
+		trigger = count_country_neighbor_to_system
+		trigger_scope = from.solar_system
+		parameters = {
+			limit = {
+				is_immigration_bureau_neighbor_valid = { OWNER = $OWNER$ }
+				any_owned_pop_group = { can_pop_group_generate = yes }
+				NOR = {
+					has_closed_borders = $OWNER$
+					$OWNER$ = { has_closed_borders = prev }
+				}
+			}
+		}
+		mode = add
+	}
+}
+
+fanatic_faction_approval_bonus = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = faction_approval_above_threshold
+		parameters = {
+			limit = {
+				is_faction_fanatic = yes
+				ideology? = { is_same_value = root.from }
+			}
+			threshold = $THRESHOLD|0$
+		}
+		mode = add
+		mult = 100
+	}
+	round = yes
+	mult = $WEIGHT|1$
+}
+
+# Ideological Strength
+
+# Player-only ideological strength handicap on easier difficulties
+# This = country
+ideological_strength_difficulty_bonus = {
+	modifier = {
+		add = 0.5
+		is_difficulty = 0
+		is_ai = no
+	}
+	modifier = {
+		add = 0.25
+		is_difficulty = 1
+		is_ai = no
+	}
+}
+
+get_ideological_strength_bonus_mult = {
+	add = root.owner.value:scripted_modifier_mult|MODIFIER|ideological_strength_bonus_mult|
+	add = root.owner.value:ideological_strength_difficulty_bonus
+}
+
+get_ideological_strength_bonus_mult_loc = {
+	add = value:scripted_modifier_mult|MODIFIER|ideological_strength_bonus_mult|
+	add = value:ideological_strength_difficulty_bonus
+}
+
+get_ideological_strength_malus_mult = {
+	add = root.owner.value:scripted_modifier_mult|MODIFIER|ideological_strength_malus_mult|
+}
+
+galactic_strength_percentage = {
+	base = 100
+	mult = trigger:galactic_strength
+}
+
+# This: Country, From: Ideology
+adopted_ideology_galactic_strength_percentage = {
+	base = 0
+	add = from.value:galactic_strength_percentage
+	round_to = 0.1
+}
+
+galactic_strength_bonus = {
+	base = @ideology_strength_per_galactic_strength_share
+	modifier = {
+		set = @ideology_strength_per_galactic_strength_share_gestalt
+		is_gestalt = yes
+	}
+	modifier = {
+		mult = 0.6
+		galaxy_size = tiny
+	}
+	modifier = {
+		mult = 0.8
+		galaxy_size = small
+	}
+	modifier = {
+		mult = 1
+		galaxy_size = medium
+	}
+	modifier = {
+		mult = 1.2
+		galaxy_size = large
+	}
+	modifier = {
+		mult = 1.3
+		galaxy_size = huge
+	}
+	mult = from.value:galactic_strength_percentage
+}
+
+# Ideology followers
+ideology_total_followers = {
+	base = 0
+	add = root.from.trigger:followers_amount
+}
+
+# Ideology followers (safe for divide)
+ideology_total_followers_floored = {
+	base = 0
+	add = value:ideology_total_followers
+	min = 1
+}
+
+# Share of the Ideology followed by our pops
+ideology_population_share = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = ideology_followers_amount
+		parameters = {
+			ideology = root.from
+		}
+		mode = add
+	}
+	divide = value:ideology_total_followers_floored
+	min = 0
+	max = 1
+}
+
+ideology_population_share_bonus = {
+	base = 0
+	add = value:galactic_strength_bonus
+	mult = @ideology_strength_population_share_mult
+	mult = value:ideology_population_share
+}
+
+ideology_population_share_percent = {
+	base = 0
+	add = value:ideology_population_share
+	mult = 100
+	round = yes
+}
+
+clashing_ideologies_count = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_clashing_ideologies
+		trigger_scope = from
+		parameters = {
+			is_ideology_rival = no
+		}
+		mode = add
+	}
+}
+
+clashing_rival_ideologies_count = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_clashing_ideologies
+		trigger_scope = from
+		parameters = {
+			is_ideology_rival = yes
+		}
+		mode = add
+	}
+	mult = root.owner.value:scripted_modifier_mult|MODIFIER|ideological_strength_from_clashes_mult|
+	mult = value:get_ideological_strength_bonus_mult
+}
+
+clashing_ideologies_bonus = {
+	base = 0
+	add = value:clashing_ideologies_count
+	mult = @ideology_strength_per_clash
+}
+
+clashing_rival_ideologies_bonus = {
+	base = 0
+	add = value:clashing_rival_ideologies_count
+	mult = @ideology_strength_per_rival_clash
+}
+
+# How much more a Rival Clash gives over a regular one
+ideology_rival_clash_bonus_percent = {
+	base = @ideology_strength_per_rival_clash
+	divide = @ideology_strength_per_clash
+	subtract = 1
+	mult = 100
+	round = yes
+}
+
+ideological_default_buildings_bonus = {
+	inline_script = {
+		script = forceofwill/ideological_buildings_strength
+		TIER_1 = building_ideological_hall
+		TIER_2 = building_ideological_institute
+		TIER_3 = building_ideological_citadel
+	}
+}
+
+ideological_spiritualist_buildings_bonus = {
+	inline_script = {
+		script = forceofwill/ideological_buildings_strength
+		TIER_1 = building_ideological_church
+		TIER_2 = building_ideological_high_church
+		TIER_3 = building_ideological_sanctum
+	}
+}
+
+ideological_hive_buildings_bonus = {
+	inline_script = {
+		script = forceofwill/ideological_buildings_strength
+		TIER_1 = building_ideological_creche
+		TIER_2 = building_ideological_greater_creche
+		TIER_3 = building_ideological_grand_creche
+	}
+}
+
+ideological_machine_buildings_bonus = {
+	inline_script = {
+		script = forceofwill/ideological_buildings_strength
+		TIER_1 = building_ideological_core
+		TIER_2 = building_ideological_grid
+		TIER_3 = building_ideological_nexus
+	}
+}
+
+ideological_buildings_bonus = {
+	modifier = {
+		add = value:ideological_default_buildings_bonus
+		is_gestalt = no
+		ideology = { is_spiritualist = no }
+	}
+	modifier = {
+		add = value:ideological_spiritualist_buildings_bonus
+		is_gestalt = no
+		ideology = { is_spiritualist = yes }
+	}
+	modifier = {
+		add = value:ideological_hive_buildings_bonus
+		is_hive_empire = yes
+	}
+	modifier = {
+		add = value:ideological_machine_buildings_bonus
+		is_machine_empire = yes
+	}
+}
+
+galactic_hall_bonus = {
+	base = 0
+	modifier = {
+		add = @ideology_strength_per_galactic_hall
+		any_owned_megastructure = {
+			is_megastructure_galactic_halls = yes
+			exists = colony
+		}
+	}
+}
+
+ideology_fanatic_faction_approval_percent = {
+	base = @ideology_strength_per_fanatic_faction_approval
+	mult = 100
+	round = yes
+}
+
+fanatic_faction_approval_mult = {
+	base = 1
+	add = value:fanatic_faction_approval_bonus|THRESHOLD|0.5|WEIGHT|@ideology_strength_per_fanatic_faction_approval|
+	min = 1
+	max = @ideology_strength_max_fanatic_faction_approval_mult
+}
+
+social_concord_strength_bonus = {
+	base = @social_concord_ideological_strength
+}
+
+advocate_total_skill = {
+	base = 0
+	modifier = {
+		exists = advocate
+		add = advocate.trigger:has_total_skill
+	}
+}
+
+advocate_bonus = {
+	base = 1
+	add = modifier:advocate_matching_ideological_strength_mult
+	add = modifier:advocate_ideological_strength_mult
+	min = 0.1
+	mult = @ideology_strength_advocate_per_skill
+	mult = value:advocate_total_skill
+}
+
+martyr_ideological_strength_mult = {
+	base = @martyr_ideological_strength_mult
+	mult = cultural_envoys_martyred
+}
+
+martyr_ideological_strength_bonus_loc = {
+	base = 0
+	add = value:martyr_ideological_strength_mult
+	mult = value:get_ideological_strength_bonus_mult_loc
+}
+
+ideology_act_bonus = {
+	base = 0
+	modifier = {
+		add = @resolution_ideology_act_strength_authority
+		ideology? = { is_ideology_custodian = root }
+	}
+	modifier = {
+		add = @resolution_ideology_act_strength
+		NOT = {
+			ideology? = { is_ideology_custodian = root }
+		}
+	}
+	min = 0
+}
+
+# How much more the Ideology's Authority gets out of the Resolution
+ideology_act_authority_bonus_percent = {
+	base = @resolution_ideology_act_strength_authority
+	divide = @resolution_ideology_act_strength
+	subtract = 1
+	mult = 100
+	round = yes
+}
+
+ideology_level_malus = {
+	base = 0
+	add = trigger:ideological_strength
+	min = 0
+	mult = @ideology_strength_malus_level_rate
+}
+
+strength_empire_size_malus = {
+	add = trigger:empire_size
+	subtract = 100
+	round = yes
+	min = 0
+	mult = @ideology_strength_malus_per_size
+}
+
+following_concurrent_pop_malus = {
+	set = value:pop_other_ideology_percentage_value|IDEOLOGY|root.from|
+	mult = 100
+	mult = @ideology_strength_malus_per_foreign_pop_percent
+}
+
+low_fanatic_faction_malus = {
+	base = 0
+	modifier = {
+		add = @ideology_strength_malus_low_fanatic_faction
+		any_pop_faction = {
+			is_faction_fanatic = yes
+			ideology? = { is_same_value = root.from }
+			faction_approval < 0.25
+		}
+	}
+}
+
+denounced_ideology_malus = {
+	base = 0
+	add = @denounced_ideology_malus_value
+	min = 0
+}
+
+count_owned_pop_job_type = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = num_assigned_jobs
+		parameters = {
+			job = $JOB_TYPE$
+		}
+		mode = add
+	}
+}
+
+count_owned_pop_category = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		parameters = {
+			limit = {
+				is_pop_category = $CATEGORY$
+			}
+		}
+		mode = add
+	}
+	divide = $DIVIDE$
+}
+
+count_owned_pop_owner_species = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		parameters = {
+			limit = {
+				is_same_species = root.owner
+			}
+		}
+		mode = add
+	}
+	divide = $DIVIDE$
+}
+
+count_owned_job_workforce = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_workforce
+		parameters = {
+			limit = {
+				has_job_type = $JOB$
+			}
+		}
+		mode = add
+	}
+	divide = $DIVIDE|100$
+}
+
+sow_peace_player_applied_counter = {
+	base = 0
+	modifier = {
+		is_variable_set = sow_peace_applied_counter@from
+		add = sow_peace_applied_counter@from
+	}
+	modifier = {
+		is_variable_set = local_stacks_counter
+		add = local_stacks_counter
+	}
+}
+
+sow_peace_intel_requirement = {
+	base = @sow_peace_stack_intel_requirement
+	mult = value:sow_peace_player_applied_counter
+	max = 100
+}
+
+sow_peace_next_applied_counter = {
+	base = 1
+	modifier = {
+		is_variable_set = sow_peace_applied_counter@from
+		add = sow_peace_applied_counter@from
+	}
+}
+
+sow_peace_next_intel_requirement = {
+	base = @sow_peace_stack_intel_requirement
+	mult = value:sow_peace_next_applied_counter
+	max = 100
+}
+
+new_sow_peace_stacks_counter = {
+	base = 0
+	modifier = {
+		is_variable_set = sow_peace_stacks
+		add = sow_peace_stacks
+	}
+	modifier = {
+		is_variable_set = local_stacks_counter
+		add = local_stacks_counter
+	}
+}
+
+# This = Planet
+immigration_bureau_planet_priority = {
+	base = 1
+	complex_trigger_modifier = {
+		trigger_scope = this
+		trigger = migration_score
+		mode = mult
+	}
+	modifier = { # Limit
+		event_target:migrating_species = {
+			NOT = { can_live_on_planet = prev }
+		}
+		mult = 0
+	}
+	modifier = { # Limit
+		can_colony_receive_auto_migration = no
+		mult = 0
+	}
+}
+
+tenet_laterality_specialist_output_mult = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		parameters = {
+			limit = {
+				OR = {
+					is_pop_category = ruler
+					is_pop_category = worker
+				}
+			}
+		}
+		mode = add
+	}
+	divide = 100
+}
+
+count_active_envoys = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_envoy
+		parameters = {
+			limit = {
+				NOT = {
+					has_envoy_task = {
+						task = none
+					}
+				}
+			}
+		}
+		mode = add
+	}
+}
+
+count_colonies_in_ideology = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_colonies_in_ideology
+		mode = add
+	}
+}
+
+next_active_tenet_index = {
+	base = 1
+	complex_trigger_modifier = {
+		trigger = num_active_tenets
+		mode = add
+	}
+}
+
+tenet_tier_as_factor = {
+	base = $VALUE$
+	complex_trigger_modifier = {
+		trigger = get_tenet_tier
+		parameters = {
+			tenet = $TENET_KEY$
+		}
+		mode = mult
+	}
+}
+
+count_researchers_div_100 = {
+	base = 0
+	add = value:count_owned_job_workforce|JOB|physicist|
+	add = value:count_owned_job_workforce|JOB|biologist|
+	add = value:count_owned_job_workforce|JOB|engineer|
+}
+
+count_calculator_div_100 = {
+	base = 0
+	add = value:count_owned_job_workforce|JOB|calculator_physicist|
+	add = value:count_owned_job_workforce|JOB|calculator_biologist|
+	add = value:count_owned_job_workforce|JOB|calculator_engineer|
+}
+
+tenet_tier_as_exponent_of_factor = {
+	base = $FACTOR|1$
+	complex_trigger_modifier = {
+		trigger = get_tenet_tier
+		parameters = {
+			tenet = $TENET_KEY$
+		}
+		mode = pow
+	}
+	divide = $FACTOR|1$ # allows to have 0/1/2 as powers, making a tier 1 tenet compute a *1 multiplication
+}
+num_active_tenets_as_exponent_of_factor = {
+	base = $FACTOR|1$
+	complex_trigger_modifier = {
+		trigger = num_active_tenets
+		mode = pow
+	}
+}
+
+count_owned_leaders = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_leader
+		mode = add
+		parameters = {
+			limit = {
+				is_gestalt_node = no
+			}
+		}
+	}
+}
+
+count_adopting_country_maxed = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_country
+		parameters = {
+			limit = {
+				exists = ideology
+				ideology = { is_same_value = root.prev }
+			}
+		}
+		mode = add
+	}
+	mult = $WEIGHT|1$
+	max = $MAX$
+}
+
+lost_makers_irassian_population_control_buff = {
+	base = 1
+	modifier = {
+		owner? = {
+			has_active_tenet = tenet_lost_makers_irassian
+		}
+		add = 0.30
+	}
+}
+
+count_country_embassies_bonus = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_playable_country
+		parameters = {
+			limit = {
+				has_communications = root.from
+				root.from = {
+					has_embassy = prev
+				}
+			}
+		}
+		mode = add
+	}
+}
+
+tenet_integration_pop_growth_bonus = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = num_unique_species
+		mode = add
+	}
+	max = 10
+}
+
+galactic_hall_extra_upkeep = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = ideological_strength
+		mode = add
+		mult = 0.01
+	}
+	floor = yes
+	min = 0
+}
+
+custodian_influence_upkeep = {
+	base = 0.5
+	modifier = {
+		is_gestalt = yes
+		add = 0.5
+	}
+}
+
+calc_ideology_influence_upkeep = {
+	base = 0
+	add = value:next_active_tenet_index
+	mult = 0.25
+	modifier = {
+		$IDEOLOGY$ = { is_ideology_custodian = root }
+		add = value:custodian_influence_upkeep
+	}
+}
+
+increased_foreign_ideology_deviancy = {
+	base = 0
+	modifier = {
+		add = foreign_ideology_deviancy_value
+		is_variable_set = foreign_ideology_deviancy_value
+	}
+	add = @foreign_ideology_deviancy_monthly_increase
+	max = @max_foreign_ideology_deviancy
+}
+
+decreased_foreign_ideology_deviancy = {
+	base = 0
+	modifier = {
+		add = foreign_ideology_deviancy_value
+		is_variable_set = foreign_ideology_deviancy_value
+	}
+	subtract = @foreign_ideology_deviancy_monthly_increase
+	min = 0
+}
+
+calc_planet_ideological_strength_mult_low_deviancy = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		mode = add
+		mult = @ideology_strength_per_100_pops_low_deviancy
+	}
+	divide = 100
+}
+
+calc_planet_ideological_strength_mult_high_deviancy = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		mode = subtract
+		mult = @ideology_strength_per_100_pops_per_high_deviancy
+	}
+	mult = trigger:planet_crime
+	divide = 100
+}
+
+ai_ideology_affinity_from_pops_adoption = {
+	base = 0
+	add = value:pop_ideology_percentage_value|IDEOLOGY|root.from|
+	mult = 50
+	max = 50
+}
+
+# ideological_total_pops must be set and > 0
+ai_ideology_affinity_from_reach_coverage_base = {
+	base = 0
+	modifier = {
+		add = pops_under_reach_of_@from
+		is_affected_by_ideology = from
+		is_variable_set = pops_under_reach_of_@from
+	}
+	divide = ideological_total_pops
+}
+
+ai_ideology_affinity_from_reach_coverage = {
+	base = 0
+	modifier = {
+		add = value:ai_ideology_affinity_from_reach_coverage_base
+		check_variable = {
+			which = ideological_total_pops
+			value > 0
+		}
+	}
+	mult = 20
+}
+
+ai_ideology_affinity_from_matching_ethic = {
+	base = 5
+	complex_trigger_modifier = {
+		trigger = ideology_ethic_fanatic_level
+		parameters = {
+			ideology = from
+		}
+		mode = mult
+	}
+}
+
+ai_ideology_affinity_from_opposing_ethic = {
+	# -20 per fanatic level, offset +5: normal -5, fanatic -25
+	base = -20
+	complex_trigger_modifier = {
+		trigger = ideology_ethic_fanatic_level
+		parameters = {
+			ideology = from
+		}
+		mode = mult
+	}
+	add = 5
+}
+
+ai_ideology_affinity_from_non_matching_ethic = {
+	base = -2
+	modifier = {
+		subtract = 2
+		is_fanatic = yes
+	}
+}
+
+ai_ideology_affinity_from_wars = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = ideology_war_penalty
+		parameters = {
+			ideology = $IDEOLOGY$
+		}
+		mode = add
+	}
+}
+
+get_reach_score_pow = {
+	base = 1
+	divide = 0.35
+}
+
+get_reach_score = {
+	base = 0
+	add = $VALUE$
+	add = 10
+	mult = 0.1
+	pow = value:get_reach_score_pow
+}
+
+galactic_hall_ideological_strength_reach = {
+	base = 0
+	add = trigger:ideological_strength_percent
+}
+galactic_hall_galactic_strength_reach = {
+	base = 0
+	add = ideology.trigger:galactic_strength
+	square_root = yes
+	mult = 0.5
+	add = 1
+}
+
+galactic_hall_reach = {
+	base = @galactic_hall_base_reach
+	mult = value:galactic_hall_ideological_strength_reach
+}
+
+galactic_hall_reach_score = {
+	base = 0
+	add = value:get_reach_score|VALUE|value:galactic_hall_reach|
+}
+
+galactic_hall_relocate_cooldown = {
+	complex_trigger_modifier = {
+		trigger = timed_flag_days_left
+		parameters = {
+			flag = recently_relocated_hall
+		}
+		mode = add
+	}
+}
+
+# This: waystation starbase (ideology array module)
+# From: the ideology
+get_combined_arkship_reach = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = combined_emitter_reach
+		parameters = {
+			ideology = from
+			limit = {
+				is_scope_type = colony
+				is_planet_class = pc_ark
+			}
+		}
+		mode = add
+	}
+	mult = @waystation_reach_output_ratio
+	mult = value:combined_arkship_reach_network_mult
+}
+
+combined_arkship_reach_network_mult = {
+	base = 1
+	add = value:combined_arkship_reach_network_bonus
+}
+
+combined_arkship_reach_network_bonus = {
+	base = 0
+	add = trigger:starbase_network_size
+	mult = @waystation_reach_network_bonus
+}
+
+get_ai_ethic_constant = {
+	base = 0.05
+	modifier = {
+		add = 0.2
+		is_fanatic = yes
+	}
+	modifier = {
+		is_variable_set = ai_generate_ideology_constant
+		set = ai_generate_ideology_constant
+	}
+}
+get_ai_ethic_max_chance = {
+	base = 10
+	modifier = {
+		add = 50
+		is_fanatic = yes
+	}
+}
+ai_roll_generate_ideology = {
+	base = 0
+	add = value:get_resource_ratio|RESOURCE|unity|RATIO|@advocate_faction_unity_cost|
+	max = value:get_resource_ratio|RESOURCE|influence|RATIO|@advocate_faction_influence_cost|
+	subtract = 1
+	mult = value:get_ai_ethic_constant
+	mult = 100
+	min = 0
+	max = value:get_ai_ethic_max_chance
+}
+
+ai_roll_embrace_faction_base_value = {
+	base = 0.2
+}
+calc_embrace_faction_yearly_bonus = {
+	base = 0
+	add = embrace_faction_yearly_value
+	max = 50
+}
+ai_roll_embrace_faction = {
+	base = 0.2
+	modifier = {
+		add = 0.8
+		is_fanatic = no # Base value of 1 to turn fanatic
+	}
+	mult = value:calc_embrace_faction_yearly_bonus
+	mult = 20
+}
+
+ai_roll_adopt_ideology = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = foreign_ideology_affinity
+		parameters = {
+			ideology = $SCOPE$
+		}
+		mode = add
+	}
+	min = 0
+	max = 100
+}
+
+calc_suppress_ideology_cost_diff = {
+	base = 0
+	add = value:pop_ideology_amount_value|IDEOLOGY|from|
+	mult = 0.0025
+	mult = 3
+	complex_trigger_modifier = {
+		trigger = has_monthly_income
+		parameters = {
+			resource = unity
+		}
+		mode = subtract
+	}
+}
+
+united_effort_workforce_value = {
+	base = 0
+	add = @living_standard_united_effort_workforce
+	modifier = {
+		mult = value:tenet_tier_as_exponent_of_factor|FACTOR|2|TENET_KEY|tenet_participation|
+		has_active_tenet = tenet_participation
+	}
+	modifier = {
+		mult = value:num_active_tenets_as_exponent_of_factor|FACTOR|2|TENET_KEY|tenet_participation|
+		NOT = { has_active_tenet = tenet_participation }
+	}
+	mult = 100
+	round = yes
+}
+
+count_years_of_peace_maxed = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = years_of_peace
+		mode = add
+	}
+	max = $MAX$
+}
+
+count_leaders_in_training = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_leader_in_training
+		mode = add
+	}
+}
+
+count_golden_generation_leaders = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_leader
+		parameters = {
+			limit = {
+				has_trait = leader_trait_golden_generation
+			}
+		}
+		mode = add
+	}
+}
+
+count_golden_generation_councilors = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_leader
+		parameters = {
+			limit = {
+				is_councilor = yes
+				has_trait = leader_trait_golden_generation
+			}
+		}
+		mode = add
+	}
+	subtract = $OFFSET|0$
+}
+
+calc_monthly_resource = {
+	base = 0
+	add = $BASE_VAR$
+	mult = $VALUE$
+	mult = $MULT$
+	round = yes
+	min = $MIN$
+	max = $MAX$
+}
+
+tenet_disarmament_opinion_per_level = {
+	base = 0.0
+	modifier = {
+		set = @tenet_disarmament_opinion_max_1
+		has_active_tenet = tenet_disarmament
+	}
+	modifier = {
+		set = @tenet_disarmament_opinion_max_2
+		root.owner = {
+			check_variable = {
+				which = disarmament_tier
+				value = 2
+			}
+		}
+	}
+	modifier = {
+		set = @tenet_disarmament_opinion_max_3
+		root.owner = {
+			check_variable = {
+				which = disarmament_tier
+				value = 3
+			}
+		}
+	}
+}
+
+tenet_disarmament_stability_per_level = {
+	base = 0
+	modifier = {
+		set = @tenet_disarmament_stability_1
+		owner = {
+			check_variable = {
+				which = disarmament_tier
+				value = 1
+			}
+		}
+	}
+	modifier = {
+		set = @tenet_disarmament_stability_2
+		owner = {
+			check_variable = {
+				which = disarmament_tier
+				value = 2
+			}
+		}
+	}
+	modifier = {
+		set = @tenet_disarmament_stability_3
+		owner = {
+			check_variable = {
+				which = disarmament_tier
+				value = 3
+			}
+		}
+	}
+}
+
+ideological_influence_from_fleets = {
+	base = $BASE$
+	complex_trigger_modifier = {
+		trigger = count_ship_size_in_orbit
+		trigger_scope = starbase
+		parameters = {
+			limit = {
+				is_owned_by = root.fromfrom
+				is_ship_class = shipclass_military
+			}
+		}
+		mode = mult
+	}
+	modifier = {
+		owner = {
+			has_edict = fleet_supremacy
+			is_militarist = yes
+		}
+
+		mult = 1.10
+	}
+	max = 1
+}
+
+ideological_resistance_from_borders = {
+	modifier = {
+		add = -0.05 # Open Borders
+		fromfrom = { NOT = { has_closed_borders = root.from } }
+	}
+	modifier = {
+		add = value:ideological_resistance_from_closed_borders
+		fromfrom = { has_closed_borders = root.from }
+	}
+}
+
+ideological_resistance_from_closed_borders = {
+	base = 0.125
+	mult = root.fromfrom.value:scripted_modifier_mult|MODIFIER|ideological_resistance_from_closed_borders_mult|
+}
+
+ideological_resistance_from_rival_ideology = {
+	base = 0
+	add = root.fromfrom.modifier:ideological_resistance_vs_rival_mult
+}
+
+foreign_starbase_resistance = {
+	base = 0
+	modifier = {
+		add = 0.05
+		starbase = { has_starbase_size = starbase_starport }
+	}
+	modifier = {
+		add = 0.1
+		starbase = { has_starbase_size = starbase_starhold }
+	}
+	modifier = {
+		add = 0.15
+		starbase = { has_starbase_size = starbase_starfortress }
+	}
+	modifier = {
+		add = 0.2
+		starbase = { has_starbase_size = starbase_citadel }
+	}
+}
+
+harmonicism_resolutions_effect_mult_calc = {
+	base = 1
+	add = root.modifier:harmonicism_resolutions_effect_mult
+}
+
+leader_cost_rounded_up = {
+	base = $BASE$
+	mult = $LEADER$.value:leader_cost
+	ceiling = yes
+}
+
+cultural_envoy_conversion_modifier_mult = {
+	base = 1
+	add = modifier:cultural_envoy_opinion_loss_mult
+	min = 0.1
+}
+
+# Scope: envoy fleet
+# +10 per leader level above 1, clamped at 0
+cultural_envoy_extra_level_bonus = {
+	complex_trigger_modifier = {
+		trigger = has_base_skill
+		trigger_scope = leader
+		mode = add
+	}
+	subtract = 1
+	mult = 10
+	min = 0
+}
+
+# Scope: envoy fleet
+# Pops converted per month by a Cultural Envoy fleet
+cultural_envoy_conversion_amount = {
+	base = 100
+	add = value:cultural_envoy_extra_level_bonus
+	add = modifier:cultural_envoy_conversion_rate_add
+	modifier = {
+		solar_system? = {
+			is_within_ideology_reach = prev.owner.ideology
+		}
+		mult = @cultural_envoy_inside_ideological_reach_conversion_mult
+	}
+}
+
+cultural_envoy_leader_experience = {
+	base = 50
+	mult = value:scripted_modifier_mult|MODIFIER|cultural_envoy_leader_exp_gain_mult|
+}
+
+# Scope: colony being converted
+# Number of owned pop groups that still have pops not yet following the envoy's ideology
+cultural_envoy_convertible_group_count = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_group
+		mode = add
+		parameters = {
+			limit = {
+				pop_group_convertible_by_cultural_envoy = yes
+			}
+		}
+	}
+}
+
+ideological_revolt_distance_to_target = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = distance
+		trigger_scope = capital_scope
+		mode = add
+		parameters = {
+			source = event_target:revolt_situation.target
+		}
+	}
+}
+
+reach_resistance_from_encryption = {
+	base = 0.05
+	complex_trigger_modifier = {
+		trigger = relative_encryption_decryption_subtract
+		mode = mult
+		parameters = {
+			target = $SCOPE$
+		}
+	}
+	max = 0
+	min = -0.5
+}
+
+galactic_hall_leader_chance = {
+	base = 1000 # 100 * 10 for more precision
+	divide = value:galactic_hall_leader_invert_chance
+	round = yes
+}
+
+ideological_strength_percent_weighted = {
+	base = 0
+	add = trigger:ideological_strength_percent # 0.0 - 1.0
+	mult = $WEIGHT$
+}
+
+galactic_hall_leader_invert_chance = {
+	base = 0
+	add = galactic_hall_paragon_chance
+	divide = 12 # 1% per year
+	floor = yes
+	add = value:ideological_strength_percent_weighted|WEIGHT|10|
+}
+
+reach_from_civic_dystopian_society = {
+	base = 0
+	add = owner.value:scripted_modifier_add|MODIFIER|civic_dystopian_society_ideological_reach|
+	mult = value:count_owned_pop_category|CATEGORY|ruler|DIVIDE|1|
+	divide = 100
+}
+
+reach_from_civic_shared_burden = {
+	base = 0
+	add = owner.value:scripted_modifier_add|MODIFIER|civic_shared_burden_ideological_reach|
+	mult = value:count_owned_pop_category|CATEGORY|civilian|DIVIDE|1|
+	divide = 100
+}
+
+fanatic_purifiers_purged_pop_ideological_strength = {
+	add = purged_pop_count
+	mult = @fanatic_purifiers_ideological_strength_per_pop_purged
+	max = 2
+}
+
+open_stars_sovereignty_strength_bonus = {
+	base = @building_ideological_strength
+	complex_trigger_modifier = {
+		trigger = count_starbase_buildings
+		parameters = {
+			type = immigration_bureau
+			limit = {
+				NOT = { has_starbase_flag = immigration_bureau_invalid }
+			}
+		}
+		mode = mult
+	}
+}
+
+celebrate_ideology_strength_bonus = {
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		parameters = {
+			limit = {
+				planet = {
+					has_modifier = celebrate_ideology
+				}
+			}
+		}
+		mode = add
+		mult = @ideology_strength_per_100_celebrating_pops
+	}
+	divide = 100
+}
+
+tranquil_steward_strength_bonus = {
+	base = 0
+	add = @leader_trait_tranquil_steward_strength
+}
+
+forceofwill_ambition_pop_conversion_galaxy_size = {
+	base = 0
+	modifier = {
+		add = 1
+		galaxy_size = tiny
+	}
+	modifier = {
+		add = 2
+		galaxy_size = small
+	}
+	modifier = {
+		add = 3
+		galaxy_size = medium
+	}
+	modifier = {
+		add = 4
+		galaxy_size = large
+	}
+	modifier = {
+		add = 5
+		galaxy_size = huge
+	}
+}
+
+embrace_ai_weight = {
+	base = 1
+	modifier = {
+		factor = 0
+		has_force_of_will_dlc = yes # Willpower DLC requires Ideologies to embrace factions
+	}
+	modifier = {
+		add = 10
+		has_pop_faction_flag = ai_triggered_embrace
+	}
+	modifier = {
+		factor = 0
+		support < 0.50
+		owner = {
+			is_$ETHIC$ = yes
+		}
+	}
+	modifier = {
+		factor = 0
+		owner = { has_valid_civic = civic_fanatic_purifiers }
+	}
+	modifier = {
+		factor = 0
+		has_force_of_will_dlc = no # We want AIs to embrace factions if they have an Ideology
+		owner = {
+			count_pop_faction = {
+				count < 4
+			}
+		}
+	}
+}
+
+# Scope: Pop faction
+# +0.01 per pop from the faction's owner within the ideology's reach
+ideological_faction_attraction_from_pops = {
+	base = 0
+	modifier = {
+		add = owner.pops_under_reach_of_@prev.ideology
+		owner? = {
+			is_affected_by_ideology = prev.ideology
+			is_variable_set = pops_under_reach_of_@prev.ideology
+		}
+	}
+	mult = @ideological_faction_attraction_per_pop
+}
+
+# Scope: Pop faction
+# +5 per approval point below 50 (max +250)
+attraction_from_approval = {
+	base = @ideological_faction_attraction_approval_threshold
+	subtract = trigger:faction_approval
+	min = 0
+	mult = 100 # Ratio to points
+	mult = @ideological_faction_attraction_per_approval_point
+	max = @ideological_faction_attraction_approval_max
+}
+
+# Scope: Colony
+# Total pops on the colony, used to accumulate pops within an ideology's reach
+ideological_reach_colony_pops = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		mode = add
+	}
+}
+
+# Scope: planet/building
+unitary_admin_nomad_cost_mult = {
+	base = @nomadic_minerals_to_strategic_ratio
+	mult = value:unitary_admin_building_cost_mult
+}
+
+# Scope: planet/building
+unitary_admin_building_cost_mult = {
+	base = 1
+	modifier = {
+		add = @unitary_admin_offices_build_cost_reduction
+		leader? = { has_trait = leader_trait_unitary_admin }
+	}
+	modifier = {
+		add = @unitary_admin_offices_build_cost_reduction_sector
+		NOT = {
+			leader? = { has_trait = leader_trait_unitary_admin }
+		}
+		sector? = {
+			sector_capital? = {
+				leader? = { has_trait = leader_trait_unitary_admin }
+			}
+		}
+	}
+}
+
+# Scope: colony
+burden_of_proof_convertible_pops = {
+	base = 0
+	# Total Pops that have an ethos
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		parameters = {
+			limit = {
+				has_any_ethic = yes
+			}
+		}
+		mode = add
+	}
+	# Fraction of those Pops that are not Materialist
+	complex_trigger_modifier = {
+		potential = {
+			any_owned_pop_group = { has_any_ethic = yes }
+		}
+		trigger = pop_ethic_percentage
+		parameters = {
+			limit = {
+				has_any_ethic = yes
+			}
+			ethic != ethic_materialist
+		}
+		mode = mult
+	}
+}
+
+# Scope: colony
+burden_of_proof_unity_cost = {
+	base = 0
+	add = value:burden_of_proof_convertible_pops
+	mult = @burden_of_proof_unity_per_pop
+}
+
+# Harkaloid Organ (Tahqeq) - wars the country is currently engaged in
+num_active_wars = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_war
+		parameters = {
+			limit = { always = yes }
+		}
+		mode = add
+	}
+}
+
+# Harkaloid Organ (Tahqeq) - accumulated kill bonus (stored in days) converted to years
+harkaloid_organ_lifespan_bonus = {
+	base = 0
+	add = harkaloid_lifespan_bonus
+	divide = 360
+	max = @harkaloid_lifespan_years_cap
+}
+
+# Scope: Country - arkship Galactic Hall chambers that scale per owned pop AND upgrade with ideological techs
+count_owned_pop_hall_scaled_mult = {
+	base = 1
+	mult = value:count_owned_pop_mult
+	mult = value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+}
+
+ideology_abandon_days = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = ideological_strength
+		mode = add
+	}
+	divide = 10
+	mult = 30
+	round = yes
+}
+
+calc_ideological_disruption_unity_upkeep = {
+	base = 0
+	modifier = {
+		has_modifier = ideological_disruption
+		add = @ideological_disruption_planet_unity
+	}
+	modifier = {
+		has_modifier = moderate_ideological_disruption
+		add = @moderate_ideological_disruption_planet_unity
+	}
+	modifier = {
+		has_modifier = severe_ideological_disruption
+		add = @severe_ideological_disruption_planet_unity
+	}
+	modifier = {
+		owner? = { is_gestalt = no }
+		set = @ideological_disruption_unity_upkeep
+	}
+	mult = disruption_effect_multiplier
+}
+
+calc_ideological_disruption_stability = {
+	base = 0
+	modifier = {
+		has_modifier = ideological_disruption
+		add = @ideological_disruption_planet_stability
+	}
+	modifier = {
+		has_modifier = moderate_ideological_disruption
+		add = @moderate_ideological_disruption_planet_stability
+	}
+	modifier = {
+		has_modifier = severe_ideological_disruption
+		add = @severe_ideological_disruption_planet_stability
+	}
+	mult = disruption_effect_multiplier
+}
+
+flag_cooldown_days_left = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = timed_flag_days_left
+		parameters = {
+			flag = $FLAG$
+		}
+		mode = add
+	}
+}
+
+leader_cooldown_for_planet = {
+	base = 0
+	modifier = {
+		colony.leader? = { has_leader_flag = $FLAG$ }
+		add = colony.leader.value:flag_cooldown_days_left|FLAG|$FLAG$|
+	}
+	modifier = {
+		owner? = { is_nomadic = no }
+		OR = {
+			NOT = { exists = leader }
+			leader = { NOT = { has_leader_flag = $FLAG$ } }
+		}
+		is_sector_capital = no
+		sector.sector_capital? = {
+			leader? = { has_leader_flag = $FLAG$ }
+		}
+		add = sector.sector_capital.leader.value:flag_cooldown_days_left|FLAG|$FLAG$|
+	}
+}
+
+ideological_influence_from_researchers = {
+	base = 0
+	add = value:num_job_workforce_with_tag|TAG|research|DIVIDE|5| # 20 per 100 pops
+	modifier = {
+		add = value:num_job_workforce_with_tag|TAG|research|DIVIDE|6.66| # 15 per 100 pops
+		owner = { has_edict = research_subsidies }
+	}
+}
+
+sacrifism_strength_mult = {
+	base = 1
+	mult = modifier:tenet_sacrifism_ideological_strength_add
+	mult = sacrifice_result_mult
+}
+
+# Year 2350 is 150 years after the 2200 game start
+force_of_will_project_4_ai_unlock_year = {
+	base = 150
+	add = force_of_will_project_4_ai_delay_years
+}
+
+num_system_divided = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = num_galaxy_systems
+		mode = add
+	}
+	divide = $DIVIDE$
+}
+
+ideology_reach_left = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = ideology_reach_left
+		mode = add
+		parameters = {
+			ideology = $IDEOLOGY$
+		}
+	}
+}
+
+# One Cultural Envoy per official the empire can spare to crew one, and none at all until it can pay for the ship
+# twice over. Officials already crewing an envoy are counted, so the fleet does not shrink back once they are manned.
+desired_cultural_envoys = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_leader
+		parameters = {
+			limit = {
+				leader_class = official
+				OR = {
+					AND = {
+						is_idle = yes
+						is_councilor = no
+					}
+					fleet? = {
+						is_ship_class = shipclass_cultural_envoy
+					}
+				}
+			}
+		}
+		mode = add
+	}
+	modifier = {
+		factor = 0
+		OR = {
+			resource_stockpile_compare = {
+				resource = influence
+				value < @[ cultural_envoy_cost_influence * 2 ]
+			}
+			resource_stockpile_compare = {
+				resource = alloys
+				value < @[ cultural_envoy_cost_alloys * 2 ]
+			}
+			resource_stockpile_compare = {
+				resource = consumer_goods
+				value < @[ cultural_envoy_cost_consumer_goods * 2 ]
+			}
+		}
+	}
+	max = 5
+}
+
+adopted_ideology_ethic_attraction = {
+	base = 0
+	modifier = {
+		add = @adopted_ideology_ethic_attraction
+		NOT = { has_country_flag = abandoning_ideology }
+	}
+	add = trigger:ideological_strength_percent
+}
+
+ethic_attraction_celebration_of_ideals_max = {
+	base = @decision_celebration_of_ideals_ethic_attraction_max
+	divide = value:num_job_workforce_with_tag|TAG|entertainer|
+}
+
+ethic_attraction_celebration_of_ideals = {
+	base = @decision_celebration_of_ideals_ethic_attraction
+	max = value:ethic_attraction_celebration_of_ideals_max
+}
+
+apply_percentage_to_variable = {
+	base = 0
+	add = $VARIABLE$
+	mult = $PERCENTAGE$
+}
+
+get_percentage_ships_to_destroy = {
+	base = 0
+	add = value:apply_percentage_to_variable|VARIABLE|$VARIABLE$|PERCENTAGE|$PERCENTAGE$|
+	floor = yes
+	min = 1
+}
+
+crucible_principle_naval_cap_scaling = {
+	base = 0
+	add = value:ship_naval_cap
+	min = 1
+	divide = @corvette_size_multiplier
+}
+
+ethic_attraction_ideology_follower_add = {
+	base = 0.002
+	mult = trigger:ideological_strength
+}

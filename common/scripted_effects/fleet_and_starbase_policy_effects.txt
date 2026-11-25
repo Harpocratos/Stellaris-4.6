@@ -1,0 +1,137 @@
+# Fleet, starbase and defense platform policy helper effects. See common/policies/06_policies_fleets_and_starbases.txt
+
+# Reinforced Plating: field sits on the starbase fleet so it covers its platforms. Scope: country
+defense_platform_apply_reinforced_field = {
+	every_owned_fleet = {
+		limit = {
+			is_defense_platform_fleet = yes
+			NOT = { has_modifier = defense_platform_reinforced_field }
+		}
+		add_modifier = {
+			modifier = defense_platform_reinforced_field
+		}
+	}
+}
+
+defense_platform_remove_reinforced_field = {
+	every_owned_fleet = {
+		limit = {
+			has_modifier = defense_platform_reinforced_field
+		}
+		remove_modifier = defense_platform_reinforced_field
+	}
+}
+
+# Resilient Frames: platforms disable near death instead of being destroyed. Scope: country
+defense_platform_enable_resilience = {
+	every_owned_fleet = {
+		limit = { is_defense_platform_fleet = yes }
+		every_owned_ship = {
+			limit = {
+				is_defense_platform_ship = yes
+			}
+			set_disable_at_health = 0.05
+		}
+	}
+}
+
+defense_platform_disable_resilience = {
+	every_owned_fleet = {
+		limit = { is_defense_platform_fleet = yes }
+		every_owned_ship = {
+			limit = {
+				is_defense_platform_ship = yes
+			}
+			set_disable_at_health = no
+			if = {
+				limit = { is_disabled = yes }
+				repair_percentage = 0.45
+				set_disabled = no
+			}
+		}
+	}
+}
+
+# Recover disabled platforms across the whole battle system. Scope: country, FROMFROM = the combat fleet
+defense_platform_reenable_after_combat = {
+	if = {
+		limit = { exists = fromfrom } # guard against a destroyed fleet leaving a stale saved system
+		fromfrom = { solar_system = { save_event_target_as = dp_combat_system } }
+		every_owned_fleet = {
+			limit = {
+				is_defense_platform_fleet = yes
+				solar_system = { is_same_value = event_target:dp_combat_system }
+			}
+			every_owned_ship = {
+				limit = {
+					is_defense_platform_ship = yes
+					is_disabled = yes
+				}
+				repair_percentage = 0.45
+				set_disabled = no
+			}
+		}
+	}
+}
+
+clear_fleet_doctrine_flags = {
+	remove_country_flag = preferred_fleet_doctrine_spearhead
+	remove_country_flag = preferred_fleet_doctrine_battleline
+	remove_country_flag = preferred_fleet_doctrine_barrage
+	remove_country_flag = preferred_fleet_doctrine_strike_wing
+	remove_country_flag = preferred_fleet_doctrine_ambush
+	remove_country_flag = preferred_fleet_doctrine_phalanx
+}
+
+clear_ship_weapon_preference_flags = {
+	remove_country_flag = preferred_weapon_energy
+	remove_country_flag = preferred_weapon_kinetic
+	remove_country_flag = preferred_weapon_explosive
+	remove_country_flag = preferred_weapon_strike_craft
+}
+
+clear_ship_defense_preference_flags = {
+	remove_country_flag = preferred_defense_shields
+	remove_country_flag = preferred_defense_armor
+}
+
+clear_starbase_weapon_preference_flags = {
+	remove_country_flag = preferred_starbase_weapon_energy
+	remove_country_flag = preferred_starbase_weapon_kinetic
+	remove_country_flag = preferred_starbase_weapon_explosive
+}
+
+clear_starbase_defense_preference_flags = {
+	remove_country_flag = preferred_starbase_defense_shields
+	remove_country_flag = preferred_starbase_defense_armor
+}
+
+clear_platform_weapon_preference_flags = {
+	remove_country_flag = preferred_platform_weapon_energy
+	remove_country_flag = preferred_platform_weapon_kinetic
+	remove_country_flag = preferred_platform_weapon_explosive
+	remove_country_flag = preferred_platform_weapon_strike_craft
+}
+
+clear_platform_defense_preference_flags = {
+	remove_country_flag = preferred_platform_defense_shields
+	remove_country_flag = preferred_platform_defense_armor
+}
+
+clear_ship_preference_overrides = {
+	clear_ai_weapon_preference = yes
+	clear_ai_armor_ratio = yes
+	clear_ai_shields_ratio = yes
+}
+
+clear_starbase_preference_overrides = {
+	clear_ai_starbase_weapon_preference = yes
+	clear_ai_starbase_armor_ratio = yes
+	clear_ai_starbase_shields_ratio = yes
+}
+
+clear_platform_preference_overrides = {
+	clear_ai_platform_weapon_preference = yes
+	clear_ai_platform_armor_ratio = yes
+	clear_ai_platform_shields_ratio = yes
+}

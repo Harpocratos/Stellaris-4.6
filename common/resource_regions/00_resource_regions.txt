@@ -1,0 +1,15 @@
+resource_region_not_resource_rich = {
+	amount = 4
+}
+
+resource_region_exotic_gases_rich = {
+	amount = 3
+}
+
+resource_region_volatile_motes_rich = {
+	amount = 2
+}
+
+resource_region_rare_crystals_rich = {
+	amount = 1
+}

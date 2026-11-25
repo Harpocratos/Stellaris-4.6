@@ -1,0 +1,78 @@
+# Per-fleet target template size for create_random_fleet. With 1:4 large:small weights, slider 1.0x yields ~2-3 large + ~10 small per fleet (~210-260 nav cap, varies run-to-run).
+# Slider: fallen_empire_strength_scale (galaxy setup), linear multiplier 0.25x to 5.0x.
+fe_starting_fleet_size = {
+	base = 200
+	complex_trigger_modifier = {
+		trigger = check_galaxy_setup_value
+		parameters = {
+			setting = fallen_empire_strength_scale
+		}
+		mode = mult
+	}
+}
+
+# 25% per (difficulty + 1): Civilian 25, Cadet 50, Ensign 75, Captain+ 100.
+fe_starting_second_fleet_chance = {
+	base = 1
+	add = trigger:is_difficulty
+	mult = 25
+	min = 0
+	max = 100
+}
+
+# 15% per difficulty level: Civilian 0, Cadet 15, Ensign 30, Captain 45, Commodore 60, Admiral 75, Grand Admiral 90.
+fe_starting_third_fleet_chance = {
+	base = 0
+	add = trigger:is_difficulty
+	mult = 15
+	min = 0
+	max = 100
+}
+
+# 25% per difficulty level scaled by strength: Civilian 0, Ensign 50, Captain 75, Commodore 100, Admiral 100, Grand Admiral 100 at slider 1.0x.
+fe_starting_first_colossus_chance = {
+	base = 0
+	add = trigger:is_difficulty
+	mult = 25
+	complex_trigger_modifier = {
+		trigger = check_galaxy_setup_value
+		parameters = {
+			setting = fallen_empire_strength_scale
+		}
+		mode = mult
+	}
+	min = 0
+	max = 100
+}
+
+# Overflow above 100% from the first colossus roll; rolls a second colossus when difficulty * 25% * slider exceeds 100%.
+fe_starting_second_colossus_chance = {
+	base = 0
+	add = trigger:is_difficulty
+	mult = 25
+	complex_trigger_modifier = {
+		trigger = check_galaxy_setup_value
+		parameters = {
+			setting = fallen_empire_strength_scale
+		}
+		mode = mult
+	}
+	add = -100
+	min = 0
+	max = 100
+}
+
+# Awakening fleet power target multiplier: (0.5 + 0.25 * difficulty) * slider. Civilian/x1=0.5, Ensign/x1=1.0, Grand Admiral/x1=2.0, Grand Admiral/x5=10.0.
+awakening_target_multiplier = {
+	base = 0
+	add = trigger:is_difficulty
+	mult = 0.25
+	add = 0.5
+	complex_trigger_modifier = {
+		trigger = check_galaxy_setup_value
+		parameters = {
+			setting = fallen_empire_strength_scale
+		}
+		mode = mult
+	}
+}

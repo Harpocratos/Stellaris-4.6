@@ -1,0 +1,517 @@
+#Defensive Action - Super Shield
+paladin_super_shield = {
+	user_scope = fleet
+	scope = self
+
+    finish_anim_state = "working"
+
+	on_completed = on_paladin_super_shield
+	tooltip = paladin_super_shield_ship_button
+	icon = GFX_fleet_action_button_paladin_super_shield
+	icon_selected = GFX_fleet_action_button_paladin_super_shield
+
+	possible = {
+		always = yes
+	}
+
+	button_visible = {
+		always = yes
+	}
+
+	button_clickable = {
+		#always = yes
+	}
+
+
+	activity_key = paladin_super_shield_activity_key
+	context_menu_name = paladin_super_shield_menu_title
+	progress_activity_key = paladin_super_shield_progress_activity_key
+	cooldown = @paladin_super_shield_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_super_shield_cost
+	}
+	shortcut = "SHIFT+Z"
+	slot = 1
+}
+
+#Offensive Action - Thunderclap
+paladin_thunderclap = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_thunderclap
+	tooltip = paladin_thunderclap_ship_button
+	icon = GFX_fleet_action_button_paladin_thunderclap
+	icon_selected = GFX_fleet_action_button_paladin_thunderclap
+
+	possible = {
+		always = yes
+	}
+
+	button_visible = {
+		always = yes
+	}
+
+	button_clickable = {
+		#always = yes
+	}
+
+	activity_key = paladin_thunderclap_activity_key
+	context_menu_name = paladin_thunderclap_menu_title
+	progress_activity_key = paladin_thunderclap_progress_activity_key
+	cooldown = @paladin_thunderclap_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_thunderclap_cost
+	}
+	shortcut = "SHIFT+X"
+	slot = 2
+}
+
+#Recall
+paladin_recall = {
+	user_scope = fleet
+	scope = self
+
+finish_anim_state = "rage"
+
+	on_completed = on_paladin_recall
+	tooltip = paladin_recall_ship_button
+	icon = GFX_fleet_action_button_paladin_recall
+	icon_selected = GFX_fleet_action_button_paladin_recall
+
+	possible = {
+		always = yes
+	}
+
+	button_visible = {
+		always = yes
+	}
+
+	button_clickable = {
+		#always = yes
+	}
+
+	activity_key = paladin_recall_activity_key
+	context_menu_name = paladin_recall_menu_title
+	progress_activity_key = paladin_recall_progress_activity_key
+	cooldown = @paladin_recall_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_recall_cost
+	}
+	shortcut = "SHIFT+C"
+	slot = 3
+}
+
+##Flex 1 - Subclass power
+#Ace - Air Superiority
+paladin_air_superiority = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_air_superiority
+	tooltip = paladin_air_superiority_ship_button
+	icon = GFX_fleet_action_button_paladin_air_superiority
+	icon_selected = GFX_fleet_action_button_paladin_air_superiority
+
+	button_visible = {
+		exists = leader
+		leader = {
+			has_trait = leader_trait_paladin_ace
+		}
+	}
+
+	button_clickable = {
+		custom_tooltip = {
+			exists = leader
+			leader = {
+				has_trait = leader_trait_paladin_ace
+			}
+		}
+		exists = solar_system
+	}
+
+	activity_key = paladin_air_superiority_activity_key
+	context_menu_name = paladin_air_superiority_menu_title
+	progress_activity_key = paladin_air_superiority_progress_activity_key
+	cooldown = @paladin_air_superiority_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_air_superiority_cost
+	}
+	shortcut = "SHIFT+V"
+	slot = 4
+}
+
+#Strategist - Plan B
+paladin_plan_b = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_plan_b
+	tooltip = paladin_plan_b_ship_button
+	icon = GFX_fleet_action_button_paladin_plan_b
+	icon_selected = GFX_fleet_action_button_paladin_plan_b
+
+	button_visible = {
+		exists = leader
+		leader = {
+			has_trait = leader_trait_paladin_strategist
+		}
+	}
+
+	button_clickable = {
+		custom_tooltip = {
+			exists = leader
+			leader = {
+				has_trait = leader_trait_paladin_strategist
+			}
+		}
+		exists = solar_system
+	}
+
+	activity_key = paladin_plan_b_activity_key
+	context_menu_name = paladin_plan_b_menu_title
+	progress_activity_key = paladin_plan_b_progress_activity_key
+	cooldown = @paladin_plan_b_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_plan_b_cost
+	}
+	shortcut = "SHIFT+V"
+	slot = 4
+}
+
+#Ambusher - Sudden Strike
+paladin_sudden_strike = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_sudden_strike
+	tooltip = paladin_sudden_strike_ship_button
+	icon = GFX_fleet_action_button_paladin_sudden_strike
+	icon_selected = GFX_fleet_action_button_paladin_sudden_strike
+
+	button_visible = {
+		exists = leader
+		leader = {
+			has_trait = leader_trait_paladin_ambusher
+		}
+	}
+
+	button_clickable = {
+		custom_tooltip = {
+			exists = leader
+			leader = {
+				has_trait = leader_trait_paladin_ambusher
+			}
+		}
+	}
+
+	activity_key = paladin_sudden_strike_activity_key
+	context_menu_name = paladin_sudden_strike_menu_title
+	progress_activity_key = paladin_sudden_strike_progress_activity_key
+	cooldown = @paladin_sudden_strike_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_sudden_strike_cost
+	}
+	shortcut = "SHIFT+V"
+	slot = 4
+}
+
+#Logistician - Field Repairs
+paladin_field_repairs = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_field_repairs
+	tooltip = paladin_field_repairs_ship_button
+	icon = GFX_fleet_action_button_paladin_field_repairs
+	icon_selected = GFX_fleet_action_button_paladin_field_repairs
+
+	button_visible = {
+		exists = leader
+		leader = {
+			has_trait = leader_trait_paladin_logistician
+		}
+	}
+
+	button_clickable = {
+		custom_tooltip = {
+			exists = leader
+			leader = {
+				has_trait = leader_trait_paladin_logistician
+			}
+		}
+		exists = solar_system
+	}
+
+	activity_key = paladin_field_repairs_activity_key
+	context_menu_name = paladin_field_repairs_menu_title
+	progress_activity_key = paladin_field_repairs_progress_activity_key
+	cooldown = @paladin_field_repairs_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_field_repairs_cost
+	}
+	shortcut = "SHIFT+V"
+	slot = 4
+}
+
+#Defender - Taunt
+paladin_taunt = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_taunt
+	tooltip = paladin_taunt_ship_button
+	icon = GFX_fleet_action_button_paladin_taunt
+	icon_selected = GFX_fleet_action_button_paladin_taunt
+
+	button_visible = {
+		exists = leader
+		leader = {
+			has_trait = leader_trait_paladin_defender
+		}
+	}
+
+	button_clickable = {
+		custom_tooltip = {
+			exists = leader
+			leader = {
+				has_trait = leader_trait_paladin_defender
+			}
+		}
+	}
+
+	activity_key = paladin_taunt_activity_key
+	context_menu_name = paladin_taunt_menu_title
+	progress_activity_key = paladin_taunt_progress_activity_key
+	cooldown = @paladin_taunt_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_taunt_cost
+	}
+	shortcut = "SHIFT+V"
+	slot = 4
+}
+
+#Spearhead - Hold the Line
+paladin_hold_the_line = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_hold_the_line
+	tooltip = paladin_hold_the_line_ship_button
+	icon = GFX_fleet_action_button_paladin_hold_the_line
+	icon_selected = GFX_fleet_action_button_paladin_hold_the_line
+
+	button_visible = {
+		exists = leader
+		leader = {
+			has_trait = leader_trait_paladin_spearhead
+		}
+	}
+
+	button_clickable = {
+		custom_tooltip = {
+			exists = leader
+			leader = {
+				has_trait = leader_trait_paladin_spearhead
+			}
+		}
+	}
+
+	activity_key = paladin_hold_the_line_activity_key
+	context_menu_name = paladin_hold_the_line_menu_title
+	progress_activity_key = paladin_hold_the_line_progress_activity_key
+	cooldown = @paladin_hold_the_line_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_hold_the_line_cost
+	}
+	shortcut = "SHIFT+V"
+	slot = 4
+}
+
+#Knight - For the Order!
+paladin_for_the_order = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_for_the_order
+	tooltip = paladin_for_the_order_ship_button
+	icon = GFX_fleet_action_button_paladin_for_the_order
+	icon_selected = GFX_fleet_action_button_paladin_for_the_order
+
+	button_visible = {
+		exists = leader
+		leader = {
+			has_trait = leader_trait_paladin_knight
+		}
+	}
+
+	button_clickable = {
+		custom_tooltip = {
+			exists = leader
+			leader = {
+				has_trait = leader_trait_paladin_knight
+			}
+		}
+	}
+
+	activity_key = paladin_for_the_order_activity_key
+	context_menu_name = paladin_for_the_order_menu_title
+	progress_activity_key = paladin_for_the_order_progress_activity_key
+	cooldown = @paladin_for_the_order_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_for_the_order_cost
+	}
+	shortcut = "SHIFT+V"
+	slot = 4
+}
+
+##Flex 2 - Resolution power
+#Teamwork
+paladin_teamwork = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_teamwork
+	tooltip = paladin_teamwork_ship_button
+	icon = GFX_fleet_action_button_paladin_harmony
+	icon_selected = GFX_fleet_action_button_paladin_harmony
+
+	button_visible = {
+		owner = {
+			is_active_resolution = resolution_paladin_focus_teamwork
+		}
+	}
+
+	button_clickable = {
+		custom_tooltip = {
+			fail_text = paladin_teamwork_tt
+			NOT = { has_modifier = paladin_teamwork }
+		}
+		custom_tooltip = {
+			owner = {
+				is_active_resolution = resolution_paladin_focus_teamwork
+			}
+			exists = solar_system
+		}
+	}
+
+	activity_key = paladin_teamwork_activity_key
+	context_menu_name = paladin_teamwork_menu_title
+	progress_activity_key = paladin_teamwork_progress_activity_key
+	cooldown = @paladin_teamwork_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_teamwork_cost
+	}
+	shortcut = "SHIFT+B"
+	slot = 5
+}
+
+#Leadership
+paladin_leadership = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_leadership
+	tooltip = paladin_leadership_ship_button
+	icon = GFX_fleet_action_button_paladin_on_my_command
+	icon_selected = GFX_fleet_action_button_paladin_on_my_command
+
+	button_visible = {
+		owner = {
+			is_active_resolution = resolution_paladin_focus_leadership
+		}
+	}
+
+	button_clickable = {
+		custom_tooltip = {
+			owner = {
+				is_active_resolution = resolution_paladin_focus_leadership
+			}
+		}
+		exists = solar_system
+	}
+
+	activity_key = paladin_leadership_activity_key
+	context_menu_name = paladin_leadership_menu_title
+	progress_activity_key = paladin_leadership_progress_activity_key
+	cooldown = @paladin_leadership_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_leadership_cost
+	}
+	shortcut = "SHIFT+B"
+	slot = 5
+}
+
+#Field Testing
+paladin_field_testing = {
+	user_scope = fleet
+	scope = self
+
+	on_completed = on_paladin_field_testing
+	tooltip = paladin_field_testing_ship_button
+	icon = GFX_fleet_action_button_paladin_field_testing
+	icon_selected = GFX_fleet_action_button_paladin_field_testing
+
+	button_visible = {
+		owner = {
+			is_active_resolution = resolution_paladin_focus_last_resort
+		}
+	}
+
+	button_clickable = {
+		custom_tooltip = {
+			owner = {
+				is_active_resolution = resolution_paladin_focus_last_resort
+			}
+		}
+	}
+
+	activity_key = paladin_field_testing_activity_key
+	context_menu_name = paladin_field_testing_menu_title
+	progress_activity_key = paladin_field_testing_progress_activity_key
+	cooldown = @paladin_field_testing_cooldown
+
+	wait = no
+
+	cost = {
+		energy = @paladin_field_testing_cost
+	}
+	shortcut = "SHIFT+B"
+	slot = 5
+}

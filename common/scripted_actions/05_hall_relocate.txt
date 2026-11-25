@@ -1,0 +1,89 @@
+galactic_hall_relocate = {
+	user_scope = megastructure
+	scope = planet
+
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_inside_border"
+			is_inside_border = from
+		}
+		custom_tooltip = {
+			fail_text = "requires_surveyed_system"
+			is_surveyed = {
+				who = root.from
+				status = yes
+			}
+		}
+		custom_tooltip = {
+			fail_text = "requires_no_anomaly"
+			NOT = { has_anomaly = yes }
+		}
+		if = {
+			limit = {
+				solar_system = {
+					any_system_planet = { is_colony = yes }
+				}
+			}
+			is_colony = yes
+			is_owned_by = root.from
+			custom_tooltip = {
+				fail_text = "requires_no_existing_megastructure"
+				NOT = { has_planet_flag = has_megastructure }
+			}
+		}
+		else = {
+			custom_tooltip = {
+				fail_text = "requires_not_minor_planetary_body"
+				NOR = {
+					is_asteroid = yes
+					is_moon = yes
+				}
+			}
+			custom_tooltip = {
+				fail_text = "requires_not_star"
+				is_star = no
+			}
+			custom_tooltip = {
+				fail_text = "requires_not_astral_scar"
+				is_astral_scar = no
+			}
+			custom_tooltip = {
+				fail_text = "requires_not_ring_world"
+				is_ringworld = no
+			}
+			custom_tooltip = {
+				fail_text = "requires_no_existing_megastructure"
+				has_any_megastructure = no
+			}
+		}
+	}
+
+	button_clickable = {
+		owner = {
+			has_technology = tech_galactic_halls
+		}
+		custom_tooltip = {
+			fail_text = "galactic_hall_relocate_in_cooldown"
+			NOT = { has_megastructure_flag = recently_relocated_hall }
+		}
+	}
+
+	icon = GFX_galactic_hall_relocate
+	icon_selected = GFX_galactic_hall_relocate
+
+	on_completed = on_galactic_hall_relocate
+	context_menu_name = "galactic_hall_relocate_action"
+	activity_key = "galactic_hall_relocate_activity_key"
+	tooltip = galactic_hall_relocate_button_tooltip
+	cooldown = @galactic_halls_relocate_cooldown
+	required_progress = 30
+
+	cost = {
+		energy = 2000
+		mult = from.owner.value:scripted_modifier_mult|MODIFIER|hall_relocate_cost|
+	}
+
+	on_execution_sound = "sfx_galactic_hall_relocate"
+	begin_anim_state = "working"
+	progress_anim_state = "working_looping"
+}

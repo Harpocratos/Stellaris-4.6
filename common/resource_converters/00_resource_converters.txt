@@ -1,0 +1,46 @@
+nomadic_operational_reserves = {
+    resource_conversions = {
+        energy = {
+            should_cap = no
+            bottomless = yes
+            visible = yes
+            visible_stockpile = no
+            can_buy = yes
+            can_sell = no
+
+            affected_situation = situation_nomad_economy
+            affected_situation_mult = 1
+
+            can_be_paid_with = {
+                minerals = 1.0
+            }
+        }
+        minerals = {
+            should_cap = no
+            bottomless = yes
+            visible = yes
+            visible_stockpile = no
+            can_buy = yes
+            can_sell = no
+
+            affected_situation = situation_nomad_economy
+            affected_situation_mult = 1
+
+            can_be_paid_with = {
+                energy = 1.0
+            }
+        }
+        volatile_motes = {
+            override_trade_restriction = yes
+        }
+        exotic_gases = {
+            override_trade_restriction = yes
+        }
+        rare_crystals = {
+            override_trade_restriction = yes
+        }
+    }
+    visibility_overrides = {
+        tb_operational_reserves_group = yes
+    }
+}

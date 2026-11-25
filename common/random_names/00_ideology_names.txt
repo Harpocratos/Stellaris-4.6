@@ -1,0 +1,246 @@
+ideology_name_parts_list = {
+	key = "militarist_ideology_names"
+	parts = {
+		Militarism = 1
+		Jingoism = 1
+		Expansionism = 1
+		Imperialism = 1
+	}
+}
+
+ideology_name_parts_list = {
+	key = "xenophobe_ideology_names"
+	parts = {
+		Nationalism = 1
+		Isolationism = 1
+		Nativism = 1
+		Chauvinism = 1
+		Tribalism = 1
+	}
+}
+
+ideology_name_parts_list = {
+	key = "egalitarian_ideology_names"
+	parts = {
+		Egalitarianism = 1
+		Liberalism = 1
+		Progressivism = 1
+		Socialism = 1
+	}
+}
+
+ideology_name_parts_list = {
+	key = "materialist_ideology_names"
+	parts = {
+		Materialism = 1
+		Rationalism = 1
+		Scientism = 1
+		Positivism = 1
+		Naturalism = 1
+	}
+}
+
+ideology_name_parts_list = {
+	key = "materialist_human_ideology_names"
+	parts = {
+		Humanism = 1
+	}
+}
+
+ideology_name_parts_list = {
+	key = "pacifist_ideology_names"
+	parts = {
+		Pacifism = 1
+		Neutralism = 1
+		Harmonism = 1
+		Isolationism = 1
+	}
+}
+
+ideology_name_parts_list = {
+	key = "xenophile_ideology_names"
+	parts = {
+		Cosmopolitarianism = 1
+		Multiculturalism = 1
+		Globalism = 1
+		Universalism = 1
+	}
+}
+
+ideology_name_parts_list = {
+	key = "authoritarian_ideology_names"
+	parts = {
+		Authoritarianism = 1
+		Despotism = 1
+		Absolutism = 1
+		Totalitarianism = 1
+		Fascism = 1
+	}
+}
+
+### STANDARD IDEOLOGIES
+
+# For Modifiers :
+# Root = Origin Country
+# From = Origin Country's founder species
+# This = Generated Ideology
+
+# Militarist
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			is_militarist = yes
+			root = {
+				NOT = { has_origin = origin_lost_makers }
+			}
+		}
+	}
+	format = "{ideology_ajd_keyword {[From.GetAdj] <militarist_ideology_names>}}"
+}
+
+# Xenophobe
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			is_xenophobe = yes
+		}
+	}
+	format = "{ideology_ajd_keyword {[From.GetAdj] <xenophobe_ideology_names>}}"
+}
+
+# Egalitarian
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			is_egalitarian = yes
+		}
+	}
+	format = "{ideology_ajd_keyword {[From.GetAdj] <egalitarian_ideology_names>}}"
+}
+
+# Materialist
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			is_materialist = yes
+		}
+	}
+	format = "{ideology_ajd_keyword {[From.GetAdj] <materialist_ideology_names>}}"
+}
+
+# Materialist - Human
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			is_materialist = yes
+			from = {
+				is_human_species = yes
+			}
+		}
+	}
+	format = "{ideology_ajd_keyword {[From.GetAdj] <materialist_human_ideology_names>}}"
+}
+
+# Pacifist
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			is_pacifist = yes
+			root = {
+				NOT = { has_origin = origin_lost_makers }
+			}
+		}
+	}
+	format = "{ideology_ajd_keyword {[From.GetAdj] <pacifist_ideology_names>}}"
+}
+
+# Xenophile
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			is_xenophile = yes
+		}
+	}
+	format = "{ideology_ajd_keyword {[From.GetAdj] <xenophile_ideology_names>}}"
+}
+
+# Authoritarian
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			is_authoritarian = yes
+		}
+	}
+	format = "{ideology_ajd_keyword {[From.GetAdj] <authoritarian_ideology_names>}}"
+}
+
+### SPIRITUALIST
+
+ideology_name_parts_list = {
+	key = "spiritualist_name"
+	parts = {
+		ideo_suffix_1 = 1
+		ideo_suffix_2 = 1
+		ideo_suffix_3 = 1
+		ideo_suffix_4 = 1
+		ideo_suffix_5 = 1
+		ideo_suffix_6 = 1
+	}
+}
+
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			is_spiritualist = yes
+		}
+	}
+	format = "{ideology_single_word_format {[From.GetPrefixFromAdj] {<spiritualist_name>}}}"
+}
+
+###ORIGIN
+
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			root = {
+				has_origin = origin_lost_makers
+				has_country_flag = lost_maker_precursor_first_league
+			}
+		}
+	}
+	format = "{ideology_lm_first_league_format {[From.GetAdj] <militarist_ideology_names>}"
+}
+
+ideology_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			root = {
+				has_origin = origin_lost_makers
+				has_country_flag = lost_maker_precursor_cybrex
+			}
+		}
+	}
+	format = "{ideology_lm_cybrex_format {[From.GetAdj] <pacifist_ideology_names>}"
+}

@@ -1,0 +1,1388 @@
+num_claims_on_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = num_claims_on_system
+		mode = add
+		parameters = {
+			target = $TARGET$
+		}
+	}
+}
+
+# Festival upkeep: drains the reserves snapshotted at the Festival's start evenly over its duration, so it always lasts 6 months.
+# Evaluated in situation scope; reads the situation variable set in nomads.36 / nomads.38.
+# If the snapshot is unset (one month for a legacy save, until nomads.38 backfills it) the value is 0, which dividing leaves at 0.
+nomad_celebration_upkeep = {
+	base = 0
+	modifier = {
+		is_variable_set = celebration_reserves_at_start
+		add = celebration_reserves_at_start
+	}
+	divide = @celebration_duration_months_6
+}
+
+# Remaining Festival cooldown, read live from the festival_cooldown timed flag, split into whole
+# years plus the leftover whole months (Stellaris year = 360 days, month = 30 days) for the tooltip.
+festival_cooldown_days_left = {
+	complex_trigger_modifier = {
+		trigger = timed_flag_days_left
+		parameters = {
+			flag = festival_cooldown
+		}
+		mode = add
+	}
+}
+
+festival_cooldown_years_left = {
+	add = value:festival_cooldown_days_left
+	divide = 360
+	floor = yes
+}
+
+festival_cooldown_months_left = {
+	add = value:festival_cooldown_days_left
+	modulo = 360
+	divide = 30
+	floor = yes
+}
+
+count_cruise_passengers = {
+	add = value:passenger_workforce_value
+	mult = value:passenger_count_normalisation
+}
+
+count_cruise_passengers_unemployment = {
+	add = value:economy_passenger_workforce_value
+	mult = value:passenger_count_normalisation
+	divide = 5		# Every 100 Economy Class Passengers give ±0.1 monthly situation progress.
+}
+
+passenger_count_normalisation = {
+	base = 1
+	mult = passenger_satisfaction_index
+	divide = 100	# Normalise to pop group size.
+	divide = 2		# Every 100 First Class Passengers give ±0.5 monthly situation progress.
+	mult = 0.75		# Global speed reduction
+}
+
+passenger_workforce_value = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = total_country_workforce_with_job_tag
+		trigger_scope = owner
+		parameters = {
+			tags = {
+				cruise_passenger
+			}
+		}
+		mode = add
+	}
+}
+economy_passenger_workforce_value = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = total_country_workforce_with_job_tag
+		trigger_scope = owner
+		parameters = {
+			tags = {
+				cruise_passenger_unemployment
+			}
+		}
+		mode = add
+	}
+}
+
+passenger_satisfaction_passenger_contract = {
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		parameters = {
+			limit = {
+				OR = {
+					is_pop_category = cruise_passenger
+					is_pop_category = cruise_passenger_unemployment
+				}
+			}
+		}
+		mode = add
+	}
+	divide = 100
+}
+
+passenger_satisfaction_crew_contract = {
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		parameters = {
+			limit = {
+				OR = {
+					is_pop_category = cruise_passenger
+					is_pop_category = cruise_passenger_unemployment
+				}
+			}
+		}
+		mode = subtract
+	}
+	divide = 100
+}
+
+aborted_contract_penalty = {
+	base = $BASE$
+	modifier = {
+		mult = 0.25
+		is_difficulty = 0
+	}
+	modifier = {
+		mult = 0.5
+		is_difficulty = 1
+	}
+	modifier = {
+		mult = 1
+		is_difficulty = 2
+	}
+	modifier = {
+		mult = 1.75
+		is_difficulty = 3
+	}
+	modifier = {
+		mult = 2.5
+		is_difficulty = 4
+	}
+	modifier = {
+		mult = 3.25
+		is_difficulty = 5
+	}
+	modifier = {
+		mult = 4
+		is_difficulty = 6
+	}
+}
+
+num_waystations_in_country = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system_within_border
+		parameters = {
+			limit = {
+				any_ship_in_system = {
+					is_waystation_ship = yes
+					owner = {
+						is_same_value = $OWNER$
+					}
+				}
+			}
+		}
+		mode = add
+	}
+}
+
+num_waystations_cancelled_pact_penalty = {
+	base = -10
+	mult = value:num_waystations_in_country|OWNER|$OWNER$|
+}
+
+num_waystations_in_country_opinion_scaled = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system_within_border
+		parameters = {
+			limit = {
+				any_ship_in_system = {
+					is_waystation_ship = yes
+					is_cloaked = no
+					owner = {
+						is_same_value = $OWNER$
+					}
+				}
+			}
+		}
+		mode = add
+	}
+	complex_trigger_modifier = {
+		trigger = count_system_within_border
+		parameters = {
+			limit = {
+				any_ship_in_system = {
+					is_waystation_ship = yes
+					is_cloaked = yes
+					owner = {
+						is_same_value = $OWNER$
+					}
+				}
+			}
+		}
+		mode = add
+		mult = 0.5
+	}
+	mult = value:unlicensed_waystation_opinion_scale|OWNER|$OWNER$|
+}
+
+unlicensed_waystation_opinion_scale = {
+	base = 1
+	modifier = {
+		add = $OWNER$.modifier:unlicensed_waystations_scaling_mult
+	}
+	min = 0 #players shouldnt gain opinion from illegal waystations at -150% opinion penalty
+}
+
+num_owned_waystations = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_nonprimary_starbase
+		parameters = {
+			limit = {
+				is_waystation_starbase = yes
+			}
+		}
+		mode = add
+	}
+	min = 1
+}
+
+num_owned_undeveloped_waystations = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_nonprimary_starbase
+		parameters = {
+			limit = {
+				is_waystation_starbase = yes
+				count_starbase_modules = {
+					count < 1
+				}
+			}
+		}
+		mode = add
+	}
+	min = 1
+}
+
+# Country scope. Each waystation counted by $COUNT$ makes another one less attractive.
+waystation_expansion_factor = {
+	base = 1
+	divide = value:$COUNT$
+}
+
+# Planet scope. Weight moved from finding artifacts to finding nothing, capped by $MAX$.
+# Ten per body in the system already carrying artifacts, forty more if this body does.
+akashic_artifact_saturation = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system_planet
+		trigger_scope = solar_system
+		parameters = {
+			limit = {
+				has_minor_artifact_deposit = yes
+			}
+		}
+		mode = add
+		mult = 10
+	}
+	modifier = {
+		add = 40
+		has_minor_artifact_deposit = yes
+	}
+	max = $MAX$
+}
+
+# Country scope. Divisor that grows with the capacity used over 100%, so it is 1 up to the cap.
+waystation_capacity_penalty = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = used_starbase_capacity_percent
+		mode = add
+	}
+	subtract = 1
+	min = 0
+	mult = @waystation_capacity_penalty_scale
+	add = 1
+}
+
+# Country scope. Only meaningful at or above 50% capacity, which the call site gates on.
+waystation_capacity_factor = {
+	base = 1
+	divide = value:waystation_capacity_penalty
+	modifier = {
+		mult = 0
+		OR = {
+			used_starbase_capacity_percent >= 2
+			AND = {
+				years_passed <= 10
+				used_starbase_capacity_percent >= 0.5
+			}
+			AND = {
+				years_passed <= 20
+				used_starbase_capacity_percent >= 1.25
+			}
+		}
+	}
+}
+
+num_planetary_colonies_in_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system_planet
+		parameters = {
+			limit = {
+				is_colony = yes
+			}
+		}
+		mode = add
+	}
+}
+
+starbase_observatory_physics_output_mult = {
+	base = 0
+	modifier = {
+		star = {
+			OR = {
+				is_star_class = sc_b
+				is_star_class = sc_a
+				is_star_class = sc_f
+				is_star_class = sc_g
+				is_star_class = sc_k
+				is_star_class = sc_m
+				is_star_class = sc_m_giant
+				is_star_class = sc_t
+			}
+		}
+		add = 1
+	}
+	modifier = {
+		star = {
+			is_binary_star = yes
+		}
+		add = 3
+	}
+	modifier = {
+		star = {
+			OR = {
+				is_trinary_star = yes
+				is_quaternary_star = yes
+			}
+		}
+		add = 5
+	}
+	modifier = {
+		star = {
+			is_star_class = sc_black_hole
+		}
+		add = 10
+	}
+	mult = value:starbase_observatory_output_mult
+}
+
+starbase_observatory_engineering_output_mult = {
+	base = 0
+	modifier = {
+		star = {
+			OR = {
+				is_star_class = sc_pulsar
+				is_star_class = sc_binary_1				# X-ray Binary Star System: Blue star around a Pulsar
+				is_star_class = sc_crisis_binary_1
+				is_star_class = sc_neutron_star
+				is_star_class = sc_binary_2				# X-ray Binary Star System: Blue star around a Nuetron
+				is_star_class = sc_crisis_binary_2
+				is_star_class = sc_black_hole
+			}
+		}
+		add = 5
+	}
+	mult = value:starbase_observatory_output_mult
+}
+
+starbase_observatory_dark_matter_output_mult = {
+	base = 0
+	modifier = {
+		owner? = {
+			has_technology = tech_mine_dark_matter
+		}
+		star = {
+			is_star_class = sc_black_hole
+		}
+		add = 1
+	}
+	mult = value:starbase_observatory_output_mult
+}
+
+starbase_observatory_toxic_star_output_mult = {
+	base = 0
+	modifier = {
+		star = {
+			is_star_class = sc_toxoid_star
+		}
+		add = 5
+	}
+	mult = value:starbase_observatory_output_mult
+}
+
+starbase_observatory_astral_star_output_mult = {
+	base = 0
+	modifier = {
+		star = {
+			is_star_class = sc_rift_star
+		}
+		add = 5
+	}
+	mult = value:starbase_observatory_output_mult
+}
+
+starbase_observatory_output_mult = {
+	base = 1
+	modifier = {
+		owner? = {
+			is_astrometeorologist_empire = yes
+		}
+		add = 0.5
+	}
+	modifier = {
+		owner? = {
+			is_galactic_community_member = yes
+		}
+		galcom_has_astral_studies_network_or_greater_trigger = yes
+		add = 1
+	}
+}
+
+heirs_hunter_fleet_size = {
+	base = 3
+	mult = defeated_heirs_hunters_spawner
+	mult = value:heirs_difficulty_modifier
+	round = yes
+	min = 3
+}
+
+heirs_hunter_fleet_size_small = {
+	base = 2
+	mult = defeated_heirs_hunters_spawner
+	mult = value:heirs_difficulty_modifier
+	round = yes
+	min = 3
+}
+
+heirs_difficulty_modifier = {
+	base = 1
+	# Civilian
+	modifier = {
+		divide = 2
+		is_difficulty = 0
+	}
+
+	# Cadet
+	modifier = {
+		divide = 1.5
+		is_difficulty = 1
+	}
+
+	# Ensign
+	# Default values
+
+	# Captain
+	modifier = {
+		mult = 1.25
+		is_difficulty = 3
+	}
+
+	# Commodore
+	modifier = {
+		mult = 1.5
+		is_difficulty = 4
+	}
+
+	# Admiral
+	modifier = {
+		mult = 1.75
+		is_difficulty = 5
+	}
+
+	# Grand Admiral
+	modifier = {
+		mult = 2
+		is_difficulty = 6
+	}
+}
+
+num_satrapies = {
+	complex_trigger_modifier = { # We first add the amount of vassals you have
+		trigger = count_agreement
+		parameters = {
+			limit = {
+				agreement_preset = preset_relic_satrapy
+			}
+		}
+		mode = add
+	}
+	divide = 5 # We divide by 5 so each vassal increases the factor by 20%
+	add = 1 # We add 1 so that we can't reduce it
+}
+
+num_owned_neighbor_systems = {
+	complex_trigger_modifier = {
+		trigger = num_neighbor_systems
+		parameters = {
+			limit = {
+				space_owner? = {
+					is_same_value = root.space_owner
+				}
+			}
+		}
+		mode = add
+	}
+}
+
+num_defensive_pacts_times_25 = {
+	add = trigger:num_defensive_pacts
+	mult = 25
+}
+
+multiply_by_arkship = { #f(n)=1+0.2 (n−1), 1 Arkship = 1; 2 Arkships = 1.2; 3 Arkships = 1.4
+	base = -1
+	complex_trigger_modifier = {
+		trigger = count_owned_planet
+		parameters = {
+			limit = {
+				is_planet_class = pc_ark
+			}
+		}
+		mode = add
+	}
+	mult = 0.2
+	add = 1
+}
+
+nomadic_sage_ruler_skill_mult = {
+	base = 1
+	add = ruler.trigger:has_total_skill
+	max = 5			# Capped a ×5 mult, so +15% in total
+}
+
+arkship_survey_speed_mult = {
+	# This collates survey speed modifiers for arkships to ensure that Deep Scanning
+	# and Subspace Imaging are affected appropriately.
+	base = 1
+	add = modifier:science_ship_survey_speed
+	# Shipsize-specific arkship modifiers, only one will match per fleet
+	modifier = {
+		add = modifier:shipsize_civilian_arkship_tier_1_science_survey_speed
+		is_ship_size = civilian_arkship_tier_1
+	}
+	modifier = {
+		add = modifier:shipsize_civilian_arkship_tier_2_science_survey_speed
+		is_ship_size = civilian_arkship_tier_2
+	}
+	modifier = {
+		add = modifier:shipsize_civilian_arkship_tier_3_science_survey_speed
+		is_ship_size = civilian_arkship_tier_3
+	}
+	modifier = {
+		add = modifier:shipsize_science_arkship_tier_1_science_survey_speed
+		is_ship_size = science_arkship_tier_1
+	}
+	modifier = {
+		add = modifier:shipsize_science_arkship_tier_2_science_survey_speed
+		is_ship_size = science_arkship_tier_2
+	}
+	modifier = {
+		add = modifier:shipsize_science_arkship_tier_3_science_survey_speed
+		is_ship_size = science_arkship_tier_3
+	}
+	modifier = {
+		add = modifier:shipsize_military_arkship_tier_1_science_survey_speed
+		is_ship_size = military_arkship_tier_1
+	}
+	modifier = {
+		add = modifier:shipsize_military_arkship_tier_2_science_survey_speed
+		is_ship_size = military_arkship_tier_2
+	}
+	modifier = {
+		add = modifier:shipsize_military_arkship_tier_3_science_survey_speed
+		is_ship_size = military_arkship_tier_3
+	}
+	# This deliberately ignores arkship_action_speed.
+}
+
+arkship_action_speed = {
+	base = 1
+	modifier = {
+		add = from.starbase.ship.modifier:arkship_action_speed
+		exists = from.starbase.ship
+		# Yes this looks ugly, but need to scope from the Arkship fleet to the Arkship ship
+	}
+}
+
+arkship_scan_success_bonus = {
+	base = 0
+	modifier = {
+		add = 5
+		event_target:arkship = {
+			is_science_arkship = yes
+			is_arkship_tier_1 = yes
+		}
+	}
+	modifier = {
+		add = 10
+		event_target:arkship = {
+			is_science_arkship = yes
+			is_arkship_tier_2 = yes
+		}
+	}
+	modifier = {
+		add = 15
+		event_target:arkship = {
+			is_science_arkship = yes
+			is_arkship_tier_3 = yes
+		}
+	}
+	modifier = {
+		add = 10
+		event_target:arkship = {
+			has_deposit = d_relic_arkship
+		}
+	}
+	modifier = {
+		add = 10
+		event_target:arkship.leader? = {
+			has_leader_flag = nomadic_naturalist
+		}
+	}
+	max = $MAX$
+}
+
+arkship_deep_scan_required_progress_value = {
+	# Base of 60 days
+	base = @arkship_deep_scan_required_progress_base
+	# Required progress is decreased by survey speed modifiers since these normally increase progress per day
+	divide = from.value:arkship_survey_speed_mult
+}
+
+arkship_subspace_image_required_progress_value = {
+	# Base of 90 days
+	base = @arkship_subspace_image_required_progress_base
+	# per planet in the system
+	mult = trigger:num_planets_in_system
+	# Required progress is decreased by survey speed modifiers since these normally increase progress per day
+	divide = from.value:arkship_survey_speed_mult
+}
+
+arkship_harvest_resources_required_progress_value = {
+	base = @arkship_harvest_resources_required_progress
+	divide = value:arkship_action_speed
+}
+
+arkship_strip_mine_required_progress_value = {
+	base = @arkship_strip_mine_required_progress
+	divide = value:arkship_action_speed
+}
+
+arkship_reprocess_planet_required_progress_value = {
+	base = @arkship_reprocess_planet_required_progress
+	divide = value:arkship_action_speed
+}
+
+arkship_knights_detox_required_progress_value = {
+	base = @arkship_knights_detox_required_progress
+	divide = value:arkship_action_speed
+}
+
+arkship_stellar_ignition_required_progress_value = {
+	base = @arkship_stellar_ignition_required_progress
+	divide = value:arkship_action_speed
+}
+
+arkship_exodus_jump_required_progress_value = {
+	base = @arkship_exodus_jump_required_progress
+	divide = value:arkship_action_speed
+}
+
+arkship_settle_required_progress_value = {
+	base = @arkship_settle_required_progress
+	divide = value:arkship_action_speed
+}
+
+times_deep_scanned_mult = {
+	base = 1
+	add = times_deep_scanned
+}
+
+arkship_harvest_resource_deposit_size = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = has_resource
+		parameters = {
+			type = $RESOURCE$
+		}
+		mode = add
+	}
+	mult = $MULT$
+}
+
+# Combines arkship_harvest_resources_produces_mult (base, all resources) and a per-resource variant additively.
+# $RESOURCE$ = the resource being harvested, e.g. minerals, energy, volatile_motes, etc.
+arkship_harvest_resources_combined_produces_mult = {
+	base = 1
+	add = modifier:arkship_harvest_resources_produces_mult
+	add = modifier:arkship_harvest_resources_$RESOURCE$_produces_mult
+	min = 0
+}
+
+arkship_harvest_resource_from_deposit_value = {
+	# Multiplier for the reward uses progression of (n×(n+1))/2, where n is the deposit size.
+	base = 1
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|$RESOURCE$|MULT|1|
+	mult = value:arkship_harvest_resource_deposit_size|RESOURCE|$RESOURCE$|MULT|1|
+	divide = 2
+	mult = $BASE$
+	mult = $MULT$
+	divide = @arkship_harvest_resource_from_deposit_normalization_factor	# Normalise this so a size 1 deposit gives 1 resource
+	mult = @arkship_harvest_resource_from_deposit_scaling_factor
+	round_to = 5
+	mult = event_target:harvesting_ship.value:arkship_harvest_resources_combined_produces_mult|RESOURCE|$RESOURCE$|	# Apply modifiers after rounding
+}
+
+arkship_harvest_resource_from_planet_class_base_value = {
+	# Deposits sizes are summed to determine resources from planet class
+	base = 0
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|nanites|MULT|1|
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|sr_living_metal|MULT|1|
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|sr_zro|MULT|1|
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|volatile_motes|MULT|1|
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|exotic_gases|MULT|1|
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|rare_crystals|MULT|1|
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|alloys|MULT|1|
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|consumer_goods|MULT|1|
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|energy|MULT|1|
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|minerals|MULT|1|
+	add = value:arkship_harvest_resource_deposit_size|RESOURCE|trade|MULT|1|
+	min = 1
+	max = 5
+}
+
+arkship_harvest_resource_ai_weight_value = {
+	# AI weight factor for a surveyed harvest target, scaled by how much the planet holds
+	base = 0
+	add = value:arkship_harvest_resource_from_planet_class_base_value
+	mult = @ai_action_weight_factor_5
+}
+
+arkship_harvest_resource_from_planet_class_value = {
+	# Multiplier for the reward uses progression of (n×(n+1))/2, where n is the
+	# total size of all (valid) deposits on the planet.
+	base = 1
+	add = value:arkship_harvest_resource_from_planet_class_base_value
+	mult = value:arkship_harvest_resource_from_planet_class_base_value
+	divide = 2
+	mult = $BASE$
+	mult = $MULT$
+	divide = @arkship_harvest_resource_from_deposit_normalization_factor	# Normalise this so a size 1 deposit gives 1 resource
+	mult = $FACTOR$
+	round_to = 5
+	mult = event_target:harvesting_ship.value:arkship_harvest_resources_combined_produces_mult|RESOURCE|$RESOURCE$|	# Apply modifiers after rounding
+}
+
+arkship_harvest_resource_from_unsurveyed_planet_class_value = {
+	# Multiplier for the reward uses progression of (n×(n+1))/2, where n is the
+	# total size of all (valid) deposits on the planet.
+	base = 1
+	mult = $BASE$
+	mult = $MULT$
+	divide = @arkship_harvest_resource_from_deposit_normalization_factor	# Normalise this so a size 1 deposit gives 1 resource
+	mult = $FACTOR$
+	round_to = 5
+	mult = event_target:harvesting_ship.value:arkship_harvest_resources_combined_produces_mult|RESOURCE|$RESOURCE$|	# Apply modifiers after rounding
+}
+
+arkship_harvest_resources_duration_calc = {
+	base = 1
+	add = modifier:arkship_harvest_resources_depletion_time_mult
+	mult = 2
+	min = 0.1
+}
+
+# Host's share: the value negotiated on the deal.
+harvesting_agreement_owner_share_value = {
+	base = 0
+	# complex_trigger_modifier = {
+	# 	trigger = trade_action_value
+	# 	trigger_scope = space_owner
+	# 	parameters = {
+	# 		action = trade_action_harvesting_agreement
+	# 		with_country = event_target:arkship.controller
+	# 	}
+	# 	mode = add
+	# 	desc = harvesting_agreement_share_desc
+	# }
+}
+
+harvesting_agreement_nomad_share_value = {
+	base = 1
+	subtract = value:harvesting_agreement_owner_share_value
+}
+
+num_paladins_in_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger_scope = fleet.solar_system
+		trigger = count_fleet_in_system
+		parameters = {
+			limit = {
+				controller = {
+					NOT = { is_hostile = root.owner }
+				}
+				is_ship_size = paladin_ship
+			}
+		}
+		mode = add
+	}
+}
+
+nomadic_champion_trophy_collection = {
+	base = 1
+	add = champion_trophies_collected
+	max = 8			# Capped a ×8 mult
+}
+
+trait_photoadaptive_value = {
+	base = 0
+	# Update concept_trait_photoadaptive_stars_desc if these change
+	add = value:luminosity_photoadaptive_value|luminosity|0|value|-0.15|
+	add = value:luminosity_photoadaptive_value|luminosity|1|value|-0.05|
+	add = value:luminosity_photoadaptive_value|luminosity|2|value|0.05|
+	add = value:luminosity_photoadaptive_value|luminosity|3|value|0.10|
+	add = value:luminosity_photoadaptive_value|luminosity|4|value|0.15|
+	min = -0.15
+	max = 0.15
+}
+
+luminosity_photoadaptive_value = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system_planet # So it works in binary and trinary systems
+		parameters = { limit = { has_climate = luminosity_$luminosity$ } }
+		mode = add
+		mult = $value$
+	}
+}
+
+trait_recursive_learners_value = {
+	base = 0.0125
+	complex_trigger_modifier = {
+		trigger = num_districts
+		parameters = { type = any }
+		mode = mult
+	}
+	max = 0.25
+}
+
+trait_interconnected_value = {
+	base = -3500
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		parameters = {
+			limit = { has_trait = trait_interconnected }
+		}
+		mode = add
+	}
+	divide = 400
+	min = -5
+	max = 15
+}
+
+trait_interconnected_amenities_value = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		parameters = {
+			limit = { has_trait = trait_interconnected }
+		}
+		mode = add
+	}
+	divide = 1000
+	max = 10
+}
+
+nomad_economy_calc_minerals_expenses = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = resource_expenses_compare
+		trigger_scope = owner
+		parameters = {
+			resource = minerals
+		}
+		mode = subtract
+	}
+	divide = 10
+}
+
+nomad_economy_calc_minerals_income = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = resource_revenue_compare
+		trigger_scope = owner
+		parameters = {
+			resource = minerals
+		}
+		mode = add
+	}
+	divide = 10
+}
+
+nomad_economy_calc_energy_expenses = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = resource_expenses_compare
+		trigger_scope = owner
+		parameters = {
+			resource = energy
+		}
+		mode = subtract
+	}
+	divide = 10
+}
+
+nomad_economy_calc_energy_income = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = resource_revenue_compare
+		trigger_scope = owner
+		parameters = {
+			resource = energy
+		}
+		mode = add
+	}
+	divide = 10
+}
+
+contract_bonus_value = {
+	base = 0
+	add = contract_completed #variable tracking the amount of succesful contracts you have
+	divide = 10 #each succesful contract grants a 10% increase to the reward
+	add = 1 #so we have an undivided base
+	mult = value:contract_bonus_modifier
+	max = 50
+	min = 1
+}
+
+contract_bonus_value_penalized = {
+	base = 0
+	add = contract_completed
+	divide = 10
+	add = 1
+	mult = value:contract_bonus_modifier
+	mult = 0.75 #25% reduction for downtime taken during the contract
+	max = 25
+	min = 0.75
+}
+
+contract_bonus_modifier = {
+	base = 1
+	complex_trigger_modifier = { #scripted modifier to be used in things like traditions, councilors, governments, civics...
+		trigger = check_modifier_value
+		parameters = { modifier = nomadic_contract_value_mult }
+		mode = mult
+	}
+	add = 1
+}
+
+cruise_contract_bonus_value = {
+	base = 0
+	add = cruise_contract_completed #variable tracking the amount of succesful Forever Cruise contracts you have
+	divide = 4 #each succesful contract grants a 25% increase to the reward
+	add = 1 #so we have an undivided base
+	mult = value:contract_bonus_modifier
+	max = 100
+	min = 1
+}
+
+nomad_visited_systems_left = {
+	base = 50
+	subtract = owner.visited_systems_nomad
+	min = 0
+}
+
+# Base 300 (100 * 3), can scale up to ~1050 or down to 3
+# depending on which empire is nicer and has jobs+housing.
+# 3x multiplier compensates for the 3-5 year arkship.1 cadence
+# (was previously monthly via on_monthly_pulse_country).
+# Capped at half the source's pop count so a single migration can
+# never drain more than 50% of a fresh arkship or new colony.
+compare_resettle_attraction = {
+	base = 100
+
+	modifier = {
+		add = $DEST$.value:check_resettle_attraction
+	}
+	modifier = {
+		subtract = $ORIGIN$.value:check_resettle_attraction
+	}
+	min = 1
+	mult = 3
+	max = $ORIGIN$.value:half_local_pop_amount
+	round = yes
+}
+
+# Half the current scope's total pop amount, in raw units (100 = 1 displayed pop).
+# Works on planet, ship, and colony scopes — count_owned_pop_amount supports all three.
+half_local_pop_amount = {
+	complex_trigger_modifier = {
+		trigger = count_owned_pop_amount
+		parameters = { limit = { is_sapient = yes } }
+		mode = add
+	}
+	divide = 2
+}
+
+
+check_resettle_attraction = {
+	base = 0
+	modifier = { #The place gets more attractive the more jobs and housing there is for us refugees
+		add = value:capped_free_jobs
+	}
+	modifier = {
+		add = value:capped_free_housing
+	}
+	modifier = {
+		add = owner.value:refugee_attraction_multiplier
+	}
+	min = 0.01
+}
+
+capped_free_jobs = { #up to 5000 free jobs -> 50
+	base = 0
+	modifier = {
+		add = trigger:free_jobs
+	}
+	divide = 100
+	max = 50
+	round = yes
+}
+
+capped_free_housing = { #up to 5000 free housing -> 50
+	base = 0
+	modifier = {
+		add = trigger:free_housing
+	}
+	divide = 100
+	max = 50
+	round = yes
+}
+
+num_ancient_wonders_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system
+		parameters = {
+			limit = {
+				has_star_flag = ancient_wonders_system
+			}
+		}
+		mode = add
+	}
+}
+
+num_antique_threat_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system
+		parameters = {
+			limit = {
+				has_star_flag = antique_threat_system
+			}
+		}
+		mode = add
+	}
+}
+
+num_enclave_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system
+		parameters = {
+			limit = {
+				has_star_flag = enclave
+			}
+		}
+		mode = add
+	}
+}
+
+num_galactic_landmark_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system
+		parameters = {
+			limit = {
+				has_star_flag = galactic_landmark_system
+			}
+		}
+		mode = add
+	}
+}
+
+num_marauder_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system
+		parameters = {
+			limit = {
+				has_star_flag = marauder_system
+			}
+		}
+		mode = add
+	}
+}
+
+num_natural_spectacle_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system
+		parameters = {
+			limit = {
+				has_star_flag = natural_spectacle_system
+			}
+		}
+		mode = add
+	}
+}
+
+num_precursor_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system
+		parameters = {
+			limit = {
+				has_star_flag = precursor_system
+			}
+		}
+		mode = add
+	}
+}
+
+num_space_ecology_system = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = count_system
+		parameters = {
+			limit = {
+				has_star_flag = space_ecology_system
+			}
+		}
+		mode = add
+	}
+}
+
+ancient_wonders_system_ratio = {
+	base = 0
+	add = ancient_wonders_system_seen
+	divide = ancient_wonders_system_count
+	max = 1
+}
+
+antique_threat_system_ratio = {
+	base = 0
+	add = antique_threat_system_seen
+	divide = antique_threat_system_count
+	max = 1
+}
+
+enclave_system_ratio = {
+	base = 0
+	add = enclave_system_seen
+	divide = enclave_system_count
+	max = 1
+}
+
+galactic_landmark_system_ratio = {
+	base = 0
+	add = galactic_landmark_system_seen
+	divide = galactic_landmark_system_count
+	max = 1
+}
+
+marauder_system_ratio = {
+	base = 0
+	add = marauder_system_seen
+	divide = marauder_system_count
+	max = 1
+}
+
+natural_spectacle_system_ratio = {
+	base = 0
+	add = natural_spectacle_system_seen
+	divide = natural_spectacle_system_count
+	max = 1
+}
+
+precursor_system_ratio = {
+	base = 0
+	add = precursor_system_seen
+	divide = precursor_system_count
+	max = 1
+}
+
+space_ecology_system_ratio = {
+	base = 0
+	add = space_ecology_system_seen
+	divide = space_ecology_system_count
+	max = 1
+}
+
+nomadic_caregiver_contract_mult = {
+	base = 1
+	add = owner.caregiver_contracts_completed
+	max = 5		# Capped a ×5 mult, so +15% in total
+}
+
+# Scope: planet (subject colony). root = waystation, root.owner = overlord.
+# IMPORTANT: Keep these bonuses aligned with triggered_station_modifier blocks
+# in waystation_treasure_vault (00_waystation_modules.txt).
+tribute_vault_percentage = {
+	base = 0.01		# 1% base
+	modifier = {	# Heirs of the Khan: +4%
+		add = 0.04
+		root.owner = { has_origin = origin_heirs_of_the_khan }
+	}
+	modifier = {	# Satrapy subject type: +2.5%
+		add = 0.025
+		owner = { any_agreement = { agreement_preset = preset_relic_satrapy } }
+	}
+	modifier = {	# Embrace the Chaos: +1.5%
+		add = 0.015
+		root.owner = { has_country_flag = sacred_path_embrace_chaos }
+	}
+	modifier = {	# Barbaric Despoilers: +1.5%
+		add = 0.015
+		root.owner = { has_valid_civic = civic_barbaric_despoilers }
+	}
+	modifier = {	# Void Reavers: +1.5%
+		add = 0.015
+		root.owner = { has_valid_civic = civic_void_reavers }
+	}
+	modifier = {	# Letters of Marque: +1.5%
+		add = 0.015
+		root.owner = { has_valid_civic = civic_crusader_spirit_corporate }
+	}
+	modifier = {	# Nihilistic Acquisition: +1.5%
+		add = 0.015
+		root.owner = { has_ascension_perk = ap_nihilistic_acquisition }
+	}
+}
+
+# Scope: subject country. Returns the number of tribute vaults extracting from this subject.
+tribute_vault_count_mult = {
+	base = 0
+	add = tribute_vault_count
+}
+
+# Scope: country. Maximum Operational Reserves: a base value plus a per-arkship amount scaled by tier.
+nomad_max_operational_reserves = {
+	base = @nomad_reserves_base
+	complex_trigger_modifier = {
+		trigger = count_owned_fleet
+		parameters = {
+			limit = {
+				any_owned_ship = {
+					is_arkship_tier_1 = yes
+				}
+			}
+		}
+		mode = add
+		multiplier = @nomad_reserves_per_tier_1
+	}
+	complex_trigger_modifier = {
+		trigger = count_owned_fleet
+		parameters = {
+			limit = {
+				any_owned_ship = {
+					is_arkship_tier_2 = yes
+				}
+			}
+		}
+		mode = add
+		multiplier = @nomad_reserves_per_tier_2
+	}
+	complex_trigger_modifier = {
+		trigger = count_owned_fleet
+		parameters = {
+			limit = {
+				any_owned_ship = {
+					is_arkship_tier_3 = yes
+				}
+			}
+		}
+		mode = add
+		multiplier = @nomad_reserves_per_tier_3
+	}
+	# Civilian Arkships grant additional reserve capacity scaling with their Tier (+2500 per Tier).
+	complex_trigger_modifier = {
+		trigger = count_owned_fleet
+		parameters = {
+			limit = {
+				any_owned_ship = {
+					is_arkship_tier_1 = yes
+					is_civilian_arkship = yes
+				}
+			}
+		}
+		mode = add
+		multiplier = @nomad_reserves_civilian_per_tier_1
+	}
+	complex_trigger_modifier = {
+		trigger = count_owned_fleet
+		parameters = {
+			limit = {
+				any_owned_ship = {
+					is_arkship_tier_2 = yes
+					is_civilian_arkship = yes
+				}
+			}
+		}
+		mode = add
+		multiplier = @nomad_reserves_civilian_per_tier_2
+	}
+	complex_trigger_modifier = {
+		trigger = count_owned_fleet
+		parameters = {
+			limit = {
+				any_owned_ship = {
+					is_arkship_tier_3 = yes
+					is_civilian_arkship = yes
+				}
+			}
+		}
+		mode = add
+		multiplier = @nomad_reserves_civilian_per_tier_3
+	}
+}
+
+# Forever Cruise: Passenger Unity building slowdown multiplier
+# Each active building slows progress towards Planetfall by 5%, up to 50% (10 buildings max).
+# Scope: situation
+passenger_unity_satisfaction_mult = {
+	base = 1
+	complex_trigger_modifier = {
+		trigger = num_buildings
+		trigger_scope = owner
+		parameters = {
+			type = building_forever_cruise_passenger_unity
+			disabled = no
+		}
+		mult = -0.05
+		mode = add
+	}
+	min = 0.5
+}
+
+# Forever Cruise: Crew Industry building slowdown multiplier
+# Each active building slows progress towards Mutiny by 5%, up to 50% (10 buildings max).
+# Scope: situation
+crew_industry_satisfaction_mult = {
+	base = 1
+	complex_trigger_modifier = {
+		trigger = num_buildings
+		trigger_scope = owner
+		parameters = {
+			type = building_forever_cruise_crew_industry
+			disabled = no
+		}
+		mult = -0.05
+		mode = add
+	}
+	min = 0.5
+}
