@@ -1,0 +1,21 @@
+10 = {
+	modifier = {
+		factor = 0
+		NOT = {
+			any_system_planet = {
+				is_star = no
+				has_resource = {
+					type = $RESOURCE$
+					amount > 0
+				}
+				has_harvestable_resources_trigger = yes
+			}
+		}
+	}
+	root.owner = {
+		issue_contract = {
+			contract = contract_harvest_$RESOURCE$
+			location = event_target:contract_system
+		}
+	}
+}

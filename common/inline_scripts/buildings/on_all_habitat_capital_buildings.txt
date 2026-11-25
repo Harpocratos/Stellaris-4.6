@@ -1,0 +1,35 @@
+# Max Districts Multiplier
+triggered_planet_modifier = {
+	key = origins_traditions_tech_key
+	potential = {
+		exists = owner
+		is_planet_class = pc_habitat
+	}
+	planet_max_districts_add = 1
+	mult = owner.modifier:habitat_max_districts_add
+}
+
+# Planet & Stars give 0.25 Max Districts Per Capital Tier
+triggered_planet_modifier = {
+	key = major_celestial_objects_key
+	potential = {
+		exists = owner
+		is_planet_class = pc_habitat
+	}
+	planet_max_districts_add = @hab_districts_per_major_body
+	mult = value:districts_from_major_celestial_objects_value
+}
+
+# Moons and Asteroids give 0.25 Max Districts for Void Dwellers
+triggered_planet_modifier = {
+	key = minor_celestial_objects_key
+	potential = {
+		exists = owner
+		owner = {
+			is_void_dweller_empire = yes
+		}
+		is_planet_class = pc_habitat
+	}
+	planet_max_districts_add = 0.25
+	mult = solar_system.value:num_minor_celestial_objects
+}

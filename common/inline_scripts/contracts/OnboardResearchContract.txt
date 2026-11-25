@@ -1,0 +1,139 @@
+# Onboard Contract
+	category = science_contract
+	desc = "contract_onboard_$RESEARCH$_research_desc"
+	event_chain = contract_onboard_$RESEARCH$_research_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_$RESEARCH$_research
+	small_picture = GFX_contract_onboard_$RESEARCH$_research_small
+	location = no
+	time_to_accept = @contract_time_base
+	cost = 1000
+
+	lore_issued = contract_issued_lore_onboard_$RESEARCH$_research
+	lore_completed = contract_completed_lore_onboard_$RESEARCH$_research
+	lore_failed = contract_failed_lore_onboard_$RESEARCH$_research
+
+	issued_abort_trigger = {
+		is_nomadic = yes
+	}
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = contract_onboard_$RESEARCH$_research_chain
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_own = yes
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_onboard_$RESEARCH$_research_chain
+			}
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = onboard_$RESEARCH$_research_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_onboard_$RESEARCH$_research_chain
+			target = root
+		}
+		capital_scope = {
+			enable_special_project = {
+				name = "CONTRACT_ONBOARD_$RESEARCH$_RESEARCH_PROJECT"
+				location = this
+				owner = root
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = $RESEARCH$_research RESOURCE_AMOUNT = 350 }
+			add_resource = { influence = @opinion_contract_small }
+			custom_tooltip = trust5
+			custom_tooltip = opinion50
+			hidden_effect = {
+				# prev = issuer
+				prev = {
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_small
+						who = root
+					}
+					add_trust = {
+						amount = 5
+						who = root
+					}
+					add_monthly_resource_mult = {
+						resource = $RESEARCH$_research
+						value = @tier2researchreward
+						min = @tier2researchmin
+						max = @tier2researchmax
+					}
+					country_event = { id = nomads.3002 days = 1 }
+				}
+				# this = operator
+				add_monthly_resource_mult = {
+					resource = $RESEARCH$_research
+					value = @tier1researchreward
+					min = @tier1researchmin
+					max = @tier1researchmax
+				}
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_onboard_$RESEARCH$_research_chain
+			prev = {
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_small
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			hidden_effect = {
+				abort_special_project = {
+					type = "CONTRACT_ONBOARD_$RESEARCH$_RESEARCH_PROJECT"
+				}
+				end_event_chain = contract_onboard_$RESEARCH$_research_chain
+				prev = { remove_country_flag = onboard_$RESEARCH$_research_contract_active }
+			}
+		}
+	}

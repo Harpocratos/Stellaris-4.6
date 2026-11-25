@@ -1,0 +1,10 @@
+if = {
+	limit = {
+		is_ai = yes
+	}
+	enable_special_project = {
+		name = "CONTRACT_$KEY$_TRAVEL_PROJECT"
+		location = fromfrom
+		owner = ROOT
+	}
+}

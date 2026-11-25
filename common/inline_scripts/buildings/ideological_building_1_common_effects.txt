@@ -1,0 +1,57 @@
+base_buildtime = @b1_time
+planet_limit = 1
+can_be_ruined = no
+category = government
+
+building_sets = {
+	government
+	urban
+	unity
+}
+
+resources = {
+	category = planet_buildings
+	inline_script = {
+		script = buildings/nomadic_cost_switcher
+		REGULAR_RESOURCE = minerals
+		NOMADIC_RESOURCE = rare_crystals
+		COST = @b1_minerals
+		NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+	}
+	upkeep = {
+		energy = @b1_upkeep
+	}
+	upkeep = {
+		trigger = {
+			owner? = {
+				has_country_flag = force_of_will_utopian_unlock
+			}
+		}
+		energy = @b1_upkeep
+		mult = -1
+	}
+}
+
+triggered_planet_modifier = {
+	colony_ideological_reach_mult = 0.05
+}
+
+triggered_country_modifier = {
+	hall_ideological_reach_mult = 0.1
+}
+
+triggered_desc = {
+	trigger = {
+		owner? = {
+			exists = ideology
+		}
+	}
+	text = building_ideological_strength_tt
+}
+
+inline_script = {
+	script = jobs/culture_workers_add
+	COUNT = @building_ideological_ethic_1_culture_workers
+}
+
+additional_ai_weight = 200

@@ -1,0 +1,208 @@
+# Onboard Resource Contract
+	category = resource_contract
+	desc = "contract_onboard_$RESOURCE$_resource_desc"
+	event_chain = contract_onboard_$RESOURCE$_resource_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = $PICTURE$
+	small_picture = GFX_contract_onboard_$RESOURCE$_resource_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 1000
+
+	lore_issued = contract_issued_lore_onboard_$RESOURCE$_resource
+	lore_completed = contract_completed_lore_onboard_$RESOURCE$_resource
+	lore_failed = contract_failed_lore_onboard_$RESOURCE$_resource
+
+	issued_abort_trigger = {
+		is_nomadic = yes
+	}
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = contract_onboard_$RESOURCE$_resource_chain
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_own = yes
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = contract_onboard_$RESOURCE$_resource_already_discovered
+			fromfrom = {
+				NOT = {
+					any_system_planet = {
+						has_planet_flag = contract_onboard_$RESOURCE$_resource
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = contract_onboard_$RESOURCE$_resource_no_existing_deposit
+			fromfrom = {
+				any_system_planet = {
+					$CANDIDATE$ = yes
+					OR = {
+						has_deposit = d_$RESOURCE$_$L1$
+						has_deposit = d_$RESOURCE$_$L2$
+						has_deposit = d_$RESOURCE$_$L3$
+						has_deposit = d_$RESOURCE$_$L4$
+						has_deposit = d_$RESOURCE$_$L5$
+						has_deposit = d_$RESOURCE$_$L6$
+						has_deposit = d_$RESOURCE$_$L7$
+						has_deposit = d_$RESOURCE$_$L8$
+						has_deposit = d_$RESOURCE$_$L9$
+						has_deposit = d_$RESOURCE$_10
+					}
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_onboard_$RESOURCE$_resource_chain
+			}
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = onboard_$RESOURCE$_resource_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_onboard_$RESOURCE$_resource_chain
+			target = root
+		}
+		enable_special_project = {
+			name = "CONTRACT_ONBOARD_$RESOURCE$_RESOURCE_PROJECT"
+			location = fromfrom
+			owner = root
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = $RESOURCE$ RESOURCE_AMOUNT = 350 }
+			add_resource = { influence = @opinion_contract_small }
+			custom_tooltip = trust5
+			custom_tooltip = opinion50
+			custom_tooltip = improve_deposit_1_3_5_$RESOURCE$
+			hidden_effect = {
+				# prev = issuer
+				prev = {
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_small
+						who = root
+					}
+					add_trust = {
+						amount = 5
+						who = root
+					}
+					save_event_target_as = contract_issuer
+					fromfromfrom = {
+						random_system_planet = {
+							limit = {
+								$CANDIDATE$ = yes
+								OR = {
+									has_deposit = d_$RESOURCE$_$L1$
+									has_deposit = d_$RESOURCE$_$L2$
+									has_deposit = d_$RESOURCE$_$L3$
+									has_deposit = d_$RESOURCE$_$L4$
+									has_deposit = d_$RESOURCE$_$L5$
+									has_deposit = d_$RESOURCE$_$L6$
+									has_deposit = d_$RESOURCE$_$L7$
+									has_deposit = d_$RESOURCE$_$L8$
+									has_deposit = d_$RESOURCE$_$L9$
+									has_deposit = d_$RESOURCE$_10
+								}
+							}
+							save_event_target_as = deposit_planet
+						}
+						set_star_flag = onboard_$RESOURCE$_resource_completed@event_target:contract_issuer
+					}
+					if = {
+						limit = { exists = event_target:deposit_planet }
+						locked_random_list = {
+							25 = {
+								event_target:deposit_planet = {
+									add_deposit = d_$RESOURCE$_$ADD1$
+								}
+							}
+							60 = {
+								event_target:deposit_planet = {
+									add_deposit = d_$RESOURCE$_$ADD3$
+								}
+							}
+							15 = {
+								event_target:deposit_planet = {
+									add_deposit = d_$RESOURCE$_$ADD5$
+								}
+							}
+						}
+						event_target:deposit_planet = { set_planet_flag = contract_onboard_$RESOURCE$_resource }
+					}
+					country_event = { id = nomads.3002 days = 1 }
+				}
+				# this = operator
+				add_monthly_resource_mult = {
+					resource = $RESOURCE$
+					value = @tier1materialreward
+					min = @tier5materialmin # 700
+					max = @tier2materialmax # 2000
+				}
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_onboard_$RESOURCE$_resource_chain
+			prev = {
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_small
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			hidden_effect = {
+				abort_special_project = {
+					type = "CONTRACT_ONBOARD_$RESOURCE$_RESOURCE_PROJECT"
+				}
+				end_event_chain = contract_onboard_$RESOURCE$_resource_chain
+				prev = { remove_country_flag = onboard_$RESOURCE$_resource_contract_active }
+			}
+		}
+	}

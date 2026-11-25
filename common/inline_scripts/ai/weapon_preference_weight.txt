@@ -1,0 +1,10 @@
+modifier = {
+	factor = @favored_weapon_ai_tech_factor
+	is_preferred_weapons = $WEAPON_TYPE$
+}
+modifier = {
+	factor = @disfavored_weapon_ai_tech_factor
+	NOT = {
+		is_preferred_weapons = $WEAPON_TYPE$
+	}
+}

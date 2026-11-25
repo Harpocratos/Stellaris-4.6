@@ -1,0 +1,56 @@
+triggered_planet_modifier = {
+	potential = {
+		owner? = { exists = ideology }
+		owner.ideology = { is_militarist = yes }
+	}
+	pop_ethic_militarist_attraction_mult = @building_ideological_ethic_$LVL$_ethic_attraction
+}
+triggered_planet_modifier = {
+	potential = {
+		owner? = { exists = ideology }
+		owner.ideology = { is_pacifist = yes }
+	}
+	pop_ethic_pacifist_attraction_mult = @building_ideological_ethic_$LVL$_ethic_attraction
+}
+triggered_planet_modifier = {
+	potential = {
+		owner? = { exists = ideology }
+		owner.ideology = { is_materialist = yes }
+	}
+	pop_ethic_materialist_attraction_mult = @building_ideological_ethic_$LVL$_ethic_attraction
+}
+triggered_planet_modifier = {
+	potential = {
+		owner? = { exists = ideology }
+		owner.ideology = { is_spiritualist = yes }
+	}
+	pop_ethic_spiritualist_attraction_mult = @building_ideological_ethic_$LVL$_ethic_attraction
+}
+triggered_planet_modifier = {
+	potential = {
+		owner? = { exists = ideology }
+		owner.ideology = { is_xenophile = yes }
+	}
+	pop_ethic_xenophile_attraction_mult = @building_ideological_ethic_$LVL$_ethic_attraction
+}
+triggered_planet_modifier = {
+	potential = {
+		owner? = { exists = ideology }
+		owner.ideology = { is_xenophobe = yes }
+	}
+	pop_ethic_xenophobe_attraction_mult = @building_ideological_ethic_$LVL$_ethic_attraction
+}
+triggered_planet_modifier = {
+	potential = {
+		owner? = { exists = ideology }
+		owner.ideology = { is_authoritarian = yes }
+	}
+	pop_ethic_authoritarian_attraction_mult = @building_ideological_ethic_$LVL$_ethic_attraction
+}
+triggered_planet_modifier = {
+	potential = {
+		owner? = { exists = ideology }
+		owner.ideology = { is_egalitarian = yes }
+	}
+	pop_ethic_egalitarian_attraction_mult = @building_ideological_ethic_$LVL$_ethic_attraction
+}

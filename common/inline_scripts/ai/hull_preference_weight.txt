@@ -1,0 +1,5 @@
+modifier = {
+	factor = @favored_defense_ai_tech_factor
+	ai_armor_ratio >= 0.4
+	ai_shields_ratio >= 0.4
+}

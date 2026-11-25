@@ -1,0 +1,8 @@
+modifier = {
+	factor = @favored_defense_ai_tech_factor
+	ai_shields_ratio >= 0.5
+}
+modifier = {
+	factor = @disfavored_defense_ai_tech_factor
+	ai_shields_ratio <= 0.3
+}

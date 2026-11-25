@@ -1,0 +1,75 @@
+# Scientific Observation Internal
+	category = science_contract_internal
+	desc = "contract_scientific_observation_$RESOURCE$_internal_desc"
+	event_chain = contract_scientific_observation_$RESOURCE$_internal_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_mining_station
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 0
+
+	potential_issuer = {
+		always = no
+	}
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = contract_scientific_observation_$RESOURCE$_internal_chain
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_scientific_observation_$RESOURCE$_internal_chain
+			target = ROOT
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = contract_system_scientific_observation_$RESOURCE$_internal@root
+			}
+			random_system_planet = {
+				limit = {
+					has_planet_flag = contract_planet_scientific_observation_$RESOURCE$_internal@root
+				}
+				save_event_target_as = contract_planet
+			}
+		}
+
+		enable_special_project = {
+			name = "CONTRACT_SCIENTIFIC_OBSERVATION_$RESOURCE$_INTERNAL_PROJECT"
+			location = event_target:contract_planet
+			owner = ROOT
+		}
+	}
+
+	on_success = {
+		add_resource = { $RESOURCE$ = 300 }
+	}
+
+	on_cancel = {
+		# No effect
+	}
+
+	on_stop = {
+		abort_special_project = { type = CONTRACT_SCIENTIFIC_OBSERVATION_$RESOURCE$_INTERNAL_PROJECT }
+		random_system = {
+			limit = {
+				has_star_flag = contract_system_scientific_observation_$RESOURCE$_internal@root
+			}
+			remove_star_flag = contract_system_scientific_observation_$RESOURCE$_internal@root
+			random_system_planet = {
+				limit = {
+					has_planet_flag = contract_planet_scientific_observation_$RESOURCE$_internal@root
+				}
+				remove_planet_flag = contract_planet_scientific_observation_$RESOURCE$_internal@root
+			}
+		}
+		end_event_chain = contract_scientific_observation_$RESOURCE$_internal_chain
+	}

@@ -1,0 +1,15 @@
+cost = {
+	trigger = {
+		owner? = { is_nomadic = no }
+		$TRIGGER$
+	}
+	$REGULAR_RESOURCE$ = $COST$
+}
+cost = {
+	trigger = {
+		owner? = { is_nomadic = yes }
+		$TRIGGER$
+	}
+	$NOMADIC_RESOURCE$ = $COST$
+	mult = $NOMADIC_COST_MULT$
+}

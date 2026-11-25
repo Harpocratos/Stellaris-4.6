@@ -1,0 +1,14 @@
+modifier = {
+	factor = @favored_ship_role_ai_tech_factor
+	OR = {
+		is_ai_ship_role = { ship_size = $SHIP_SIZE$ role = $ROLE$ }
+		is_ai_ship_role = { ship_size = $SHIP_SIZE$ role = $ROLE$_stealth }
+	}
+}
+modifier = {
+	factor = @disfavored_ship_role_ai_tech_factor
+	OR = {
+		is_ai_ship_role = { ship_size = $SHIP_SIZE$ role = $OPPOSITE_ROLE$ }
+		is_ai_ship_role = { ship_size = $SHIP_SIZE$ role = $OPPOSITE_ROLE$_stealth }
+	}
+}

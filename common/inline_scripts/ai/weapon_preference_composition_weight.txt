@@ -1,0 +1,28 @@
+# Weapon-preference fleet composition weighting, applied inside an ai_ship_data fraction block.
+# Boosts this ship size when its currently assigned role matches the empire's preferred weapon family.
+# The role is read live via is_ai_ship_role, so it tracks whatever the active fleet doctrine assigned.
+# Caller passes its own ship size key as SHIP_SIZE.
+modifier = {
+	factor = @weapon_pref_composition_favored
+	is_preferred_weapons = weapon_type_explosive
+	OR = {
+		is_ai_ship_role = { ship_size = $SHIP_SIZE$ role = explosive }
+		is_ai_ship_role = { ship_size = $SHIP_SIZE$ role = explosive_stealth }
+	}
+}
+modifier = {
+	factor = @weapon_pref_composition_favored
+	is_preferred_weapons = weapon_type_energy
+	OR = {
+		is_ai_ship_role = { ship_size = $SHIP_SIZE$ role = energy_torpedoes }
+		is_ai_ship_role = { ship_size = $SHIP_SIZE$ role = energy_torpedoes_stealth }
+	}
+}
+modifier = {
+	factor = @weapon_pref_composition_favored
+	is_preferred_weapons = weapon_type_strike_craft
+	OR = {
+		is_ai_ship_role = { ship_size = $SHIP_SIZE$ role = carrier }
+		is_ai_ship_role = { ship_size = $SHIP_SIZE$ role = carrier_stealth }
+	}
+}

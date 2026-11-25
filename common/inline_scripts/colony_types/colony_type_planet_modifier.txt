@@ -1,0 +1,10 @@
+planet_modifier = {
+	$MODIFIER$ = 0.15
+}
+
+triggered_planet_modifier = {
+	potential = {
+		owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+	}
+	modifier = { $MODIFIER$ = 0.05 }
+}

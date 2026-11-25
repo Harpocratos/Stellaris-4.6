@@ -1,0 +1,24 @@
+# Nudges so nomad AI develops secondary Arkship producers (reactors, ordnance) instead of only Habitation:
+# focus rewards energy production despite its reserve-negative income target; naval_cap pulls ordnance zones.
+
+subplan = {
+	optional = yes
+	set_name = "Nomad Energy Focus"
+	potential = {
+		is_nomadic = yes
+	}
+	focus = {
+		energy = @economic_plan_nomad_energy_focus
+	}
+}
+
+subplan = {
+	optional = yes
+	scaling = yes
+	set_name = "Nomad Naval Cap"
+	potential = {
+		is_nomadic = yes
+		used_naval_capacity_percent > 0.5
+	}
+	naval_cap = @economic_plan_nomad_naval_cap_target
+}

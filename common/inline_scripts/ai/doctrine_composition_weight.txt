@@ -1,0 +1,27 @@
+# Doctrine-aware fleet composition weighting, applied inside an ai_ship_data fraction block.
+# Scales how many of this ship size the AI fields based on its active fleet doctrine.
+# Every caller must pass all six factors (engine inline scripts have no defaults); pass 1 for no change.
+modifier = {
+	factor = $SPEARHEAD$
+	has_policy_flag = fleet_doctrine_spearhead
+}
+modifier = {
+	factor = $BATTLELINE$
+	has_policy_flag = fleet_doctrine_battleline
+}
+modifier = {
+	factor = $BARRAGE$
+	has_policy_flag = fleet_doctrine_barrage
+}
+modifier = {
+	factor = $STRIKE_WING$
+	has_policy_flag = fleet_doctrine_strike_wing
+}
+modifier = {
+	factor = $AMBUSH$
+	has_policy_flag = fleet_doctrine_ambush
+}
+modifier = {
+	factor = $PHALANX$
+	has_policy_flag = fleet_doctrine_phalanx
+}

@@ -1,0 +1,246 @@
+# Harvest resources
+    category = resource_contract
+    desc = "contract_harvest_$RESOURCE$_desc"
+    event_chain = contract_harvest_$RESOURCE$_chain
+    icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+    picture = GFX_evt_mining_station
+    small_picture = GFX_contract_harvest_resources_small
+    location = yes
+    time_to_accept = @contract_time_base
+    cost = 1000
+
+    issued_abort_trigger = {
+        OR = {
+            is_nomadic = yes
+            AND = {
+                NOT = { has_country_flag = harvest_$RESOURCE$_contract_active }
+                fromfrom = {
+                    NOT = {
+                        any_system_planet = {
+                            is_star = no
+                            has_resource = {
+                                type = $RESOURCE$
+                                amount > 0
+                            }
+                            has_harvestable_resources_trigger = yes
+                            NOT = { has_modifier = harvested_resources_mining }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    abort_trigger = {
+        OR = {
+            NAND = {
+                has_event_chain = contract_harvest_$RESOURCE$_chain
+                contract_target_system_reachable = {
+                    SYSTEM = fromfrom
+                }
+            }
+            # Another empire harvested a target deposit before we could: it is depleted
+            # (harvested_resources_mining) yet still carries our outstanding harvest PoI.
+            # When we harvest it ourselves the PoI is removed before the modifier is applied,
+            # so this never matches our own completion.
+            fromfrom = {
+                any_system_planet = {
+                    has_modifier = harvested_resources_mining
+                    is_point_of_interest = {
+                        id = harvest_poi@this
+                        event_chain = contract_harvest_$RESOURCE$_chain
+                        owner = root
+                    }
+                }
+            }
+        }
+    }
+
+    potential_issuer = {
+        can_issue_contracts_trigger = yes
+#         NOT = {
+#             is_action_active = {
+#                 action = trade_action_harvesting_agreement
+#                 with_country = any
+#             }
+#         }
+        fromfrom = {
+            is_surveyed = { who = root status = yes }
+            contract_system_is_own_or_neutral = yes
+            any_system_planet = {
+                is_star = no
+                has_resource = {
+                    type = $RESOURCE$
+                    amount > 0
+                }
+                has_harvestable_resources_trigger = yes
+            }
+        }
+    }
+
+    possible_issuer = {
+        custom_tooltip = {
+            fail_text = contract_system_already_harvested
+            fromfrom = {
+                NOT = {
+                    any_system_planet = {
+                        has_modifier = harvested_resources_mining
+                    }
+                }
+            }
+        }
+    }
+
+    potential_operator = {
+        NOT = { is_at_war_with = fromfrom }
+    }
+
+    counter = {
+        contract_progress_counter = {
+            max = 1
+        }
+    }
+
+    on_monthly = {
+        country_event = { id = nomads.6000 }
+    }
+
+
+    on_issue = {
+        # shared flag (not per-resource) so nomads.3001 blocks issuing any harvest contract while one is active
+        set_country_flag = harvest_contract_active
+    }
+
+    on_accept = {
+        begin_event_chain = {
+            event_chain = contract_harvest_$RESOURCE$_chain
+            target = ROOT
+        }
+        prev = { set_country_flag = harvest_$RESOURCE$_contract_active }
+        fromfrom = {
+            set_star_flag = harvest_contract_system@this
+            set_surveyed = {
+                surveyed = yes
+                surveyor = root
+            }
+            #Flag deposits
+            every_system_planet = {
+                limit = {
+                    has_resource = {
+                        type = $RESOURCE$
+                        amount > 0
+                    }
+                    NOT = {
+                        has_modifier = harvested_resources_mining
+                    }
+                    is_star = no
+                    custom_tooltip = {
+                        fail_text = arkship_target_habitable_world_fail_tt
+                        habitable_planet = no
+                    }
+                    custom_tooltip = {
+                        fail_text = arkship_target_artificial_world_fail_tt
+                        is_artificial = no
+                    }
+                    custom_tooltip = {
+                        fail_text = arkship_target_ring_world_fail_tt
+                        is_ringworld = no
+                    }
+                    custom_tooltip = {
+                        fail_text = arkship_target_astral_scar_fail_tt
+                        NOT = {
+                            is_planet_class = pc_astral_scar
+                        }
+                    }
+                    custom_tooltip = {
+                        fail_text = arkship_target_harvestable_resources_fail_tt
+                        has_harvestable_resources_trigger = yes
+                    }
+                }
+                root = { #PoI on harvest targets
+                    create_point_of_interest = {
+                        id = harvest_poi@prev
+                        name = "harvest_poi_name"
+                        desc = "harvest_poi_desc"
+                        event_chain = contract_harvest_$RESOURCE$_chain
+                        location = prev
+                    }
+                }
+            }
+        }
+    }
+
+    on_success = {
+        if = {
+            limit = {
+                exists = root
+            }
+            contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = $RESOURCE$ RESOURCE_AMOUNT = 350 }
+            add_resource = { influence = @opinion_contract_small }
+            custom_tooltip = trust5
+            custom_tooltip = opinion50
+            hidden_effect = {
+                prev = {
+                    add_opinion_modifier = {
+                        modifier = opinion_completed_contract_small
+                        who = root
+                    }
+                    add_trust = {
+                        amount = 5
+                        who = root
+                    }
+                }
+                country_event = { id = nomads.3002 days = 1 }
+                set_country_flag = completed_contract_harvest_resource
+                set_timed_country_flag = {
+                    flag = recently_completed_harvest_contract@from
+                    days = 3600
+                }
+            }
+            if = {
+				limit = {
+					has_origin = origin_forever_cruise
+				}
+                custom_tooltip = decrease_passenger_satisfaction
+                decrease_passenger_satisfaction = yes
+			}
+        }
+    }
+
+    on_cancel = {
+        if = {
+            limit = {
+                exists = root
+            }
+            prev = {
+                remove_country_flag = harvest_$RESOURCE$_contract_active
+                remove_country_flag = harvest_contract_active
+                add_opinion_modifier = {
+                    modifier = opinion_failed_contract_small
+                    who = root
+                }
+            }
+        }
+    }
+
+    on_stop = {
+        if = {
+            limit = {
+                exists = root
+            }
+            # Clear chain and PoI
+            end_event_chain = contract_harvest_$RESOURCE$_chain
+            prev = {
+                remove_country_flag = harvest_$RESOURCE$_contract_active
+                remove_country_flag = harvest_contract_active
+            }
+            fromfrom = {
+                remove_star_flag = harvest_contract_system@this
+                every_system_planet = {
+                    root = {
+                        remove_point_of_interest = harvest_poi@prev
+                    }
+                }
+            }
+        }
+    }

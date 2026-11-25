@@ -1,0 +1,32 @@
+
+base = 1
+modifier = {
+	factor = 6
+	solar_system = {
+		is_star_class = sc_black_hole
+	}
+}
+modifier = {
+	factor = 5
+	solar_system = {
+		is_star_class = sc_pulsar
+	}
+}
+modifier = {
+	factor = 4
+	solar_system = {
+		is_star_class = sc_neutron_star
+	}
+}
+modifier = {
+	factor = 3
+	solar_system = {
+		is_inside_nebula = yes
+	}
+}
+modifier = {
+	factor = 2
+	solar_system = {
+		is_multiple_star = yes
+	}
+}

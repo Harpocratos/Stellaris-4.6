@@ -1,0 +1,84 @@
+# Espionage Support for Forever Cruise
+	category = $ISSUER$_diplomacy_contract_special
+	desc = "contract_espionage_support_$ISSUER$_$VARIANT$_desc"
+	lore_issued = "contract_espionage_support_$ISSUER$_$VARIANT$_lore_issued"
+	lore_completed = "contract_espionage_support_$ISSUER$_$VARIANT$_lore_completed"
+	lore_failed = "contract_espionage_support_$ISSUER$_$VARIANT$_lore_failed"
+	event_chain = contract_espionage_support_$ISSUER$_$VARIANT$_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = $PICTURE$
+	location = yes
+	time_to_accept = @contract_time_base
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_espionage_support_$ISSUER$_$VARIANT$_chain
+			}
+		}
+		custom_tooltip = {
+			fail_text = already_doing_actual_espionage_support_contract
+			NOT = {
+				has_event_chain = contract_espionage_support_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	potential_issuer = {
+		always = no
+	}
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_espionage_support_$ISSUER$_$VARIANT$_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+
+	on_issue = {
+		fromfrom = {
+			set_star_flag = forever_cruise_contract_issued@root
+		}
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_espionage_support_$ISSUER$_$VARIANT$_chain
+			target = ROOT
+		}
+		fromfrom = {
+			random_system_planet = {
+				limit = {
+					is_colony = yes
+				}
+				save_event_target_as = contract_planet
+				set_carrier_flag = spy_support_target@root
+			}
+		}
+		enable_special_project = {
+			name = "CONTRACT_ESPIONAGE_SUPPORT_$ISSUER$_$VARIANT$_PROJECT"
+			location = event_target:contract_planet
+			owner = ROOT
+		}
+	}
+
+	on_stop = {
+		end_event_chain = contract_espionage_support_$ISSUER$_$VARIANT$_chain
+		espionage_support_cleanup_effect = yes
+		fromfrom = {
+			remove_star_flag = forever_cruise_contract_issued@root
+		}
+	}

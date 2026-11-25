@@ -1,0 +1,15 @@
+# Variant of nomadic_cost_switcher for administrative buildings: also applies the Unitary Admin governor build-cost discount to the main resource.
+cost = {
+	trigger = {
+		from? = { is_nomadic = no }
+	}
+	$REGULAR_RESOURCE$ = $COST$
+	mult = value:unitary_admin_building_cost_mult
+}
+cost = {
+	trigger = {
+		from? = { is_nomadic = yes }
+	}
+	$NOMADIC_RESOURCE$ = $COST$
+	mult = value:unitary_admin_nomad_cost_mult
+}
