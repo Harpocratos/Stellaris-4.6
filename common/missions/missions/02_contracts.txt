@@ -1,0 +1,5497 @@
+# CONTRACTS
+
+# Contracts that should trigger contract events will need to fire nomads.6000 from somewhere. Consider Special Projects, or other events normally used to track mission progress.
+
+# For reference (defined in 10_scripted_variables_nomads):
+#
+# @contract_time_short = 900
+# @contract_time_base = 1800
+# @contract_time_long = 2700
+#
+# @opinion_contract_small = 50
+# @opinion_contract_regular = 100
+# @opinion_contract_large = 150
+#
+# @opinion_failed_contract_small = -75
+# @opinion_failed_contract_regular = -125
+# @opinion_failed_contract_large = -175
+
+
+## Harvest Resources
+# Minerals
+contract_harvest_minerals = {
+	inline_script = {
+		script = contracts/HarvestResource
+		RESOURCE = minerals
+	}
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_harvest_minerals_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+	lore_issued = contract_issued_lore_harvest
+	lore_completed = contract_completed_lore_harvest
+	lore_failed = contract_failed_lore_harvest
+}
+
+# Energy
+contract_harvest_energy = {
+	inline_script = {
+		script = contracts/HarvestResource
+		RESOURCE = energy
+	}
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_harvest_energy_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+	lore_issued = contract_issued_lore_harvest
+	lore_completed = contract_completed_lore_harvest
+	lore_failed = contract_failed_lore_harvest
+}
+
+# CG
+contract_harvest_consumer_goods = {
+	inline_script = {
+		script = contracts/HarvestResource
+		RESOURCE = consumer_goods
+	}
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_harvest_consumer_goods_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+	lore_issued = contract_issued_lore_harvest
+	lore_completed = contract_completed_lore_harvest
+	lore_failed = contract_failed_lore_harvest
+}
+
+# Alloys
+contract_harvest_alloys = {
+	inline_script = {
+		script = contracts/HarvestResource
+		RESOURCE = alloys
+	}
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_harvest_alloys_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+	lore_issued = contract_issued_lore_harvest
+	lore_completed = contract_completed_lore_harvest
+	lore_failed = contract_failed_lore_harvest
+}
+
+# Motes
+contract_harvest_volatile_motes = {
+	inline_script = {
+		script = contracts/HarvestResource
+		RESOURCE = volatile_motes
+	}
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_harvest_volatile_motes_chain
+			}
+		}
+		has_technology = tech_mine_volatile_motes
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+	lore_issued = contract_issued_lore_harvest
+	lore_completed = contract_completed_lore_harvest
+	lore_failed = contract_failed_lore_harvest
+}
+
+# Gases
+contract_harvest_exotic_gases = {
+	inline_script = {
+		script = contracts/HarvestResource
+		RESOURCE = exotic_gases
+	}
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_harvest_exotic_gases_chain
+			}
+		}
+		has_technology = tech_mine_exotic_gases
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+	lore_issued = contract_issued_lore_harvest
+	lore_completed = contract_completed_lore_harvest
+	lore_failed = contract_failed_lore_harvest
+}
+
+# Crystals
+contract_harvest_rare_crystals = {
+	inline_script = {
+		script = contracts/HarvestResource
+		RESOURCE = rare_crystals
+	}
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_harvest_rare_crystals_chain
+			}
+		}
+		has_technology = tech_mine_rare_crystals
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+	lore_issued = contract_issued_lore_harvest
+	lore_completed = contract_completed_lore_harvest
+	lore_failed = contract_failed_lore_harvest
+}
+
+# Living Metal
+contract_harvest_sr_living_metal = {
+	inline_script = {
+		script = contracts/HarvestResource
+		RESOURCE = sr_living_metal
+	}
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_harvest_sr_living_metal_chain
+			}
+		}
+		has_technology = tech_mine_living_metal
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+	lore_issued = contract_issued_lore_harvest
+	lore_completed = contract_completed_lore_harvest
+	lore_failed = contract_failed_lore_harvest
+}
+
+# Nanites
+contract_harvest_nanites = {
+	inline_script = {
+		script = contracts/HarvestResource
+		RESOURCE = nanites
+	}
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_harvest_nanites_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+	lore_issued = contract_issued_lore_harvest
+	lore_completed = contract_completed_lore_harvest
+	lore_failed = contract_failed_lore_harvest
+}
+
+## Espionage Support
+contract_espionage_support = {
+	category = diplomacy_contract
+	event_chain = contract_espionage_support_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_decryption
+	small_picture = GFX_contract_espionage_support_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 500
+
+	lore_issued = contract_issued_lore_espionage
+	lore_completed = contract_completed_lore_espionage
+	lore_failed = contract_failed_lore_espionage
+
+	issued_abort_trigger = {
+		is_nomadic = yes
+	}
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_espionage_support_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		is_nomadic = no
+		contract_system_is_owned_by_other_empire = yes
+		fromfrom.owner = {
+			num_owned_planets <= 3
+		}
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = need_spy_network
+			any_envoy = {
+				has_envoy_task = {
+					task = spy_network
+					target = fromfrom.owner
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_espionage_support_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = espionage_support_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_espionage_support_chain
+			target = root
+		}
+		fromfrom = {
+			random_system_planet = {
+				limit = {
+					is_colony = yes
+				}
+				set_carrier_flag = spy_support_target@root
+				enable_special_project = { #at least one project
+					name = "CONTRACT_ESPIONAGE_SUPPORT_PROJECT_01"
+					location = this
+					owner = root
+				}
+			}
+		}
+		prev = {
+			random_spynetwork = {
+				limit = {
+					target = {
+						is_same_value = fromfrom.owner
+					}
+				}
+				set_spynetwork_flag = spy_support_contract_network@root
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			espionage_support_effect = { INTEL_AMOUNT = 10 }
+			custom_tooltip = trust10
+			custom_tooltip = opinion100
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = influence RESOURCE_AMOUNT = 35 }
+			add_resource = { influence = @opinion_contract_regular }
+			hidden_effect = {
+				prev = { #should be issuer
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_regular
+						who = root
+					}
+					add_trust = {
+						amount = 10
+						who = root
+					}
+				}
+				country_event = { id = nomads.3002 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_regular
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_espionage_support_chain
+			espionage_support_cleanup_effect = yes
+			prev = { remove_country_flag = espionage_support_contract_active }
+		}
+	}
+}
+
+contract_espionage_support_2 = {
+	category = diplomacy_contract
+	desc = "contract_espionage_support_desc"
+	event_chain = contract_espionage_support_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_infiltration_neutral
+	small_picture = GFX_contract_espionage_support_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 1000
+
+	lore_issued = contract_issued_lore_espionage
+	lore_completed = contract_completed_lore_espionage
+	lore_failed = contract_failed_lore_espionage
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_espionage_support_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 2
+		}
+	}
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_owned_by_other_empire = yes
+		fromfrom.owner = {
+			num_owned_planets > 3
+			num_owned_planets <= 7
+		}
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = need_spy_network
+			any_envoy = {
+				has_envoy_task = {
+					task = spy_network
+					target = fromfrom.owner
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_espionage_support_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = espionage_support_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_espionage_support_chain
+			target = root
+		}
+		fromfrom = {
+			random_system_planet = {
+				limit = {
+					is_colony = yes
+				}
+				set_carrier_flag = spy_support_target@root
+				enable_special_project = { #at least one project
+					name = "CONTRACT_ESPIONAGE_SUPPORT_PROJECT_01"
+					location = this
+					owner = root
+				}
+			}
+		}
+		prev = {
+			random_spynetwork = {
+				limit = {
+					target = {
+						is_same_value = fromfrom.owner
+					}
+				}
+				set_spynetwork_flag = spy_support_contract_network@root
+				target = {
+					generate_additional_espionage_support_project = yes
+				}
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			espionage_support_effect = { INTEL_AMOUNT = 20 }
+			custom_tooltip = trust10
+			custom_tooltip = opinion100
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = influence RESOURCE_AMOUNT = 35 }
+			add_resource = { influence = @opinion_contract_regular }
+			hidden_effect = {
+				prev = { #should be issuer
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_regular
+						who = root
+					}
+					add_trust = {
+						amount = 10
+						who = root
+					}
+				}
+				country_event = { id = nomads.3002 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_regular
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_espionage_support_chain
+			espionage_support_cleanup_effect = yes
+			prev = { remove_country_flag = espionage_support_contract_active }
+		}
+	}
+}
+
+contract_espionage_support_3 = {
+	category = diplomacy_contract
+	desc = "contract_espionage_support_desc"
+	event_chain = contract_espionage_support_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_spy_network
+	small_picture = GFX_contract_espionage_support_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 1500
+
+	lore_issued = contract_issued_lore_espionage
+	lore_completed = contract_completed_lore_espionage
+	lore_failed = contract_failed_lore_espionage
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_espionage_support_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 3
+		}
+	}
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_owned_by_other_empire = yes
+		fromfrom.owner = {
+			num_owned_planets > 7
+			num_owned_planets <= 13
+		}
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = need_spy_network
+			any_envoy = {
+				has_envoy_task = {
+					task = spy_network
+					target = fromfrom.owner
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_espionage_support_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = espionage_support_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_espionage_support_chain
+			target = root
+		}
+		fromfrom = {
+			random_system_planet = {
+				limit = {
+					is_colony = yes
+				}
+				set_carrier_flag = spy_support_target@root
+				enable_special_project = { #at least one project
+					name = "CONTRACT_ESPIONAGE_SUPPORT_PROJECT_01"
+					location = this
+					owner = root
+				}
+			}
+		}
+		prev = {
+			random_spynetwork = {
+				limit = {
+					target = {
+						is_same_value = fromfrom.owner
+					}
+				}
+				set_spynetwork_flag = spy_support_contract_network@root
+				target = {
+					generate_additional_espionage_support_project = yes
+					generate_additional_espionage_support_project = yes
+				}
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			espionage_support_effect = { INTEL_AMOUNT = 30 }
+			custom_tooltip = trust10
+			custom_tooltip = opinion100
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = influence RESOURCE_AMOUNT = 35 }
+			add_resource = { influence = @opinion_contract_regular }
+			hidden_effect = {
+				prev = { #should be issuer
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_regular
+						who = root
+					}
+					add_trust = {
+						amount = 10
+						who = root
+					}
+				}
+				country_event = { id = nomads.3002 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_regular
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_espionage_support_chain
+			espionage_support_cleanup_effect = yes
+			prev = { remove_country_flag = espionage_support_contract_active }
+		}
+	}
+}
+
+contract_espionage_support_4 = {
+	category = diplomacy_contract
+	desc = "contract_espionage_support_desc"
+	event_chain = contract_espionage_support_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_spymaster
+	small_picture = GFX_contract_espionage_support_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 2000
+
+	lore_issued = contract_issued_lore_espionage
+	lore_completed = contract_completed_lore_espionage
+	lore_failed = contract_failed_lore_espionage
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_espionage_support_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 4
+		}
+	}
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_owned_by_other_empire = yes
+		fromfrom.owner = {
+			num_owned_planets > 13
+		}
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = need_spy_network
+			any_envoy = {
+				has_envoy_task = {
+					task = spy_network
+					target = fromfrom.owner
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_espionage_support_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = espionage_support_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_espionage_support_chain
+			target = root
+		}
+		enable_special_project = { #at least one project
+			name = "CONTRACT_ESPIONAGE_SUPPORT_PROJECT_01"
+			location = fromfrom
+			owner = root
+		}
+		fromfrom = {
+			random_system_planet = {
+				limit = {
+					is_colony = yes
+				}
+				set_carrier_flag = spy_support_target@root
+			}
+		}
+		prev = {
+			random_spynetwork = {
+				limit = {
+					target = {
+						is_same_value = fromfrom.owner
+					}
+				}
+				set_spynetwork_flag = spy_support_contract_network@root
+				target = {
+					generate_additional_espionage_support_project = yes
+					generate_additional_espionage_support_project = yes
+					generate_additional_espionage_support_project = yes
+				}
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			espionage_support_effect = { INTEL_AMOUNT = 40 }
+			custom_tooltip = trust10
+			custom_tooltip = opinion100
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = influence RESOURCE_AMOUNT = 35 }
+			add_resource = { influence = @opinion_contract_regular }
+			hidden_effect = {
+				prev = { #should be issuer
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_regular
+						who = root
+					}
+					add_trust = {
+						amount = 10
+						who = root
+					}
+				}
+				country_event = { id = nomads.3002 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_regular
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_espionage_support_chain
+			espionage_support_cleanup_effect = yes
+			prev = { remove_country_flag = espionage_support_contract_active }
+		}
+	}
+}
+
+## Deep Scan
+contract_deep_scan = {
+	category = science_contract
+	desc = "contract_deep_scan_desc"
+	event_chain = contract_deep_scan_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_timeworm_transcriptions
+	small_picture = GFX_contract_deep_scan_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 1000
+
+	lore_issued = contract_issued_lore_deep_scan
+	lore_completed = contract_completed_lore_deep_scan
+	lore_failed = contract_failed_lore_deep_scan
+
+	issued_abort_trigger = {
+		is_nomadic = yes
+	}
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_deep_scan_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_own_or_neutral = yes
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = requires_operator_with_technology
+			any_relation = {
+				is_nomadic = yes
+				has_communications = prev
+				has_deep_scan_capability = yes
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+		OR = {
+			has_technology = tech_arkship_tier_2
+			has_technology = tech_arkship_tier_3
+			has_technology = tech_sensors_2
+			has_technology = tech_arkship_system_scanner
+		}
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_deep_scan_chain
+			}
+		}
+		custom_tooltip = {
+			fail_text = need_deep_scan_capabilities
+			has_deep_scan_capability = yes
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = deep_scan_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_deep_scan_chain
+			target = root
+		}
+		fromfrom = {
+			every_system_planet = {
+				limit = {
+					AND = {
+						NOR = {
+							has_anomaly = yes
+							habitable_planet = yes
+							is_artificial = yes
+							is_planet_class = pc_ringworld_habitable_damaged
+							is_planet_class = pc_ringworld_tech_damaged
+							is_planet_class = pc_ringworld_tech
+							is_planet_class = pc_ringworld_seam
+							is_planet_class = pc_ringworld_seam_damaged
+							is_planet_class = pc_astral_scar
+						}
+						# check that the random list won't come up empty
+						OR = {
+							energy_candidate = yes
+							mineral_candidate = yes
+							physics_candidate = yes
+							society_candidate = yes
+							engineering_candidate = yes
+							alloy_candidate = yes
+							exotic_gas_candidate = yes
+							rare_crystal_candidate = yes
+							volatile_motes_candidate = yes
+						}
+					}
+				}
+				root = {
+					create_point_of_interest = {
+						id = deep_scan_poi@prev
+						name = "deep_scan_poi_name"
+						desc = deep_scan_poi_desc
+						event_chain = contract_deep_scan_chain
+						location = prev
+					}
+				}
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			custom_tooltip = trust5
+			custom_tooltip = opinion50
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = physics_research RESOURCE_AMOUNT = 350 }
+			add_resource = { influence = @opinion_contract_small }
+			hidden_effect = {
+				prev = { #should be issuer
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_small
+						who = root
+					}
+					add_trust = {
+						amount = 5
+						who = root
+					}
+				}
+				country_event = { id = nomads.3002 days = 1 }
+				set_country_flag = completed_contract_deep_scan
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_small
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_deep_scan_chain
+			prev = { remove_country_flag = deep_scan_contract_active }
+			# Clear PoIs
+			fromfrom = {
+				every_system_planet = {
+					root = {
+						remove_point_of_interest = deep_scan_poi@prev
+					}
+				}
+			}
+		}
+	}
+}
+
+## Raid Planet
+contract_raid_planet_small = {
+	category = military_contract
+	ai_behaviour = raid
+	desc = "contract_raid_planet_small_desc"
+	event_chain = contract_raid_planet_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_surrender
+	small_picture = GFX_contract_raid_planet_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 5000
+
+	lore_issued = contract_issued_lore_raid_planet
+	lore_completed = contract_completed_lore_raid_planet
+	lore_failed = contract_failed_lore_raid_planet
+
+	issued_abort_trigger = {
+		is_nomadic = yes
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = {
+				has_event_chain = contract_raid_planet_chain
+			}
+			fromfrom = {
+				space_owner = {
+					NOT = { is_at_war_with = root }
+				}
+			}
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 30
+		}
+	}
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_owned_by_other_empire = yes
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = requires_colony_no
+			fromfrom.space_owner = {
+				any_owned_planet = {
+					is_colony = yes
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_raid_planet_chain
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_bombardment_stance_no
+			NOT = {
+				has_policy_flag = orbital_bombardment_selective
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_colony_no
+			from.space_owner = {
+				any_owned_planet = {
+					is_colony = yes
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = no_war_against_ally
+			NOT = {
+				any_country = {
+					is_same_value = from.space_owner
+					OR = {
+						has_non_aggression_pact = this
+						has_defensive_pact = this
+						has_subject = this
+						has_overlord = this
+						is_in_federation_with = this
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = no_war_against_truce
+			NOT = {
+				any_country = {
+					is_same_value = from.space_owner
+					has_truce = this
+				}
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	ai_weight = {
+		weight = 1
+		modifier = {
+			# Do not accept if the target empire has superior or overwhelming fleet power
+			factor = 0
+			fromfrom = {
+				space_owner = {
+					relative_power = {
+						who = root
+						category = fleet
+						value >= superior
+					}
+				}
+			}
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = raid_planet_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_raid_planet_chain
+			target = root
+		}
+		fromfrom = {
+			space_owner = {
+				save_event_target_as = raid_target
+				set_country_flag = raid_target@root
+			}
+		}
+		declare_war = {
+			target = event_target:raid_target
+			attacker_war_goal = wg_raid_contract
+		}
+		if = {
+			limit = { is_hired_guns_empire = yes }
+			add_modifier = {
+				modifier = hired_guns_modifier
+				days = -1
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+				OR = {
+					has_valid_civic = civic_hired_guns
+					has_valid_civic = civic_corporate_hired_guns
+				}
+			}
+			contract_scaling_reward_effect = { TRADE = 12500 RESOURCE = alloys RESOURCE_AMOUNT = 2500 }
+			# add hired_guns modifier
+			add_modifier = {
+				modifier = hired_guns_modifier
+				days = -1
+			}
+		}
+		else_if = {
+			limit = { exists = root }
+			contract_scaling_reward_effect = { TRADE = 8250 RESOURCE = alloys RESOURCE_AMOUNT = 1650 }
+		}
+		add_resource = { influence = @opinion_contract_large }
+		custom_tooltip = trust15
+		custom_tooltip = opinion150
+		hidden_effect = {
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_completed_contract_large
+					who = root
+				}
+				add_trust = {
+					amount = 15
+					who = root
+				}
+			}
+			country_event = { id = nomads.3002 days = 1 }
+			set_country_flag = completed_contract_raid_planet
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_large
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_raid_planet_chain
+			prev = { remove_country_flag = raid_planet_contract_active }
+			hidden_effect = {
+				every_war = {
+					limit = {
+						using_war_goal = {
+							type = wg_raid_contract
+							owner = root
+						}
+					}
+					end_war_effect = yes
+				}
+			}
+			random_country = {
+				limit = {
+					has_country_flag = raid_target@root
+				}
+				remove_country_flag = raid_target@root
+				every_owned_planet = {
+					remove_carrier_flag = raid_contract_planet@root
+					clear_variable = bombatrack
+					clear_variable = bomba
+				}
+			}
+		}
+		#remove hired guns if no ongoing military contract or contract war
+		hired_guns_modifier_cleanup = yes
+	}
+}
+
+## Megastructure Support
+contract_megastructure_support = {
+	category = science_contract
+	desc = "contract_megastructure_support_desc"
+	event_chain = contract_megastructure_support_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_megastructure_construction
+	small_picture = GFX_contract_megastructure_support_small
+	location = yes
+	time_to_accept = 360
+	cost = 1000
+
+	lore_issued = contract_issued_lore_megastructure_support
+	lore_completed = contract_completed_lore_megastructure_support
+	lore_failed = contract_failed_lore_megastructure_support
+
+	issued_abort_trigger = {
+		OR = {
+			is_nomadic = yes
+			NOT = { has_country_flag = megastructure_support_contract_active }
+			fromfrom = {
+				NOT = {
+					OR = {
+						any_system_megastructure = { is_upgrading = yes }
+						any_fleet_in_system = { has_fleet_order = build_megastructure_fleet_order }
+					}
+				}
+			}
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NAND = {
+				has_event_chain = contract_megastructure_support_chain
+				contract_target_system_reachable = {
+					SYSTEM = fromfrom
+				}
+			}
+			fromfrom = {
+				NOR = {
+					any_system_megastructure = { is_upgrading = yes }
+					any_fleet_in_system = { has_fleet_order = build_megastructure_fleet_order }
+				}
+			}
+		}
+	}
+
+	counter = {
+		contract_megastructure_support_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_own = yes
+		can_build_megastructures = yes
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = need_megastructure_being_built
+			from = {
+				OR = {
+					any_system_megastructure = {
+						is_upgrading = yes
+					}
+					any_fleet_in_system = {
+						owner = {
+							is_same_value = root
+						}
+						has_fleet_order = build_megastructure_fleet_order
+					}
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_megastructure_support_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = megastructure_support_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_megastructure_support_chain
+			target = root
+		}
+		fromfrom = {
+			enable_special_project = {
+				name = "CONTRACT_MEGASTRUCTURE_SUPPORT_PROJECT"
+				location = fromfrom
+				owner = root
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 4250 RESOURCE = engineering_research RESOURCE_AMOUNT = 850 }
+			add_resource = { influence = @opinion_contract_small }
+			custom_tooltip = trust5
+			custom_tooltip = opinion50
+			hidden_effect = {
+				prev = {
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_small
+						who = root
+					}
+					add_trust = {
+						amount = 5
+						who = root
+					}
+					country_event = { id = nomads.3002 days = 1 }
+				}
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_megastructure_support_chain
+			prev = {
+				remove_country_flag = megastructure_support_contract_active
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_small
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			hidden_effect = {
+				abort_special_project = {
+					type = "CONTRACT_MEGASTRUCTURE_SUPPORT_PROJECT"
+					location = fromfrom
+				}
+				prev = { remove_country_flag = megastructure_support_contract_active }
+				end_event_chain = contract_megastructure_support_chain
+			}
+		}
+	}
+}
+
+## Diplomatic Support
+contract_diplomatic_support = {
+	category = diplomacy_contract
+	desc = "contract_diplomatic_support_desc"
+	event_chain = contract_diplomatic_support_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_diplomatic_visit
+	small_picture = GFX_contract_diplomatic_support_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 500
+
+	lore_issued = contract_issued_lore_diplomatic_support
+	lore_completed = contract_completed_lore_diplomatic_support
+	lore_failed = contract_failed_lore_diplomatic_support
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		any_country = {
+			is_country_type = default
+			has_communications = root
+			NOT = {
+				is_at_war_with = root
+				is_rival = root
+				is_same_value = root
+				is_nomadic = yes
+			}
+		}
+		from.owner? = {
+			is_country_type = default
+			has_communications = root
+			is_homicidal = no
+			NOT = {
+				is_same_value = root
+				is_nomadic = yes
+			}
+		}
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = { has_country_flag = diplomatic_support_contract_active }
+		}
+		custom_tooltip = {
+			fail_text = requires_no_war
+			from.owner? = {
+				NOT = { is_at_war_with = root }
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_no_rival
+			exists = from.owner
+			from.owner = {
+				NOT = {
+					is_rival = root
+				}
+			}
+			root = {
+				NOT = {
+					is_rival = from.owner
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_capital_system_contract
+			from? = {
+				is_capital_system = yes
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_diplomatic_support_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	issued_abort_trigger = {
+		is_nomadic = yes
+	}
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_diplomatic_support_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_diplomatic_support_counter = {
+			max = 1
+		}
+	}
+
+	on_issue = {
+		set_country_flag = diplomatic_support_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_diplomatic_support_chain
+			target = root
+		}
+		prev = {
+			capital_scope.planet = {
+				set_carrier_flag = diplomatic_support_dropoff_planet@root
+			}
+		}
+		fromfrom = {
+			space_owner = {
+				capital_scope.planet = {
+					set_carrier_flag = diplomatic_support_pickup_planet@root
+					root = {
+						create_point_of_interest = {
+							id = diplomatic_support_pickup_poi@this
+							name = "diplomatic_support_pickup_poi_name"
+							desc = diplomatic_support_pickup_poi_desc
+							event_chain = contract_diplomatic_support_chain
+							location = prev
+						}
+					}
+				}
+			}
+		}
+		# check if arkship is already in system
+		if = {
+			limit = {
+				fromfrom = {
+					any_fleet_in_system = {
+						controller = {
+							is_same_value = root
+						}
+						is_arkship_fleet = yes
+					}
+				}
+			}
+			fromfrom = {
+				random_fleet_in_system = {
+					limit = {
+						controller = {
+							is_same_value = root
+						}
+						is_arkship_fleet = yes
+					}
+					fleet_event = { id = nomads.3036 days = 1 }
+				}
+			}
+		}
+		prev = {
+			capital_scope.planet = {
+				root = {
+					create_point_of_interest = {
+						id = diplomatic_support_destination_poi@this
+						name = "diplomatic_support_destination_poi_name"
+						desc = diplomatic_support_destination_poi_desc
+						event_chain = contract_diplomatic_support_chain
+						location = prev
+					}
+				}
+			}
+		}
+		inline_script = {
+			script = contracts/ContractTravelProjectEnable
+			KEY = DIPLOMATIC_SUPPORT
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = unity RESOURCE_AMOUNT = 350 }
+			add_resource = { influence = @opinion_contract_small }
+			custom_tooltip = trust5
+			custom_tooltip = opinion50 #Opinion gain
+			hidden_effect = {
+				prev = { #should be issuer
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_small
+						who = root
+					}
+					add_trust = {
+						amount = 5
+						who = root
+					}
+				}
+				country_event = { id = nomads.3002 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_small
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			# Abort travel project - try pickup system first (pre-pickup phase), then dropoff system (post-pickup phase)
+			if = {
+				limit = { is_ai = yes }
+				abort_special_project = {
+					type = CONTRACT_DIPLOMATIC_SUPPORT_TRAVEL_PROJECT
+					location = fromfrom
+				}
+				every_galaxy_planet = {
+					limit = {
+						has_carrier_flag = diplomatic_support_dropoff_planet@root
+					}
+					root = {
+						abort_special_project = {
+							type = CONTRACT_DIPLOMATIC_SUPPORT_TRAVEL_PROJECT
+							location = prev.solar_system
+						}
+					}
+				}
+			}
+			end_event_chain = contract_diplomatic_support_chain
+			#remove country flags
+			remove_country_flag = contract_minor_favors
+			remove_country_flag = contract_more_favors
+			#remove planet flags
+			every_galaxy_planet = {
+				limit = {
+					OR = {
+						has_carrier_flag = diplomatic_support_dropoff_planet@root
+						has_carrier_flag = diplomatic_support_pickup_planet@root
+					}
+				}
+				remove_carrier_flag = diplomatic_support_dropoff_planet@root
+				remove_carrier_flag = diplomatic_support_pickup_planet@root
+			}
+			#remove fleet flags
+			every_owned_fleet = {
+				limit = {
+					has_fleet_flag = carrying_delegates
+				}
+				remove_fleet_flag = carrying_delegates
+			}
+			#remove pois
+			remove_point_of_interest = diplomatic_support_pickup_poi@root
+			remove_point_of_interest = diplomatic_support_destination_poi@root
+			remove_point_of_interest = diplomatic_support_dropoff_poi@root
+			#remove issuer flag
+			prev = {
+				remove_country_flag = diplomatic_support_contract_active
+			}
+		}
+	}
+}
+
+# Scan Debris Contract
+contract_scan_debris = {
+	category = science_contract
+	desc = "contract_scan_debris_desc"
+	event_chain = contract_scan_debris_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_debris
+	small_picture = GFX_contract_scan_debris_small
+	location = yes
+	time_to_accept = 360
+	cost = 1000
+
+	lore_issued = contract_issued_lore_scan_debris
+	lore_completed = contract_completed_lore_scan_debris
+	lore_failed = contract_failed_lore_scan_debris
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		any_available_debris = {
+			solar_system = {
+				is_same_value = fromfrom
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_scan_debris_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	issued_abort_trigger = {
+		OR = {
+			is_nomadic = yes
+			AND = {
+				# Before acceptance the active-contract flag is not yet set, so fall back to
+				# requiring debris in the system. Once accepted the flag persists, so the
+				# operator scavenging the debris does not abort the contract.
+				NOT = {
+					fromfrom = {
+						has_star_flag = debris_contract_system@this
+					}
+				}
+				NOT = {
+					any_available_debris = {
+						solar_system = { is_same_value = fromfrom }
+					}
+				}
+			}
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NAND = {
+				has_event_chain = contract_scan_debris_chain
+				contract_target_system_reachable = {
+					SYSTEM = fromfrom
+				}
+			}
+			# Cancel the contract if the debris to be scanned no longer exists: its
+			# lifespan timer ran out before the operator could scan it. The scanned
+			# guard prevents cancelling on the day the debris is scanned, because
+			# scanning consumes the debris but only completes the contract on the
+			# following day (the mission abort check runs before the success check).
+			AND = {
+				NOT = { has_country_flag = scan_debris_contract_scanned }
+				NOT = {
+					any_available_debris = {
+						solar_system = { is_same_value = fromfrom }
+					}
+				}
+			}
+		}
+	}
+
+	counter = {
+		contract_scan_debris_counter = {
+			max = 1
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = scan_debris_contract_active
+	}
+
+	on_accept = {
+		fromfrom = {
+			if = {
+				limit = {
+					NOT = {
+						has_star_flag = debris_contract_system@this
+					}
+				}
+				set_star_flag = debris_contract_system@this
+			}
+		}
+		begin_event_chain = {
+			event_chain = contract_scan_debris_chain
+			target = root
+		}
+		prev = {
+			random_available_debris = {
+				limit = {
+					solar_system = {
+						has_star_flag = debris_contract_system@this
+					}
+				}
+				pass_debris_ownership = {
+					owner = root
+				}
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = engineering_research RESOURCE_AMOUNT = 350 }
+			add_resource = { influence = @opinion_contract_small }
+			from = {
+				add_resource = { engineering_research = 1000 }
+			}
+			custom_tooltip = trust5
+			custom_tooltip = opinion50
+			hidden_effect = {
+				prev = {
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_small
+						who = root
+					}
+					add_trust = {
+						amount = 5
+						who = root
+					}
+				}
+				country_event = { id = nomads.3002 days = 1 }
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = {
+				random_available_debris = {
+					limit = {
+						solar_system = {
+							has_star_flag = debris_contract_system@this
+						}
+					}
+					pass_debris_ownership = {
+						owner = from
+					}
+				}
+			}
+			end_event_chain = contract_scan_debris_chain
+			prev = { remove_country_flag = scan_debris_contract_active }
+			every_system = {
+				limit = {
+					has_star_flag = debris_contract_system@prevprevprev
+				}
+				remove_star_flag = debris_contract_system@prevprevprev
+			}
+		}
+	}
+}
+
+# Clear Blockers Contract
+contract_clear_blockers = {
+	category = resource_contract
+	desc = "contract_clear_blockers_desc"
+	event_chain = contract_clear_blockers_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_ship_in_orbit_3
+	small_picture = GFX_contract_clear_blockers_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 1000
+
+	lore_issued = contract_issued_lore_clear_blockers
+	lore_completed = contract_completed_lore_clear_blockers
+	lore_failed = contract_failed_lore_clear_blockers
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_own = yes
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = requires_blockers
+			from = {
+				any_system_planet = {
+					is_colony = yes
+					has_natural_blocker = yes
+					owner = { is_primitive = no }
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_operator_with_technology
+			contract_requires_operator_technology = {
+				TECH = tech_planetary_engineering
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+		has_technology = tech_planetary_engineering
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+		   	NOT = {
+		   		has_event_chain = contract_clear_blockers_chain
+		   	}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	issued_abort_trigger = {
+		OR = {
+			is_nomadic = yes
+			fromfrom = {
+				NOT = {
+					any_system_planet = {
+						is_colony = yes
+						has_natural_blocker = yes
+					}
+				}
+			}
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NAND = {
+				has_event_chain = contract_clear_blockers_chain
+				contract_target_system_reachable = {
+					SYSTEM = fromfrom
+				}
+			}
+			fromfrom = {
+				NOT = {
+					any_system_planet_colony = {
+						has_natural_blocker = yes
+						has_carrier_flag = contract_clear_blockers_carrier_flag@this
+					}
+				}
+			}
+		}
+	}
+
+	counter = {
+		contract_clear_blockers_counter = {
+			max = 1
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = clear_blockers_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_clear_blockers_chain
+			target = root
+		}
+		fromfrom = {
+			ordered_system_planet_colony = {
+				limit = {
+					has_natural_blocker = yes
+				}
+				position = 0
+				order_by = trigger:num_uncleared_blockers
+				save_event_target_as = contract_clear_blockers_planet
+				set_carrier_flag = contract_clear_blockers_carrier_flag@this
+			}
+		}
+		enable_special_project = {
+			name = "CONTRACT_CLEAR_BLOCKERS_PROJECT"
+			location = event_target:contract_clear_blockers_planet
+			owner = root
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = minerals RESOURCE_AMOUNT = 350 }
+			add_resource = { influence = @opinion_contract_small }
+			custom_tooltip = trust5
+			custom_tooltip = opinion50
+			hidden_effect = {
+				prev = { #should be issuer
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_small
+						who = root
+					}
+					add_trust = {
+						amount = 5
+						who = root
+					}
+				}
+				country_event = { id = nomads.3002 days = 1 }
+			}
+
+			from = {
+				random_owned_colony = {
+					limit = {
+						num_uncleared_blockers > 0
+						has_carrier_flag = contract_clear_blockers_carrier_flag@this
+					}
+					clear_natural_blockers_effect = yes
+				}
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_small
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_clear_blockers_chain
+			prev = { remove_country_flag = clear_blockers_contract_active }
+			from = {
+				random_owned_colony = {
+					limit = {
+						has_carrier_flag = contract_clear_blockers_carrier_flag@this
+					}
+					remove_carrier_flag = contract_clear_blockers_carrier_flag@this
+				}
+			}
+		}
+	}
+}
+
+# Build Waystation Contract
+contract_build_waystation = {
+	category = science_contract
+	desc = "contract_build_waystation_desc"
+	event_chain = contract_build_waystation_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_waystation
+	small_picture = GFX_contract_build_waystation_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 1000
+
+	lore_issued = contract_issued_lore_build_waystation
+	lore_completed = contract_completed_lore_build_waystation
+	lore_failed = contract_failed_lore_build_waystation
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_own = yes
+		from = {
+			NOT = {
+				any_ship_in_system = {
+					is_waystation_ship = yes
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+		has_technology = tech_waystation_1
+		benefits_from_waystation_network = {
+			NOMAD = root
+			SYSTEM_OWNER = prev
+		}
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+		   	NOT = {
+		   		has_event_chain = contract_build_waystation_chain
+		   	}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+		if = {
+			limit = {
+				is_ai = yes
+			}
+			NOT = { used_starbase_capacity_percent >= 2 }
+		}
+	}
+
+	issued_abort_trigger = {
+		is_nomadic = yes
+	}
+
+	abort_trigger = {
+		OR = {
+			NAND = {
+				has_event_chain = contract_build_waystation_chain
+				contract_target_system_reachable = {
+					SYSTEM = fromfrom
+				}
+			}
+			AND = {
+				NOT = { has_country_flag = build_waystation_contract_succeeded }
+				fromfrom = {
+					any_fleet_in_system = {
+						is_waystation_ship = yes
+					}
+				}
+			}
+		}
+	}
+
+	counter = {
+		contract_build_waystation_counter = {
+			max = 1
+		}
+	}
+
+	ai_weight = {
+		weight = 1
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = build_waystation_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_build_waystation_chain
+			target = root
+		}
+		fromfrom = {
+			set_star_flag = waystation_contract_system@this
+		}
+		create_point_of_interest = {
+			id = build_waystation_poi@fromfrom
+			name = "build_waystation_poi_name"
+			desc = build_waystation_poi_desc
+			event_chain = contract_build_waystation_chain
+			location = fromfrom
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = influence RESOURCE_AMOUNT = 35 }
+			add_resource = { influence = @opinion_contract_small }
+			custom_tooltip = trust5
+			custom_tooltip = opinion50
+			hidden_effect = {
+				prev = { #should be issuer
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_small
+						who = root
+					}
+					add_trust = {
+						amount = 5
+						who = root
+					}
+				}
+				fromfrom = {
+					set_star_flag = waystation_contract_system@this
+				}
+				country_event = { id = nomads.3002 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_small
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_build_waystation_chain
+			prev = { remove_country_flag = build_waystation_contract_active }
+			remove_country_flag = build_waystation_contract_succeeded
+			# Clear PoI
+			remove_point_of_interest = build_waystation_poi@fromfrom
+		}
+	}
+}
+
+# Pest Control Contract
+contract_pest_control = {
+	category = military_contract
+	ai_behaviour = attack
+	desc = "contract_pest_control_desc"
+	event_chain = contract_pest_control_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_tiyanki_observation
+	small_picture = GFX_contract_pest_control_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 1500
+
+	lore_issued = contract_issued_lore_pest_control
+	lore_completed = contract_completed_lore_pest_control
+	lore_failed = contract_failed_lore_pest_control
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = space_fauna_required
+			from = {
+				can_pest_control_system = yes
+			}
+		}
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_pest_control_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	issued_abort_trigger = {
+		OR = {
+			is_nomadic = yes
+			NOT = {
+				fromfrom = { can_pest_control_system = yes }
+				any_playable_country = {
+					has_country_flag = successful_pest_control@fromfrom
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 1
+		modifier = {
+			# Do not accept if hostile fleet power in the target system (with safety buffer) exceeds ours
+			factor = 0
+			from = {
+				hostile_military_power = {
+					who = root
+					safety_buffer = yes
+					value > root.trigger:fleet_power
+				}
+			}
+		}
+	}
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_pest_control_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_pest_control_counter = {
+			max = 1
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	on_issue = {
+		set_country_flag = pest_control_contract_active
+		# pin down most instances of roaming fauna to ensure more consistent contract success
+		# this might be used in some cheesy way, but probably an acceptable sacrific to ensure baseline contract functionality
+		fromfrom = {
+			every_fleet_in_system = {
+				limit = {
+					owner = {
+						is_space_critter_country = yes
+					}
+				}
+				clear_orders = yes #they probably weren't doing anything important, right?
+				auto_move_to_planet = {
+					target = fromfrom.star
+					clear_auto_move_on_arrival = yes
+				}
+				queue_actions = {
+					wait = { # keep them in place
+						duration = 999999
+					}
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_pest_control_chain
+			target = root
+		}
+		fromfrom = {
+			set_star_flag = pest_control_star_system@root
+			every_fleet_in_system = {
+				limit = {
+					exists = root
+					owner = {
+						is_space_critter_country = yes
+					}
+				}
+				root = {
+					create_point_of_interest = {
+						id = pest_control_poi@prev
+						name = "pest_control_poi_name"
+						desc = pest_control_poi_desc
+						event_chain = contract_pest_control_chain
+						location = prev
+					}
+				}
+				set_fleet_flag = pest_contract_target@root
+			}
+			every_ship_in_system = {
+				if = {
+					limit = {
+						exists = root
+						owner = {
+							is_space_critter_country = yes
+							NOT = {
+								is_hostile_to = root
+							}
+						}
+					}
+					owner = {
+						set_faction_hostility = {
+							target = root
+							set_hostile = yes
+						}
+						set_country_flag = hostile_pest_control_country@root
+					}
+				}
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+				OR = {
+					has_valid_civic = civic_hired_guns
+					has_valid_civic = civic_corporate_hired_guns
+				}
+			}
+			contract_scaling_reward_effect = { TRADE = 3750 RESOURCE = society_research RESOURCE_AMOUNT = 750 }
+			# add hired_guns modifier
+			add_modifier = {
+				modifier = hired_guns_modifier
+				days = -1
+			}
+		}
+		else_if = {
+			limit = { exists = root }
+			contract_scaling_reward_effect = { TRADE = 2500 RESOURCE = society_research RESOURCE_AMOUNT = 500 }
+		}
+		add_resource = { influence = @opinion_contract_small }
+		custom_tooltip = trust5
+		custom_tooltip = opinion50
+		hidden_effect = {
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_completed_contract_small
+					who = root
+				}
+				add_trust = {
+					amount = 5
+					who = root
+				}
+			}
+			country_event = { id = nomads.3002 days = 1 }
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_small
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_pest_control_chain
+			prev = { remove_country_flag = pest_control_contract_active }
+			remove_country_flag = successful_pest_control@fromfrom
+			fromfrom = {
+				remove_star_flag = pest_control_star_system@root
+			}
+			remove_point_of_interest = pest_control_poi@fromfrom
+			fromfrom = {
+				every_ship_in_system = {
+					if = {
+						limit = {
+							owner = {
+								has_country_flag = hostile_pest_control_country@root
+							}
+						}
+						owner = {
+							set_faction_hostility = {
+								target = root
+								set_hostile = no
+							}
+						}
+					}
+				}
+				every_country = {
+					limit = { has_country_flag = hostile_pest_control_country@root }
+					remove_country_flag = hostile_pest_control_country@root
+				}
+				every_galaxy_fleet = {
+					limit = { has_fleet_flag = pest_contract_target@root }
+					remove_fleet_flag = pest_contract_target@root
+				}
+			}
+		}
+		#remove hired guns modifier if no other ongoing military contract or contract war
+		hired_guns_modifier_cleanup = yes
+	}
+}
+
+## Prisoner Disposal
+contract_prisoner_disposal = {
+	category = diplomacy_contract
+	desc = "contract_prisoner_disposal_desc"
+	event_chain = contract_prisoner_disposal_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_experimental_testing
+	small_picture = GFX_contract_prisoner_transport_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 500
+
+	issued_abort_trigger = {
+		is_nomadic = yes
+	}
+
+	potential_issuer = {
+		is_gestalt = no
+		contract_system_is_own = yes
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = requires_criminals
+			from = {
+				any_system_planet = {
+					num_assigned_jobs = {
+						job = criminal
+						value > 0
+					}
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_prisoner_disposal_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_prisoner_disposal_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_prisoner_disposal_counter = {
+			max = 1
+		}
+	}
+
+	on_issue = {
+		set_country_flag = prisoner_disposal_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_prisoner_disposal_chain
+			target = root
+		}
+		fromfrom = {
+			random_system_planet = {
+				limit = {
+					num_assigned_jobs = {
+						job = criminal
+						value > 0
+					}
+				}
+				#set poi and flag
+				set_carrier_flag = prisoner_disposal_pickup_planet@root
+				root = {
+					create_point_of_interest = {
+						id = prisoner_disposal_pickup_poi
+						name = "prisoner_disposal_pickup_poi_name"
+						desc = prisoner_disposal_pickup_poi_desc
+						event_chain = contract_prisoner_disposal_chain
+						location = prev
+					}
+				}
+			}
+		}
+		# check if arkship is already in system
+		if = {
+			limit = {
+				fromfrom = {
+					any_fleet_in_system = {
+						controller = {
+							is_same_value = root
+						}
+						is_arkship_fleet = yes
+					}
+				}
+			}
+			fromfrom = {
+				random_fleet_in_system = {
+					limit = {
+						controller = {
+							is_same_value = root
+						}
+						is_arkship_fleet = yes
+					}
+					fleet_event = { id = nomads.3050 days = 1 }
+				}
+			}
+		}
+		inline_script = {
+			script = contracts/ContractTravelProjectEnable
+			KEY = PRISONER_DISPOSAL
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 750 RESOURCE = unity RESOURCE_AMOUNT = 150 }
+			add_resource = { influence = @opinion_contract_small }
+			custom_tooltip = trust5
+			custom_tooltip = opinion50 #Opinion gain
+			hidden_effect = {
+				prev = { #should be issuer
+					add_opinion_modifier = {
+						modifier = opinion_completed_contract_small
+						who = root
+					}
+					add_trust = {
+						amount = 5
+						who = root
+					}
+				}
+				end_event_chain = contract_prisoner_disposal_chain
+				country_event = { id = nomads.3002 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_small
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			#remove flags
+			fromfrom = {
+				every_system_planet = {
+					limit = {
+						has_carrier_flag = prisoner_disposal_pickup_planet@root
+					}
+					remove_carrier_flag = prisoner_disposal_pickup_planet@root
+				}
+			}
+			if = {
+				limit = { is_ai = yes }
+				abort_special_project = {
+					type = CONTRACT_PRISONER_DISPOSAL_TRAVEL_PROJECT
+					location = fromfrom
+				}
+			}
+			end_event_chain = contract_prisoner_disposal_chain
+			prev = { remove_country_flag = prisoner_disposal_contract_active }
+		}
+	}
+}
+
+## Onboard Contract: Physics Research
+contract_onboard_physics_research = {
+	inline_script = {
+		script = contracts/OnboardResearchContract
+		RESEARCH = physics
+	}
+}
+
+## Onboard Contract: Society Research
+contract_onboard_society_research = {
+	inline_script = {
+		script = contracts/OnboardResearchContract
+		RESEARCH = society
+	}
+}
+
+## Onboard Contract: Engineering Research
+contract_onboard_engineering_research = {
+	inline_script = {
+		script = contracts/OnboardResearchContract
+		RESEARCH = engineering
+	}
+}
+
+## Onboard Contract: Resource Minerals
+contract_onboard_minerals_resource = {
+	inline_script = {
+		script = contracts/OnboardResourceContract
+		RESOURCE = minerals
+		PICTURE = GFX_evt_asteroid_field
+		CANDIDATE = mineral_candidate
+		L1 = 1
+		L2 = 2
+		L3 = 3
+		L4 = 4
+		L5 = 5
+		L6 = 6
+		L7 = 7
+		L8 = 8
+		L9 = 9
+		ADD1 = 1
+		ADD3 = 3
+		ADD5 = 5
+	}
+}
+
+## Onboard Contract: Resource Energy
+contract_onboard_energy_resource = {
+	inline_script = {
+		script = contracts/OnboardResourceContract
+		RESOURCE = energy
+		PICTURE = GFX_evt_drilling_for_gas
+		CANDIDATE = energy_candidate
+		L1 = 1
+		L2 = 2
+		L3 = 3
+		L4 = 4
+		L5 = 5
+		L6 = 6
+		L7 = 7
+		L8 = 8
+		L9 = 9
+		ADD1 = 1
+		ADD3 = 3
+		ADD5 = 5
+	}
+}
+
+## Onboard Contract: Resource Food
+contract_onboard_food_resource = {
+	inline_script = {
+		script = contracts/OnboardResourceContract
+		RESOURCE = food
+		PICTURE = GFX_evt_arkship_life
+		CANDIDATE = food_candidate
+		L1 = 3
+		L2 = 4
+		L3 = 5
+		L4 = 6
+		L5 = 7
+		L6 = 10
+		L7 = 10
+		L8 = 10
+		L9 = 10
+		ADD1 = 3
+		ADD3 = 5
+		ADD5 = 7
+	}
+}
+
+## Sightseeing Tour
+contract_sightseeing_tour = {
+	category = diplomacy_contract
+	desc = "contract_sightseeing_tour_desc"
+	event_chain = contract_sightseeing_tour_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_obelisk_tourists
+	small_picture = GFX_contract_sightseeing_tour_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 1000
+
+	lore_issued = contract_issued_lore_sightseeing_tour
+	lore_completed = contract_completed_lore_sightseeing_tour
+	lore_failed = contract_failed_lore_sightseeing_tour
+
+	issued_abort_trigger = {
+		is_nomadic = yes
+	}
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_sightseeing_tour_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		contract_system_is_own = yes
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = requires_unvacationed_colony
+			fromfrom = {
+				NOT = { has_star_flag = sightseeing_tour_start_system@root }
+				any_system_planet = {
+					is_colony = yes
+					NOT = {	has_modifier = nomad_contract_sightseeing }
+					owner = { is_primitive = no }
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_sightseeing_tour_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	#Contract event check on special projects
+	on_issue = {
+		set_country_flag = sightseeing_tour_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_sightseeing_tour_chain
+			target = root
+		}
+		fromfrom = {
+			set_star_flag = sightseeing_tour_start_system@root		# root is the country ID of the operator
+			set_star_flag = sightseeing_tour_start_system@prevprev	# prevprev is the country ID of the issuer, to block them from issuing the contract again while it's ongoing
+			ordered_system_planet = {
+				limit = {
+					is_colony = yes
+					NOT = { has_modifier = nomad_contract_sightseeing }
+				}
+				position = 0
+				order_by = trigger:pop_amount
+				set_carrier_flag = sightseeing_tour_start@root
+				root = {
+					create_point_of_interest = {
+						id = sightseeing_tour_start_poi
+						name = "sightseeing_tour_start_poi_name"
+						desc = "sightseeing_tour_start_poi_desc"
+						event_chain = contract_sightseeing_tour_chain
+						location = prev
+					}
+				}
+			}
+		}
+		# check if arkship is already in system
+		if = {
+			limit = {
+				fromfrom = {
+					any_fleet_in_system = {
+						controller = {
+							is_same_value = root
+						}
+						is_arkship_fleet = yes
+					}
+				}
+			}
+			fromfrom = {
+				random_fleet_in_system = {
+					limit = {
+						controller = {
+							is_same_value = root
+						}
+						is_arkship_fleet = yes
+					}
+					fleet_event = { id = nomads.3060 days = 1 scopes = { from = prev } }
+				}
+			}
+		}
+		inline_script = {
+			script = contracts/ContractTravelProjectEnable
+			KEY = SIGHTSEEING_TOUR
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 1750 RESOURCE = unity RESOURCE_AMOUNT = 350 }
+			add_resource = { influence = @opinion_contract_regular }
+			fromfrom = {
+				random_system_planet = {
+					limit = {
+						has_carrier_flag = sightseeing_tour_start@root
+					}
+					remove_carrier_flag = sightseeing_tour_start@root
+					add_modifier = {
+						modifier = nomad_contract_sightseeing
+						days = 720
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_origin = origin_forever_cruise
+				}
+				custom_tooltip = increase_passenger_satisfaction
+				increase_passenger_satisfaction = yes
+			}
+		}
+		else = {
+			custom_tooltip = nomad_contract_sightseeing_tt
+		}
+		custom_tooltip = trust10
+		custom_tooltip = opinion100
+		hidden_effect = {
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_completed_contract_regular
+					who = root
+				}
+				add_trust = {
+					amount = 10
+					who = root
+				}
+			}
+			country_event = { id = nomads.3002 days = 1 }
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_regular
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			if = {
+				limit = { is_ai = yes }
+				abort_special_project = {
+					type = CONTRACT_SIGHTSEEING_TOUR_TRAVEL_PROJECT
+					location = fromfrom
+				}
+			}
+			end_event_chain = contract_sightseeing_tour_chain
+			prev = { remove_country_flag = sightseeing_tour_contract_active }
+			random_system = {
+				limit = {
+					OR = {
+						has_star_flag = sightseeing_tour_start_system@prevprev
+						has_star_flag = sightseeing_tour_start_system@root
+						has_star_flag = sightseeing_tour_destination_system@root
+						has_star_flag = sightseeing_tour_end_system@root
+					}
+				}
+				remove_star_flag = sightseeing_tour_start_system@root
+				remove_star_flag = sightseeing_tour_start_system@prevprev
+				remove_star_flag = sightseeing_tour_destination_system@root
+				remove_star_flag = sightseeing_tour_end_system@root
+			}
+			remove_point_of_interest = sightseeing_tour_start_poi
+			remove_point_of_interest = sightseeing_tour_destination_poi
+			remove_point_of_interest = sightseeing_tour_end_poi
+		}
+	}
+}
+
+## Join War
+contract_join_war = {
+	category = military_contract
+	desc = "contract_join_war_desc"
+	event_chain = contract_join_war_chain
+	picture = GFX_evt_mercenary_enclave
+	small_picture = GFX_contract_join_war_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 10000
+
+	lore_issued = contract_issued_lore_join_wars
+	lore_completed = contract_completed_lore_join_wars
+	lore_failed = contract_failed_lore_join_wars
+
+	potential_issuer = {
+		can_issue_contracts_trigger = yes
+		contract_system_is_own = yes
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = contract_join_war_requires_war
+			is_at_war = yes
+		}
+	}
+
+	potential_operator = {
+		NOT = {
+			fromfrom = {
+				OR = {
+					is_at_war_with = root
+					has_defensive_pact = root
+					has_subject = root
+					has_overlord = root
+					is_in_federation_with = root
+				}
+			}
+		}
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_join_war_chain
+			}
+		}
+		custom_tooltip = {
+			fail_text = no_war_against_ally
+			NOT = {
+				any_country = {
+					is_at_war_with = fromfrom
+					OR = {
+						has_non_aggression_pact = root
+						has_defensive_pact = root
+						has_subject = root
+						has_overlord = root
+						is_in_federation_with = root
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = no_war_against_truce
+			NOT = {
+				any_country = {
+					is_at_war_with = fromfrom
+					has_truce = root
+				}
+			}
+		}
+		NOT = { #Cannot drag entire federations, or overlord to war over a contract
+			has_federation = yes
+			is_subject = yes
+		}
+	}
+
+	on_monthly = {
+		country_event = { id = nomads.6000 }
+	}
+
+	issued_abort_trigger = {
+		OR = {
+			is_nomadic = yes
+			is_at_war = no
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = {
+				has_event_chain = contract_join_war_chain
+			}
+			prev = { is_at_war = no }
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	on_issue = {
+		# instant contract: cleaned up via nomads.3075/3076 when the war ends; the timer is a
+		# safety net so the issuer is not left flagged if the contract is never picked up
+		set_timed_country_flag = { flag = join_war_contract_active days = @contract_time_base }
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_join_war_chain
+			target = ROOT
+		}
+		#establish contact if need be
+		if = {
+			limit = {
+				NOT = {
+					has_communications = fromfrom.owner
+				}
+			}
+			establish_communications = fromfrom.owner
+		}
+		#Join all of issuer's wars - using every_war + join_war_on_side to handle cases
+		#where the issuer is a secondary war participant (e.g. joined via federation/defensive pact)
+		#since join_war only works when the target is the main attacker/defender
+		from = {
+			save_event_target_as = join_war_contract_issuer
+			every_war = {
+				root = {
+					join_war_on_side = {
+						war = prev
+						side = event_target:join_war_contract_issuer
+					}
+				}
+			}
+			set_country_flag = hired_nomad_merc@root
+		}
+
+		#finish contract
+		add_mission_counter = {
+			mission = contract_join_war
+			counter = contract_progress_counter
+			amount = 1
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+				OR = {
+					has_valid_civic = civic_hired_guns
+					has_valid_civic = civic_corporate_hired_guns
+				}
+			}
+			contract_scaling_reward_effect = { TRADE = 25000 RESOURCE = alloys RESOURCE_AMOUNT = 5000 }
+			# add hired_guns modifier
+			add_modifier = {
+				modifier = hired_guns_modifier
+				days = -1
+			}
+		}
+		else_if = {
+			limit = { exists = root }
+			contract_scaling_reward_effect = { TRADE = 16750 RESOURCE = alloys RESOURCE_AMOUNT = 3350 }
+		}
+		add_resource = { influence = @opinion_contract_large }
+		custom_tooltip = trust15
+		custom_tooltip = opinion150
+		hidden_effect = {
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_completed_contract_large
+					who = root
+				}
+				add_trust = {
+					amount = 15
+					who = root
+				}
+			}
+			#flag wars for event tracking
+			every_war = {
+				limit = {
+					any_war_participant = {
+						is_same_value = from
+					}
+				}
+				root = {
+					set_country_flag = war@prev
+				}
+				set_war_flag = nomad_mercs
+			}
+			country_event = { id = nomads.3002 days = 1 }
+		}
+		#Event chain is ended when the war is ended
+	}
+
+	on_cancel = { #there shouldn't be time to cancel, but better safe than sorry
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_large
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		# This is an instant contract so no cleanup should happen here or it might break event logic. Instead cleanup is done via nomads.3075 and nomads.3080
+	}
+}
+
+## Colony Startup
+contract_colony_startup = {
+	category = diplomacy_contract
+	desc = "contract_colony_startup_desc"
+	event_chain = contract_colony_startup_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_colony_settlement
+	small_picture = GFX_contract_colony_startup_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 500
+
+	lore_issued = contract_issued_lore_colony_startup
+	lore_completed = contract_completed_lore_colony_startup
+	lore_failed = contract_failed_lore_colony_startup
+
+	issued_abort_trigger = {
+		is_nomadic = yes
+	}
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_colony_startup_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		contract_system_is_own = yes
+		fromfrom = {
+			any_system_planet = {
+				is_colony = yes
+				is_under_colonization = no
+				NOR = {
+					is_homeworld = yes
+					has_carrier_flag = colony_startup_planet@root
+				}
+			}
+		}
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = requires_new_colony
+			fromfrom = {
+				any_system_planet = {
+					is_colony = yes
+					is_under_colonization = no
+					colony_age_years < 10
+					NOR = {
+						has_modifier = nomad_contract_colony_support_civilian
+						has_modifier = nomad_contract_colony_support_scientific
+						has_modifier = nomad_contract_colony_support_military
+					}
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_colony_startup_chain
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	#Contract event check on special projects
+	on_issue = {
+		set_country_flag = colony_startup_contract_active
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_colony_startup_chain
+			target = root
+		}
+		fromfrom = {
+			ordered_system_planet = {
+				limit = {
+					is_colony = yes
+					is_under_colonization = no
+					NOR = {
+						is_homeworld = yes
+						has_carrier_flag = colony_startup_planet@root.prev
+					}
+				}
+				position = 0
+				order_by = trigger:colony_age_years
+				set_carrier_flag = colony_startup_planet@prevprevprevprev # prevprevprevprev is the country ID of the issuer, to block them from issuing the contract again while it's ongoing
+				enable_special_project = { #at least one project
+					name = "CONTRACT_COLONY_STARTUP_PROJECT"
+					location = this
+					owner = root
+				}
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 750 RESOURCE = society_research RESOURCE_AMOUNT = 150 }
+			add_resource = { influence = @opinion_contract_small }
+		}
+		else = {
+			custom_tooltip = nomad_contract_colony_support_tt
+		}
+		custom_tooltip = trust5
+		custom_tooltip = opinion50
+		hidden_effect = {
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_completed_contract_small
+					who = root
+				}
+				add_trust = {
+					amount = 5
+					who = root
+				}
+			}
+			country_event = { id = nomads.3002 days = 1 }
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_regular
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_colony_startup_chain
+			prev = { remove_country_flag = colony_startup_contract_active }
+			fromfrom = {
+				random_system_planet = {
+					limit = {
+						has_carrier_flag = colony_startup_planet@prevprevprevprev
+					}
+					remove_carrier_flag = colony_startup_planet@prevprevprevprev
+				}
+			}
+		}
+	}
+}
+
+## Stellar Ignition
+contract_stellar_ignition = {
+	category = resource_contract
+	desc = "contract_stellar_ignition_desc"
+	event_chain = contract_stellar_ignition_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_gas_giant
+	small_picture = GFX_contract_stellar_ignition_small
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 1000
+
+	lore_issued = contract_issued_lore_stellar_ignition
+	lore_completed = contract_completed_lore_stellar_ignition
+	lore_failed = contract_failed_lore_stellar_ignition
+
+	issued_abort_trigger = {
+		OR = {
+			is_nomadic = yes
+			NOT = { has_country_flag = stellar_ignition_contract_active }
+			NOT = {
+				fromfrom = {
+					any_system_planet = {
+						has_planet_flag = stellar_ignition_planet@root
+						is_planet_class = pc_gas_giant
+					}
+				}
+				any_playable_country = {
+					has_country_flag = successful_stellar_ignition@fromfrom
+				}
+			}
+		}
+	}
+
+	abort_trigger = {
+		NAND = {
+			has_event_chain = contract_stellar_ignition_chain
+			contract_target_system_reachable = {
+				SYSTEM = fromfrom
+			}
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		contract_system_is_own = yes
+		fromfrom = {
+			any_system_planet = {
+				is_planet_class = pc_gas_giant
+				is_moon = no
+			}
+		}
+	}
+
+	possible_issuer = {
+		custom_tooltip = {
+			fail_text = requires_unignited_gas_giant
+			fromfrom = {
+				any_system_planet = {
+					contract_gas_giant_can_be_ignited = yes
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_operator_with_technology
+			contract_requires_operator_technology = {
+				TECH = tech_arkship_stellar_igniter
+			}
+		}
+	}
+
+	potential_operator = {
+		NOT = { fromfrom = { is_at_war_with = root } }
+		has_technology = tech_arkship_stellar_igniter
+	}
+
+	possible_operator = {
+		custom_tooltip = {
+			fail_text = already_doing_same_contract
+			NOT = {
+				has_event_chain = contract_stellar_ignition_chain
+			}
+		}
+		custom_tooltip = {
+			fail_text = need_stellar_ignition_capabilities
+			any_owned_fleet = {
+				starbase? = {
+					is_arkship_starbase = yes
+					has_starbase_module = arkship_stellar_igniter
+				}
+			}
+		}
+		contract_target_system_reachable = {
+			SYSTEM = from
+		}
+	}
+
+	on_issue = {
+		set_country_flag = stellar_ignition_contract_active
+		fromfrom = {
+			ordered_system_planet = {
+				limit = {
+					contract_gas_giant_can_be_ignited = yes
+				}
+				position = 0
+				order_by = trigger:planet_size
+				set_planet_flag = stellar_ignition_planet@root # root = issuer in on_issue; this is the flag the abort triggers look for
+			}
+		}
+	}
+
+	#Contract event check on special projects
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_stellar_ignition_chain
+			target = root
+		}
+		fromfrom = {
+			random_system_planet = {
+				limit = {
+					has_planet_flag = stellar_ignition_planet@prevprevprevprev # find the planet flagged by the issuer in on_issue (prevprevprevprev = issuer here)
+				}
+				set_planet_flag = stellar_ignition_planet@root # root = operator; used by nomads.4500 to identify which planet completes the contract
+				root = {
+					create_point_of_interest = {
+						id = stellar_ignition_poi@prev
+						name = "stellar_ignition_poi_name"
+						desc = stellar_ignition_poi_desc
+						event_chain = contract_stellar_ignition_chain
+						location = prev
+					}
+				}
+			}
+		}
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			contract_scaling_reward_effect = { TRADE = 3250 RESOURCE = physics_research RESOURCE_AMOUNT = 650 }
+			add_resource = { influence = @opinion_contract_regular }
+		}
+		else = {
+			custom_tooltip = nomad_contract_stellar_ignition_tt
+		}
+		custom_tooltip = trust10
+		custom_tooltip = opinion100
+		hidden_effect = {
+			prev = { #should be issuer
+				add_opinion_modifier = {
+					modifier = opinion_completed_contract_regular
+					who = root
+				}
+				add_trust = {
+					amount = 10
+					who = root
+				}
+			}
+			country_event = { id = nomads.3002 days = 1 }
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = {
+				exists = root
+			}
+			prev = { #should be issuer
+				remove_country_flag = stellar_ignition_contract_active
+				add_opinion_modifier = {
+					modifier = opinion_failed_contract_regular
+					who = root
+				}
+			}
+		}
+	}
+
+	on_stop = {
+		if = {
+			limit = {
+				exists = root
+			}
+			end_event_chain = contract_stellar_ignition_chain
+			prev = { remove_country_flag = stellar_ignition_contract_active }
+			fromfrom = {
+				random_system_planet = {
+					limit = {
+						has_planet_flag = stellar_ignition_planet@prevprevprevprev
+					}
+					remove_planet_flag = stellar_ignition_planet@prevprevprevprev
+					remove_planet_flag = stellar_ignition_planet@root
+					root = {
+						remove_point_of_interest = stellar_ignition_poi@prev
+					}
+				}
+			}
+			remove_country_flag = successful_stellar_ignition@fromfrom
+		}
+	}
+}
+
+### Internal Contracts
+
+# Find Resources Internal: Energy
+contract_find_resources_energy_internal = {
+	inline_script = {
+		script = contracts/FindResourceInternal
+		RESOURCE = energy
+	}
+}
+
+# Find Resources Internal: Minerals
+contract_find_resources_minerals_internal = {
+	inline_script = {
+		script = contracts/FindResourceInternal
+		RESOURCE = minerals
+	}
+}
+
+# Find Resources Internal: Alloys
+contract_find_resources_alloys_internal = {
+	inline_script = {
+		script = contracts/FindResourceInternal
+		RESOURCE = alloys
+	}
+}
+
+# Scientific Observation Internal: Physics
+contract_scientific_observation_physics_research_internal = {
+	inline_script = {
+		script = contracts/ScientificObservationInternal
+		RESOURCE = physics_research
+	}
+}
+
+# Scientific Observation Internal: Engineering
+contract_scientific_observation_engineering_research_internal = {
+	inline_script = {
+		script = contracts/ScientificObservationInternal
+		RESOURCE = engineering_research
+	}
+}
+
+### Forever Cruise Contracts
+
+## Passenger Sun Trip
+contract_suntrip_passenger_1 = {
+	inline_script = {
+		script = contracts/SunTripCruise
+		CATEGORY = passenger_science_contract_special
+		ISSUER = passenger
+		VARIANT = 1
+		PICTURE = GFX_evt_space_funeral
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_suntrip_passenger_1_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SUNTRIP_passenger_1_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SUNTRIP_passenger_1_PROJECT
+			}
+		}
+	}
+}
+
+contract_suntrip_passenger_2 = {
+	inline_script = {
+		script = contracts/SunTripCruise
+		CATEGORY = passenger_science_contract_special
+		ISSUER = passenger
+		VARIANT = 2
+		PICTURE = GFX_evt_friendly_enlightenment
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_suntrip_passenger_2_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SUNTRIP_passenger_2_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SUNTRIP_passenger_2_PROJECT
+			}
+		}
+	}
+}
+
+contract_suntrip_passenger_3 = {
+	inline_script = {
+		script = contracts/SunTripCruise
+		CATEGORY = passenger_science_contract_special
+		ISSUER = passenger
+		VARIANT = 3
+		PICTURE = GFX_evt_unidentified_ship
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_suntrip_passenger_3_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SUNTRIP_passenger_3_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SUNTRIP_passenger_3_PROJECT
+			}
+		}
+	}
+}
+
+contract_suntrip_passenger_4 = {
+	inline_script = {
+		script = contracts/SunTripCruise
+		CATEGORY = passenger_science_contract_special
+		ISSUER = passenger
+		VARIANT = 4
+		PICTURE = GFX_evt_forever_cruise
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_suntrip_passenger_4_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SUNTRIP_passenger_4_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SUNTRIP_passenger_4_PROJECT
+			}
+		}
+	}
+}
+
+contract_suntrip_passenger_5 = {
+	inline_script = {
+		script = contracts/SunTripCruise
+		CATEGORY = passenger_science_contract_special
+		ISSUER = passenger
+		VARIANT = 5
+		PICTURE = GFX_evt_friendly_infiltration
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_suntrip_passenger_5_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SUNTRIP_passenger_5_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SUNTRIP_passenger_5_PROJECT
+			}
+		}
+	}
+}
+
+## Crew Sun Trip
+contract_suntrip_crew_1 = {
+	inline_script = {
+		script = contracts/SunTripCruise
+		CATEGORY = crew_resource_contract_special
+		ISSUER = crew
+		VARIANT = 1
+		PICTURE = GFX_evt_physics_research
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 6
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_suntrip_crew_1_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SUNTRIP_crew_1_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SUNTRIP_crew_1_PROJECT
+			}
+		}
+	}
+}
+
+contract_suntrip_crew_2 = {
+	inline_script = {
+		script = contracts/SunTripCruise
+		CATEGORY = crew_resource_contract_special
+		ISSUER = crew
+		VARIANT = 2
+		PICTURE = GFX_evt_inf_science_ship
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 6
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_suntrip_crew_2_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SUNTRIP_crew_2_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SUNTRIP_crew_2_PROJECT
+			}
+		}
+	}
+}
+
+contract_suntrip_crew_3 = {
+	inline_script = {
+		script = contracts/SunTripCruise
+		CATEGORY = crew_resource_contract_special
+		ISSUER = crew
+		VARIANT = 3
+		PICTURE = GFX_evt_unknown_ships
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 6
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_suntrip_crew_3_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SUNTRIP_crew_3_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SUNTRIP_crew_3_PROJECT
+			}
+		}
+	}
+}
+
+contract_suntrip_crew_4 = {
+	inline_script = {
+		script = contracts/SunTripCruise
+		CATEGORY = crew_resource_contract_special
+		ISSUER = crew
+		VARIANT = 4
+		PICTURE = GFX_evt_deficit
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 6
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_suntrip_crew_4_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SUNTRIP_crew_4_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SUNTRIP_crew_4_PROJECT
+			}
+		}
+	}
+}
+
+contract_suntrip_crew_5 = {
+	inline_script = {
+		script = contracts/SunTripCruise
+		CATEGORY = crew_resource_contract_special
+		ISSUER = crew
+		VARIANT = 5
+		PICTURE = GFX_evt_forever_cruise
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			add_monthly_resource_mult = {
+				resource = energy
+				value = 6
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_suntrip_crew_5_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SUNTRIP_crew_5_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SUNTRIP_crew_5_PROJECT
+			}
+		}
+	}
+}
+
+## Passenger Shore Leave
+contract_shoreleave_passenger_1 = {
+	inline_script = {
+		script = contracts/ShoreLeaveCruise
+		CATEGORY = passenger_diplomacy_contract_special
+		ISSUER = passenger
+		VARIANT = 1
+		PICTURE = GFX_evt_tradestation_interior
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_shoreleave_passenger_1_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SHORELEAVE_passenger_1_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SHORELEAVE_passenger_1_PROJECT
+			}
+		}
+	}
+}
+
+contract_shoreleave_passenger_2 = {
+	inline_script = {
+		script = contracts/ShoreLeaveCruise
+		CATEGORY = passenger_diplomacy_contract_special
+		ISSUER = passenger
+		VARIANT = 2
+		PICTURE = GFX_evt_evolutionary_predators
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_shoreleave_passenger_2_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SHORELEAVE_passenger_2_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SHORELEAVE_passenger_2_PROJECT
+			}
+		}
+	}
+}
+
+contract_shoreleave_passenger_3 = {
+	inline_script = {
+		script = contracts/ShoreLeaveCruise
+		CATEGORY = passenger_diplomacy_contract_special
+		ISSUER = passenger
+		VARIANT = 3
+		PICTURE = GFX_evt_specimen_archive
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_shoreleave_passenger_3_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SHORELEAVE_passenger_3_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SHORELEAVE_passenger_3_PROJECT
+			}
+		}
+	}
+}
+
+contract_shoreleave_passenger_4 = {
+	inline_script = {
+		script = contracts/ShoreLeaveCruise
+		CATEGORY = passenger_diplomacy_contract_special
+		ISSUER = passenger
+		VARIANT = 4
+		PICTURE = GFX_evt_black_market
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_shoreleave_passenger_4_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SHORELEAVE_passenger_4_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SHORELEAVE_passenger_4_PROJECT
+			}
+		}
+	}
+}
+
+contract_shoreleave_passenger_5 = {
+	inline_script = {
+		script = contracts/ShoreLeaveCruise
+		CATEGORY = passenger_diplomacy_contract_special
+		ISSUER = passenger
+		VARIANT = 5
+		PICTURE = GFX_evt_alien_wildlife
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_shoreleave_passenger_5_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SHORELEAVE_passenger_5_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SHORELEAVE_passenger_5_PROJECT
+			}
+		}
+	}
+}
+
+## Crew Shore Leave
+contract_shoreleave_crew_1 = {
+	inline_script = {
+		script = contracts/ShoreLeaveCruise
+		CATEGORY = crew_diplomacy_contract_special
+		ISSUER = crew
+		VARIANT = 1
+		PICTURE = GFX_evt_alien_city
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_shoreleave_crew_1_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SHORELEAVE_crew_1_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SHORELEAVE_crew_1_PROJECT
+			}
+		}
+	}
+}
+
+contract_shoreleave_crew_2 = {
+	inline_script = {
+		script = contracts/ShoreLeaveCruise
+		CATEGORY = crew_diplomacy_contract_special
+		ISSUER = crew
+		VARIANT = 2
+		PICTURE = GFX_evt_tradestation_interior
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_shoreleave_crew_2_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SHORELEAVE_crew_2_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SHORELEAVE_crew_2_PROJECT
+			}
+		}
+	}
+}
+
+contract_shoreleave_crew_3 = {
+	inline_script = {
+		script = contracts/ShoreLeaveCruise
+		CATEGORY = crew_diplomacy_contract_special
+		ISSUER = crew
+		VARIANT = 3
+		PICTURE = GFX_evt_gunrunning
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_shoreleave_crew_3_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SHORELEAVE_crew_3_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SHORELEAVE_crew_3_PROJECT
+			}
+		}
+	}
+}
+
+contract_shoreleave_crew_4 = {
+	inline_script = {
+		script = contracts/ShoreLeaveCruise
+		CATEGORY = crew_diplomacy_contract_special
+		ISSUER = crew
+		VARIANT = 4
+		PICTURE = GFX_evt_engineering_bay
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_shoreleave_crew_4_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SHORELEAVE_crew_4_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SHORELEAVE_crew_4_PROJECT
+			}
+		}
+	}
+}
+
+contract_shoreleave_crew_5 = {
+	inline_script = {
+		script = contracts/ShoreLeaveCruise
+		CATEGORY = crew_diplomacy_contract_special
+		ISSUER = crew
+		VARIANT = 5
+		PICTURE = GFX_evt_one_sided_deal
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_shoreleave_crew_5_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_SHORELEAVE_crew_5_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_SHORELEAVE_crew_5_PROJECT
+			}
+		}
+	}
+}
+
+## Passenger Espionage Support
+contract_espionage_support_passenger_1 = {
+	inline_script = {
+		script = contracts/EspionageSupportCruise
+		ISSUER = passenger
+		VARIANT = 1
+		PICTURE = GFX_evt_satellite_in_orbit
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_espionage_support_passenger_1_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_ESPIONAGE_SUPPORT_passenger_1_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_ESPIONAGE_SUPPORT_passenger_1_PROJECT
+			}
+		}
+	}
+}
+
+contract_espionage_support_passenger_2 = {
+	inline_script = {
+		script = contracts/EspionageSupportCruise
+		ISSUER = passenger
+		VARIANT = 2
+		PICTURE = GFX_evt_infiltration_failure
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_espionage_support_passenger_2_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_ESPIONAGE_SUPPORT_passenger_2_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_ESPIONAGE_SUPPORT_passenger_2_PROJECT
+			}
+		}
+	}
+}
+
+contract_espionage_support_passenger_3 = {
+	inline_script = {
+		script = contracts/EspionageSupportCruise
+		ISSUER = passenger
+		VARIANT = 3
+		PICTURE = GFX_evt_infiltration_neutral
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_espionage_support_passenger_3_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_ESPIONAGE_SUPPORT_passenger_3_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_ESPIONAGE_SUPPORT_passenger_3_PROJECT
+			}
+		}
+	}
+}
+
+contract_espionage_support_passenger_4 = {
+	inline_script = {
+		script = contracts/EspionageSupportCruise
+		ISSUER = passenger
+		VARIANT = 4
+		PICTURE = GFX_evt_alien_segregation
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_espionage_support_passenger_4_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_ESPIONAGE_SUPPORT_passenger_4_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_ESPIONAGE_SUPPORT_passenger_4_PROJECT
+			}
+		}
+	}
+}
+
+contract_espionage_support_passenger_5 = {
+	inline_script = {
+		script = contracts/EspionageSupportCruise
+		ISSUER = passenger
+		VARIANT = 5
+		PICTURE = GFX_evt_worrying_signal
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			cruise_contract_scaling_reward_effect = {
+				TRADE = 2500
+			}
+			custom_tooltip = increase_passenger_satisfaction
+			increase_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_passenger_contract_effect = {
+			CHAIN = contract_espionage_support_passenger_5_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_ESPIONAGE_SUPPORT_passenger_5_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_ESPIONAGE_SUPPORT_passenger_5_PROJECT
+			}
+		}
+	}
+}
+
+## Crew Espionage Support
+contract_espionage_support_crew_1 = {
+	inline_script = {
+		script = contracts/EspionageSupportCruise
+		ISSUER = crew
+		VARIANT = 1
+		PICTURE = GFX_evt_satellite_in_orbit
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			add_intel = {
+				amount = 10
+				who = fromfrom.space_owner
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_espionage_support_crew_1_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_ESPIONAGE_SUPPORT_crew_1_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_ESPIONAGE_SUPPORT_crew_1_PROJECT
+			}
+		}
+	}
+}
+
+contract_espionage_support_crew_2 = {
+	inline_script = {
+		script = contracts/EspionageSupportCruise
+		ISSUER = crew
+		VARIANT = 2
+		PICTURE = GFX_evt_diplomatic_visit
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			add_intel = {
+				amount = 10
+				who = fromfrom.space_owner
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_espionage_support_crew_2_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_ESPIONAGE_SUPPORT_crew_2_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_ESPIONAGE_SUPPORT_crew_2_PROJECT
+			}
+		}
+	}
+}
+
+contract_espionage_support_crew_3 = {
+	inline_script = {
+		script = contracts/EspionageSupportCruise
+		ISSUER = crew
+		VARIANT = 3
+		PICTURE = GFX_evt_cosmic_storms_broadcast_hacking
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			add_intel = {
+				amount = 10
+				who = fromfrom.space_owner
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_espionage_support_crew_3_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_ESPIONAGE_SUPPORT_crew_3_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_ESPIONAGE_SUPPORT_crew_3_PROJECT
+			}
+		}
+	}
+}
+
+contract_espionage_support_crew_4 = {
+	inline_script = {
+		script = contracts/EspionageSupportCruise
+		ISSUER = crew
+		VARIANT = 4
+		PICTURE = GFX_evt_tradedeal
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			add_intel = {
+				amount = 10
+				who = fromfrom.space_owner
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_espionage_support_crew_4_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_ESPIONAGE_SUPPORT_crew_4_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_ESPIONAGE_SUPPORT_crew_4_PROJECT
+			}
+		}
+	}
+}
+
+contract_espionage_support_crew_5 = {
+	inline_script = {
+		script = contracts/EspionageSupportCruise
+		ISSUER = crew
+		VARIANT = 5
+		PICTURE = GFX_evt_spymaster
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				exists = root
+			}
+			add_intel = {
+				amount = 10
+				who = fromfrom.space_owner
+			}
+			custom_tooltip = decrease_passenger_satisfaction
+			decrease_passenger_satisfaction = yes
+			hidden_effect = {
+				country_event = { id = nomads.3003 days = 1 }
+			}
+		}
+	}
+
+	on_cancel = {
+		aborted_crew_contract_effect = {
+			CHAIN = contract_espionage_support_crew_5_chain
+		}
+		if = {
+			limit = {
+				has_special_project = CONTRACT_ESPIONAGE_SUPPORT_crew_5_PROJECT
+			}
+			abort_special_project = {
+				type = CONTRACT_ESPIONAGE_SUPPORT_crew_5_PROJECT
+			}
+		}
+	}
+}
+
+# The Eternal Chorus - self-issued discovery contract, spawned when Arkship enters a black hole system
+contract_eternal_chorus = {
+	category = science_contract_internal
+	desc = "contract_eternal_chorus_desc"
+	event_chain = arkship_eternal_chorus_chain
+	icon = gfx/interface/icons/situation_log/situation_log_scanning_beam.dds
+	picture = GFX_evt_black_hole
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 0
+
+	potential_issuer = {
+		always = no
+	}
+
+	issued_abort_trigger = {
+		OR = {
+			is_nomadic = no
+			NOT = {
+				has_event_chain = arkship_eternal_chorus_chain
+			}
+		}
+	}
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = arkship_eternal_chorus_chain
+		}
+	}
+
+	counter = {
+		contract_progress_counter = { max = 1 }
+	}
+
+	on_accept = {
+		random_system = {
+			limit = { has_star_flag = eternal_chorus_system@ROOT }
+			random_system_planet = {
+				limit = { is_planet_class = pc_black_hole }
+				save_event_target_as = eternal_chorus_black_hole
+			}
+		}
+		enable_special_project = {
+			name = "ARKSHIP_ETERNAL_CHORUS_PROJECT"
+			location = event_target:eternal_chorus_black_hole
+			owner = ROOT
+		}
+	}
+
+	on_success = {
+		add_monthly_resource_mult = {
+			resource = trade
+			value = @tier1materialreward
+			min = @tier1materialmin
+			max = @tier1materialmax
+		}
+		add_monthly_resource_mult = {
+			resource = society_research
+			value = @tier2researchreward
+			min = @tier2researchmin
+			max = @tier2researchmax
+		}
+		set_country_flag = arkship_eternal_chorus_completed
+		random_system = {
+			limit = { has_star_flag = eternal_chorus_system@ROOT }
+			set_star_flag = eternal_chorus_origin@ROOT
+		}
+		hidden_effect = {
+			country_event = { id = nomads.3002 days = 1 }
+		}
+	}
+
+	on_cancel = {
+		if = {
+			limit = { exists = event_target:eternal_chorus_leader }
+			event_target:eternal_chorus_leader = {
+				remove_leader_flag = eternal_chorus_researcher
+				remove_leader_flag = leader_death_events_blocked
+			}
+		}
+	}
+
+	on_stop = {
+		remove_global_flag = eternal_chorus_active
+		remove_country_flag = arkship_eternal_chorus_arrived
+		clear_global_event_target = eternal_chorus_leader
+		if = {
+			limit = { has_special_project = ARKSHIP_ETERNAL_CHORUS_PROJECT }
+			abort_special_project = { type = ARKSHIP_ETERNAL_CHORUS_PROJECT }
+		}
+		random_system = {
+			limit = { has_star_flag = eternal_chorus_system@ROOT }
+			remove_star_flag = eternal_chorus_system@ROOT
+			random_system_planet = {
+				limit = { has_planet_flag = eternal_chorus_planet@ROOT }
+				remove_planet_flag = eternal_chorus_planet@ROOT
+			}
+		}
+		end_event_chain = arkship_eternal_chorus_chain
+	}
+}
+
+#### Heirs of the Khan Contracts ###
+contract_intercept_raid_heirs = {
+	category = heirs_military_contract_special
+	desc = "contract_intercept_raid_heirs_desc"
+	lore_completed = contract_intercept_raid_heirs_lore_completed
+	event_chain = contract_intercept_raid_heirs_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_heirs_of_the_khan
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 0
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = contract_intercept_raid_heirs_chain
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		always = no
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_intercept_raid_heirs_chain
+			target = ROOT
+		}
+		create_point_of_interest = {
+			id = intercept_raid@root
+			name = "intercept_raid_poi_name"
+			desc = intercept_raid_poi_desc
+			event_chain = contract_intercept_raid_heirs_chain
+			location = fromfrom
+		}
+		fromfrom = {
+			set_star_flag = intercept_raid@root
+			if = {
+				limit = {
+					any_fleet_in_system = {
+						owner = {
+							is_same_value = root
+						}
+						is_arkship_fleet = yes
+					}
+				}
+				random_fleet_in_system = {
+					limit = {
+						owner = {
+							is_same_value = root
+						}
+						is_arkship_fleet = yes
+					}
+					fleet_event = { #If you are in the system we can just manually trigger the event here
+						id = nomads.520
+						scopes = {
+							from = fromfrom
+						}
+					}
+				}
+			}
+		}
+	}
+
+	on_success = {
+		custom_tooltip = contract_intercept_raid_heirs_success
+		add_resource = {
+			trade = 500
+			mult =  defeated_heirs_hunters
+		}
+		hidden_effect = {
+			change_variable = {
+				which = defeated_heirs_hunters_spawner
+				value = -1
+			}
+			change_variable = {
+				which = defeated_heirs_hunters
+				value = 1
+			}
+			country_event = { id = nomads.500 days = 1000 random = 600 }
+		}
+	}
+
+	on_cancel = {
+		hidden_effect = {
+			country_event = { id = nomads.500 days = 200 random = 100 }
+		}
+	}
+
+	on_stop = {
+		hidden_effect = {
+			root? = {
+				end_event_chain = contract_intercept_raid_heirs_chain
+			}
+			fromfrom? = {
+				remove_star_flag = intercept_raid@root
+			}
+		}
+	}
+}
+
+contract_destroy_station_heirs = {
+	category = heirs_military_contract_special
+	desc = "contract_destroy_station_heirs_desc"
+	lore_completed = contract_destroy_station_heirs_lore_completed
+	event_chain = contract_destroy_station_heirs_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_heirs_of_the_khan
+	location = yes
+	time_to_accept = @contract_time_base
+	time_to_complete = @contract_time_base
+	cost = 0
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = contract_destroy_station_heirs_chain
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		always = no
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_destroy_station_heirs_chain
+			target = ROOT
+		}
+		create_point_of_interest = {
+			id = destroy_heirs_station@root
+			name = "destroy_heirs_station_poi_name"
+			desc = destroy_heirs_station_poi_desc
+			event_chain = contract_destroy_station_heirs_chain
+			location = fromfrom
+		}
+		fromfrom = {
+			set_star_flag = destroy_heirs_station@root
+			if = {
+				limit = {
+					root = {
+						check_variable = {
+							which = defeated_heirs_hunters
+							value < 8
+						}
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = event_target:marauder_country_1
+						create_ship = {
+							name = random
+							design = "NAME_Warrior_Freehold"
+							graphical_culture = "pirate_01"
+						}
+						set_location = {
+							target = prev
+							distance = 140
+							angle = random
+						}
+						set_aggro_range_measure_from = self
+						set_aggro_range = 1000
+						set_owner = event_target:marauder_hunters #Real Owner
+						event_target:marauder_hunters = {
+							set_relation_flag = {
+								who = root.owner
+								flag = contract_heirs_hunter_starbase
+							}
+						}
+						save_event_target_as = raider_fleet
+						set_fleet_flag = heirs_raider_starbase
+					}
+				}
+			}
+			else = {
+				create_fleet = {
+					effect = {
+						set_owner = event_target:marauder_country_1
+						create_ship = {
+							name = random
+							design = "NAME_Void_Dwelling"
+							graphical_culture = "pirate_01"
+						}
+						set_location = {
+							target = prev
+							distance = 140
+							angle = random
+						}
+						set_aggro_range_measure_from = self
+						set_aggro_range = 1000
+						set_owner = event_target:marauder_hunters #Real Owner
+						event_target:marauder_hunters = {
+							set_relation_flag = {
+								who = root.owner
+								flag = contract_heirs_hunter_starbase
+							}
+						}
+						save_event_target_as = raider_fleet
+						set_fleet_flag = heirs_raider_starbase
+					}
+				}
+			}
+		}
+	}
+
+	on_success = {
+		custom_tooltip = contract_intercept_raid_heirs_success
+		hidden_effect = {
+			change_variable = {
+				which = defeated_heirs_hunters_spawner
+				value = -1
+			}
+			set_timed_country_flag = {
+				flag = intimidated_marauder_hunters
+				days = 2200
+			}
+			country_event = { id = nomads.500 days = 1000 random = 600 }
+		}
+	}
+
+	on_cancel = {
+		hidden_effect = {
+			country_event = { id = nomads.500 days = 200 random = 100 }
+		}
+	}
+
+	on_stop = {
+		hidden_effect = {
+			root? = {
+				end_event_chain = contract_destroy_station_heirs_chain
+			}
+			fromfrom? = {
+				remove_star_flag = destroy_heirs_station@root
+				if = {
+					limit = {
+						any_fleet_in_system = {
+							has_fleet_flag = heirs_raider_starbase
+						}
+					}
+					random_fleet_in_system = {
+						limit = {
+							has_fleet_flag = heirs_raider_starbase
+						}
+						delete_fleet = this
+					}
+				}
+			}
+		}
+	}
+}
+
+contract_destroy_station_heirs_start = {
+	category = heirs_military_contract_special
+	desc = "contract_destroy_station_heirs_desc"
+	lore_completed = contract_destroy_station_heirs_lore_completed
+	event_chain = contract_destroy_station_heirs_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_heirs_of_the_khan
+	location = yes
+	time_to_accept = @contract_time_base
+	time_to_complete = @contract_time_base
+	cost = 0
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = contract_destroy_station_heirs_chain
+		}
+	}
+
+	counter = {
+		contract_progress_counter = {
+			max = 1
+		}
+	}
+
+	potential_issuer = {
+		always = no
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = contract_destroy_station_heirs_chain
+			target = ROOT
+		}
+		create_point_of_interest = {
+			id = destroy_heirs_station@root
+			name = "destroy_heirs_station_poi_name"
+			desc = destroy_heirs_station_poi_desc
+			event_chain = contract_destroy_station_heirs_chain
+			location = fromfrom
+		}
+		fromfrom = {
+			set_star_flag = destroy_heirs_station@root
+			create_fleet = {
+				effect = {
+					set_owner = event_target:marauder_country_1
+					create_ship = {
+						name = random
+						design = "NAME_Warrior_Freehold"
+						graphical_culture = "pirate_01"
+					}
+					set_location = {
+						target = prev
+						distance = 140
+						angle = random
+					}
+					set_aggro_range_measure_from = self
+					set_aggro_range = 1000
+					set_owner = event_target:marauder_hunters #Real Owner
+					event_target:marauder_hunters = {
+						set_relation_flag = {
+							who = root.owner
+							flag = contract_heirs_hunter_starbase
+						}
+					}
+					save_event_target_as = raider_fleet
+					set_fleet_flag = heirs_raider_starbase_start
+				}
+			}
+		}
+	}
+
+	on_success = {
+		add_resource = {
+			 trade = 1000
+		}
+		hidden_effect = {
+			country_event = { id = nomads.500 days = 1000 random = 600 }
+		}
+	}
+
+	on_cancel = {
+		hidden_effect = {
+			country_event = { id = nomads.500 days = 200 random = 100 }
+		}
+	}
+
+	on_stop = {
+		hidden_effect = {
+			root? = {
+				end_event_chain = contract_destroy_station_heirs_chain
+			}
+			fromfrom? = {
+				remove_star_flag = destroy_heirs_station@root
+				if = {
+					limit = {
+						any_fleet_in_system = {
+							has_fleet_flag = heirs_raider_starbase
+						}
+					}
+					random_fleet_in_system = {
+						limit = {
+							has_fleet_flag = heirs_raider_starbase
+						}
+						delete_fleet = this
+					}
+				}
+			}
+		}
+	}
+}
+
+## Diplomatic Envoy
+contract_arkship_diplomatic_envoy = {
+	category = diplomacy_contract_internal
+	desc = "contract_arkship_diplomatic_envoy_desc"
+	event_chain = arkship_diplomatic_envoy_chain
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_diplomatic_visit
+	location = yes
+	time_to_accept = @contract_time_base
+	cost = 0
+
+	potential_issuer = {
+		always = no
+	}
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = arkship_diplomatic_envoy_chain
+		}
+	}
+
+	counter = {
+		contract_progress_counter = { max = 1 }
+	}
+
+	on_accept = {
+		begin_event_chain = {
+			event_chain = arkship_diplomatic_envoy_chain
+			target = ROOT
+		}
+		random_system = {
+			limit = { has_star_flag = diplomatic_envoy_target_system@ROOT }
+			ROOT = {
+				create_point_of_interest = {
+					id = diplomatic_envoy_target_poi
+					name = "diplomatic_envoy_target_poi_name"
+					desc = "diplomatic_envoy_target_poi_desc"
+					event_chain = arkship_diplomatic_envoy_chain
+					location = prev
+				}
+			}
+		}
+		every_owned_ship = {
+			limit = {
+				is_arkship_ship = yes
+				solar_system = {
+					has_star_flag = diplomatic_envoy_target_system@ROOT
+				}
+			}
+			carrier_event = { id = arkship.160 }
+		}
+	}
+
+	on_success = {
+		add_monthly_resource_mult = {
+			resource = influence
+			value = @tier2influencereward
+			min = @tier2influencemin
+			max = @tier2influencemax
+		}
+		add_monthly_resource_mult = {
+			resource = trade
+			value = @tier1materialreward
+			min = @tier1materialmin
+			max = @tier1materialmax
+		}
+		set_country_flag = arkship_diplomatic_envoy_completed
+		custom_tooltip = trust5
+		custom_tooltip = opinion50
+		hidden_effect = {
+			random_country = {
+				limit = { has_country_flag = diplomatic_envoy_target_of@ROOT }
+				add_opinion_modifier = {
+					modifier = opinion_completed_contract_small
+					who = root
+				}
+				add_trust = {
+					amount = 5
+					who = root
+				}
+			}
+			country_event = { id = nomads.3002 days = 1 }
+		}
+	}
+
+	on_cancel = {
+	}
+
+	on_stop = {
+		remove_country_flag = arkship_diplomatic_envoy_arrived
+		random_owned_leader = {
+			limit = { has_leader_flag = diplomatic_envoy_official }
+			remove_leader_flag = diplomatic_envoy_official
+			remove_leader_flag = leader_death_events_blocked
+		}
+		random_country = {
+			limit = { has_country_flag = diplomatic_envoy_target_of@ROOT }
+			remove_country_flag = diplomatic_envoy_target_of@ROOT
+		}
+		random_system = {
+			limit = { has_star_flag = diplomatic_envoy_target_system@ROOT }
+			remove_star_flag = diplomatic_envoy_target_system@ROOT
+		}
+		remove_point_of_interest = diplomatic_envoy_target_poi
+		end_event_chain = arkship_diplomatic_envoy_chain
+	}
+}

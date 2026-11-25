@@ -1,0 +1,163 @@
+# CONTRACTS
+
+# Contracts that should trigger contract events will need to fire nomads.6000 from somewhere. Consider Special Projects, or other events normally used to track mission progress.
+
+# For reference (defined in 10_scripted_variables_nomads):
+#
+# @contract_time_short = 900
+# @contract_time_base = 1800
+# @contract_time_long = 2700
+#
+# @opinion_contract_small = 15
+# @opinion_contract_regular = 30
+# @opinion_contract_large = 50
+#
+# @opinion_failed_contract_small = -25
+# @opinion_failed_contract_regular = -40
+# @opinion_failed_contract_large = -60
+
+## Host CFL Tournament
+contract_host_cfl_tournament = {
+	category = diplomacy_contract_special
+	event_chain = contract_host_cfl_tournament_chain
+	desc = "contract_host_cfl_tournament_desc"
+	lore_completed = contract_host_cfl_tournament_lore_completed
+	icon = gfx/interface/icons/situation_log/situation_log_quest.dds
+	picture = GFX_evt_champions_forge
+	small_picture = GFX_contract_host_cfl_tournament_small
+	location = yes
+	time_to_accept = 100
+
+	potential_issuer = {
+		has_country_flag = cfl_hoster
+		exists = event_target:champions_forge_enclave_country
+	}
+
+	possible_issuer = {
+		if = {
+			limit = {
+				is_nomadic = no
+			}
+			custom_tooltip = {
+				fail_text = requires_own_system
+				contract_system_is_own = yes
+			}
+		}
+		else_if = {
+			limit = {
+				is_nomadic = yes
+			}
+			custom_tooltip = {
+				fail_text = requires_waystation_system
+				contract_system_is_own_waystation = yes
+			}
+		}
+		custom_tooltip = {
+			fail_text = champions_forge_tournament_ongoing_tt
+			event_target:champions_forge_enclave_country = {
+				NOT = {
+					has_country_flag = champions_forge_tournament_ongoing
+				}
+			}
+		}
+	}
+
+	potential_operator = {
+		always = no
+    }
+
+	possible_operator = {
+    }
+
+	on_issue = {
+		remove_country_flag = cfl_hoster
+		fromfrom = {
+			random_system_planet = {
+				limit = {
+					is_colonizable = no
+				}
+				save_event_target_as = champions_forge_target
+			}
+			closest_system = {
+				limit = {
+					NOR = {
+						has_star_flag = guardian
+						has_star_flag = hostile_system
+						is_same_value = fromfrom
+					}
+				}
+				event_target:champions_forge_enclave_fleet = {
+					solar_system = { #If we currently have ambient objects hanging around we delete them
+						every_system_ambient_object = {
+							limit = {
+								has_ambient_object_flag = champions_forge_arrive_object
+							}
+							destroy_ambient_object = this
+						}
+						space_owner? = {
+							set_timed_country_flag = {
+								flag = champions_forge_recent_visit
+								years = 20
+							}
+						}
+						if = {
+							limit = {
+								any_starbase_in_system = {
+									has_starbase_size >= starbase_waystation_2
+								}
+							}
+							owner = {
+								set_timed_country_flag = {
+									flag = champions_forge_recent_visit
+									years = 20
+								}
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 300
+						angle = 90
+						direction = in_system
+					}
+					create_ambient_object = {
+						type = horror_spawn_object
+						scale = 1
+						location = this
+						entity_scale_to_size = yes
+						play_animation_once = yes
+						duration = 10
+					}
+					clear_orders = yes
+					clear_fleet_actions = this
+					auto_move_to_planet = {
+						target = event_target:champions_forge_target
+						clear_auto_move_on_arrival = no
+						arrival_effect = champions_forge_contract_arrival_effect
+					}
+				}
+			}
+		}
+	}
+
+	on_monthly = {
+	}
+
+	on_accept = {
+	}
+
+	on_success = {
+	}
+
+	on_cancel = {
+	}
+
+	on_stop = {
+	}
+
+	abort_trigger = {
+		event_target:champions_forge_enclave_country? = {
+			has_country_flag = champions_forge_tournament_ongoing
+		}
+	}
+}

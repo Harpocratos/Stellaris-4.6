@@ -1,0 +1,328 @@
+# See 00_README.txt for documentation.
+
+@base_leader_cap = 3
+
+official = {
+	name = official
+	name_plural = official_plural
+	description = official_description
+	can_govern_planet = yes
+	can_crew_cultural_envoy = yes
+	max_trait_points = 1
+	can_have_traits = yes
+	can_be_assigned_to_federation = yes
+	can_be_assigned_to_galactic_community = yes
+	can_be_ideology_advocate = yes
+	leader_capacity = @base_leader_cap
+	resources = {
+		category = leader_officials
+		cost = {
+			unity = 1
+			mult = value:leader_cost
+		}
+		inline_script = "paragon/leader_base_upkeep"
+		produces = {
+			trigger = {
+				owner? = {
+					has_tradition = tr_politics_adopt
+				}
+				OR = {
+					is_assigned_to_galcom = yes
+					is_strengthing_imperial_authority = yes
+					is_undermining_imperial_authority = yes
+				}
+			}
+			influence = 0.1
+			mult = trigger:has_total_skill
+		}
+	}
+
+	ai_weight = {
+		modifier = {
+			factor = 2
+			OR = {
+				is_pacifist = yes
+				is_egalitarian = yes
+			}
+		}
+	}
+
+	ai_location_weight = {
+		modifier = {
+			add = 30
+			from? = {
+				is_scope_type = ideology
+			}
+		}
+		# Outranks a colony because the AI only builds a Cultural Envoy when it has an official to spare for it
+		modifier = {
+			add = 20
+			from? = {
+				is_scope_type = ship
+				is_ship_class = shipclass_cultural_envoy
+			}
+		}
+		modifier = {
+			add = 10
+			from? = {
+				is_scope_type = colony
+			}
+		}
+		complex_trigger_modifier = {
+			potential = {
+				from? = {
+					is_scope_type = ideology
+				}
+			}
+			trigger = has_total_skill
+			trigger_scope = root
+			mode = add
+			mult = 0.1
+		}
+		complex_trigger_modifier = {
+			potential = {
+				from? = {
+					is_scope_type = colony
+				}
+			}
+			trigger = pop_amount
+			trigger_scope = from
+			mode = add
+			mult = 0.0001
+		}
+		inline_script = {
+			script = paragon/num_traits_with_modifier
+			SCOPE = colony
+			MODIFIER = colony
+		}
+		inline_script = {
+			script = paragon/num_traits_with_modifier
+			SCOPE = federation
+			MODIFIER = federation
+		}
+		inline_script = {
+			script = paragon/num_traits_with_modifier
+			SCOPE = galactic_community
+			MODIFIER = galcom
+		}
+	}
+
+	replaces_old_class = "governor"
+
+	icon = 4
+	paragon_background_selector = "paragon_background_selector"
+}
+
+commander = {
+	name = commander
+	name_plural = commander_plural
+	description = commander_description
+	can_lead_navy = yes
+	can_lead_army = yes
+	can_govern_planet = yes
+	max_trait_points = 1
+	can_have_traits = yes
+	leader_capacity = @base_leader_cap
+	resources = {
+		category = leader_commanders
+		cost = {
+			unity = 1
+			mult = value:leader_cost
+		}
+		inline_script = "paragon/leader_base_upkeep"
+	}
+	ai_weight = {
+		modifier = {
+			factor = 2
+			OR = {
+				is_militarist = yes
+				is_authoritarian = yes
+			}
+		}
+	}
+	ai_location_weight = {
+		modifier = {
+			add = 10
+			from? = {
+				OR = {
+					is_scope_type = fleet
+					is_scope_type = ship
+				}
+				is_civilian = no
+			}
+		}
+		complex_trigger_modifier = {
+			potential = {
+				from? = {
+					OR = {
+						is_scope_type = fleet
+						is_scope_type = ship
+					}
+					is_civilian = no
+				}
+			}
+			trigger = num_ships
+			trigger_scope = from
+			mode = add
+			mult = 1
+		}
+		modifier = {
+			add = 5
+			from? = {
+				is_scope_type = colony
+				planet_stability <= 10
+			}
+		}
+		modifier = {
+			add = 5
+			from? = {
+				is_scope_type = colony
+				planet_crime >= 25
+			}
+		}
+		complex_trigger_modifier = {
+			potential = {
+				from? = {
+					is_scope_type = colony
+					OR = {
+						planet_stability <= 10
+						planet_crime >= 25
+					}
+				}
+			}
+			trigger = pop_amount
+			trigger_scope = from
+			mode = add
+			mult = 0.0001
+		}
+		inline_script = {
+			script = paragon/num_traits_with_modifier
+			SCOPE = colony
+			MODIFIER = colony
+		}
+		inline_script = {
+			script = paragon/num_traits_with_modifier
+			SCOPE = fleet
+			MODIFIER = fleet
+		}
+		inline_script = {
+			script = paragon/num_traits_with_modifier
+			SCOPE = army
+			MODIFIER = army
+		}
+	}
+	replaces_old_class = "admiral"
+	replaces_old_class = "general"
+	icon = 1
+	paragon_background_selector = "paragon_background_selector"
+}
+
+scientist = {
+	name = scientist
+	name_plural = scientist_plural
+	description = scientist_description
+	can_research_tech = yes
+	can_research_special_projects = yes
+	can_crew_science_ship = yes
+	can_research_anomalies = yes
+	can_survey = yes
+	can_boost_cloaking_detection = yes
+	can_research_archaeology_site = yes
+	can_explore_rifts = yes
+	can_conduct_active_reconnaissance = yes
+	can_govern_planet = yes
+	max_trait_points = 1
+	leader_capacity = @base_leader_cap
+	resources = {
+		category = leader_scientists
+		cost = {
+			unity = 1
+			mult = value:leader_cost
+		}
+		inline_script = "paragon/leader_base_upkeep"
+	}
+
+	ai_weight = {
+		base = 50
+	}
+	ai_location_weight = {
+		modifier = {
+			add = 10
+			from? = {
+				is_scope_type = ship
+				is_ship_class = shipclass_science_ship
+			}
+		}
+		modifier = {
+			add = 1
+			from? = {
+				is_scope_type = colony
+			}
+		}
+		modifier = {
+			mult = 10
+			from? = {
+				is_scope_type = colony
+				owner? = {
+					has_valid_civic = civic_technocracy
+				}
+			}
+		}
+		complex_trigger_modifier = {
+			potential = {
+				from? = {
+					is_scope_type = colony
+				}
+			}
+			trigger = pop_amount
+			trigger_scope = from
+			mode = add
+			mult = 0.000025
+		}
+		inline_script = {
+			script = paragon/num_traits_with_modifier
+			SCOPE = colony
+			MODIFIER = colony
+		}
+		inline_script = {
+			script = paragon/num_traits_with_modifier
+			SCOPE = fleet
+			MODIFIER = self
+		}
+		inline_script = {
+			script = paragon/num_traits_with_modifier
+			SCOPE = fleet
+			MODIFIER = fleet
+		}
+	}
+	minimum_ai_target = 3
+	icon = 3
+	paragon_background_selector = "paragon_background_selector"
+}
+
+envoy = {
+	name = envoy
+	name_plural = envoy_plural
+	description = envoy_description
+	can_be_envoy = yes
+	assignment_cooldown = 360
+	can_have_traits = no
+	recruitable = no
+	can_rule_empire = no
+	can_be_assigned_to_federation = no
+	can_be_assigned_to_galactic_community = no
+	can_be_ideology_advocate = no
+	valid_for_leader_pool = no
+	icon = 5
+	paragon_background_selector = "paragon_background_selector"
+	resources = {
+		category = shroud_envoys
+		produces = {
+			trigger = {
+				is_assigned_to_patron = yes
+			}
+			sr_zro = 0.5
+			mult = value:disciple_of_the_cradle_envoy_zro_mult
+		}
+	}
+}

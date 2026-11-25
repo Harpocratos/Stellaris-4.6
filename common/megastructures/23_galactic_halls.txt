@@ -1,0 +1,198 @@
+# Galactic Halls
+
+galactic_halls_0_empty = { # Used to display ideology requirement
+	entity = "construction_platform_entity"
+	construction_entity = "construction_platform_entity"
+	portrait = "GFX_megastructure_galactic_halls_background"
+	emitter = yes
+
+	resources = {
+		category = megastructures_galactic_halls
+		cost = {
+			alloys = 2500
+			unity = 5000
+			influence = 500
+		}
+	}
+
+	prerequisites = { "tech_galactic_halls" }
+	potential = {
+		is_country_type = default
+		is_nomadic = no
+		NOT = {
+			any_owned_megastructure = {
+				is_megastructure_galactic_halls = yes
+			}
+		}
+		NOT = { exists = ideology }
+	}
+
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_ideology"
+			from = { exists = ideology }
+		}
+	}
+
+	ai_weight = {
+		factor = 0
+	}
+}
+
+galactic_halls_0_militarist = {
+	triggered_planet_modifier = {
+		potential = { is_colony = yes }
+		planet_soldiers_upkeep_mult = -0.15
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+
+	inline_script = {
+		script = megastructures/galactic_halls
+		ENTITY = galactic_halls_militarist_entity
+		ETHIC = militarist
+	}
+}
+
+galactic_halls_0_pacifist = {
+	triggered_planet_modifier = {
+		potential = {
+			is_colony = yes
+			owner = { is_gestalt = no }
+		}
+		pop_happiness = 0.1
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+	triggered_planet_modifier = {
+		potential = {
+			is_colony = yes
+			owner = { is_gestalt = yes }
+		}
+		planet_stability_add = 4
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+
+	inline_script = {
+		script = megastructures/galactic_halls
+		ENTITY = galactic_halls_pacifist_entity
+		ETHIC = pacifist
+	}
+}
+
+galactic_halls_0_xenophile = {
+	triggered_planet_modifier = {
+		potential = { is_colony = yes }
+		planet_jobs_trade_produces_mult = 0.15
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+
+	inline_script = {
+		script = megastructures/galactic_halls
+		ENTITY = galactic_halls_xenophile_entity
+		ETHIC = xenophile
+	}
+}
+
+galactic_halls_0_xenophobe = {
+	triggered_planet_modifier = {
+		potential = { is_colony = yes }
+		logistic_growth_mult = 0.1
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+
+	inline_script = {
+		script = megastructures/galactic_halls
+		ENTITY = galactic_halls_xenophobe_entity
+		ETHIC = xenophobe
+	}
+}
+
+galactic_halls_0_materialist = {
+	triggered_planet_modifier = {
+		potential = {
+			is_colony = yes
+			owner = { is_gestalt = no }
+		}
+		pop_roboticist_bonus_workforce_mult = 0.15
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+	triggered_planet_modifier = {
+		potential = {
+			is_colony = yes
+			owner = { is_gestalt = yes }
+		}
+		pop_brain_drone_physicist_bonus_workforce_mult = 0.1
+		pop_brain_drone_biologist_bonus_workforce_mult = 0.1
+		pop_brain_drone_engineer_bonus_workforce_mult = 0.1
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+
+	inline_script = {
+		script = megastructures/galactic_halls
+		ENTITY = galactic_halls_materialist_entity
+		ETHIC = materialist
+	}
+}
+
+galactic_halls_0_spiritualist = {
+	triggered_planet_modifier = {
+		potential = { is_colony = yes }
+		planet_jobs_unity_produces_mult = 0.15
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+
+	inline_script = {
+		script = megastructures/galactic_halls
+		ENTITY = galactic_halls_spiritualist_entity
+		ETHIC = spiritualist
+	}
+}
+
+galactic_halls_0_authoritarian = {
+	triggered_planet_modifier = {
+		potential = {
+			is_colony = yes
+			owner? = { is_gestalt = no }
+		}
+		pop_cat_ruler_bonus_workforce_mult = 0.15
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+	triggered_planet_modifier = {
+		potential = {
+			is_colony = yes
+			owner? = { is_gestalt = yes }
+		}
+		planet_pops_complex_drones_upkeep_mult = -0.05
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+
+	inline_script = {
+		script = megastructures/galactic_halls
+		ENTITY = galactic_halls_authoritarian_entity
+		ETHIC = authoritarian
+	}
+}
+
+galactic_halls_0_egalitarian = {
+	triggered_planet_modifier = {
+		potential = {
+			is_colony = yes
+			owner? = { is_gestalt = no }
+		}
+		pop_political_power = 0.25
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+	triggered_planet_modifier = {
+		potential = {
+			is_colony = yes
+			owner? = { is_gestalt = yes }
+		}
+		pop_logistics_drone_bonus_workforce_mult = 0.15
+		mult = owner.value:scripted_modifier_mult|MODIFIER|hall_colony_effect_mult|
+	}
+
+	inline_script = {
+		script = megastructures/galactic_halls
+		ENTITY = galactic_halls_egalitarian_entity
+		ETHIC = egalitarian
+	}
+}

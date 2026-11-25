@@ -1,0 +1,598 @@
+### DEFENDER OF THE GALAXY MISSIONS
+MISSION_JOIN_GALACTIC_COMMUNITY = {
+	desc = MISSION_BE_ON_GALCOM_DESC
+	event_chain = defender_of_the_galaxy_chain
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	picture = GFX_evt_galactic_community
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = defender_of_the_galaxy_chain
+		}
+	}
+
+	counter = {
+		BE_ON_GALCOM = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		#Nothing, this is just for tutorialization purposes
+	}
+}
+
+MISSION_BE_ON_GALACTIC_COUNCIL = {
+	desc = MISSION_BE_ON_GALACTIC_COUNCIL_DESC
+	event_chain = defender_of_the_galaxy_chain
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	picture = GFX_evt_three_sided_deal
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = defender_of_the_galaxy_chain
+		}
+	}
+
+	counter = {
+		BE_ON_GALACTIC_COUNCIL = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		#Nothing, this is just for tutorialization purposes
+	}
+}
+
+MISSION_BE_CUSTODIAN = {
+	desc = MISSION_BE_CUSTODIAN_DESC
+	event_chain = defender_of_the_galaxy_chain
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	picture = GFX_evt_signing
+
+	abort_trigger = {
+		NOT = {
+			has_event_chain = defender_of_the_galaxy_chain
+		}
+	}
+
+	counter = {
+		BE_CUSTODIAN = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		#Nothing, this is just for tutorialization purposes
+	}
+}
+
+#### Arkship Readiness Checklist
+NOMAD_CHECKLIST_SHIELD_REALIGNMENT = {
+	desc = NOMAD_CHECKLIST_SHIELD_REALIGNMENT_DESC
+	event_chain = "nomad_checklist_chain"
+	picture = GFX_evt_arkship_bridge
+	icon = "gfx/interface/icons/situation_log/situation_log_physics.dds"
+
+	counter = {
+		SHIELD_REALIGNMENT = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		complete_checklist_shield_realignment_effect = yes
+	}
+}
+
+NOMAD_CHECKLIST_SENSOR_CALIBRATION = {
+	desc = NOMAD_CHECKLIST_SENSOR_CALIBRATION_DESC
+	event_chain = "nomad_checklist_chain"
+	picture = GFX_evt_nomad_contracts
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	counter = {
+		SENSOR_CALIBRATION_UNIQUE_STARS = {
+			max = 4
+		}
+	}
+
+	on_success = {
+		complete_checklist_sensor_calibration_effect = yes
+	}
+}
+
+NOMAD_CHECKLIST_FLUSH_COOLANT = {
+	desc = NOMAD_CHECKLIST_FLUSH_COOLANT_DESC
+	event_chain = "nomad_checklist_chain"
+	picture = GFX_evt_engineering_research
+	icon = "gfx/interface/icons/situation_log/situation_log_engineering.dds"
+
+	counter = {
+		COOLANT_FLUSHED = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		complete_checklist_flush_coolant_effect = yes
+	}
+}
+
+NOMAD_CHECKLIST_CLEAR_HANGAR_BAYS = {
+	desc = NOMAD_CHECKLIST_CLEAR_HANGAR_BAYS_DESC
+	event_chain = "nomad_checklist_chain"
+	picture = GFX_evt_ship_offloading_cargo
+	icon = "gfx/interface/icons/situation_log/situation_log_ship.dds"
+
+	counter = {
+		CLEARED_HANGAR_BAYS = {
+			max = 2
+		}
+	}
+	on_success = {
+		complete_checklist_clear_hangar_bays_effect = yes
+	}
+}
+
+NOMAD_CHECKLIST_DECIPHER_SIGNAL = {
+	desc = NOMAD_CHECKLIST_DECIPHER_SIGNAL_DESC
+	event_chain = "nomad_checklist_chain"
+	picture = GFX_evt_mysterious_signal
+	icon = "gfx/interface/icons/situation_log/situation_log_radar.dds"
+	location = yes
+
+	counter = {
+		SIGNAL_DECIPHERED = {
+			max = 1
+		}
+	}
+	on_success = {
+		complete_checklist_decipher_signal_effect = yes
+	}
+}
+
+### NOMAD EXPLORATION MISSIONS
+NOMAD_EXPLORATION_ANCIENT_WONDERS = {
+	desc = NOMAD_EXPLORATION_ANCIENT_WONDERS_DESC
+	event_chain = "nomad_exploration_chain"
+	picture = GFX_evt_astral_rift_clock
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	counter = {
+		ancient_wonders_progress = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		tooltip = {
+			add_modifier = {
+				modifier = ancient_wonders_modifier
+				days = -1
+			}
+		}
+		set_country_flag = ancient_wonders_completed
+		every_system = {
+			limit = { has_star_flag = ancient_wonders_system }
+			remove_star_flag = visited_by_nomad@prev
+		}
+		add_event_chain_counter = {
+			event_chain = nomad_exploration_chain
+			counter = categories_completed_progress
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_exploration_chain
+					counter = categories_completed_progress
+				}
+			}
+			complete_nomad_exploration_effect = yes
+		}
+	}
+}
+
+NOMAD_EXPLORATION_ANTIQUE_THREAT = {
+	desc = NOMAD_EXPLORATION_ANTIQUE_THREAT_DESC
+	event_chain = "nomad_exploration_chain"
+	picture = GFX_evt_astral_rift_clock
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	counter = {
+		antique_threat_progress = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		tooltip = {
+			add_modifier = {
+				modifier = antique_threat_modifier
+				days = -1
+			}
+		}
+		set_country_flag = antique_threat_completed
+		every_system = {
+			limit = { has_star_flag = antique_threat_system }
+			remove_star_flag = visited_by_nomad@prev
+		}
+		add_event_chain_counter = {
+			event_chain = nomad_exploration_chain
+			counter = categories_completed_progress
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_exploration_chain
+					counter = categories_completed_progress
+				}
+			}
+			complete_nomad_exploration_effect = yes
+		}
+	}
+}
+
+NOMAD_EXPLORATION_ENCLAVE = {
+	desc = NOMAD_EXPLORATION_ENCLAVE_CATEGORY_DESC
+	event_chain = "nomad_exploration_chain"
+	picture = GFX_evt_astral_rift_clock
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	counter = {
+		enclave_progress = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		tooltip = {
+			add_modifier = {
+				modifier = enclave_modifier
+				days = -1
+			}
+		}
+		set_country_flag = enclave_completed
+		every_system = {
+			limit = { has_star_flag = enclave }
+			remove_star_flag = visited_by_nomad@prev
+		}
+		add_event_chain_counter = {
+			event_chain = nomad_exploration_chain
+			counter = categories_completed_progress
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_exploration_chain
+					counter = categories_completed_progress
+				}
+			}
+			complete_nomad_exploration_effect = yes
+		}
+	}
+}
+
+NOMAD_EXPLORATION_GALACTIC_LANDMARK = {
+	desc = NOMAD_EXPLORATION_GALACTIC_LANDMARK_DESC
+	event_chain = "nomad_exploration_chain"
+	picture = GFX_evt_astral_rift_clock
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	counter = {
+		galactic_landmark_progress = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		tooltip = {
+			add_modifier = {
+				modifier = galactic_landmark_modifier
+				days = -1
+			}
+		}
+		set_country_flag = galactic_landmark_completed
+		every_system = {
+			limit = { has_star_flag = galactic_landmark_system }
+			remove_star_flag = visited_by_nomad@prev
+		}
+		add_event_chain_counter = {
+			event_chain = nomad_exploration_chain
+			counter = categories_completed_progress
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_exploration_chain
+					counter = categories_completed_progress
+				}
+			}
+			complete_nomad_exploration_effect = yes
+		}
+	}
+}
+
+NOMAD_EXPLORATION_MARAUDER = {
+	desc = NOMAD_EXPLORATION_MARAUDER_DESC
+	event_chain = "nomad_exploration_chain"
+	picture = GFX_evt_astral_rift_clock
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	counter = {
+		marauder_progress = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		tooltip = {
+			add_modifier = {
+				modifier = marauder_modifier
+				days = -1
+			}
+		}
+		set_country_flag = marauder_completed
+		every_system = {
+			limit = { has_star_flag = marauder_system }
+			remove_star_flag = visited_by_nomad@prev
+		}
+		add_event_chain_counter = {
+			event_chain = nomad_exploration_chain
+			counter = categories_completed_progress
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_exploration_chain
+					counter = categories_completed_progress
+				}
+			}
+			complete_nomad_exploration_effect = yes
+		}
+	}
+}
+
+NOMAD_EXPLORATION_NATURAL_SPECTACLE = {
+	desc = NOMAD_EXPLORATION_NATURAL_SPECTACLE_DESC
+	event_chain = "nomad_exploration_chain"
+	picture = GFX_evt_astral_rift_clock
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	counter = {
+		natural_spectacle_progress = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		tooltip = {
+			add_modifier = {
+				modifier = natural_spectacle_modifier
+				days = -1
+			}
+		}
+		set_country_flag = natural_spectacle_completed
+		every_system = {
+			limit = { has_star_flag = natural_spectacle_system }
+			remove_star_flag = visited_by_nomad@prev
+		}
+		add_event_chain_counter = {
+			event_chain = nomad_exploration_chain
+			counter = categories_completed_progress
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_exploration_chain
+					counter = categories_completed_progress
+				}
+			}
+			complete_nomad_exploration_effect = yes
+		}
+	}
+}
+
+NOMAD_EXPLORATION_PRECURSOR = {
+	desc = NOMAD_EXPLORATION_PRECURSOR_CATEGORY_DESC
+	event_chain = "nomad_exploration_chain"
+	picture = GFX_evt_astral_rift_clock
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	counter = {
+		precursor_progress = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		tooltip = {
+			add_modifier = {
+				modifier = precursor_modifier
+				days = -1
+			}
+		}
+		set_country_flag = precursor_completed
+		every_system = {
+			limit = { has_star_flag = precursor_system }
+			remove_star_flag = visited_by_nomad@prev
+		}
+		add_event_chain_counter = {
+			event_chain = nomad_exploration_chain
+			counter = categories_completed_progress
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_exploration_chain
+					counter = categories_completed_progress
+				}
+			}
+			complete_nomad_exploration_effect = yes
+		}
+	}
+}
+
+NOMAD_EXPLORATION_SPACE_ECOLOGY = {
+	desc = NOMAD_EXPLORATION_SPACE_ECOLOGY_DESC
+	event_chain = "nomad_exploration_chain"
+	picture = GFX_evt_astral_rift_clock
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	counter = {
+		space_ecology_progress = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		tooltip = {
+			add_modifier = {
+				modifier = space_ecology_modifier
+				days = -1
+			}
+		}
+		set_country_flag = space_ecology_completed
+		every_system = {
+			limit = { has_star_flag = space_ecology_system }
+			remove_star_flag = visited_by_nomad@prev
+		}
+		add_event_chain_counter = {
+			event_chain = nomad_exploration_chain
+			counter = categories_completed_progress
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = nomad_exploration_chain
+					counter = categories_completed_progress
+				}
+			}
+			complete_nomad_exploration_effect = yes
+		}
+	}
+}
+
+
+NOMAD_CHECKLIST_HARVEST_RESOURCES = {
+	desc = NOMAD_CHECKLIST_HARVEST_RESOURCES_DESC
+	event_chain = "nomad_checklist_chain"
+	picture = GFX_evt_mining_station
+	icon = "gfx/interface/icons/situation_log/situation_log_engineering.dds"
+
+	counter = {
+		EXOTIC_GASES_HARVESTED = {
+			max = 1
+		}
+		RARE_CRYSTALS_HARVESTED = {
+			max = 1
+		}
+		VOLATILE_MOTES_HARVESTED = {
+			max = 1
+		}
+	}
+
+	on_success = {
+		complete_checklist_harvest_resources_effect = yes
+	}
+}
+
+NOMAD_STAR_JOURNAL_BLACK_HOLES = {
+	desc = NOMAD_STAR_JOURNAL_BLACK_HOLES_DESC
+	event_chain = "nomad_star_journal_chain"
+	picture = GFX_evt_arkship_bridge
+	icon = "gfx/interface/icons/situation_log/situation_log_physics.dds"
+
+	counter = {
+		star_journal_progress_black_holes = {
+			max = -1
+		}
+	}
+	on_success = {}
+}
+
+NOMAD_STAR_JOURNAL_PULSAR = {
+	desc = NOMAD_STAR_JOURNAL_PULSAR_DESC
+	event_chain = "nomad_star_journal_chain"
+	picture = GFX_evt_arkship_bridge
+	icon = "gfx/interface/icons/situation_log/situation_log_physics.dds"
+
+	counter = {
+		star_journal_progress_pulsar = {
+			max = -1
+		}
+	}
+	on_success = {}
+}
+
+NOMAD_STAR_JOURNAL_NEUTRON_STAR = {
+	desc = NOMAD_STAR_JOURNAL_NEUTRON_STAR_DESC
+	event_chain = "nomad_star_journal_chain"
+	picture = GFX_evt_arkship_bridge
+	icon = "gfx/interface/icons/situation_log/situation_log_physics.dds"
+
+	counter = {
+		star_journal_progress_neutron_star = {
+			max = -1
+		}
+	}
+	on_success = {}
+}
+
+NOMAD_STAR_JOURNAL_BINARY_TRINARY = {
+	desc = NOMAD_STAR_JOURNAL_BINARY_TRINARY_DESC
+	event_chain = "nomad_star_journal_chain"
+	picture = GFX_evt_arkship_bridge
+	icon = "gfx/interface/icons/situation_log/situation_log_physics.dds"
+
+	counter = {
+		star_journal_progress_binary_trinary = {
+			max = -1
+		}
+	}
+	on_success = {}
+}
+
+NOMAD_STAR_JOURNAL_MIGHTY_BEASTS = {
+	desc = NOMAD_STAR_JOURNAL_MIGHTY_BEASTS_DESC
+	event_chain = "nomad_star_journal_chain"
+	picture = GFX_evt_arkship_bridge
+	icon = "gfx/interface/icons/situation_log/situation_log_physics.dds"
+
+	counter = {
+		star_journal_progress_mighty_beasts = {
+			max = -1
+		}
+	}
+	on_success = {}
+}
+
+NOMAD_STAR_JOURNAL_UNKNOWN_SIGHTS = {
+	desc = NOMAD_STAR_JOURNAL_UNKNOWN_SIGHTS_DESC
+	event_chain = "nomad_star_journal_chain"
+	picture = GFX_evt_arkship_bridge
+	icon = "gfx/interface/icons/situation_log/situation_log_physics.dds"
+
+	counter = {
+		star_journal_progress_unknown_sights = {
+			max = 5
+		}
+	}
+	on_success = {
+		add_monthly_resource_mult = {
+			resource = unity
+			value = @tier2unityreward
+			min = @tier2unitymin
+			max = @tier2unitymax
+		}
+	}
+}

@@ -1,0 +1,469 @@
+galactic_hall_module_information = {
+	icon = GFX_galactic_hall_module_information
+	construction_days = 180
+	is_unique = yes
+	potential = {
+		has_force_of_will_dlc = yes
+		owner.ideology? = {
+			is_spiritualist = no
+		}
+	}
+	possible = {
+		owner = {
+			has_technology = tech_galactic_halls
+		}
+	}
+	resources = {
+		cost = {
+			alloys = 50
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	triggered_country_modifier = {
+		planet_physicists_physics_research_produces_add = @galactic_hall_module_information_research
+		planet_biologists_society_research_produces_add = @galactic_hall_module_information_research
+		planet_engineers_engineering_research_produces_add = @galactic_hall_module_information_research
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_hive_empire = no
+				is_machine_empire = no
+			}
+		}
+		planet_researchers_consumer_goods_upkeep_add = 0.25
+	}
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_machine_empire = yes
+			}
+		}
+		planet_researchers_energy_upkeep_add = 0.5
+	}
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_hive_empire = yes
+				is_machine_empire = no
+			}
+		}
+		planet_researchers_minerals_upkeep_add = 0.67
+	}
+
+	ai_weight = {
+		base = 10
+		modifier = {
+			factor = 10
+			is_megastructure_type = galactic_halls_0_materialist
+		}
+	}
+}
+
+galactic_hall_module_culture = {
+	icon = GFX_galactic_hall_module_culture
+	construction_days = 180
+	is_unique = yes
+	potential = {
+		has_force_of_will_dlc = yes
+		owner? = {
+			ideology? = {
+				is_materialist = no
+			}
+		}
+	}
+	possible = {
+		owner = {
+			has_technology = tech_galactic_halls
+		}
+	}
+	resources = {
+		cost = {
+			alloys = 50
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	triggered_country_modifier = {
+		custom_tooltip = galactic_hall_module_culture_tt
+		country_base_unity_produces_add = @galactic_hall_module_culture_unity
+		multiplier = owner.value:count_owned_pop_mult
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_hive_empire = no
+				is_machine_empire = no
+			}
+		}
+		planet_pops_consumer_goods_upkeep_add = 0.25
+	}
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_machine_empire = yes
+			}
+		}
+		planet_pops_energy_upkeep_add = 0.5
+	}
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_hive_empire = yes
+				is_machine_empire = no
+			}
+		}
+		planet_pops_minerals_upkeep_add = 0.67
+	}
+
+	ai_weight = {
+		base = 10
+		modifier = {
+			factor = 10
+			is_megastructure_type = galactic_halls_0_spiritualist
+		}
+	}
+}
+
+galactic_hall_module_defense = {
+	icon = GFX_galactic_hall_module_defense
+	construction_days = 180
+	is_unique = yes
+	potential = {
+		has_force_of_will_dlc = yes
+		owner? = {
+			ideology? = {
+				is_pacifist = no
+			}
+		}
+	}
+	possible = {
+		owner = {
+			has_technology = tech_galactic_halls
+		}
+	}
+	resources = {
+		cost = {
+			alloys = 50
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	modifier = {
+		planet_metallurgists_alloys_produces_add = 0.5
+		planet_soldiers_unity_produces_add = 1.0
+		planet_metallurgists_minerals_upkeep_add = 1.0
+	}
+
+	ai_weight = {
+		base = 10
+		modifier = {
+			factor = 10
+			is_megastructure_type = galactic_halls_0_militarist
+		}
+	}
+}
+
+galactic_hall_module_peace = {
+	icon = GFX_galactic_hall_module_peace
+	construction_days = 180
+	is_unique = yes
+	potential = {
+		has_force_of_will_dlc = yes
+		owner? = {
+			ideology? = {
+				is_militarist = no
+			}
+		}
+	}
+	possible = {
+		owner = {
+			has_technology = tech_galactic_halls
+		}
+	}
+	resources = {
+		cost = {
+			alloys = 50
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	planet_modifier = {
+		colony_empire_size_mult = -0.25
+	}
+
+	ai_weight = {
+		base = 10
+		modifier = {
+			factor = 10
+			is_megastructure_type = galactic_halls_0_pacifist
+		}
+	}
+}
+
+galactic_hall_module_truth = {
+	icon = GFX_galactic_hall_module_truth
+	construction_days = 180
+	is_unique = yes
+	potential = {
+		has_force_of_will_dlc = yes
+		owner? = {
+			ideology? = {
+				is_egalitarian = no
+			}
+		}
+	}
+	possible = {
+		owner = {
+			has_technology = tech_galactic_halls
+		}
+	}
+	resources = {
+		cost = {
+			alloys = 50
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	modifier = {
+		planet_enforcers_unity_produces_add = 1.5
+		planet_enforcers_energy_upkeep_add = 0.5
+	}
+
+	ai_weight = {
+		base = 10
+		modifier = {
+			factor = 10
+			is_megastructure_type = galactic_halls_0_authoritarian
+		}
+	}
+}
+
+galactic_hall_module_welfare = {
+	icon = GFX_galactic_hall_module_welfare
+	construction_days = 180
+	is_unique = yes
+	potential = {
+		has_force_of_will_dlc = yes
+		owner? = {
+			ideology? = {
+				is_authoritarian = no
+			}
+		}
+	}
+	possible = {
+		owner = {
+			has_technology = tech_galactic_halls
+		}
+	}
+	resources = {
+		cost = {
+			alloys = 50
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	triggered_country_modifier = {
+		custom_tooltip = galactic_hall_module_welfare_tt
+		country_base_trade_produces_add = @galactic_hall_module_welfare_trade
+		multiplier = owner.value:count_owned_pop_mult
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_hive_empire = no
+				is_machine_empire = no
+			}
+		}
+		planet_pops_consumer_goods_upkeep_add = 0.25
+	}
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_machine_empire = yes
+			}
+		}
+		planet_pops_energy_upkeep_add = 0.5
+	}
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_hive_empire = yes
+				is_machine_empire = no
+			}
+		}
+		planet_pops_minerals_upkeep_add = 0.67
+	}
+
+	ai_weight = {
+		base = 10
+		modifier = {
+			factor = 10
+			is_megastructure_type = galactic_halls_0_egalitarian
+		}
+	}
+}
+
+galactic_hall_module_propagation = {
+	icon = GFX_galactic_hall_module_propagation
+	construction_days = 180
+	is_unique = yes
+	potential = {
+		has_force_of_will_dlc = yes
+		owner? = {
+			ideology? = {
+				is_xenophile = no
+			}
+		}
+	}
+	possible = {
+		owner = {
+			has_technology = tech_galactic_halls
+		}
+	}
+	resources = {
+		cost = {
+			alloys = 50
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	on_finished = {
+		owner? = {
+			set_country_flag = has_hall_module_propagation
+		}
+	}
+
+	on_destroyed = {
+		owner? = {
+			remove_country_flag = has_hall_module_propagation
+		}
+	}
+
+	triggered_country_modifier = {
+		custom_tooltip = galactic_hall_module_propagation_tt
+		planet_pop_assembly_add = @galactic_hall_module_propagation_assembly
+	}
+
+	ai_weight = {
+		base = 10
+		modifier = {
+			factor = 10
+			is_megastructure_type = galactic_halls_0_xenophobe
+		}
+	}
+}
+
+galactic_hall_module_integration = {
+	icon = GFX_galactic_hall_module_integration
+	construction_days = 180
+	is_unique = yes
+	potential = {
+		has_force_of_will_dlc = yes
+		owner? = {
+			ideology? = {
+				is_xenophobe = no
+			}
+		}
+	}
+	possible = {
+		owner = {
+			has_technology = tech_galactic_halls
+		}
+	}
+	resources = {
+		cost = {
+			alloys = 50
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	modifier = {
+		planet_pops_upkeep_mult = -0.10
+	}
+
+	ai_weight = {
+		base = 10
+		modifier = {
+			factor = 10
+			is_megastructure_type = galactic_halls_0_xenophile
+		}
+	}
+}
+
+galactic_hall_module_commerce = {
+	icon = GFX_galactic_hall_module_commerce
+	construction_days = 180
+	is_unique = yes
+	potential = {
+		has_force_of_will_dlc = yes
+	}
+	possible = {
+		owner = {
+			has_technology = tech_galactic_halls
+		}
+	}
+	resources = {
+		cost = {
+			alloys = 50
+		}
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	modifier = {
+		planet_traders_trade_produces_add = 1.5
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_hive_empire = no
+				is_machine_empire = no
+			}
+		}
+		planet_traders_consumer_goods_upkeep_add = 0.15
+	}
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_machine_empire = yes
+			}
+		}
+		planet_traders_energy_upkeep_add = 0.3
+	}
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				is_hive_empire = yes
+				is_machine_empire = no
+			}
+		}
+		planet_traders_minerals_upkeep_add = 0.42
+	}
+
+	ai_weight = {
+		base = 10
+	}
+}

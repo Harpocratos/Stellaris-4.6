@@ -1,0 +1,212 @@
+# Galactic Crucible
+
+overclock_gc_default = {
+	icon = GFX_overclock_gc_default
+	potential = {
+		owner? = {
+			has_ascension_perk = ap_galactic_hyperthermia
+		}
+	}
+	resources = {
+		produces = {
+			entropy_crystals = 5
+		}
+		upkeep = {
+			alloys = 10
+		}
+	}
+}
+
+overclock_gc_high = {
+	icon = GFX_overclock_gc_high
+	potential = {
+		owner? = {
+			has_ascension_perk = ap_galactic_hyperthermia
+		}
+	}
+	resources = {
+		upkeep = {
+			entropy_crystals = 50
+		}
+	}
+	country_modifier = { conduit_spawnrate_add = -20 }
+}
+
+overclock_gc_eco = {
+	icon = GFX_overclock_gc_eco
+	potential = {
+		owner? = {
+			has_ascension_perk = ap_galactic_hyperthermia
+		}
+	}
+	resources = {
+		produces = {
+			entropy_crystals = 50
+		}
+		upkeep = {
+			alloys = 45
+		}
+	}
+}
+
+overclock_gc_war = {
+	icon = GFX_overclock_gc_war
+	potential = {
+		owner? = {
+			has_ascension_perk = ap_galactic_hyperthermia
+		}
+	}
+	resources = {
+		upkeep = {
+			energy = 35
+		}
+	}
+	country_modifier = {
+		ship_home_territory_fire_rate_mult = 0.20
+		conduit_spawnrate_switch = -1
+	}
+}
+
+# Arc Furnace
+
+overclock_arc_furnace_3_minerals = {
+	overclock_group = arc_furnace_minerals
+	icon = GFX_overclock_arc_minerals
+	system_modifier = {
+		custom_tooltip = overclock_arc_furnace_3_minerals_effects
+	}
+	megastructure_modifier = {
+		megastructures_energy_upkeep_mult = @arc_furnace_minerals_energy_upkeep_mult
+	}
+	resources = {
+		category = megastructures
+		cost = {
+			energy = @arc_furnace_overclock_switch_cost
+		}
+	}
+}
+
+overclock_arc_furnace_3_balanced = {
+	overclock_group = arc_furnace_balanced
+	icon = GFX_overclock_arc_balanced
+	ai_weight = @arc_furnace_balanced_ai_weight
+	system_modifier = {
+		custom_tooltip = overclock_arc_furnace_3_balanced_effects
+	}
+	resources = {
+		category = megastructures
+		cost = {
+			energy = @arc_furnace_overclock_switch_cost
+		}
+	}
+}
+
+overclock_arc_furnace_3_alloys = {
+	overclock_group = arc_furnace_alloys
+	icon = GFX_overclock_arc_alloys
+	system_modifier = {
+		custom_tooltip = overclock_arc_furnace_3_alloys_effects
+	}
+	megastructure_modifier = {
+		megastructures_energy_upkeep_mult = @arc_furnace_alloys_energy_upkeep_mult
+	}
+	resources = {
+		category = megastructures
+		cost = {
+			energy = @arc_furnace_overclock_switch_cost
+		}
+	}
+}
+
+overclock_arc_furnace_3_obsessional_directive = {
+	overclock_group = arc_furnace_obsessional_directive
+	icon = GFX_overclock_arc_obsessional_directive
+	potential = {
+		owner? = {
+			has_civic = civic_machine_obsessional_directive
+		}
+	}
+	system_modifier = {
+		custom_tooltip = overclock_arc_furnace_3_obsessional_directive_effects
+	}
+	megastructure_modifier = {
+		megastructures_energy_upkeep_mult = @arc_furnace_obsessional_directive_energy_upkeep_mult
+	}
+	resources = {
+		category = megastructures
+		cost = {
+			energy = @arc_furnace_overclock_switch_cost
+		}
+	}
+}
+
+overclock_arc_furnace_4_minerals = {
+	overclock_group = arc_furnace_minerals
+	icon = GFX_overclock_arc_minerals
+	system_modifier = {
+		custom_tooltip = overclock_arc_furnace_4_minerals_effects
+	}
+	megastructure_modifier = {
+		megastructures_energy_upkeep_mult = @arc_furnace_minerals_energy_upkeep_mult
+	}
+	resources = {
+		category = megastructures
+		cost = {
+			energy = @arc_furnace_overclock_switch_cost
+		}
+	}
+}
+
+overclock_arc_furnace_4_balanced = {
+	overclock_group = arc_furnace_balanced
+	icon = GFX_overclock_arc_balanced
+	ai_weight = @arc_furnace_balanced_ai_weight
+	system_modifier = {
+		custom_tooltip = overclock_arc_furnace_4_balanced_effects
+	}
+	resources = {
+		category = megastructures
+		cost = {
+			energy = @arc_furnace_overclock_switch_cost
+		}
+	}
+}
+
+overclock_arc_furnace_4_alloys = {
+	overclock_group = arc_furnace_alloys
+	icon = GFX_overclock_arc_alloys
+	system_modifier = {
+		custom_tooltip = overclock_arc_furnace_4_alloys_effects
+	}
+	megastructure_modifier = {
+		megastructures_energy_upkeep_mult = @arc_furnace_alloys_energy_upkeep_mult
+	}
+	resources = {
+		category = megastructures
+		cost = {
+			energy = @arc_furnace_overclock_switch_cost
+		}
+	}
+}
+
+overclock_arc_furnace_4_obsessional_directive = {
+	overclock_group = arc_furnace_obsessional_directive
+	icon = GFX_overclock_arc_obsessional_directive
+	potential = {
+		owner? = {
+			has_civic = civic_machine_obsessional_directive
+		}
+	}
+	system_modifier = {
+		custom_tooltip = overclock_arc_furnace_4_obsessional_directive_effects
+	}
+	megastructure_modifier = {
+		megastructures_energy_upkeep_mult = @arc_furnace_obsessional_directive_energy_upkeep_mult
+	}
+	resources = {
+		category = megastructures
+		cost = {
+			energy = @arc_furnace_overclock_switch_cost
+		}
+	}
+}
