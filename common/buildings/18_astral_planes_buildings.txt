@@ -1,0 +1,266 @@
+#####################
+# Astral Planes Unique Buildings
+#####################
+
+building_astral_siphon_1 = {
+	base_buildtime = @b1_time
+	planet_limit = 1
+	category = research
+
+	building_sets = {
+		research
+		physics
+	}
+
+	potential = {
+		owner = {
+			check_variable = {
+				which = astral_siphon_unlocked
+				value >= 1
+			}
+		}
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = exotic_gases
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		cost = {
+			trigger = {
+				owner = { is_wilderness_empire = yes }
+			}
+			biomass = @b2_biomass
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	inline_script = {
+		script = buildings/on_all_wilderness_buildings_districts
+	}
+
+	country_modifier = {
+		country_resource_max_astral_threads_add = 200
+	}
+
+	planet_modifier = {
+		planet_physicists_physics_research_produces_add = 0.20
+		planet_physicists_astral_threads_produces_add = 0.20
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+			}
+		}
+		planet_physicists_consumer_goods_upkeep_add = 1
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_machine_empire = yes
+			}
+		}
+		planet_physicists_energy_upkeep_add = 2
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_hive_empire = yes
+			}
+		}
+		planet_physicists_minerals_upkeep_add = 2
+	}
+
+	triggered_desc = {
+		text = physicist_is_astral_researcher_tt
+	}
+
+	upgrades = {
+		building_astral_siphon_2
+	}
+}
+
+building_astral_siphon_2 = {
+	base_buildtime = @b2_time
+	can_build = no
+	category = research
+
+	building_sets = {
+		research
+		physics
+	}
+
+	potential = {
+		owner = {
+			check_variable = {
+				which = astral_siphon_unlocked
+				value >= 2
+			}
+		}
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = exotic_gases
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		cost = {
+			trigger = {
+				owner = { is_wilderness_empire = yes }
+			}
+			biomass = @b3_biomass
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = buildings/on_all_wilderness_buildings_districts
+	}
+
+	country_modifier = {
+		country_resource_max_astral_threads_add = 400
+	}
+
+	planet_modifier = {
+		planet_physicists_physics_research_produces_add = 0.35
+		planet_physicists_astral_threads_produces_add = 0.35
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+			}
+		}
+		planet_physicists_consumer_goods_upkeep_add = 1.5
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_machine_empire = yes
+			}
+		}
+		planet_physicists_energy_upkeep_add = 3
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_hive_empire = yes
+			}
+		}
+		planet_physicists_minerals_upkeep_add = 3
+	}
+
+	triggered_desc = {
+		text = physicist_is_astral_researcher_tt
+	}
+
+	upgrades = {
+		building_astral_siphon_3
+	}
+}
+
+building_astral_siphon_3 = {
+	base_buildtime = @b3_time
+	can_build = no
+	category = research
+
+	building_sets = {
+		research
+		physics
+	}
+
+	potential = {
+		owner = {
+			check_variable = {
+				which = astral_siphon_unlocked
+				value >= 3
+			}
+		}
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = exotic_gases
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		cost = {
+			trigger = {
+				owner = { is_wilderness_empire = yes }
+			}
+			biomass = @b4_biomass
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = buildings/on_all_wilderness_buildings_districts
+	}
+
+	country_modifier = {
+		country_resource_max_astral_threads_add = 600
+	}
+
+	planet_modifier = {
+		planet_physicists_physics_research_produces_add = 0.50
+		planet_physicists_astral_threads_produces_add = 0.50
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+			}
+		}
+		planet_physicists_consumer_goods_upkeep_add = 2
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_machine_empire = yes
+			}
+		}
+		planet_physicists_energy_upkeep_add = 4
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_hive_empire = yes
+			}
+		}
+		planet_physicists_minerals_upkeep_add = 4
+	}
+
+	triggered_desc = {
+		text = physicist_is_astral_researcher_tt
+	}
+}

@@ -1,0 +1,5 @@
+component_set = {
+	key = "ARKSHIP_DEVASTATOR_WEAPON"
+	icon = "GFX_ship_part_arkship_devastator"
+	icon_frame = 1
+}

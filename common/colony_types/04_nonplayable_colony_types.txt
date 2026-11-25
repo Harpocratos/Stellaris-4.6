@@ -1,0 +1,228 @@
+#######################################
+###		NON-PLAYABLE TYPES    		###
+#######################################
+
+# Fallen Empire Capital
+col_fe_capital = {
+	icon = GFX_colony_type_capital
+
+	potential = {
+		is_capital = yes
+		owner_or_space_owner? = { is_fallen_empire = yes }
+	}
+
+	planet_modifier = {
+		planet_stability_add = 10
+		planet_housing_add = 1000
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Fallen Empire Colony
+col_fe_colony = {
+	icon = GFX_colony_type_normal_colony
+
+	potential = {
+		is_capital = no
+		owner_or_space_owner? = { is_fallen_empire = yes }
+	}
+
+	planet_modifier = {
+		planet_stability_add = 5
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Atomic Age
+col_pre_ftl_atomic = {
+	icon = GFX_colony_type_pre_ftl_atomic
+
+	potential = {
+		owner? = {
+			is_country_type = primitive
+			has_pre_ftl_age = atomic_age
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Stone Age
+col_pre_ftl_stone = {
+	icon = GFX_colony_type_pre_ftl_stone
+
+	potential = {
+		owner? = {
+			is_country_type = primitive
+			has_pre_ftl_age = stone_age
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Bronze Age
+col_pre_ftl_bronze = {
+	icon = GFX_colony_type_pre_ftl_bronze
+
+	potential = {
+		owner? = {
+			is_country_type = primitive
+			has_pre_ftl_age = bronze_age
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Early Space Age
+col_pre_ftl_early_space = {
+	icon = GFX_colony_type_pre_ftl_space
+
+	potential = {
+		owner? = {
+			is_country_type = primitive
+			has_pre_ftl_age = early_space_age
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Industrial Age
+col_pre_ftl_industrial = {
+	icon = GFX_colony_type_pre_ftl_industrial
+
+	potential = {
+		owner? = {
+			is_country_type = primitive
+			has_pre_ftl_age = industrial_age
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Iron Age
+col_pre_ftl_iron = {
+	icon = GFX_colony_type_pre_ftl_iron
+
+	potential = {
+		owner? = {
+			is_country_type = primitive
+			has_pre_ftl_age = iron_age
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Machine Age
+col_pre_ftl_machine = {
+	icon = GFX_colony_type_pre_ftl_machine
+
+	potential = {
+		owner? = {
+			is_country_type = primitive
+			has_pre_ftl_age = machine_age
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Late Medieval Age
+col_pre_ftl_medieval = {
+	icon = GFX_colony_type_pre_ftl_medieval
+
+	potential = {
+		owner? = {
+			is_country_type = primitive
+			has_pre_ftl_age = late_medieval_age
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Renaissance Age
+col_pre_ftl_renaissance = {
+	icon = GFX_colony_type_pre_ftl_renaissance
+
+	potential = {
+		owner? = {
+			is_country_type = primitive
+			has_pre_ftl_age = renaissance_age
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Steam Age
+col_pre_ftl_steam = {
+	icon = GFX_colony_type_pre_ftl_steam
+
+	potential = {
+		owner? = {
+			is_country_type = primitive
+			has_pre_ftl_age = steam_age
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Infested World
+col_infested = {
+	icon = GFX_colony_type_dying
+
+	potential = {
+		is_capital = no
+		owner? = { is_country_type = swarm }
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Contingency World
+col_contingency = {
+	icon = GFX_colony_type_dying
+
+	potential = {
+		owner? = { is_country_type = ai_empire }
+		is_capital = no
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}

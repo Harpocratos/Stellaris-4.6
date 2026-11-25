@@ -1,0 +1,733 @@
+#######################################
+###		HABITAT DESIGNATIONS 		###
+#######################################
+
+# Generator Station
+col_habitat_energy = {
+	icon = GFX_colony_type_habitat_energy
+
+	potential = {
+		uses_district_set = habitat
+		exists = owner_or_space_owner
+		check_modifier_value = {
+			modifier = district_hab_energy_max_add
+			value > 0
+		}
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier_rural
+		MODIFIER = technician_jobs_bonus_workforce_mult
+	}
+
+	ai_building_set_affinity = {
+		generator = 2.0
+		generator_automation = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_energy
+		}
+		modifier = {
+			has_any_generator_zone = yes
+			add = @zone_rural
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_energy
+			}
+			mode = add
+		}
+		complex_trigger_modifier = {
+			trigger = num_free_districts
+			parameters = {
+				type = district_hab_energy
+			}
+			mode = add
+		}
+	}
+}
+
+# Trade Station
+col_habitat_trade = {
+	icon = GFX_colony_type_habitat_trade
+	potential = {
+		uses_district_set = habitat
+		owner_or_space_owner? = { is_gestalt = no }
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier
+		MODIFIER = trader_jobs_bonus_workforce_mult
+	}
+
+	ai_building_set_affinity = {
+		trade = 2.0
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_trade
+		}
+		complex_trigger_modifier = {
+			trigger = num_assigned_jobs
+			parameters = {
+				job = merchant
+			}
+			mode = add
+			mult = 0.02
+		}
+		complex_trigger_modifier = {
+			trigger = num_assigned_jobs
+			parameters = {
+				job = trader
+			}
+			mode = add
+			mult = 0.01
+		}
+		complex_trigger_modifier = {
+			trigger = num_assigned_jobs
+			parameters = {
+				job = numistic_priest
+			}
+			mode = add
+			mult = 0.01
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_housing
+			}
+			mode = add
+		}
+	}
+}
+
+# Research Station
+col_habitat_research = {
+	icon = GFX_colony_type_habitat_research
+
+	potential = {
+		uses_district_set = habitat
+		exists = owner_or_space_owner
+		check_modifier_value = {
+			modifier = district_hab_science_max_add
+			value > 0
+		}
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier
+		MODIFIER = researcher_jobs_bonus_workforce_mult
+	}
+
+	ai_building_set_affinity = {
+		research = 2.0
+		physics = 1.5
+		society = 1.5
+		engineering = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_research
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_science
+			}
+			mode = add
+		}
+		complex_trigger_modifier = {
+			trigger = num_free_districts
+			parameters = {
+				type = district_hab_science
+			}
+			mode = add
+		}
+		modifier = {
+			add = 10
+			has_deposit = d_payback_habitat_research
+		}
+		inline_script = {
+			script = colony_types/shared_weights_research
+		}
+	}
+}
+
+# Mining Station
+col_habitat_mining = {
+	icon = GFX_colony_type_habitat_mining
+
+	potential = {
+		uses_district_set = habitat
+		check_modifier_value = {
+			modifier = district_hab_mining_max_add
+			value > 0
+		}
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier_rural
+		MODIFIER = miner_jobs_bonus_workforce_mult
+	}
+
+	ai_building_set_affinity = {
+		mining = 2.0
+		mining_automation = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_mining
+		}
+		modifier = {
+			has_any_mining_zone = yes
+			add = @zone_rural
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_mining
+			}
+			mode = add
+		}
+		complex_trigger_modifier = {
+			trigger = num_free_districts
+			parameters = {
+				type = district_hab_mining
+			}
+			mode = add
+		}
+	}
+}
+
+# Hydroponics Station
+col_habitat_farming = {
+	icon = GFX_colony_type_habitat_farming
+	potential = {
+		uses_district_set = habitat
+		owner_or_space_owner? = {
+			is_gestalt = no
+		}
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier_rural
+		MODIFIER = farmer_jobs_bonus_workforce_mult
+	}
+
+	ai_building_set_affinity = {
+		farming = 2.0
+		hydroponics = 1.5
+		farming_automation = 1.5
+	}
+
+	weight_modifier = {
+		base = 0
+	}
+}
+
+# Hydroponics Station (Gestalt)
+col_habitat_gestalt_farming = {
+	icon = GFX_colony_type_habitat_farming
+	potential = {
+		uses_district_set = habitat
+		owner_or_space_owner? = {
+			is_gestalt = yes
+		}
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier_rural
+		MODIFIER = farmer_jobs_bonus_workforce_mult
+	}
+
+	ai_building_set_affinity = {
+		farming = 2.0
+		hydroponics = 1.5
+		farming_automation = 1.5
+	}
+
+	weight_modifier = {
+		base = 0
+	}
+}
+
+# Fortress Station
+col_habitat_fortress = {
+	icon = GFX_colony_type_habitat_fortress
+
+	potential = {
+		uses_district_set = habitat
+		is_capital = no
+	}
+
+	planet_modifier = {
+		planet_army_build_speed_mult = 0.25
+		planet_orbital_bombardment_damage = -0.10
+		army_defense_damage_mult = 0.20
+		soldier_jobs_bonus_workforce_mult = 0.15
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner_or_space_owner
+			owner_or_space_owner = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = {
+			soldier_jobs_bonus_workforce_mult = 0.05
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			OR = {
+				has_building = building_order_keep
+				has_building = building_order_castle
+			}
+		}
+		pop_knight_bonus_workforce_mult = 0.05
+	}
+
+	ai_building_set_affinity = {
+		fortress = 2.0
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_fortress
+		}
+		modifier = {
+			add = 1000
+			OR = {
+				has_building = building_order_keep
+				has_building = building_order_castle
+			}
+		}
+		modifier = {
+			has_any_fortress_zone = yes
+			add = @zone_urban
+		}
+		complex_trigger_modifier = {
+			trigger = num_buildings
+			parameters = {
+				type = building_stronghold
+			}
+			mode = add
+			mult = 3
+		}
+		complex_trigger_modifier = {
+			trigger = num_buildings
+			parameters = {
+				type = building_fortress
+			}
+			mode = add
+			mult = 6
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_housing
+			}
+			mode = add
+		}
+	}
+}
+
+# Industrial Station
+col_habitat_industrial = {
+	icon = GFX_colony_type_hab_industrial
+
+	potential = {
+		owner_or_space_owner? = { country_uses_consumer_goods = yes }
+		uses_district_set = habitat
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier_split
+		MODIFIER = artisan_jobs_bonus_workforce_mult
+		MODIFIER2 = foundry_jobs_bonus_workforce_mult
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = {
+				is_galactic_community_member = yes
+			}
+			OR = {
+				is_active_resolution = "resolution_industry_environmental_ordinance_waivers"
+				is_active_resolution = "resolution_industry_project_cornucopia"
+			}
+		}
+		modifier = {
+			artisan_jobs_bonus_workforce_mult = 0.025
+			foundry_jobs_bonus_workforce_mult = 0.025
+		}
+	}
+
+	ai_building_set_affinity = {
+		industrial = 2.0
+		foundry = 1.5
+		factory = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_industrial
+		}
+		modifier = {
+			OR = {
+				has_mixed_industrial_zone = yes
+				AND = {
+					has_any_foundry_zone = yes
+					has_any_factory_zone = yes
+				}
+			}
+			add = @zone_urban
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_housing
+			}
+			mode = add
+		}
+	}
+}
+
+# Foundry Station
+col_habitat_foundry = {
+	icon = GFX_colony_type_habitat_foundry
+
+	potential = {
+		uses_district_set = habitat
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier
+		MODIFIER = foundry_jobs_bonus_workforce_mult
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = {
+				is_galactic_community_member = yes
+			}
+			OR = {
+				is_active_resolution = "resolution_industry_environmental_ordinance_waivers"
+				is_active_resolution = "resolution_industry_project_cornucopia"
+			}
+		}
+		modifier = {
+			foundry_jobs_bonus_workforce_mult = 0.05
+		}
+	}
+
+	ai_building_set_affinity = {
+		foundry = 2.0
+		industrial = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_foundry
+		}
+		modifier = {
+			has_any_foundry_zone = yes
+			has_any_factory_zone = no
+
+			add = @zone_urban
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_housing
+			}
+			mode = add
+		}
+	}
+}
+
+# Factory Station
+col_habitat_factory = {
+	icon = GFX_colony_type_habitat_factory
+
+	potential = {
+		uses_district_set = habitat
+		owner_or_space_owner? = { country_uses_consumer_goods = yes }
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier
+		MODIFIER = artisan_jobs_bonus_workforce_mult
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = {
+				is_galactic_community_member = yes
+			}
+			OR = {
+				is_active_resolution = "resolution_industry_environmental_ordinance_waivers"
+				is_active_resolution = "resolution_industry_project_cornucopia"
+			}
+		}
+		modifier = {
+			artisan_jobs_bonus_workforce_mult = 0.05
+		}
+	}
+
+	ai_building_set_affinity = {
+		factory = 2.0
+		industrial = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_factory
+		}
+		modifier = {
+			has_any_factory_zone = yes
+			has_any_foundry_zone = no
+
+			add = @zone_urban
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_housing
+			}
+			mode = add
+		}
+	}
+}
+
+# Unification Station
+col_habitat_bureau = {
+	icon = GFX_colony_type_hab_bureaucratic
+
+	potential = {
+		owner_or_space_owner? = {
+			is_regular_empire = yes
+			is_spiritualist = no
+			has_make_spiritualist_perk = no
+		}
+		uses_district_set = habitat
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier
+		MODIFIER = bureaucrat_jobs_bonus_workforce_mult
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner_or_space_owner.federation
+			owner_or_space_owner.federation = {
+				has_federation_perk = all_the_priests_1
+			}
+			owner? = { is_regular_empire = yes }
+		}
+		job_bureaucrat_add = @building_static_jobs
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner_or_space_owner.federation
+			owner_or_space_owner.federation = {
+				has_federation_perk = all_the_priests_1
+			}
+			owner? = { is_regular_empire = no }
+		}
+		job_coordinator_add = @building_static_jobs
+	}
+
+	ai_building_set_affinity = {
+		government = 1.5
+		unity = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_bureau
+		}
+		inline_script = {
+			script = colony_types/shared_weights_admin
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_housing
+			}
+			mode = add
+		}
+	}
+}
+
+# Ecclesiastical Station
+col_habitat_bureau_spiritualist = {
+	icon = GFX_colony_type_hab_bureaucratic
+
+	potential = {
+		owner_or_space_owner? = {
+			is_regular_empire = yes
+			OR = {
+				is_spiritualist = yes
+				has_make_spiritualist_perk = yes
+			}
+		}
+		uses_district_set = habitat
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier
+		MODIFIER = bureaucrat_jobs_bonus_workforce_mult
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner_or_space_owner.federation
+			owner_or_space_owner.federation = {
+				has_federation_perk = all_the_priests_1
+			}
+			owner? = { is_regular_empire = yes }
+		}
+		job_bureaucrat_add = @building_static_jobs
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner_or_space_owner.federation
+			owner_or_space_owner.federation = {
+				has_federation_perk = all_the_priests_1
+			}
+			owner? = { is_regular_empire = no }
+		}
+		job_coordinator_add = @building_static_jobs
+	}
+
+	ai_building_set_affinity = {
+		government = 1.5
+		unity = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_bureau_spiritualist
+		}
+		inline_script = {
+			script = colony_types/shared_weights_priests
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_housing
+			}
+			mode = add
+		}
+	}
+}
+
+# Unification Station (Hive Mind)
+col_habitat_bureau_hive = {
+	icon = GFX_colony_type_hab_bureaucratic
+
+	potential = {
+		owner_or_space_owner? = { is_hive_empire = yes }
+		uses_district_set = habitat
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier
+		MODIFIER = bureaucrat_jobs_bonus_workforce_mult
+	}
+
+	ai_building_set_affinity = {
+		government = 1.5
+		unity = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_habitat_bureau_hive
+		}
+		inline_script = {
+			script = colony_types/shared_weights_synaptic
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_housing
+			}
+			mode = add
+		}
+	}
+}
+
+# Unification Station (Machine Intelligence)
+col_habitat_bureau_machine = {
+	icon = GFX_colony_type_hab_bureaucratic
+
+	potential = {
+		owner_or_space_owner? = { is_machine_empire = yes }
+		uses_district_set = habitat
+		is_special_colony_type = no
+	}
+
+	inline_script = {
+		script = colony_types/colony_type_planet_modifier
+		MODIFIER = bureaucrat_jobs_bonus_workforce_mult
+	}
+
+	ai_building_set_affinity = {
+		government = 1.5
+		unity = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_bureau_machine
+		}
+		inline_script = {
+			script = colony_types/shared_weights_network
+		}
+		complex_trigger_modifier = {
+			trigger = num_districts
+			parameters = {
+				type = district_hab_housing
+			}
+			mode = add
+		}
+	}
+}

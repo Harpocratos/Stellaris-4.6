@@ -1,0 +1,182 @@
+cb_nomad_raid = {
+	show_in_diplomacy = yes
+	show_notification = yes
+	potential = {
+		is_nomadic = yes
+		from = { is_nomadic = yes }
+		NOT = {
+			benefits_from_waystation_network = {
+				NOMAD = from
+				SYSTEM_OWNER = root
+			}
+		}
+		NOT = {
+    		any_country = {
+        		has_waystation_pact = root
+        		has_waystation_pact = from
+    		}
+		}
+	}
+	is_valid = {
+		OR = {
+			# Arkships are in the same system
+			any_controlled_fleet = {
+				is_arkship_fleet = yes
+				solar_system? = {
+					any_fleet_in_system = {
+						is_arkship_fleet = yes
+						owner = { is_same_value = from }
+					}
+				}
+			}
+			# Our waystation network borders theirs
+			any_owned_nonprimary_starbase = {
+				is_waystation_starbase = yes
+				solar_system = {
+					any_neighbor_system = {
+						any_fleet_in_system = {
+							owner? = { is_same_value = from }
+							is_waystation_ship = yes
+						}
+					}
+				}
+			}
+			# Their waystation network borders ours
+			from = {
+				any_owned_nonprimary_starbase = {
+					is_waystation_starbase = yes
+					solar_system = {
+						any_neighbor_system = {
+							any_fleet_in_system = {
+								owner? = { is_same_value = root }
+								is_waystation_ship = yes
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	proxy_war_resources = {
+		category = proxy_war
+		cost = {
+			influence = 150
+		}
+	}
+	on_proxy_war_start = {
+		pay_proxy_war_additional_resources = { VALUE = -40 }
+	}
+}
+
+cb_expel_nomads = {
+	show_in_diplomacy = yes
+	show_notification = yes
+	potential = {
+		is_country_type = default
+		from = { is_nomadic = yes }
+		is_nomadic = no
+		NOT = {
+			benefits_from_waystation_network = {
+				NOMAD = from
+				SYSTEM_OWNER = root
+			}
+		}
+		NOT = {
+    		any_country = {
+        		has_waystation_pact = root
+        		has_waystation_pact = from
+    		}
+		}
+	}
+	is_valid = {
+		OR = {
+			from = {
+				any_owned_nonprimary_starbase = {
+					space_owner? = {
+						is_same_value = root
+					}
+				}
+			}
+			AND = {
+				has_closed_borders = from
+				OR = {
+					any_system_within_border = {
+						any_fleet_in_system = {
+							is_owned_by = from
+						}
+					}
+					has_country_flag = nomad_trespassing@from
+				}
+			}
+		}
+	}
+	proxy_war_resources = {
+		category = proxy_war
+		cost = {
+			influence = 100
+		}
+	}
+	on_proxy_war_start = {
+		pay_proxy_war_additional_resources = { VALUE = -25 }
+	}
+}
+
+cb_nomad_raid_contract = {
+	show_in_diplomacy = yes
+	show_notification = yes
+	potential = {
+		always = no
+	}
+	is_valid = {
+		always = yes
+	}
+	proxy_war_resources = {
+		category = proxy_war
+		cost = {
+			influence = 150
+		}
+	}
+	on_proxy_war_start = {
+		pay_proxy_war_additional_resources = { VALUE = -40 }
+	}
+}
+
+# Counter total war CB granted to anyone struck by an enemy Dyson Gun, mirroring cb_stop_colossus.
+# this = victim (CB owner), from = the empire that fired the Dyson Gun
+cb_stop_dyson_gun = {
+	show_in_diplomacy = yes
+	show_notification = yes
+	potential = {
+		is_country_type = default
+		NOT = { is_in_federation_with = from }
+		has_opinion_modifier = { who = from modifier = opinion_dyson_gun_target }
+	}
+	is_valid = {
+		has_total_war_cb = no
+		from = { is_country_type = default }
+		NOT = { is_overlord_to = FROM }
+		OR = {
+			is_subject = no
+			overlord = { NOT = { is_same_value = from } }
+		}
+		has_opinion_modifier = { who = from modifier = opinion_dyson_gun_target }
+	}
+	proxy_war_resources = {
+		category = proxy_war
+		cost = {
+			influence = 150
+		}
+	}
+	on_proxy_war_start = {
+		pay_proxy_war_additional_resources = { VALUE = -40 }
+	}
+}
+
+# Defender-side mirror of cb_stop_dyson_gun. Never selectable directly; only assigned via set_defender_wargoal.
+cb_fired_dyson_gun = {
+	show_in_diplomacy = no
+	show_notification = no
+	potential = {
+		always = no
+	}
+}

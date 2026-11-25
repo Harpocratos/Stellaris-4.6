@@ -1,0 +1,43 @@
+cb_impose_ideology = {
+	show_in_diplomacy = yes
+	show_notification = no
+	potential = {
+		from = { is_fallen_empire = no }
+		exists = ideology
+		NOT = { has_country_flag = ideological_subjugation_casus_belli_unlock }
+	}
+	is_valid = {
+		has_ideological_war_casus_belli = yes
+	}
+	proxy_war_resources = {
+		category = proxy_war
+		cost = {
+			influence = 100
+		}
+	}
+	on_proxy_war_start = {
+		pay_proxy_war_additional_resources = { VALUE = -25 }
+	}
+}
+
+cb_ideological_subjugation = {
+	show_in_diplomacy = yes
+	show_notification = no
+	potential = {
+		from = { is_fallen_empire = no }
+		exists = ideology
+		has_country_flag = ideological_subjugation_casus_belli_unlock
+	}
+	is_valid = {
+		has_ideological_war_casus_belli = yes
+	}
+	proxy_war_resources = {
+		category = proxy_war
+		cost = {
+			influence = 100
+		}
+	}
+	on_proxy_war_start = {
+		pay_proxy_war_additional_resources = { VALUE = -25 }
+	}
+}

@@ -1,0 +1,433 @@
+#######################################
+###		WILDERNESS DESIGNATIONS		###
+#######################################
+
+# Heart World
+col_wilderness_capital = {
+	icon = GFX_colony_type_capital
+
+	potential = {
+		owner_or_space_owner? = { is_wilderness_empire = yes }
+		is_capital = yes
+	}
+
+	planet_modifier = {
+		planet_stability_add = 5
+		planet_housing_add = 1000
+		planet_crime_no_happiness_add = -20
+		planet_jobs_produces_mult = 0.1
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = {
+			planet_jobs_produces_mult = 0.05
+		}
+	}
+
+	# Mirrors the other capitals: Archives (research) and Heavy Industry (foundry) alongside administrative buildings.
+	ai_building_set_affinity = {
+		government = 1.5
+		research = 1.5
+		physics = 1.25
+		society = 1.25
+		engineering = 1.25
+		industrial = 1.5
+		foundry = 1.5
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+# Photosynthesis World
+col_wilderness_generator = {
+	icon = GFX_colony_type_generator
+
+	potential = {
+		is_special_colony_type = no
+		is_capital = no
+		owner_or_space_owner? = { is_wilderness_empire = yes }
+	}
+
+	planet_modifier = {
+		planet_district_photosynthesis_fields_build_speed_mult = 0.25
+		planet_technician_produces_mult = 0.25
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = { planet_technician_produces_mult = 0.1 }
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = {
+				is_galactic_community_member = yes
+				is_gestalt = yes
+			}
+			OR = {
+				is_active_resolution = "resolution_greatergood_five_year_plans"
+				is_active_resolution = "resolution_greatergood_greater_than_ourselves"
+				is_active_resolution = "resolution_greatergood_balance_in_the_middle"
+				is_active_resolution = "resolution_greatergood_universal_prosperity_mandate"
+			}
+		}
+		modifier = {
+			planet_jobs_simple_drone_produces_mult = 0.1
+		}
+	}
+
+	ai_building_set_affinity = {
+		generator = 2.0
+		generator_automation = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_wilderness_generator
+		}
+	}
+}
+
+# Lithic World
+col_wilderness_mining = {
+	icon = GFX_colony_type_mine
+
+	potential = {
+		owner_or_space_owner? = { is_wilderness_empire = yes }
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	planet_modifier = {
+		planet_district_hollow_mountains_build_speed_mult = 0.25
+		planet_miners_produces_mult = 0.25
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = { planet_miners_produces_mult = 0.1 }
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = {
+				is_galactic_community_member = yes
+				is_gestalt = yes
+			}
+			OR = {
+				is_active_resolution = "resolution_greatergood_five_year_plans"
+				is_active_resolution = "resolution_greatergood_greater_than_ourselves"
+				is_active_resolution = "resolution_greatergood_balance_in_the_middle"
+				is_active_resolution = "resolution_greatergood_universal_prosperity_mandate"
+			}
+		}
+		modifier = {
+			planet_jobs_simple_drone_produces_mult = 0.1
+		}
+	}
+
+	ai_building_set_affinity = {
+		mining = 2.0
+		mining_automation = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_wilderness_mining
+		}
+	}
+}
+
+# Pollinating World
+col_wilderness_farming = {
+	icon = GFX_colony_type_farm
+
+	potential = {
+		owner_or_space_owner? = { is_wilderness_empire = yes }
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	planet_modifier = {
+		planet_district_orchard_forests_build_speed_mult = 0.25
+		planet_farmers_produces_mult = 0.25
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = { planet_farmers_produces_mult = 0.1 }
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = {
+				is_galactic_community_member = yes
+				is_gestalt = yes
+			}
+			OR = {
+				is_active_resolution = "resolution_greatergood_five_year_plans"
+				is_active_resolution = "resolution_greatergood_greater_than_ourselves"
+				is_active_resolution = "resolution_greatergood_balance_in_the_middle"
+				is_active_resolution = "resolution_greatergood_universal_prosperity_mandate"
+			}
+		}
+		modifier = {
+			planet_jobs_simple_drone_produces_mult = 0.1
+		}
+	}
+
+	ai_building_set_affinity = {
+		farming = 2.0
+		hydroponics = 1.5
+		farming_automation = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_wilderness_farming
+		}
+	}
+}
+
+# Hunter World
+col_wilderness_fortress = {
+	icon = GFX_colony_type_fortress
+
+	potential = {
+		owner_or_space_owner? = { is_wilderness_empire = yes }
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	planet_modifier = {
+		planet_building_planetary_carapace_build_speed_mult = 0.25
+		planet_orbital_bombardment_damage = -0.10
+		army_defense_damage_mult = 0.20
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = {
+			planet_orbital_bombardment_damage = -0.1
+		}
+	}
+
+	ai_building_set_affinity = {
+		fortress = 2.0
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_wilderness_fortress
+		}
+	}
+}
+
+# Cogitation World
+col_wilderness_tech = {
+	icon = GFX_colony_type_research
+
+	potential = {
+		owner_or_space_owner? = { is_wilderness_empire = yes }
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	planet_modifier = {
+		planet_building_brain_node_1_build_speed_mult = 0.25
+		planet_researchers_produces_mult = 0.1
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = {
+			planet_researchers_produces_mult = 0.05
+		}
+	}
+
+	ai_building_set_affinity = {
+		research = 2.0
+		physics = 1.5
+		society = 1.5
+		engineering = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_wilderness_tech
+		}
+	}
+}
+
+# Weaver World
+col_wilderness_nest = {
+	icon = GFX_colony_type_rural
+
+	potential = {
+		owner_or_space_owner? = { is_wilderness_empire = yes }
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	planet_modifier = {
+		planet_district_craglands_build_speed_mult = 0.25
+		planet_jobs_trade_produces_mult = 0.10
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = { planet_jobs_trade_produces_mult = 0.05 }
+	}
+
+	ai_building_set_affinity = {
+		trade = 2.0
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_wilderness_nest
+		}
+	}
+}
+
+# Refining World
+col_wilderness_refinery = {
+	icon = GFX_colony_type_refinery
+
+	potential = {
+		owner_or_space_owner? = { is_wilderness_empire = yes }
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	planet_modifier = {
+		planet_refiners_produces_mult = 0.15
+		planet_translucers_produces_mult = 0.15
+		planet_chemists_produces_mult = 0.15
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = {
+			planet_refiners_produces_mult = 0.10
+			planet_translucers_produces_mult = 0.10
+			planet_chemists_produces_mult = 0.10
+		}
+	}
+
+	ai_building_set_affinity = {
+		industrial = 2.0
+		factory = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_wilderness_refinery
+		}
+	}
+}
+
+# Crucible World
+col_wilderness_forge = {
+	icon = GFX_colony_type_foundry
+
+	potential = {
+		owner_or_space_owner? = { is_wilderness_empire = yes }
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	planet_modifier = {
+		planet_metallurgists_produces_mult = 0.10
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = {
+			planet_metallurgists_produces_mult = 0.05
+		}
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = {
+				is_galactic_community_member = yes
+			}
+			OR = {
+				is_active_resolution = "resolution_industry_environmental_ordinance_waivers"
+				is_active_resolution = "resolution_industry_project_cornucopia"
+			}
+		}
+		modifier = {
+			planet_metallurgists_produces_mult = 0.05
+		}
+	}
+
+	ai_building_set_affinity = {
+		industrial = 2.0
+		foundry = 1.5
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_wilderness_forge
+		}
+	}
+}
+
+# Tranquil World
+col_wilderness_unification = {
+	icon = GFX_colony_type_bureaucratic
+
+	potential = {
+		owner_or_space_owner? = { is_wilderness_empire = yes }
+		is_special_colony_type = no
+		is_capital = no
+	}
+
+	planet_modifier = {
+		planet_bureaucrats_produces_mult = 0.10
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner_or_space_owner? = { has_tradition = tr_adaptability_finish }
+		}
+		modifier = {
+			planet_bureaucrats_produces_mult = 0.05
+		}
+	}
+
+	ai_building_set_affinity = {
+		unity = 2.0
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = @stickiness
+			has_designation = col_wilderness_unification
+		}
+	}
+}

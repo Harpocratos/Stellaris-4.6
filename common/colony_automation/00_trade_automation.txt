@@ -1,0 +1,50 @@
+automate_trade_planet = {
+	category = "planet_automation_designation_construction"
+
+	available = {
+		has_trade_designation = yes
+	}
+	
+	prio_districts = {
+		district_city
+		district_hive
+		district_nexus
+		district_nexus_1
+		district_nexus_2
+		district_nexus_3
+		district_arcology_housing
+		district_rw_city
+		district_hab_housing
+		district_ark_city
+	}
+
+	prio_zones = {
+		zone_trade
+		zone_subterranean_urban
+		zone_agrarian_urban
+		zone_agrarian_anglers
+		zone_trade_arcology
+		zone_trade_ring_world
+		zone_trade_nexus
+		zone_trade_hive
+		zone_ark_waystation_trade
+		zone_ark_forever_cruise_passenger
+		zone_ark_forever_cruise_crew
+		zone_ark_forever_cruise_city_passenger
+		zone_ark_forever_cruise_city_crew
+	}
+
+	buildings = {
+		1 = {
+			building = building_galactic_stock_exchange
+		}
+		
+		2 = {
+			building = building_commercial_megaplex
+		}
+
+		3 = {
+			building = building_commercial_zone
+		}
+	}
+}

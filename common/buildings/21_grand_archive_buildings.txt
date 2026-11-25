@@ -1,0 +1,1342 @@
+##################################
+# Grand Archive Unique Buildings #
+##################################
+
+xeno_geology_holomuseum = {
+	base_buildtime = @b1_time
+	empire_limit = 1
+	category = amenity
+
+	building_sets = {
+		government
+		urban
+		research
+		resort
+	}
+
+	potential = {
+		owner = {
+			has_country_flag = received_collection_stage_2_reward_xeno_geology
+		}
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		cost = {
+			trigger = {
+				owner = { is_wilderness_empire = yes }
+			}
+			biomass = @b2_biomass
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	inline_script = {
+		script = buildings/on_all_wilderness_buildings_districts
+	}
+
+	country_modifier = {
+		xeno_geology_specimens_produces_mult = @holomuseum_specimen_produces_mult
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				has_ascension_perk = ap_archaeoengineers
+			}
+		}
+		xeno_geology_specimens_produces_mult = @holomuseum_specimen_produces_mult
+	}
+
+	inline_script = {
+		script = jobs/entertainers_add
+		AMOUNT = @building_static_jobs
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_regular_empire = yes
+			}
+		}
+		planet_entertainers_unity_produces_add = 0.25
+		planet_entertainers_engineering_research_produces_add = 0.25
+		planet_entertainers_consumer_goods_upkeep_add = 0.25
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_regular_empire = yes
+				has_ascension_perk = ap_archaeoengineers
+			}
+		}
+		job_entertainer_add = @building_static_jobs
+		planet_entertainers_unity_produces_add = 0.25
+		planet_entertainers_engineering_research_produces_add = 0.25
+	}
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = {
+				is_regular_empire = yes
+			}
+		}
+		text = entertainers_are_curators_tt
+	}
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = {
+				is_gestalt = yes
+			}
+		}
+		text = evaluators_are_curator_drones_tt
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = yes
+			}
+		}
+		job_evaluator_add = @building_static_jobs_high
+		planet_evaluators_unity_produces_add = 0.25
+		planet_evaluators_engineering_research_produces_add = 0.25
+		planet_evaluators_minerals_upkeep_add = 0.5
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = yes
+				has_ascension_perk = ap_archaeoengineers
+			}
+		}
+		job_evaluator_add = @building_static_jobs_high
+		planet_evaluators_unity_produces_add = 0.25
+		planet_evaluators_engineering_research_produces_add = 0.25
+	}
+}
+
+aesthetic_wonders_holomuseum = {
+	base_buildtime = @b1_time
+	empire_limit = 1
+	category = amenity
+
+	building_sets = {
+		government
+		urban
+		research
+		resort
+	}
+
+	potential = {
+		owner = {
+			has_country_flag = received_collection_stage_2_reward_aesthetic_wonder
+		}
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		cost = {
+			trigger = {
+				owner = { is_wilderness_empire = yes }
+			}
+			biomass = @b2_biomass
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	inline_script = {
+		script = buildings/on_all_wilderness_buildings_districts
+	}
+
+	country_modifier = {
+		aesthetic_wonder_specimens_produces_mult = @holomuseum_specimen_produces_mult
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				has_ascension_perk = ap_archaeoengineers
+			}
+		}
+		aesthetic_wonder_specimens_produces_mult = @holomuseum_specimen_produces_mult
+	}
+
+	inline_script = {
+		script = jobs/entertainers_add
+		AMOUNT = @building_static_jobs
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_regular_empire = yes
+			}
+		}
+		planet_entertainers_unity_produces_add = 0.25
+		planet_entertainers_physics_research_produces_add = 0.25
+		planet_entertainers_consumer_goods_upkeep_add = 0.25
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_regular_empire = yes
+				has_ascension_perk = ap_archaeoengineers
+			}
+		}
+		job_entertainer_add = @building_static_jobs
+		planet_entertainers_unity_produces_add = 0.25
+		planet_entertainers_physics_research_produces_add = 0.25
+	}
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = {
+				is_regular_empire = yes
+			}
+		}
+		text = entertainers_are_curators_tt
+	}
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = {
+				is_gestalt = yes
+			}
+		}
+		text = evaluators_are_curator_drones_tt
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = yes
+			}
+		}
+		job_evaluator_add = @building_static_jobs_high
+		planet_evaluators_unity_produces_add = 0.25
+		planet_evaluators_physics_research_produces_add = 0.25
+		planet_evaluators_minerals_upkeep_add = 0.5
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = yes
+				has_ascension_perk = ap_archaeoengineers
+			}
+		}
+		job_evaluator_add = @building_static_jobs_high
+		planet_evaluators_unity_produces_add = 0.25
+		planet_evaluators_physics_research_produces_add = 0.25
+	}
+}
+
+galactic_history_holomuseum = {
+	base_buildtime = @b1_time
+	empire_limit = 1
+	category = amenity
+
+	building_sets = {
+		government
+		urban
+		research
+		resort
+	}
+
+	potential = {
+		owner = {
+			has_country_flag = received_collection_stage_2_reward_historical_item
+		}
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		cost = {
+			trigger = {
+				owner = { is_wilderness_empire = yes }
+			}
+			biomass = @b2_biomass
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	inline_script = {
+		script = buildings/on_all_wilderness_buildings_districts
+	}
+
+	country_modifier = {
+		historical_item_specimens_produces_mult = @holomuseum_specimen_produces_mult
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				has_ascension_perk = ap_archaeoengineers
+			}
+		}
+		historical_item_specimens_produces_mult = @holomuseum_specimen_produces_mult
+	}
+
+	inline_script = {
+		script = jobs/entertainers_add
+		AMOUNT = @building_static_jobs
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_regular_empire = yes
+			}
+		}
+		planet_entertainers_unity_produces_add = 0.25
+		planet_entertainers_society_research_produces_add = 0.25
+		planet_entertainers_consumer_goods_upkeep_add = 0.25
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_regular_empire = yes
+				has_ascension_perk = ap_archaeoengineers
+			}
+		}
+		job_entertainer_add = @building_static_jobs
+		planet_entertainers_unity_produces_add = 0.25
+		planet_entertainers_society_research_produces_add = 0.25
+	}
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = {
+				is_regular_empire = yes
+			}
+		}
+		text = entertainers_are_curators_tt
+	}
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = {
+				is_gestalt = yes
+			}
+		}
+		text = evaluators_are_curator_drones_tt
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = yes
+			}
+		}
+		job_evaluator_add = @building_static_jobs_high
+		planet_evaluators_unity_produces_add = 0.25
+		planet_evaluators_society_research_produces_add = 0.25
+		planet_evaluators_minerals_upkeep_add = 0.5
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = yes
+				has_ascension_perk = ap_archaeoengineers
+			}
+		}
+		job_evaluator_add = @building_static_jobs_high
+		planet_evaluators_unity_produces_add = 0.25
+		planet_evaluators_society_research_produces_add = 0.25
+	}
+}
+
+wildlife_ranch = {
+	base_buildtime = @b1_time
+	planet_limit = 1
+	category = amenity
+
+	building_sets = {
+		government
+		urban
+	}
+
+	potential = {
+		owner = {
+			has_origin = origin_primal_calling
+		}
+		NOR = {
+			has_building = hunting_grounds
+			has_building = wildlife_sanctuary
+			has_building = primal_arena
+			has_building = symbiosis_nexus
+		}
+	}
+
+	destroy_trigger = {
+		owner = {
+			OR = {
+				NOT = { has_origin = origin_primal_calling }
+				wrangler_is_trophy_hunter_trigger = yes
+				wrangler_is_animal_handler_trigger = yes
+				wrangler_is_beastfighter_trigger = yes
+			}
+		}
+	}
+
+	convert_to = {
+		hunting_grounds
+		wildlife_sanctuary
+		primal_arena
+		symbiosis_nexus
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs
+	}
+
+	upgrades = {
+		"wildlife_ranch_2"
+	}
+}
+
+wildlife_ranch_2 = {
+	base_buildtime = @b2_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			OR = {
+				NOT = { has_origin = origin_primal_calling }
+				wrangler_is_trophy_hunter_trigger = yes
+				wrangler_is_animal_handler_trigger = yes
+				wrangler_is_beastfighter_trigger = yes
+			}
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			has_origin = origin_primal_calling
+			OR = {
+				wrangler_is_trophy_hunter_trigger = no
+				wrangler_is_animal_handler_trigger = no
+				wrangler_is_beastfighter_trigger = no
+			}
+		}
+	}
+
+	convert_to = {
+		hunting_grounds_2
+		wildlife_sanctuary_2
+		primal_arena_2
+		symbiosis_nexus_2
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b2_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b2_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	upgrades = {
+		"wildlife_ranch_3"
+	}
+
+	prerequisites = {
+		"tech_heritage_site"
+	}
+}
+
+wildlife_ranch_3 = {
+	base_buildtime = @b3_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			OR = {
+				NOT = { has_origin = origin_primal_calling }
+				wrangler_is_trophy_hunter_trigger = yes
+				wrangler_is_animal_handler_trigger = yes
+				wrangler_is_beastfighter_trigger = yes
+			}
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			has_origin = origin_primal_calling
+			OR = {
+				wrangler_is_trophy_hunter_trigger = no
+				wrangler_is_animal_handler_trigger = no
+				wrangler_is_beastfighter_trigger = no
+			}
+		}
+	}
+
+	convert_to = {
+		hunting_grounds_3
+		wildlife_sanctuary_3
+		primal_arena_3
+		symbiosis_nexus_3
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_very_high
+	}
+
+	prerequisites = {
+		"tech_hypercomms_forum"
+	}
+}
+
+hunting_grounds = {
+	base_buildtime = @b1_time
+	planet_limit = 1
+	category = amenity
+
+	building_sets = {
+		government
+		urban
+		hunting_zone
+	}
+
+	potential = {
+		OR = {
+			owner = {
+				OR = {
+					has_trophy_hunter_job = yes
+					has_hunter_drone_job = yes
+				}
+			}
+			planet = {
+				has_zone = {
+					zone = zone_resort_hunting_ground
+				}
+			}
+		}
+	}
+
+	destroy_trigger = {
+		AND = {
+			owner = {
+				has_trophy_hunter_job = no
+				has_hunter_drone_job = no
+			}
+			planet = {
+				NOT = {
+					has_zone = {
+						zone = zone_resort_hunting_ground
+					}
+				}
+			}
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch
+		wildlife_sanctuary
+		primal_arena
+		symbiosis_nexus
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs
+	}
+
+	upgrades = {
+		"hunting_grounds_2"
+	}
+}
+
+hunting_grounds_2 = {
+	base_buildtime = @b2_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+		hunting_zone
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		AND = {
+			owner = {
+				has_trophy_hunter_job = no
+				has_hunter_drone_job = no
+			}
+			planet = {
+				NOT = {
+					has_zone = {
+						zone = zone_resort_hunting_ground
+					}
+				}
+			}
+		}
+	}
+
+	show_tech_unlock_if = {
+		OR = {
+			owner = {
+				OR = {
+					has_trophy_hunter_job = yes
+					has_hunter_drone_job = yes
+				}
+			}
+			any_owned_planet = {
+				has_zone = {
+					zone = zone_resort_hunting_ground
+				}
+			}
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_2
+		wildlife_sanctuary_2
+		primal_arena_2
+		symbiosis_nexus_2
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b2_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b2_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	upgrades = {
+		"hunting_grounds_3"
+	}
+
+	prerequisites = {
+		"tech_heritage_site"
+	}
+}
+
+hunting_grounds_3 = {
+	base_buildtime = @b3_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+		hunting_zone
+	}
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		AND = {
+			owner = {
+				has_trophy_hunter_job = no
+				has_hunter_drone_job = no
+			}
+			planet = {
+				NOT = {
+					has_zone = {
+						zone = zone_resort_hunting_ground
+					}
+				}
+			}
+		}
+	}
+
+	show_tech_unlock_if = {
+		OR = {
+			owner = {
+				OR = {
+					has_trophy_hunter_job = yes
+					has_hunter_drone_job = yes
+				}
+			}
+			any_owned_planet = {
+				has_zone = {
+					zone = zone_resort_hunting_ground
+				}
+			}
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_3
+		wildlife_sanctuary_3
+		primal_arena_3
+		symbiosis_nexus_3
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_very_high
+	}
+
+	prerequisites = {
+		"tech_hypercomms_forum"
+	}
+}
+
+wildlife_sanctuary = {
+	base_buildtime = @b1_time
+	planet_limit = 1
+	category = amenity
+
+	building_sets = {
+		government
+		urban
+	}
+
+	potential = {
+		owner = {
+			has_animal_handler_job = yes
+		}
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_animal_handler_job = no
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch
+		hunting_grounds
+		primal_arena
+		symbiosis_nexus
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs
+	}
+
+	upgrades = {
+		"wildlife_sanctuary_2"
+	}
+}
+
+wildlife_sanctuary_2 = {
+	base_buildtime = @b2_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_animal_handler_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			has_origin = origin_primal_calling
+			has_animal_handler_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_2
+		hunting_grounds_2
+		primal_arena_2
+		symbiosis_nexus_2
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b2_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b2_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	upgrades = {
+		"wildlife_sanctuary_3"
+	}
+
+	prerequisites = {
+		"tech_heritage_site"
+	}
+}
+
+wildlife_sanctuary_3 = {
+	base_buildtime = @b3_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_animal_handler_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			has_origin = origin_primal_calling
+			has_animal_handler_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_3
+		hunting_grounds_3
+		primal_arena_3
+		symbiosis_nexus_3
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_very_high
+	}
+
+	prerequisites = {
+		"tech_hypercomms_forum"
+	}
+}
+
+primal_arena = {
+	base_buildtime = @b1_time
+	planet_limit = 1
+	category = amenity
+
+	building_sets = {
+		government
+		urban
+	}
+
+	potential = {
+		owner = {
+			has_beastfighter_job = yes
+		}
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_beastfighter_job = no
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch
+		hunting_grounds
+		wildlife_sanctuary
+		symbiosis_nexus
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs
+	}
+
+	upgrades = {
+		"primal_arena_2"
+	}
+}
+
+primal_arena_2 = {
+	base_buildtime = @b2_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_beastfighter_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			has_origin = origin_primal_calling
+			has_beastfighter_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_2
+		hunting_grounds_2
+		wildlife_sanctuary_2
+		symbiosis_nexus_2
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b2_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b2_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	upgrades = {
+		"primal_arena_3"
+	}
+
+	prerequisites = {
+		"tech_heritage_site"
+	}
+}
+
+primal_arena_3 = {
+	base_buildtime = @b3_time
+	category = amenity
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_beastfighter_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			has_origin = origin_primal_calling
+			has_beastfighter_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_3
+		hunting_grounds_3
+		wildlife_sanctuary_3
+		symbiosis_nexus_3
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_very_high
+	}
+
+	prerequisites = {
+		"tech_hypercomms_forum"
+	}
+}
+
+symbiosis_nexus = {
+	base_buildtime = @b1_time
+	planet_limit = 1
+	category = amenity
+	icon = wildlife_sanctuary
+
+	building_sets = {
+		government
+		urban
+	}
+
+	potential = {
+		owner = {
+			has_symbiosis_integrator_job = yes
+		}
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_symbiosis_integrator_job = no
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch
+		hunting_grounds
+		wildlife_sanctuary
+		primal_arena
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b1_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs
+	}
+
+	upgrades = {
+		"symbiosis_nexus_2"
+	}
+}
+
+symbiosis_nexus_2 = {
+	base_buildtime = @b2_time
+	category = amenity
+	icon = wildlife_sanctuary_2
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_symbiosis_integrator_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			has_origin = origin_primal_calling
+			has_symbiosis_integrator_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_2
+		hunting_grounds_2
+		wildlife_sanctuary_2
+		primal_arena_2
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b2_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b2_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	upgrades = {
+		"symbiosis_nexus_3"
+	}
+
+	prerequisites = {
+		"tech_heritage_site"
+	}
+}
+
+symbiosis_nexus_3 = {
+	base_buildtime = @b3_time
+	category = amenity
+	icon = wildlife_sanctuary_3
+	can_build = no
+
+	building_sets = {
+		government
+		urban
+	}
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		owner = {
+			has_symbiosis_integrator_job = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		owner = {
+			has_origin = origin_primal_calling
+			has_symbiosis_integrator_job = yes
+		}
+	}
+
+	convert_to = {
+		wildlife_ranch_3
+		hunting_grounds_3
+		wildlife_sanctuary_3
+		primal_arena_3
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @b3_minerals
+			NOMADIC_COST_MULT = @nomadic_minerals_to_strategic_ratio
+		}
+		upkeep = {
+			energy = @b3_upkeep
+		}
+	}
+
+	inline_script = {
+		script = jobs/wranglers_add
+		AMOUNT = @building_static_jobs_very_high
+	}
+
+	prerequisites = {
+		"tech_hypercomms_forum"
+	}
+}
