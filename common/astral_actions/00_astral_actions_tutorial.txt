@@ -1,0 +1,19 @@
+### EXAMPLE of a targeting action:
+#ability_target_action_test = {
+#	sound = action_activation_astral_boost
+#	unlock_threshold = 0
+#	cooldown = 60
+#
+#	Ability Targeting Variables
+#	ability_targeting = yes # Enables the ability targeting on this astral action. Defaults to off if ability_targeting is not written out. (No need to write "ability_targeting = no")
+#	reticle_radius = 40 # The radius of the reticle. Not used if this is not a ability_targeting-action
+#	reticle_display_duration = 5 # Duration in seconds of how long the reticle will be displayed after it has been locked on to a target. Not used if this is not a ability_targeting-action
+#
+#	picture = GFX_astral_action_astral_boost
+#
+#	effect = {
+#		FROM = {
+#			system_event = { id = some_id_999 }
+#		}
+#	}
+#}

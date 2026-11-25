@@ -1,0 +1,42 @@
+lost_makers_precursor_site = {
+	picture = GFX_evt_astral_rift_corridors
+	desc = lost_makers_precursor_site_desc
+	max_instances = 999
+	weight = 0
+	stages = 3
+	allow = {
+		is_ship_class = shipclass_science_ship
+		exists = leader
+	}
+	potential = {
+		controller = {
+			has_origin = origin_lost_makers
+			has_country_flag = lost_makers_precursor_site_spawned
+		}
+	}
+	visible = {
+		default_site_visible_trigger = yes
+		has_origin = origin_lost_makers
+		has_country_flag = lost_makers_precursor_site_spawned
+	}
+	on_roll_failed = {
+		from = {
+			standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = no_events }
+		}
+	}
+	stage = {
+		difficulty = 1
+		icon = GFX_archaeology_runes_A1
+		event = forceofwill.3020
+	}
+	stage = {
+		difficulty = 2
+		icon = GFX_archaeology_runes_A2
+		event = forceofwill.3025
+	}
+	stage = {
+		difficulty = 3
+		icon = GFX_archaeology_runes_A3
+		event = forceofwill.3030
+	}
+}

@@ -1,0 +1,46 @@
+
+# Nomads Arc Sites
+
+site_chrysanthemum_colony = {
+	desc = site_chrysanthemum_colony_desc
+	picture = GFX_evt_tomb_world
+	stages = 3
+	weight = 0
+	max_instances = 1
+
+	allow = {
+		is_ship_class = shipclass_science_ship
+		exists = leader
+	}
+
+	potential = {}
+
+	visible = {
+		has_country_flag = human_3
+		default_site_visible_trigger = yes
+	}
+
+	stage = {
+		difficulty = 2
+		icon = GFX_archaeology_runes_A1
+		event = nomads.9015
+	}
+
+	stage = {
+		difficulty = 3
+		icon = GFX_archaeology_runes_B1
+		event = nomads.9020
+	}
+
+	stage = {
+		difficulty = 4
+		icon = GFX_archaeology_runes_C1
+		event = nomads.9025
+	}
+
+	on_roll_failed = {
+		from = {
+			standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = no_events }
+		}
+	}
+}

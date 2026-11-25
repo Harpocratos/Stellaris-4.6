@@ -1,0 +1,81 @@
+ambient_object = {
+	name = ambient_arkship_destroyed
+	entity = arkship_destroyed_01_entity
+	selectable = no
+	show_name = no
+}
+
+ambient_object = {
+	name = arkship_debris_wreckage
+	entity = arkship_destroyed_01_entity
+	selectable = yes
+	show_name = yes
+	description = "arkship_debris_wreckage_desc"
+}
+
+ambient_object = {
+	name = dyson_gun_stage_1_impact
+	entity = dyson_gun_01_impact_stage_1_entity
+	selectable = no
+	show_name = no
+}
+
+ambient_object = {
+	name = dyson_gun_stage_2_impact
+	entity = dyson_gun_01_impact_stage_2_entity
+	selectable = no
+	show_name = no
+}
+
+ambient_object = {
+	name = dyson_gun_stage_3_impact
+	entity = dyson_gun_01_impact_stage_3_entity
+	selectable = no
+	show_name = no
+}
+
+ambient_object = {
+	name = etherdrake_scale_object
+	entity = hive_asteroid_03_entity
+	selectable = yes
+	show_name = yes
+	tooltip = "etherdrake_scale_object_tooltip"
+	description = "etherdrake_scale_object_desc"
+}
+
+# Star-Crossed Lovers - survival pod disguised as an asteroid
+ambient_object = {
+	name = "star_crossed_pod_object"
+	entity = "hive_asteroid_01_entity"
+	selectable = yes
+	show_name = yes
+	tooltip = "star_crossed_pod_object_tooltip"
+	description = "star_crossed_pod_object_desc"
+}
+
+# Star-Crossed Lovers - survivor pod in a remote system
+ambient_object = {
+	name = "star_crossed_survivor_pod_object"
+	entity = "hive_asteroid_01_entity"
+	selectable = yes
+	show_name = yes
+	tooltip = "star_crossed_survivor_pod_object_tooltip"
+	description = "star_crossed_survivor_pod_object_desc"
+}
+
+# The Eternal Chorus - crystalline rift formation near black hole
+ambient_object = {
+	name = "eternal_chorus_lattice_object"
+	entity = "crystal_rift_entity"
+	selectable = yes
+	show_name = yes
+	tooltip = "eternal_chorus_lattice_object_tooltip"
+	description = "eternal_chorus_lattice_object_desc"
+}
+
+ambient_object = {
+	name = "tent_ship_object"
+	entity = "nomads_01_tents_entity"
+	selectable = no
+	show_name = no
+}
