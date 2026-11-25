@@ -1,0 +1,303 @@
+nomad_border_policy = {
+	category = diplomacy
+
+	potential = {
+		has_nomads_dlc = yes
+		is_nomadic = no
+	}
+
+	option = {
+		name = "nomad_border_policy_open"
+
+		policy_flags = {
+			nomad_border_policy_open
+		}
+
+		potential = {
+		}
+
+		valid = {
+		}
+
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 2
+				is_megacorp = yes
+			}
+			modifier = {
+				factor = 2
+				has_valid_ai_personality = yes
+				NOR = {
+					has_ai_personality_behaviour = isolationist
+					has_ai_personality_behaviour = attack_neutrals
+				}
+			}
+			modifier = {
+				factor = 2
+				is_xenophile = yes
+			}
+			modifier = {
+				factor = 0
+				has_crisis_level = crisis_level_5
+			}
+		}
+	}
+
+	option = {
+		name = "nomad_border_policy_closed"
+
+		policy_flags = {
+			nomad_border_policy_closed
+		}
+		modifier = {}
+
+		potential = {
+		}
+
+		valid = {
+		}
+
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 0
+				is_megacorp = yes
+			}
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = yes
+				NOR = {
+					has_ai_personality_behaviour = isolationist
+					has_ai_personality_behaviour = attack_neutrals
+				}
+			}
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = no
+				is_xenophobe = no
+			}
+			modifier = {
+				factor = 10
+				has_crisis_level = crisis_level_5
+			}
+			modifier = {
+				factor = 10
+				is_homicidal = yes
+			}
+			modifier = {
+				factor = 10
+				is_xenophobe = yes
+				OR = {
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+				}
+			}
+			modifier = {
+				factor = 0
+				num_waystation_pacts > 0
+			}
+		}
+	}
+}
+
+nomad_deterrence = {
+	category = diplomacy
+
+	potential = {
+		has_nomads_dlc = yes
+		is_nomadic = no
+	}
+
+	option = {
+		name = "nomad_deterrence_do_no_harm"
+
+		policy_flags = {
+			arkship_raid_do_no_harm
+		}
+
+		potential = {}
+		valid = {
+			is_homicidal = no
+			is_xenophobe = no
+		}
+
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 5
+				is_xenophile = yes
+			}
+			modifier = {
+				factor = 0
+				is_homicidal = yes
+			}
+			modifier = {
+				factor = 0
+				is_xenophobe = yes
+			}
+			modifier = {
+				factor = 0
+				has_ai_personality = fanatic_befrienders
+			}
+			modifier = {
+				factor = 5
+				has_ai_personality = servitors
+			}
+			modifier = {
+				factor = 3
+				has_ai_personality = honorbound_warriors
+			}
+			modifier = {
+				factor = 3
+				has_ai_personality = peaceful_traders
+			}
+			modifier = {
+				factor = 2
+				has_ai_personality = evangelising_zealots
+			}
+			modifier = {
+				factor = 2
+				has_ai_personality = harmonious_hierarchy
+			}
+			modifier = {
+				factor = 2
+				has_ai_personality = democratic_crusaders
+			}
+		}
+	}
+
+	option = {
+		name = "nomad_deterrence_relocate_pops"
+
+		policy_flags = {
+			arkship_raid_relocate_pops
+		}
+
+		potential = {}
+		valid = {}
+
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 2
+				is_authoritarian = yes
+			}
+			modifier = {
+				factor = 0
+				has_ethic = ethic_gestalt_consciousness
+			}
+			modifier = {
+				factor = 4
+				has_ai_personality = slaving_despots
+			}
+			modifier = {
+				factor = 3
+				has_ai_personality = decadent_hierarchy
+			}
+			modifier = {
+				factor = 3
+				has_ai_personality = assimilators
+			}
+			modifier = {
+				factor = 2
+				has_ai_personality = hegemonic_imperialists
+			}
+			modifier = {
+				factor = 1000
+				has_ai_personality = fanatic_befrienders
+			}
+		}
+	}
+
+	option = {
+		name = "nomad_deterrence_purge_pops"
+
+		policy_flags = {
+			arkship_raid_purge_pops
+		}
+
+		potential = {}
+		valid = {
+			OR = {
+				is_xenophobe = yes
+				is_homicidal = yes
+			}
+		}
+
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 5
+				is_xenophobe = yes
+			}
+			modifier = {
+				factor = 10
+				is_homicidal = yes
+			}
+			modifier = {
+				factor = 0
+				is_xenophile = yes
+			}
+			modifier = {
+				factor = 3
+				has_ai_personality = xenophobic_isolationists
+			}
+			modifier = {
+				factor = 0.1
+				has_ai_personality = fanatic_befrienders
+			}
+			modifier = {
+				factor = 0.2
+				has_ai_personality = peaceful_traders
+			}
+			modifier = {
+				factor = 0.2
+				has_ai_personality = honorbound_warriors
+			}
+			modifier = {
+				factor = 0.3
+				has_ai_personality = evangelising_zealots
+			}
+		}
+	}
+
+	option = {
+		name = "nomad_deterrence_strip_districts"
+
+		policy_flags = {
+			arkship_raid_strip_districts
+		}
+
+		potential = {}
+		valid = {}
+
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 2
+				is_materialist = yes
+			}
+			modifier = {
+				factor = 2
+				is_megacorp = yes
+			}
+			modifier = {
+				factor = 4
+				has_ai_personality = ruthless_capitalists
+			}
+			modifier = {
+				factor = 3
+				has_ai_personality = decadent_capitalists
+			}
+			modifier = {
+				factor = 3
+				has_ai_personality = metalhead
+			}
+			modifier = {
+				factor = 2
+				has_ai_personality = machine_intelligence
+			}
+		}
+	}
+}

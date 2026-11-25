@@ -1,0 +1,1214 @@
+# The starting option is rolled in game_start.140, weighted by the personality, and sets a preferred_fleet_doctrine country flag
+fleet_doctrine = {
+	category = military
+	potential = {
+		is_country_type = default
+	}
+
+	option = {
+		name = "spearhead_fleet_doctrine"
+		policy_flags = {
+			fleet_doctrine_spearhead
+		}
+		on_enabled = {
+			clear_fleet_doctrine_flags = yes
+			set_country_flag = preferred_fleet_doctrine_spearhead
+			set_ai_ship_roles = {
+				# Regular Ships
+				corvette = {
+					brawler = 70
+					gunship = 30
+				}
+				frigate                     = explosive
+				destroyer = {
+					brawler = 70
+					gunship = 30
+				}
+				cruiser                     = gunship
+				battleship                  = gunship
+				titan                       = gunship
+				# Galactic Nemesis Ships
+				crisis_corvette = {
+					brawler = 70
+					gunship = 30
+				}
+				crisis_destroyer = {
+					brawler = 70
+					gunship = 30
+				}
+				crisis_cruiser              = gunship
+				star_eater                  = gunship
+				# Cosmogenesis Ships
+				cosmo_crisis_destroyer = {
+					explosive = 70
+					energy_torpedoes = 30
+				}
+				cosmo_crisis_battlecruiser  = explosive
+				cosmo_crisis_titan          = artillery
+				# Nanotech Ships
+				nanite_swarmer = {
+					explosive = 70
+					gunship = 30
+				}
+				nanite_interdictor          = explosive
+				# Biological Ships
+				mauler_stage_1              = brawler
+				stinger_stage_1             = gunship
+				harbinger_stage_1           = carrier
+				weaver_stage_1              = debuffer_role
+				# Hyperthermia Ships
+				ember_cruiser               = gunship
+				ember_battleship            = gunship
+			}
+			inline_script = {
+				script = "ai/stealth_fleet_roles"
+				CORVETTE			= brawler_stealth
+				FRIGATE				= explosive_stealth
+				DESTROYER			= artillery_stealth
+				CRISIS_CORVETTE		= brawler_stealth
+				CRISIS_DESTROYER	= artillery_stealth
+				NANITE_SWARMER		= explosive_stealth
+				MAULER				= brawler_stealth
+				WEAVER				= debuffer_role_stealth
+			}
+			refresh_auto_generated_ship_designs = yes # rebuild auto designs immediately so the new doctrine takes effect
+		}
+		on_disabled = {
+			clear_ai_ship_roles = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_fleet_doctrine_spearhead
+			}
+		}
+	}
+
+	option = {
+		name = "battleline_fleet_doctrine"
+		policy_flags = {
+			fleet_doctrine_battleline
+		}
+		on_enabled = {
+			clear_fleet_doctrine_flags = yes
+			set_country_flag = preferred_fleet_doctrine_battleline
+			set_ai_ship_roles = {
+				# Regular Ships
+				corvette = {
+					gunship = 70
+					screen = 30
+				}
+				frigate                     = explosive
+				destroyer = {
+					gunship = 70
+					screen = 30
+				}
+				cruiser                     = gunship
+				battleship                  = gunship
+				titan                       = gunship
+				# Galactic Nemesis Ships
+				crisis_corvette = {
+					gunship = 70
+					brawler = 30
+				}
+				crisis_destroyer = {
+					gunship = 70
+					brawler = 30
+				}
+				crisis_cruiser              = gunship
+				star_eater                  = gunship
+				# Cosmogenesis Ships
+				cosmo_crisis_destroyer = {
+					artillery = 70
+					explosive = 30
+				}
+				cosmo_crisis_battlecruiser  = artillery
+				cosmo_crisis_titan          = artillery
+				# Nanotech Ships
+				nanite_swarmer = {
+					gunship = 70
+					screen = 30
+				}
+				nanite_interdictor          = carrier
+				# Biological Ships
+				mauler_stage_1 = {
+					brawler = 70
+					screen = 30
+				}
+				stinger_stage_1             = gunship
+				harbinger_stage_1           = carrier
+				weaver_stage_1              = buffer_role
+				# Hyperthermia Ships
+				ember_cruiser               = gunship
+				ember_battleship            = gunship
+			}
+			inline_script = {
+				script = "ai/stealth_fleet_roles"
+				CORVETTE			= brawler_stealth
+				FRIGATE				= explosive_stealth
+				DESTROYER			= artillery_stealth
+				CRISIS_CORVETTE		= brawler_stealth
+				CRISIS_DESTROYER	= artillery_stealth
+				NANITE_SWARMER		= explosive_stealth
+				MAULER				= brawler_stealth
+				WEAVER				= buffer_role_stealth
+			}
+			refresh_auto_generated_ship_designs = yes # rebuild auto designs immediately so the new doctrine takes effect
+		}
+		on_disabled = {
+			clear_ai_ship_roles = yes
+		}
+		ai_weight = {
+			factor = 5
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_fleet_doctrine_battleline
+			}
+		}
+	}
+
+	option = {
+		name = "barrage_fleet_doctrine"
+		policy_flags = {
+			fleet_doctrine_barrage
+		}
+		on_enabled = {
+			clear_fleet_doctrine_flags = yes
+			set_country_flag = preferred_fleet_doctrine_barrage
+			set_ai_ship_roles = {
+				# Regular Ships
+				corvette                    = artillery
+				frigate = {
+					energy_torpedoes = 70
+					explosive = 30
+				}
+				destroyer = {
+					artillery = 70
+					screen = 30
+				}
+				cruiser                     = artillery
+				battleship                  = artillery
+				titan                       = artillery
+				# Galactic Nemesis Ships
+				crisis_corvette             = gunship
+				crisis_destroyer = {
+					artillery = 70
+					energy_torpedoes = 30
+				}
+				crisis_cruiser              = artillery
+				star_eater                  = artillery
+				# Cosmogenesis Ships
+				cosmo_crisis_destroyer = {
+					artillery = 70
+					energy_torpedoes = 30
+				}
+				cosmo_crisis_battlecruiser  = artillery
+				cosmo_crisis_titan          = artillery
+				# Nanotech Ships
+				nanite_swarmer              = explosive
+				nanite_interdictor = {
+					energy_torpedoes = 70
+					explosive = 30
+				}
+				# Biological Ships
+				mauler_stage_1              = screen
+				stinger_stage_1             = artillery
+				harbinger_stage_1           = artillery
+				weaver_stage_1              = buffer_role
+				# Hyperthermia Ships
+				ember_cruiser               = artillery
+				ember_battleship            = artillery
+			}
+			inline_script = {
+				script = "ai/stealth_fleet_roles"
+				CORVETTE			= brawler_stealth
+				FRIGATE				= explosive_stealth
+				DESTROYER			= artillery_stealth
+				CRISIS_CORVETTE		= brawler_stealth
+				CRISIS_DESTROYER	= artillery_stealth
+				NANITE_SWARMER		= explosive_stealth
+				MAULER				= brawler_stealth
+				WEAVER				= buffer_role_stealth
+			}
+			refresh_auto_generated_ship_designs = yes # rebuild auto designs immediately so the new doctrine takes effect
+		}
+		on_disabled = {
+			clear_ai_ship_roles = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_fleet_doctrine_barrage
+			}
+		}
+	}
+
+	option = {
+		name = "strike_wing_fleet_doctrine"
+		policy_flags = {
+			fleet_doctrine_strike_wing
+		}
+		on_enabled = {
+			clear_fleet_doctrine_flags = yes
+			set_country_flag = preferred_fleet_doctrine_strike_wing
+			set_ai_ship_roles = {
+				# Regular Ships
+				corvette                    = screen
+				frigate                     = energy_torpedoes
+				destroyer                   = screen
+				cruiser                     = carrier
+				battleship                  = carrier
+				titan                       = artillery
+				# Galactic Nemesis Ships
+				crisis_corvette             = gunship
+				crisis_destroyer            = gunship
+				crisis_cruiser              = gunship
+				star_eater                  = artillery
+				# Cosmogenesis Ships
+				cosmo_crisis_destroyer      = artillery
+				cosmo_crisis_battlecruiser  = carrier
+				cosmo_crisis_titan          = artillery
+				# Nanotech Ships
+				nanite_swarmer              = screen
+				nanite_interdictor          = carrier
+				# Biological Ships
+				mauler_stage_1              = screen
+				stinger_stage_1             = gunship
+				harbinger_stage_1           = carrier
+				weaver_stage_1              = buffer_role
+				# Hyperthermia Ships
+				ember_cruiser               = carrier
+				ember_battleship            = carrier
+			}
+			inline_script = {
+				script = "ai/stealth_fleet_roles"
+				CORVETTE			= brawler_stealth
+				FRIGATE				= explosive_stealth
+				DESTROYER			= artillery_stealth
+				CRISIS_CORVETTE		= brawler_stealth
+				CRISIS_DESTROYER	= artillery_stealth
+				NANITE_SWARMER		= explosive_stealth
+				MAULER				= brawler_stealth
+				WEAVER				= buffer_role_stealth
+			}
+			refresh_auto_generated_ship_designs = yes # rebuild auto designs immediately so the new doctrine takes effect
+		}
+		on_disabled = {
+			clear_ai_ship_roles = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_fleet_doctrine_strike_wing
+			}
+		}
+	}
+
+	option = {
+		name = "ambush_fleet_doctrine"
+		policy_flags = {
+			fleet_doctrine_ambush
+		}
+		on_enabled = {
+			clear_fleet_doctrine_flags = yes
+			set_country_flag = preferred_fleet_doctrine_ambush
+			set_ai_ship_roles = {
+				# Regular Ships
+				corvette                    = brawler
+				frigate                     = explosive
+				destroyer                   = artillery
+				cruiser                     = energy_torpedoes
+				battleship                  = artillery
+				titan                       = artillery
+				# Galactic Nemesis Ships
+				crisis_corvette             = brawler
+				crisis_destroyer            = energy_torpedoes
+				crisis_cruiser              = brawler
+				star_eater                  = artillery
+				# Cosmogenesis Ships
+				cosmo_crisis_destroyer      = artillery
+				cosmo_crisis_battlecruiser  = artillery
+				cosmo_crisis_titan          = artillery
+				# Nanotech Ships
+				nanite_swarmer              = explosive
+				nanite_interdictor          = energy_torpedoes
+				# Biological Ships
+				mauler_stage_1              = brawler
+				stinger_stage_1             = artillery
+				harbinger_stage_1           = artillery
+				weaver_stage_1              = debuffer_role
+				# Hyperthermia Ships
+				ember_cruiser               = energy_torpedoes
+				ember_battleship            = artillery
+			}
+			inline_script = {
+				script = "ai/stealth_fleet_roles"
+				CORVETTE			= brawler_stealth
+				FRIGATE				= explosive_stealth
+				DESTROYER			= artillery_stealth
+				CRISIS_CORVETTE		= brawler_stealth
+				CRISIS_DESTROYER	= artillery_stealth
+				NANITE_SWARMER		= explosive_stealth
+				MAULER				= brawler_stealth
+				WEAVER				= debuffer_role_stealth
+			}
+			refresh_auto_generated_ship_designs = yes # rebuild auto designs immediately so the new doctrine takes effect
+		}
+		on_disabled = {
+			clear_ai_ship_roles = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_fleet_doctrine_ambush
+			}
+		}
+	}
+
+	option = {
+		name = "phalanx_fleet_doctrine"
+		policy_flags = {
+			fleet_doctrine_phalanx
+		}
+		on_enabled = {
+			clear_fleet_doctrine_flags = yes
+			set_country_flag = preferred_fleet_doctrine_phalanx
+			set_ai_ship_roles = {
+				# Regular Ships
+				corvette = {
+					screen = 70
+					gunship = 30
+				}
+				frigate                     = explosive
+				destroyer = {
+					screen = 70
+					brawler = 30
+				}
+				cruiser = {
+					gunship = 70
+					artillery = 30
+				}
+				battleship = {
+					gunship = 70
+					artillery = 30
+				}
+				titan = {
+					gunship = 70
+					artillery = 30
+				}
+				# Galactic Nemesis Ships
+				crisis_corvette = {
+					gunship = 70
+					brawler = 30
+				}
+				crisis_destroyer = {
+					gunship = 70
+					brawler = 30
+				}
+				crisis_cruiser = {
+					gunship = 70
+					artillery = 30
+				}
+				star_eater = {
+					gunship = 70
+					artillery = 30
+				}
+				# Cosmogenesis Ships
+				cosmo_crisis_destroyer = {
+					artillery = 70
+					explosive = 30
+				}
+				cosmo_crisis_battlecruiser = {
+					artillery = 70
+					carrier = 30
+				}
+				cosmo_crisis_titan          = artillery
+				# Nanotech Ships
+				nanite_swarmer = {
+					screen = 70
+					gunship = 30
+				}
+				nanite_interdictor = {
+					carrier = 70
+					explosive = 30
+				}
+				# Biological Ships
+				mauler_stage_1              = screen
+				stinger_stage_1 = {
+					gunship = 70
+					artillery = 30
+				}
+				harbinger_stage_1 = {
+					carrier = 70
+					artillery = 30
+				}
+				weaver_stage_1              = debuffer_role
+				# Hyperthermia Ships
+				ember_cruiser = {
+					gunship = 70
+					artillery = 30
+				}
+				ember_battleship = {
+					gunship = 70
+					artillery = 30
+				}
+			}
+			inline_script = {
+				script = "ai/stealth_fleet_roles"
+				CORVETTE			= brawler_stealth
+				FRIGATE				= explosive_stealth
+				DESTROYER			= artillery_stealth
+				CRISIS_CORVETTE		= brawler_stealth
+				CRISIS_DESTROYER	= artillery_stealth
+				NANITE_SWARMER		= explosive_stealth
+				MAULER				= brawler_stealth
+				WEAVER				= debuffer_role_stealth
+			}
+			refresh_auto_generated_ship_designs = yes # rebuild auto designs immediately so the new doctrine takes effect
+		}
+		on_disabled = {
+			clear_ai_ship_roles = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_fleet_doctrine_phalanx
+			}
+		}
+	}
+}
+
+# The starting option is rolled in game_start.140, weighted by the personality, and sets a preferred_weapon country flag
+# AI empires only get this policy once the game has started, so it is never picked before their personality exists
+weapon_preference = {
+	category = military
+	potential = {
+		is_country_type = default
+		OR = {
+			is_ai = no
+			has_global_flag = game_started
+		}
+	}
+
+	option = {
+		name = "weapon_preference_energy"
+		on_enabled = {
+			clear_ship_weapon_preference_flags = yes
+			set_country_flag = preferred_weapon_energy
+			set_ai_weapon_preference = weapon_type_energy
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_weapon_energy
+			}
+		}
+	}
+
+	option = {
+		name = "weapon_preference_kinetic"
+		on_enabled = {
+			clear_ship_weapon_preference_flags = yes
+			set_country_flag = preferred_weapon_kinetic
+			set_ai_weapon_preference = weapon_type_kinetic
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_weapon_kinetic
+			}
+		}
+	}
+
+	option = {
+		name = "weapon_preference_explosive"
+		on_enabled = {
+			clear_ship_weapon_preference_flags = yes
+			set_country_flag = preferred_weapon_explosive
+			set_ai_weapon_preference = weapon_type_explosive
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_weapon_explosive
+			}
+		}
+	}
+
+	option = {
+		name = "weapon_preference_strike_craft"
+		on_enabled = {
+			clear_ship_weapon_preference_flags = yes
+			set_country_flag = preferred_weapon_strike_craft
+			set_ai_weapon_preference = weapon_type_strike_craft
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_weapon_strike_craft
+			}
+		}
+	}
+}
+
+# The starting option is rolled in game_start.140 the same way as weapon_preference, with preferred_defense country flags
+defense_preference = {
+	category = military
+	potential = {
+		is_country_type = default
+		OR = {
+			is_ai = no
+			has_global_flag = game_started
+		}
+	}
+
+	option = {
+		name = "shields_preference"
+		on_enabled = {
+			clear_ship_defense_preference_flags = yes
+			set_country_flag = preferred_defense_shields
+			set_ai_armor_ratio   = @defense_preference_minor_ratio
+			set_ai_shields_ratio = @defense_preference_major_ratio
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_armor_ratio   = yes
+			clear_ai_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_defense_shields
+			}
+		}
+	}
+
+	option = {
+		name = "balanced_defenses"
+		on_enabled = {
+			clear_ship_defense_preference_flags = yes
+			set_ai_armor_ratio   = @defense_preference_balanced_ratio
+			set_ai_shields_ratio = @defense_preference_balanced_ratio
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_armor_ratio   = yes
+			clear_ai_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = "armor_preference"
+		on_enabled = {
+			clear_ship_defense_preference_flags = yes
+			set_country_flag = preferred_defense_armor
+			set_ai_armor_ratio   = @defense_preference_major_ratio
+			set_ai_shields_ratio = @defense_preference_minor_ratio
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_armor_ratio   = yes
+			clear_ai_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_defense_armor
+			}
+		}
+	}
+}
+
+# Player-only station policies. AI stations follow the fleet weapon and defense preference.
+# Each station policy has its own starting roll in game_start.140, weighted by the rolled fleet preference
+starbase_weapon_preference = {
+	category = military
+	potential = {
+		is_country_type = default
+		is_ai = no
+		is_nomadic = no
+	}
+
+	option = {
+		name = "starbase_weapon_preference_energy"
+		on_enabled = {
+			clear_starbase_weapon_preference_flags = yes
+			set_country_flag = preferred_starbase_weapon_energy
+			set_ai_starbase_weapon_preference = weapon_type_energy
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_starbase_weapon_energy
+			}
+		}
+	}
+
+	option = {
+		name = "starbase_weapon_preference_kinetic"
+		on_enabled = {
+			clear_starbase_weapon_preference_flags = yes
+			set_country_flag = preferred_starbase_weapon_kinetic
+			set_ai_starbase_weapon_preference = weapon_type_kinetic
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_starbase_weapon_kinetic
+			}
+		}
+	}
+
+	option = {
+		name = "starbase_weapon_preference_explosive"
+		potential = {
+			OR = {
+				has_technology = tech_swarmer_missiles_1
+				has_technology = tech_swarmer_missiles_2
+			}
+		}
+		on_enabled = {
+			clear_starbase_weapon_preference_flags = yes
+			set_country_flag = preferred_starbase_weapon_explosive
+			set_ai_starbase_weapon_preference = weapon_type_explosive
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_starbase_weapon_explosive
+			}
+		}
+	}
+}
+
+starbase_defense_preference = {
+	category = military
+	potential = {
+		is_country_type = default
+		is_ai = no
+		is_nomadic = no
+	}
+
+	option = {
+		name = "starbase_shields_preference"
+		on_enabled = {
+			clear_starbase_defense_preference_flags = yes
+			set_country_flag = preferred_starbase_defense_shields
+			set_ai_starbase_armor_ratio   = @defense_preference_minor_ratio
+			set_ai_starbase_shields_ratio = @defense_preference_major_ratio
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_armor_ratio   = yes
+			clear_ai_starbase_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_starbase_defense_shields
+			}
+		}
+	}
+
+	option = {
+		name = "starbase_balanced_defenses"
+		on_enabled = {
+			clear_starbase_defense_preference_flags = yes
+			set_ai_starbase_armor_ratio   = @defense_preference_balanced_ratio
+			set_ai_starbase_shields_ratio = @defense_preference_balanced_ratio
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_armor_ratio   = yes
+			clear_ai_starbase_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = "starbase_armor_preference"
+		on_enabled = {
+			clear_starbase_defense_preference_flags = yes
+			set_country_flag = preferred_starbase_defense_armor
+			set_ai_starbase_armor_ratio   = @defense_preference_major_ratio
+			set_ai_starbase_shields_ratio = @defense_preference_minor_ratio
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_armor_ratio   = yes
+			clear_ai_starbase_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_starbase_defense_armor
+			}
+		}
+	}
+}
+
+arkship_weapon_preference = {
+	category = military
+	potential = {
+		is_country_type = default
+		is_ai = no
+		is_nomadic = yes
+	}
+
+	option = {
+		name = "arkship_weapon_preference_fleet"
+		on_enabled = {
+			clear_starbase_weapon_preference_flags = yes
+			clear_ai_starbase_weapon_preference = yes
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		ai_weight = {
+			factor = 1
+		}
+	}
+
+	option = {
+		name = "arkship_weapon_preference_energy"
+		on_enabled = {
+			clear_starbase_weapon_preference_flags = yes
+			set_country_flag = preferred_starbase_weapon_energy
+			set_ai_starbase_weapon_preference = weapon_type_energy
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_starbase_weapon_energy
+			}
+		}
+	}
+
+	option = {
+		name = "arkship_weapon_preference_kinetic"
+		on_enabled = {
+			clear_starbase_weapon_preference_flags = yes
+			set_country_flag = preferred_starbase_weapon_kinetic
+			set_ai_starbase_weapon_preference = weapon_type_kinetic
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_starbase_weapon_kinetic
+			}
+		}
+	}
+}
+
+waystation_defense_preference = {
+	category = military
+	potential = {
+		is_country_type = default
+		is_ai = no
+		is_nomadic = yes
+	}
+
+	option = {
+		name = "waystation_shields_preference"
+		on_enabled = {
+			clear_starbase_defense_preference_flags = yes
+			set_country_flag = preferred_starbase_defense_shields
+			set_ai_starbase_armor_ratio   = @defense_preference_minor_ratio
+			set_ai_starbase_shields_ratio = @defense_preference_major_ratio
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_armor_ratio   = yes
+			clear_ai_starbase_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_starbase_defense_shields
+			}
+		}
+	}
+
+	option = {
+		name = "waystation_balanced_defenses"
+		on_enabled = {
+			clear_starbase_defense_preference_flags = yes
+			set_ai_starbase_armor_ratio   = @defense_preference_balanced_ratio
+			set_ai_starbase_shields_ratio = @defense_preference_balanced_ratio
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_armor_ratio   = yes
+			clear_ai_starbase_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = "waystation_armor_preference"
+		on_enabled = {
+			clear_starbase_defense_preference_flags = yes
+			set_country_flag = preferred_starbase_defense_armor
+			set_ai_starbase_armor_ratio   = @defense_preference_major_ratio
+			set_ai_starbase_shields_ratio = @defense_preference_minor_ratio
+			refresh_auto_generated_ship_designs = yes
+			rebuild_owned_starbase_designs = yes
+		}
+		on_disabled = {
+			clear_ai_starbase_armor_ratio   = yes
+			clear_ai_starbase_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_starbase_defense_armor
+			}
+		}
+	}
+}
+
+platform_weapon_preference = {
+	category = military
+	potential = {
+		is_country_type = default
+		is_ai = no
+		is_nomadic = no
+	}
+
+	option = {
+		name = "platform_weapon_preference_energy"
+		on_enabled = {
+			clear_platform_weapon_preference_flags = yes
+			set_country_flag = preferred_platform_weapon_energy
+			set_ai_platform_weapon_preference = weapon_type_energy
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_platform_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_platform_weapon_energy
+			}
+		}
+	}
+
+	option = {
+		name = "platform_weapon_preference_kinetic"
+		on_enabled = {
+			clear_platform_weapon_preference_flags = yes
+			set_country_flag = preferred_platform_weapon_kinetic
+			set_ai_platform_weapon_preference = weapon_type_kinetic
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_platform_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_platform_weapon_kinetic
+			}
+		}
+	}
+
+	option = {
+		name = "platform_weapon_preference_explosive"
+		on_enabled = {
+			clear_platform_weapon_preference_flags = yes
+			set_country_flag = preferred_platform_weapon_explosive
+			set_ai_platform_weapon_preference = weapon_type_explosive
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_platform_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_platform_weapon_explosive
+			}
+		}
+	}
+
+	option = {
+		name = "platform_weapon_preference_strike_craft"
+		on_enabled = {
+			clear_platform_weapon_preference_flags = yes
+			set_country_flag = preferred_platform_weapon_strike_craft
+			set_ai_platform_weapon_preference = weapon_type_strike_craft
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_platform_weapon_preference = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_platform_weapon_strike_craft
+			}
+		}
+	}
+}
+
+platform_defense_preference = {
+	category = military
+	potential = {
+		is_country_type = default
+		is_ai = no
+		is_nomadic = no
+	}
+
+	option = {
+		name = "platform_shields_preference"
+		on_enabled = {
+			clear_platform_defense_preference_flags = yes
+			set_country_flag = preferred_platform_defense_shields
+			set_ai_platform_armor_ratio   = @defense_preference_minor_ratio
+			set_ai_platform_shields_ratio = @defense_preference_major_ratio
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_platform_armor_ratio   = yes
+			clear_ai_platform_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_platform_defense_shields
+			}
+		}
+	}
+
+	option = {
+		name = "platform_balanced_defenses"
+		on_enabled = {
+			clear_platform_defense_preference_flags = yes
+			set_ai_platform_armor_ratio   = @defense_preference_balanced_ratio
+			set_ai_platform_shields_ratio = @defense_preference_balanced_ratio
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_platform_armor_ratio   = yes
+			clear_ai_platform_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = "platform_armor_preference"
+		on_enabled = {
+			clear_platform_defense_preference_flags = yes
+			set_country_flag = preferred_platform_defense_armor
+			set_ai_platform_armor_ratio   = @defense_preference_major_ratio
+			set_ai_platform_shields_ratio = @defense_preference_minor_ratio
+			refresh_auto_generated_ship_designs = yes
+		}
+		on_disabled = {
+			clear_ai_platform_armor_ratio   = yes
+			clear_ai_platform_shields_ratio = yes
+		}
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = @preference_policy_flag_factor
+				has_country_flag = preferred_platform_defense_armor
+			}
+		}
+	}
+}
+
+defense_platform_protocols = {
+	category = military
+
+	potential = {
+		is_nomadic = no
+	}
+
+	option = {
+		name = "defense_platform_standard"
+
+		ai_weight = {
+			weight = 100
+		}
+	}
+
+	option = {
+		name = "defense_platform_synchronized_shielding"
+
+		policy_flags = {
+			defense_platform_synchronized_shielding
+		}
+
+		modifier = {
+			ship_military_station_small_upkeep_mult = 0.30
+			ship_ion_cannon_upkeep_mult = 0.30
+		}
+
+		on_enabled = {
+			custom_tooltip = defense_platform_synchronized_shielding_effect
+		}
+
+		ai_weight = {
+			weight = 10
+		}
+	}
+
+	option = {
+		name = "defense_platform_reinforced_plating"
+
+		policy_flags = {
+			defense_platform_reinforced_plating
+		}
+
+		modifier = {
+			ship_military_station_small_upkeep_mult = 0.30
+			ship_ion_cannon_upkeep_mult = 0.30
+		}
+
+		on_enabled = {
+			custom_tooltip = defense_platform_reinforced_plating_effect
+			hidden_effect = {
+				defense_platform_apply_reinforced_field = yes
+			}
+		}
+
+		on_disabled = {
+			hidden_effect = {
+				defense_platform_remove_reinforced_field = yes
+			}
+		}
+
+		ai_weight = {
+			weight = 10
+		}
+	}
+
+	option = {
+		name = "defense_platform_resilient_frames"
+
+		policy_flags = {
+			defense_platform_resilient_frames
+		}
+
+		modifier = {
+			ship_military_station_small_upkeep_mult = 1.0
+			ship_ion_cannon_upkeep_mult = 1.0
+		}
+
+		on_enabled = {
+			hidden_effect = {
+				defense_platform_enable_resilience = yes
+			}
+		}
+
+		on_disabled = {
+			hidden_effect = {
+				defense_platform_disable_resilience = yes
+			}
+		}
+
+		ai_weight = {
+			weight = 5
+		}
+	}
+
+	option = {
+		name = "defense_platform_provocation_arrays"
+
+		policy_flags = {
+			defense_platform_provocation_arrays
+		}
+
+		modifier = {
+			ship_military_station_small_upkeep_mult = 0.30
+			ship_ion_cannon_upkeep_mult = 0.30
+			shipsize_military_station_small_target_weight_mult = 0.50
+			shipsize_ion_cannon_target_weight_mult = 0.50
+		}
+
+		ai_weight = {
+			weight = 5
+		}
+	}
+}

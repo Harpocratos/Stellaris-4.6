@@ -1,0 +1,265 @@
+
+#####################################
+# Opinion Modifiers - Force of Will #
+#####################################
+
+triggered_opinion_ideology_match = {
+	trigger = {
+		has_force_of_will_dlc = yes
+		from = { exists = ideology }
+		ideology? = {
+			is_same_value = root.from.ideology
+		}
+	}
+	opinion = {
+		base = 50
+	}
+}
+
+triggered_opinion_ideology_ethic_match = {
+	trigger = {
+		has_force_of_will_dlc = yes
+		from = { exists = ideology }
+		ideology? = {
+			NOT = { is_same_value = root.from.ideology }
+			has_same_ethic_as_ideology = root.from.ideology
+		}
+	}
+	opinion = {
+		base = 20
+	}
+}
+
+triggered_opinion_ideology_opposite_ethic = {
+	trigger = {
+		has_force_of_will_dlc = yes
+		from = { exists = ideology }
+		ideology? = {
+			NOT = { is_same_value = root.from.ideology }
+			has_opposite_ethic_as_ideology = root.from.ideology
+		}
+	}
+	opinion = {
+		base = -30
+	}
+}
+
+opinion_disarmament_1 = {
+	monthly = yes
+	
+	opinion = {
+		base = @tenet_disarmament_opinion_base
+	}
+	growth = {
+		base = @tenet_disarmament_opinion_base
+	}
+
+	max = @tenet_disarmament_opinion_max_1
+}
+
+opinion_disarmament_2 = {
+	monthly = yes
+	
+	opinion = {
+		base = @tenet_disarmament_opinion_base
+	}
+	growth = {
+		base = @tenet_disarmament_opinion_base
+	}
+
+	max = @tenet_disarmament_opinion_max_2
+}
+
+opinion_disarmament_3 = {
+	monthly = yes
+	
+	opinion = {
+		base = @tenet_disarmament_opinion_base
+	}
+	growth = {
+		base = @tenet_disarmament_opinion_base
+	}
+
+	max = @tenet_disarmament_opinion_max_3
+}
+
+triggered_opinion_diaspora = {
+	monthly = yes
+
+	opinion = {
+		base = 0
+	}
+
+	growth = {
+		base = 0
+		modifier = {
+			OR = {
+				root = {
+					from = { is_gestalt = no }
+					has_diplo_migration_treaty = root.from
+				}
+				root = {
+					from = {
+						is_gestalt = yes
+						NOT = { has_closed_borders = root }
+					}
+				}
+			}
+			add = root.from.modifier:tenet_diaspora_opinion_bonus
+		}
+	}
+
+	max = 100
+}
+
+triggered_opinion_sensuality = {
+	trigger = {
+		has_force_of_will_dlc = yes
+		NOT = { is_same_value = root.from }
+
+		species = { is_organic_species = yes }
+		root.from = {
+			has_active_tenet = tenet_lost_makers_inetian
+		}
+	}
+
+	opinion = {
+		base = 50
+	}
+	unique = yes
+}
+
+triggered_social_concord = {
+	trigger = {
+		is_homicidal = no
+		is_militarist = no
+		from = {
+			is_social_concord_empire = yes
+		}
+	}
+	opinion = {
+		base = @social_concord_starting_opinion
+	}
+}
+
+sow_peace_stack_opinion_modifier = {
+	opinion = {
+		base = -25
+	}
+
+	accumulative = yes
+
+	decay = {
+		base = 0
+		modifier = {
+			add = 2
+			NOT = {
+				any_war = {
+					is_war_participant = {
+						who = root
+						side = attackers
+					}
+				}
+			}
+		}
+	}
+}
+
+opinion_impromptu_espionage = {
+	opinion = {
+		base = -10
+	}
+}
+
+opinion_cultural_envoy_converting = {
+	opinion = {
+		base = -1
+
+		# Normal ethic
+		modifier = {
+			OR = {
+				AND = { has_ethic = ethic_spiritualist		from.ideology = { is_materialist = yes } }
+				AND = { has_ethic = ethic_materialist		from.ideology = { is_spiritualist = yes } }
+				AND = { has_ethic = ethic_authoritarian		from.ideology = { is_egalitarian = yes } }
+				AND = { has_ethic = ethic_egalitarian		from.ideology = { is_authoritarian = yes } }
+				AND = { has_ethic = ethic_militarist		from.ideology = { is_pacifist = yes } }
+				AND = { has_ethic = ethic_pacifist			from.ideology = { is_militarist = yes } }
+				AND = { has_ethic = ethic_xenophobe			from.ideology = { is_xenophile = yes } }
+				AND = { has_ethic = ethic_xenophile			from.ideology = { is_xenophobe = yes } }
+			}
+			add = -1
+		}
+
+		# Fanatic ethic
+		modifier = {
+			OR = {
+				AND = { has_ethic = ethic_fanatic_spiritualist		from.ideology = { is_materialist = yes } }
+				AND = { has_ethic = ethic_fanatic_materialist		from.ideology = { is_spiritualist = yes } }
+				AND = { has_ethic = ethic_fanatic_authoritarian		from.ideology = { is_egalitarian = yes } }
+				AND = { has_ethic = ethic_fanatic_egalitarian		from.ideology = { is_authoritarian = yes } }
+				AND = { has_ethic = ethic_fanatic_militarist		from.ideology = { is_pacifist = yes } }
+				AND = { has_ethic = ethic_fanatic_pacifist			from.ideology = { is_militarist = yes } }
+				AND = { has_ethic = ethic_fanatic_xenophobe			from.ideology = { is_xenophile = yes } }
+				AND = { has_ethic = ethic_fanatic_xenophile			from.ideology = { is_xenophobe = yes } }
+			}
+			add = -3
+		}
+
+		# Absolute ethic
+		modifier = {
+			OR = {
+				AND = { has_ethic = ethic_absolute_spiritualist		from.ideology = { is_materialist = yes } }
+				AND = { has_ethic = ethic_absolute_materialist		from.ideology = { is_spiritualist = yes } }
+				AND = { has_ethic = ethic_absolute_authoritarian	from.ideology = { is_egalitarian = yes } }
+				AND = { has_ethic = ethic_absolute_egalitarian		from.ideology = { is_authoritarian = yes } }
+				AND = { has_ethic = ethic_absolute_militarist		from.ideology = { is_pacifist = yes } }
+				AND = { has_ethic = ethic_absolute_pacifist			from.ideology = { is_militarist = yes } }
+				AND = { has_ethic = ethic_absolute_xenophobe		from.ideology = { is_xenophile = yes } }
+				AND = { has_ethic = ethic_absolute_xenophile		from.ideology = { is_xenophobe = yes } }
+			}
+			add = -5
+		}
+	}
+	accumulative = yes
+	decay = {
+		base = 0.5
+		modifier = {
+			factor = value:negative_opinion_decay_rate
+		}
+	}
+}
+
+opinion_cultural_envoy_destroyed = {
+	opinion = {
+		base = -50
+	}
+	accumulative = yes
+	decay = {
+		base = 1
+	}
+}
+
+triggered_opinion_ideology_rival = {
+	trigger = {
+		OR = {	
+			root.owner = {
+				is_ideology_rival = root.from
+			}
+			root.from = {
+				is_ideology_rival = root.owner
+			}
+		}
+	}
+	opinion = {
+		base = -100
+	}
+}
+
+# Value driven from code (CDiplomacyCountryModule::UpdateIdeologyReachOpinion), capped at the % of pops under reach
+opinion_ideology_reach = {
+	opinion = {
+		base = 1
+	}
+
+	unique = yes
+}

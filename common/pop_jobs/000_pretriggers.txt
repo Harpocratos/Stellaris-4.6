@@ -1,0 +1,40 @@
+######################################################
+#
+# Added possible_pre_triggers to jobs
+#
+# pre_triggers are fast triggers that are tested before full triggers
+# they are meant to be fast and quickly exclude pops from jobs
+# they take the form of yes/no question, if an entry is not included it will be ignored.
+# possible values:
+#	possible_pre_triggers = {
+#		has_owner					# whether the pop's colony has an owner
+#		is_enslaved					# whether the pop is enslaved
+#		is_being_purged				# whether the pop is being purged
+#		is_being_assimilated		# whether the pop is being assimilated
+#		has_planet					# whether the pop is on a valid colony or not
+#		is_sapient					# whether the pop is sapient
+#	}
+#
+# example:
+#	possible_pre_triggers = {
+#		has_owner = yes
+#		is_enslaved = no
+#		is_being_purged = no
+#		is_being_assimilated = no
+#	}
+#
+######################################################
+#
+# can_join_pre_triggers in pop_factions accepts the same parameters
+#
+######################################################
+#
+# A pre-trigger is displayed with a localization key (where supported, only pop faction tooltips for now).
+# Format:
+# - PRE_TRIGGER_FAIL_<condition>_<required|rejected>
+#
+# Use "required" for a "= yes" condition and "rejected" for a "= no" condition (if no key exists, no line is shown).
+# The text describes the required state (phrased so it reads correctly next to a pass icon).
+# Example:
+#	PRE_TRIGGER_FAIL_is_enslaved_rejected: "Pops are NOT enslaved"   # for is_enslaved = no
+#	PRE_TRIGGER_FAIL_is_sapient_required: "Pops are sapient"         # for is_sapient = yes

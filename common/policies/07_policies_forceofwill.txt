@@ -1,0 +1,94 @@
+##########################################################################
+# Force of Will Policies
+##########################################################################
+
+# Decides what happens once we reach maximum Ideological Strength for our adopted Ideology
+ideological_leverage = {
+	category = diplomacy
+
+	potential = {
+		has_force_of_will_dlc = yes
+		exists = ideology
+		has_country_flag = ideological_leverage_unlocked
+	}
+
+	option = {
+		name = ideological_leverage_triumph
+
+		potential = {
+			is_gestalt = no
+		}
+
+		policy_flags = {
+			ideological_leverage_triumph
+		}
+
+		ai_weight = {
+			factor = 10
+			modifier = {
+				factor = 0
+				ideology? = {
+					any_adopting_country = {
+						NOT = { is_same_value = root }
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = ideological_leverage_resonation
+
+		potential = {
+			is_gestalt = yes
+		}
+
+		policy_flags = {
+			ideological_leverage_resonation
+		}
+
+		ai_weight = {
+			factor = 10
+			modifier = {
+				factor = 0
+				ideology? = {
+					any_adopting_country = {
+						NOT = { is_same_value = root }
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = ideological_leverage_obligations
+
+		policy_flags = {
+			ideological_leverage_obligations
+		}
+
+		ai_weight = {
+			factor = 0
+			modifier = {
+				add = 10
+				ideology? = {
+					any_adopting_country = {
+						NOT = { is_same_value = root }
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = ideological_leverage_preserve
+
+		policy_flags = {
+			ideological_leverage_preserve
+		}
+
+		ai_weight = {
+			factor = 0
+		}
+	}
+}

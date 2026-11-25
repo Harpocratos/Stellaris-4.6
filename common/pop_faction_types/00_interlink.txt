@@ -1,0 +1,114 @@
+##############################
+# Interlink Faction
+##############################
+
+interlink = {
+	guiding_ethic = ethic_gestalt_consciousness
+	use_guiding_ethic_as_pop_filter = no
+	use_guiding_ethic_as_growth_factor = no
+	swappable_data = {
+		default = {
+			visual_ethic = interlink_visual_ethic
+		}
+	}
+
+	unique = yes
+	support_multiplier = 1
+
+	resources = {
+		category = pop_factions
+		inline_script = {
+			script = pop_faction_types/resources/unity_trade_research_custom
+			HIGH = @faction_improved_output
+			MID = @faction_base_output
+			LOW = @faction_major_output
+			MAJOR_TECH = physics
+			MINOR_TECH = engineering
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			trigger = {
+				owner = {
+					is_crowdsourcing_empire = no
+				}
+			}
+			physics_research = @faction_base_output
+			mult = @faction_extortion_research_ratio
+		}
+		produces = {
+			trigger = {
+				owner = {
+					is_crowdsourcing_empire = yes
+				}
+			}
+			physics_research = @faction_major_output
+			engineering_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	#Note: number of potential or actual members is checked by POP_FACTION_MIN_POTENTIAL_MEMBERS define
+	is_potential = {
+		owner = {
+			is_democratic_authority = yes
+			has_country_flag = cyber_collectivist
+		}
+	}
+
+	valid = {
+		is_faction_valid = yes
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		custom_tooltip_icon = {
+			fail_text = POP_CAN_THINK
+			can_think = yes
+		}
+		has_trait = trait_cybernetic
+	}
+
+	attraction = {
+		base = 200
+	}
+
+	leader = {
+		base = 100
+	}
+
+	demand = {
+		title = "INTERLINK_NO_DEMANDS"
+		unfulfilled_title = "INTERLINK_NO_DEMANDS"
+		desc = "INTERLINK_NO_DEMANDS_DESC"
+
+		fulfilled_effect = 0
+		unfulfilled_effect = 0
+
+		potential = {
+			exists = owner
+		}
+
+		trigger = {
+			always = yes
+		}
+	}
+
+	on_create = {
+	}
+
+	on_destroy = {
+	}
+
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction_crowdsourcing
+		RESOURCE = physics_research
+		CROWDSOURCE_TT = crowdsourced_extortion_tt
+	}
+}

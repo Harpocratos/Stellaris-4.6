@@ -1,0 +1,2091 @@
+###################
+# Special Jobs
+###################
+
+civilian = {
+	category = civilian
+	is_capped_by_modifier = no
+	count_as_available_for_ai = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible = {
+		hidden_trigger = { exists = owner }
+		owner = {
+			is_gestalt = no
+		}
+		NOT = {
+			has_citizenship_type = {
+				type = citizenship_cruise_passenger
+				country = owner
+			}
+		}
+		has_disconnected_drone_citizenship_type = no
+		OR = {
+			NOT = {
+				owner = {
+					has_active_tradition = tr_virtuality_finish
+				}
+			}
+			has_virtual_species_trait = no
+		}
+		colony? = { NOT = { is_planet_class = pc_cosmogenesis_world }  }
+	}
+
+	swappable_data = {
+		default = {
+			building_icon = building_residence
+		}
+		# Tourists
+		swap_type = {
+			trigger = {
+				exists = owner
+				has_modifier = resort_colony
+			}
+			name = tourist
+			desc = tourist_desc
+			icon = trader
+			building_icon = building_amusement_megaplex
+			weight = 6
+		}
+		# Hedonists
+		swap_type = {
+			trigger = {
+				owner? = {
+					OR = {
+						is_pleasure_seeker_empire = yes
+						has_active_tenet = tenet_hedonism
+					}
+				}
+			}
+			name = fe_hedonist
+			desc = fe_hedonist
+			icon = fe_hedonist
+			building_icon = building_holo_theatres
+			weight = 5
+		}
+		# Faithful Acolyte
+		swap_type = {
+			trigger = {
+				civilian_is_sacred_path_civilian = yes
+			}
+			name = sacred_path_civilian
+			desc = job_sacred_path_civilian_desc
+			icon = sacred_path_civilian
+			building_icon = building_temple
+			weight = 10
+		}
+	}
+
+	resources = {
+		category = planet_civilians
+		produces = {
+			trade = 1
+		}
+		produces = {
+			trigger = {
+				exists = owner
+				has_modifier = resort_colony
+			}
+			trade = 1
+		}
+		# Hedonists
+		produces = {
+			trigger = {
+				owner? = { is_pleasure_seeker_empire = yes }
+			}
+			unity = 1
+		}
+		upkeep = {
+			trigger = {
+				owner? = { is_pleasure_seeker_empire = yes }
+			}
+			consumer_goods = 0.25
+		}
+		inline_script = "jobs/ethic_job_resources"
+	}
+
+	# Hedonists
+	triggered_planet_modifier = {
+		potential = {
+			owner? = {
+				is_pleasure_seeker_empire = no
+				NOR = {
+					has_valid_civic = civic_dystopian_society
+					has_active_tenet = tenet_hedonism
+				}
+			}
+		}
+		planet_amenities_add = 50
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			owner? = { has_modifier = paragon_origin_strengthened_government_iii }
+		}
+		country_edict_fund_add = 1
+	}
+
+	inline_script = "jobs/ethic_job_modifiers"
+
+	# Hedonism tenet
+	triggered_planet_modifier = {
+		potential = {
+			owner? = {
+				has_active_tenet = tenet_hedonism
+				is_synthetic_empire = no
+			}
+		}
+		logistic_growth_mult = 1
+		mult = owner.modifier:tenet_hedonism_logistic_growth_modifier
+	}
+	triggered_planet_modifier = {
+		potential = {
+			owner? = {
+				has_active_tenet = tenet_hedonism
+				is_synthetic_empire = yes
+			}
+		}
+		roboticist_jobs_bonus_workforce_mult = 1
+		mult = owner.modifier:tenet_hedonism_roboticist_workforce_modifier
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = {
+				has_active_tenet = tenet_militia_conscription
+			}
+		}
+		planet_defense_armies_add = 1
+		mult = owner.modifier:tenet_militia_conscription_defense_army_modifier
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			owner? = {
+				has_active_tenet = tenet_militia_conscription
+				is_nomadic = yes
+			}
+		}
+		shipclass_starbase_hull_mult = 1
+		mult = owner.modifier:tenet_militia_conscription_arkship_hull_modifier
+	}
+
+	weight = {
+		weight = 0
+	}
+}
+
+servant = {
+	category = worker
+	is_capped_by_modifier = no
+
+	swappable_data = {
+		default = {
+			building_icon = building_luxury_residence
+		}
+	}
+
+	tags = { amenities }
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_sapient = yes
+		is_being_purged = no
+		is_being_assimilated = no
+	}
+
+	possible = {
+		can_take_servant_job = yes
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { NOT = { has_valid_civic = civic_dystopian_society } }
+		}
+		planet_amenities_add = 400
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @special_job_weight
+	}
+}
+
+slave_overseer = {
+	category = worker
+	is_capped_by_modifier = yes
+	swappable_data = {
+		default = {
+			building_icon = building_crude_huts
+			icon = enforcer
+		}
+	}
+
+	tags = { crime enforcer }
+
+	possible_pre_triggers = {
+		is_enslaved = yes
+		has_planet = yes
+		is_sapient = yes
+	}
+
+	possible = {
+		colony = { has_modifier = slave_colony }
+	}
+
+	resources = {
+		category = planet_enforcers
+		inline_script = "jobs/job_enforcer_triggered_resources"
+	}
+
+	planet_modifier = {
+		planet_crime_add = -25
+		planet_defense_armies_add = 1
+	}
+
+	inline_script = "jobs/job_enforcer_additional_modifiers"
+
+	weight = {
+		weight = @specialist_job_weight
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+	}
+}
+
+slave_toiler = {
+	category = worker
+	is_capped_by_modifier = no
+
+	swappable_data = {
+		default = {
+			building_icon = building_crude_huts
+			icon = primitive_laborer
+		}
+	}
+
+	tags = { amenities }
+
+	possible_pre_triggers = {
+		is_enslaved = yes
+		has_planet = yes
+		is_sapient = yes
+	}
+
+	possible = {
+		colony = { has_modifier = slave_colony }
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { NOT = { has_valid_civic = civic_dystopian_society } }
+		}
+		planet_amenities_add = 200
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @special_job_weight
+	}
+}
+
+organic_battery = {
+	category = worker
+	is_capped_by_modifier = no
+
+	tags = { energy }
+
+	possible_pre_triggers = {
+		is_enslaved = yes
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		has_citizenship_type = { type = citizenship_slavery country = owner }
+		has_slavery_type = { type = slavery_matrix }
+	}
+
+	resources = {
+		category = planet_organic_batteries
+		produces = {
+			energy = 4
+		}
+	}
+
+	weight = {
+		weight = @special_job_weight
+	}
+}
+
+livestock = {
+	category = worker
+	first_come_first_served = no
+	is_capped_by_modifier = no
+
+	swappable_data = {
+		default = {
+			building_icon = building_food_processing_facility
+		}
+	}
+
+	tags = { food }
+
+	possible_pre_triggers = {
+		is_enslaved = yes
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		OR = {
+			has_citizenship_type = {
+				type = citizenship_slavery
+				country = owner
+			}
+			has_citizenship_type = {
+				type = citizenship_exploited_drone
+				country = owner
+			}
+		}
+		has_slavery_type = { type = slavery_livestock }
+		is_lithoid = no
+		is_infernal = no
+	}
+
+	resources = {
+		category = planet_livestock_farmers
+		produces = {
+			food = 4
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { has_origin = origin_evolutionary_predators }
+		}
+		custom_tooltip = evolutionary_predators_pops_tt
+	}
+
+	weight = {
+		weight = @special_job_weight
+	}
+}
+
+livestock_infernal = {
+	category = worker
+	is_capped_by_modifier = no
+
+	tags = { alloys }
+
+	swappable_data = {
+		default = {
+			icon = livestock
+			building_icon = building_foundry_1
+		}
+	}
+
+	possible_pre_triggers = {
+		is_enslaved = yes
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		OR = {
+			has_citizenship_type = {
+				type = citizenship_slavery
+				country = owner
+			}
+			has_citizenship_type = {
+				type = citizenship_exploited_drone
+				country = owner
+			}
+		}
+		has_slavery_type = { type = slavery_livestock }
+		is_infernal = yes
+	}
+
+	resources = {
+		category = planet_livestock_metallurgists
+		produces = {
+			alloys = 0.75
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { has_origin = origin_evolutionary_predators }
+		}
+		custom_tooltip = evolutionary_predators_pops_tt
+	}
+
+	weight = {
+		weight = @special_job_weight
+	}
+}
+
+livestock_zoo_animal = {
+	category = worker
+	is_capped_by_modifier = yes
+
+	swappable_data = {
+		default = {
+			building_icon = building_xeno_zoo
+		}
+	}
+
+	tags = { amenities }
+
+	possible_pre_triggers = {
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		exists = owner
+		OR = {
+			AND = {
+				has_citizenship_type = { type = citizenship_slavery country = owner }
+				has_slavery_type = { type = slavery_livestock }
+			}
+			has_citizenship_type = {
+				type = citizenship_protected_drone
+				country = owner
+			}
+		}
+		colony = {
+			owner? = {
+				NOT = { has_valid_civic = civic_warrior_culture }
+			}
+			has_active_building = building_xeno_zoo
+		}
+		is_lithoid = no
+		is_infernal = no
+	}
+
+	resources = {
+		category = planet_livestock_farmers
+		upkeep = {
+			food = 1
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { NOT = { has_valid_civic = civic_dystopian_society } }
+		}
+		planet_amenities_add = 100
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @special_job_weight
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+
+		modifier = {
+			factor = 1.5
+			colony? = {
+				free_amenities < 500
+				num_assigned_jobs = {
+					job = livestock_zoo_animal
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+livestock_zoo_beast = {
+	category = worker
+	is_capped_by_modifier = yes
+	swappable_data = {
+		default = {
+			building_icon = building_xeno_zoo
+		}
+	}
+
+	tags = { amenities }
+
+	possible_pre_triggers = {
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		exists = owner
+		OR = {
+			AND = {
+				has_citizenship_type = { type = citizenship_slavery country = owner }
+				has_slavery_type = { type = slavery_livestock }
+			}
+			has_citizenship_type = {
+				type = citizenship_protected_drone
+				country = owner
+			}
+		}
+		colony = {
+			owner? = { has_valid_civic = civic_warrior_culture }
+			has_active_building = building_xeno_zoo
+		}
+		is_lithoid = no
+		is_infernal = no
+	}
+
+	resources = {
+		category = planet_livestock_farmers
+		upkeep = {
+			food = 1
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { NOT = { has_valid_civic = civic_dystopian_society } }
+		}
+		planet_amenities_add = 100
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @special_job_weight
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+
+		modifier = {
+			factor = 1.5
+			colony? = {
+				free_amenities < 500
+				num_assigned_jobs = {
+					job = livestock_zoo_beast
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+livestock_zoo_animal_infernal = {
+	category = worker
+	is_capped_by_modifier = yes
+
+	swappable_data = {
+		default = {
+			icon = livestock_zoo_animal
+			building_icon = building_xeno_zoo
+		}
+	}
+
+	tags = { amenities }
+
+	possible_pre_triggers = {
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		exists = owner
+		OR = {
+			AND = {
+				has_citizenship_type = { type = citizenship_slavery country = owner }
+				has_slavery_type = { type = slavery_livestock }
+			}
+			has_citizenship_type = {
+				type = citizenship_protected_drone
+				country = owner
+			}
+		}
+		colony = {
+			owner? = {
+				NOT = { has_valid_civic = civic_warrior_culture }
+			}
+			has_active_building = building_xeno_zoo
+		}
+		is_infernal = yes
+	}
+
+	resources = {
+		category = planet_livestock_metallurgists
+		upkeep = {
+			alloys = 0.25
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { NOT = { has_valid_civic = civic_dystopian_society } }
+		}
+		planet_amenities_add = 100
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @special_job_weight
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+
+		modifier = {
+			factor = 1.5
+			colony? = {
+				free_amenities < 500
+				num_assigned_jobs = {
+					job = livestock_zoo_animal_infernal
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+livestock_zoo_beast_infernal = {
+	category = worker
+	is_capped_by_modifier = yes
+
+	swappable_data = {
+		default = {
+			icon = livestock_zoo_beast
+			building_icon = building_xeno_zoo
+		}
+	}
+
+	tags = { amenities }
+
+	possible_pre_triggers = {
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		exists = owner
+		OR = {
+			AND = {
+				has_citizenship_type = { type = citizenship_slavery country = owner }
+				has_slavery_type = { type = slavery_livestock }
+			}
+			has_citizenship_type = {
+				type = citizenship_protected_drone
+				country = owner
+			}
+		}
+		colony = {
+			owner? = { has_valid_civic = civic_warrior_culture }
+			has_active_building = building_xeno_zoo
+		}
+		is_infernal = yes
+	}
+
+	resources = {
+		category = planet_livestock_metallurgists
+		upkeep = {
+			alloys = 0.25
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { NOT = { has_valid_civic = civic_dystopian_society } }
+		}
+		planet_amenities_add = 100
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @special_job_weight
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+
+		modifier = {
+			factor = 1.5
+			colony? = {
+				free_amenities < 500
+				num_assigned_jobs = {
+					job = livestock_zoo_beast_infernal
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+bio_trophy = {
+	category = bio_trophy
+	can_be_automated = no
+
+	swappable_data = {
+		default = {
+			building_icon = building_organic_sanctuary
+		}
+	}
+	tags = { unity }
+
+	possible_pre_triggers = {
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		has_citizenship_type = { type = citizenship_organic_trophy country = owner }
+		OR = {
+			is_pop_category = bio_trophy
+			is_pop_category = bio_trophy_unemployment
+		}
+		colony? = { NOT = { is_planet_class = pc_cosmogenesis_world } }
+		owner? = { is_hospitality_servitor_empire = no }
+	}
+
+	resources = {
+		category = planet_bio_trophies
+		produces = {
+			unity = 1
+		}
+	}
+
+	planet_modifier = {
+		pop_cat_complex_drone_bonus_workforce_mult = 0.01
+	}
+
+	weight = {
+		weight = @special_job_weight
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+}
+
+purge = {
+	category = purge
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+
+	tags = { }
+
+	ignores_sapience = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_being_purged = yes
+		is_robotic = no
+	}
+
+	possible = {
+		OR = {
+			NOR = {
+				has_purge_type = { country = owner type = purge_processing }
+				has_purge_type = { country = owner type = purge_labor_camps }
+				has_purge_type = { country = owner type = purge_matrix }
+			}
+			has_pop_group_flag = event_purge
+		}
+		is_lithoid = no
+	}
+
+	resources = {
+		category = planet_purge_jobs
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { has_origin = origin_evolutionary_predators }
+		}
+		custom_tooltip = evolutionary_predators_pops_tt
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			OR = {
+				has_pop_group_flag = event_purge
+				colony.controller? = {
+					OR = {
+						is_country_type = swarm
+						is_country_type = ai_empire
+					}
+				}
+			}
+		}
+
+		modifier = {
+			factor = 9999 # u die when flagged
+			has_pop_group_flag = event_purge
+		}
+
+		modifier = {
+			factor = 9999 # u die when crisis'd
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+					# extradimensionals just bombard you
+				}
+			}
+		}
+	}
+}
+
+crisis_purge = {
+	category = purge
+	purge = purge_normal
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+	ignores_sapience = yes
+
+	resources = {
+		category = planet_purge_jobs
+	}
+
+	swappable_data = {
+		default = {
+			icon = purge
+		}
+	}
+
+	tags = { }
+
+	possible_pre_triggers = {
+		is_sapient = yes
+	}
+
+	possible = { # controlled by crisis
+		has_global_flag = galactic_crisis_happened
+		colony.controller? = {
+			OR = {
+				is_country_type = swarm
+				is_country_type = ai_empire
+			}
+		}
+		OR = { # contingency won't purge itself
+			NOT = { exists = event_target:custodian_bot }
+			AND = {
+				exists = event_target:custodian_bot
+				NOT = { species = { is_same_value = event_target:custodian_bot } }
+			}
+		}
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+
+		modifier = {
+			factor = 9999 # u die when crisis'd
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+					# extradimensionals just bombard you
+				}
+			}
+		}
+	}
+}
+
+assimilation = {
+	category = assimilation
+	is_capped_by_modifier = no
+
+	tags = { assimilation }
+
+	possible_pre_triggers = {
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	ignores_sapience = yes
+
+	possible = {
+		exists = owner
+		has_citizenship_type = {
+			type = citizenship_assimilation
+			country = owner
+		}
+	}
+
+	resources = {
+		category = planet_jobs
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			is_being_assimilated = yes
+		}
+	}
+}
+
+criminal = {
+	category = criminal
+	is_capped_by_modifier = yes
+	can_set_priority = no
+
+	swappable_data = {
+		default = {
+			building_icon = building_residence
+		}
+	}
+
+	contributes_to_diplo_weight = no
+
+	tags = { crime }
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_sapient = yes
+	}
+
+	possible = {
+		# check that this is not a robot in servitude
+		NOT = {
+			has_citizenship_type = {
+				country = owner
+				type = citizenship_robot_servitude
+			}
+		}
+		owner = {
+			is_gestalt = no
+		}
+	}
+
+	resources = {
+		category = planet_criminals
+	}
+
+	planet_modifier = {
+		branch_office_criminal_syndicate_value_add = 7.5
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			colony = {
+				has_branch_office = yes
+				branch_office_owner = {
+					has_councilor = { COUNCILOR = "councilor_criminal_heritage" }
+				}
+			}
+		}
+
+		branch_office_criminal_syndicate_value_add = 0.25
+		mult = value:pop_branch_office_councilor_level|TYPE|councilor_criminal_heritage|
+	}
+
+	triggered_planet_modifier = {
+		potential = { has_force_of_will_dlc = yes }
+		pop_government_ethic_attraction = -0.05
+	}
+
+	weight = {
+		weight = @criminal_job_weight
+	}
+}
+
+deviant_drone = {
+	category = deviant_drone
+	is_capped_by_modifier = yes
+	can_set_priority = no
+
+	swappable_data = {
+		default = {
+			icon = criminal
+		}
+	}
+
+	contributes_to_diplo_weight = no
+
+	tags = { crime }
+
+	possible_pre_triggers = {
+		has_planet = yes
+		is_sapient = yes
+	}
+
+	possible = {
+		colony = { has_drone_deviancy_modifier = yes }
+	}
+
+	resources = {
+		category = planet_jobs
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	weight = {
+		weight = @criminal_job_weight
+	}
+}
+
+corrupt_drone = {
+	category = corrupt_drone
+	is_capped_by_modifier = yes
+	can_set_priority = no
+
+	swappable_data = {
+		default = {
+			icon = criminal
+		}
+	}
+
+	contributes_to_diplo_weight = no
+
+	tags = { crime }
+
+	possible_pre_triggers = {
+		has_planet = yes
+		is_sapient = yes
+	}
+	possible = {
+		colony = { has_modifier = drone_corruption }
+	}
+
+	resources = {
+		category = planet_jobs
+		upkeep = {
+			energy = 1
+		}
+	}
+
+	weight = {
+		weight = @criminal_job_weight
+	}
+}
+
+fotd_protectors = {
+	is_capped_by_modifier = no
+	category = worker
+
+	swappable_data = {
+		default = {
+			building_icon = building_fortress
+			icon = enforcer
+		}
+	}
+
+	tags = { crime enforcer }
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_sapient = yes
+	}
+
+	possible = {
+		owner = {
+			is_primitive = yes
+			has_origin = origin_fear_of_the_dark
+		}
+	}
+
+	planet_modifier = {
+		planet_crime_add = -5
+		planet_defense_armies_add = 0.5
+		planet_stability_add = 1
+	}
+
+	weight = {
+		weight = 0.1
+
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+}
+## Machine Guided Sapience
+organic_exhibit = {
+	category = bio_trophy
+	is_capped_by_modifier = no
+
+	tags = { unity }
+
+	possible_pre_triggers = {
+		is_enslaved = yes
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		has_citizenship_type = { type = citizenship_slavery country = owner }
+		has_slavery_type = { type = slavery_matrix_guided_sapience }
+	}
+
+	resources = {
+		category = planet_bio_trophies
+		produces = {
+			unity = 0.5
+		}
+		upkeep = {
+			food = 1
+		}
+	}
+
+	weight = {
+		weight = @special_job_weight
+	}
+}
+
+livestock_lithoid = {
+	category = worker
+	first_come_first_served = no
+	is_capped_by_modifier = no
+
+	swappable_data = {
+		default = {
+			building_icon = building_mineral_purification_plant
+		}
+	}
+
+	possible_pre_triggers = {
+		is_enslaved = yes
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		OR = {
+			has_citizenship_type = {
+				type = citizenship_slavery
+				country = owner
+			}
+			has_citizenship_type = {
+				type = citizenship_exploited_drone
+				country = owner
+			}
+		}
+		has_slavery_type = { type = slavery_livestock }
+		is_lithoid = yes
+	}
+
+	resources = {
+		category = planet_livestock_miners
+		produces = {
+			minerals = 2
+		}
+	}
+
+	weight = {
+		weight = @special_job_weight
+	}
+}
+
+livestock_zoo_animal_lithoid = {
+	category = worker
+	is_capped_by_modifier = yes
+
+	possible_pre_triggers = {
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		OR = {
+			AND = {
+				is_enslaved = yes
+				has_citizenship_type = {
+					type = citizenship_slavery
+					country = owner
+				}
+				has_slavery_type = { type = slavery_livestock }
+			}
+			has_citizenship_type = {
+				type = citizenship_protected_drone
+				country = owner
+			}
+		}
+		colony? = {
+			owner? = {
+				NOT = { has_valid_civic = civic_warrior_culture }
+			}
+			has_active_building = building_xeno_zoo
+		}
+		is_lithoid = yes
+	}
+
+	resources = {
+		category = planet_livestock_miners
+		upkeep = {
+			minerals = 1
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { NOT = { has_valid_civic = civic_dystopian_society } }
+		}
+		planet_amenities_add = 100
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @special_job_weight
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+
+		modifier = {
+			factor = 1.5
+			colony? = {
+				free_amenities < 500
+				num_assigned_jobs = {
+					job = livestock_zoo_animal
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+livestock_zoo_beast_lithoid = {
+	category = worker
+	is_capped_by_modifier = yes
+
+	possible_pre_triggers = {
+		is_sapient = yes
+		is_robotic = no
+	}
+
+	possible = {
+		OR = {
+			AND = {
+				is_enslaved = yes
+				has_citizenship_type = {
+					type = citizenship_slavery
+					country = owner
+				}
+				has_slavery_type = { type = slavery_livestock }
+			}
+			has_citizenship_type = {
+				type = citizenship_protected_drone
+				country = owner
+			}
+		}
+		colony = {
+			owner? = { has_valid_civic = civic_warrior_culture }
+			has_active_building = building_xeno_zoo
+		}
+		is_lithoid = yes
+	}
+
+	resources = {
+		category = planet_livestock_miners
+		upkeep = {
+			minerals = 1
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { NOT = { has_valid_civic = civic_dystopian_society } }
+		}
+		planet_amenities_add = 100
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @special_job_weight
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+
+		modifier = {
+			factor = 1.05
+			colony? = {
+				free_amenities < 500
+				num_assigned_jobs = {
+					job = livestock_zoo_beast
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+purge_lithoid = {
+	category = purge
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+	ignores_sapience = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_being_purged = yes
+	}
+
+	possible = {
+		OR = {
+			has_citizenship_type = { type = citizenship_purge_machine country = owner }
+			has_citizenship_type = { type = citizenship_purge country = owner }
+			has_pop_group_flag = event_purge
+		}
+		NOR = {
+			has_purge_type = { type = purge_processing country = owner }
+			has_purge_type = { type = purge_labor_camps country = owner }
+			has_purge_type = { type = purge_matrix country = owner }
+		}
+		is_lithoid = yes
+	}
+
+	resources = {
+		category = planet_purge_jobs
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			OR = {
+				has_pop_group_flag = event_purge
+				colony.controller? = {
+					OR = {
+						is_country_type = swarm
+						is_country_type = ai_empire
+					}
+				}
+			}
+		}
+
+		modifier = {
+			factor = 9999 # u die when flagged
+			has_pop_group_flag = event_purge
+		}
+
+		modifier = {
+			factor = 9999 # u die when crisis'd
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+					# extradimensionals just bombard you
+				}
+			}
+		}
+	}
+}
+
+purge_robot = {
+	category = purge
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+	ignores_sapience = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_robotic = yes
+		is_being_purged = yes
+	}
+
+	possible = {
+		OR = {
+			has_citizenship_type = { type = citizenship_purge_machine country = owner }
+			has_citizenship_type = { type = citizenship_purge country = owner }
+			has_pop_group_flag = event_purge
+		}
+		NOR = {
+			has_purge_type = { type = purge_processing country = owner }
+			has_purge_type = { type = purge_labor_camps country = owner }
+			has_purge_type = { type = purge_matrix country = owner }
+		}
+	}
+
+	resources = {
+		category = planet_purge_jobs
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			OR = {
+				has_pop_group_flag = event_purge
+				colony.controller? = {
+					OR = {
+						is_country_type = swarm
+						is_country_type = ai_empire
+					}
+				}
+			}
+		}
+
+		modifier = {
+			factor = 9999 # u die when flagged
+			has_pop_group_flag = event_purge
+		}
+
+		modifier = {
+			factor = 9999 # u die when crisis'd
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+					# extradimensionals just bombard you
+				}
+			}
+		}
+	}
+}
+
+purge_processing = {
+	category = purge
+#	purge = purge_processing
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+
+	tags = { }
+
+	ignores_sapience = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_robotic = no
+		is_being_purged = yes
+	}
+
+	possible = {
+		OR = {
+			has_purge_type = { type = purge_processing country = owner }
+			has_pop_group_flag = event_purge
+		}
+		is_lithoid = no
+		is_infernal = no
+	}
+
+	resources = {
+		category = planet_purge_jobs
+		produces = {
+			food = 6
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_food_processing_facility }
+			}
+			food = 1
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_food_processing_center }
+			}
+			food = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { has_origin = origin_evolutionary_predators }
+		}
+		custom_tooltip = evolutionary_predators_pops_tt
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			OR = {
+				has_pop_group_flag = event_purge
+				colony.controller? = {
+					OR = {
+						is_country_type = swarm
+						is_country_type = ai_empire
+					}
+				}
+			}
+		}
+
+		modifier = {
+			factor = 9999 # u die when flagged
+			has_pop_group_flag = event_purge
+		}
+
+		modifier = {
+			factor = 9999 # u die when crisis'd
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+					# extradimensionals just bombard you
+				}
+			}
+		}
+	}
+}
+purge_processing_lithoid = {
+	category = purge
+#	purge = purge_processing
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+
+	tags = { }
+
+	ignores_sapience = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_robotic = no
+		is_being_purged = yes
+	}
+
+	possible = {
+		OR = {
+			has_purge_type = { type = purge_processing country = owner }
+			has_pop_group_flag = event_purge
+		}
+		is_lithoid = yes
+	}
+
+	resources = {
+		category = planet_purge_jobs
+		produces = {
+			minerals = 6
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_mineral_purification_plant }
+			}
+			minerals = 1
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_mineral_purification_hub }
+			}
+			minerals = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { has_origin = origin_evolutionary_predators }
+		}
+		custom_tooltip = evolutionary_predators_pops_tt
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			OR = {
+				has_pop_group_flag = event_purge
+				colony.controller? = {
+					OR = {
+						is_country_type = swarm
+						is_country_type = ai_empire
+					}
+				}
+			}
+		}
+
+		modifier = {
+			factor = 9999 # u die when flagged
+			has_pop_group_flag = event_purge
+		}
+
+		modifier = {
+			factor = 9999 # u die when crisis'd
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+					# extradimensionals just bombard you
+				}
+			}
+		}
+	}
+}
+
+purge_processing_infernal = {
+	category = purge
+#	purge = purge_processing
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+
+	swappable_data = {
+		default = {
+			icon = purge_processing
+		}
+	}
+
+	tags = { }
+
+	ignores_sapience = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_robotic = no
+		is_being_purged = yes
+	}
+
+	possible = {
+		OR = {
+			has_purge_type = { type = purge_processing country = owner }
+			has_pop_group_flag = event_purge
+		}
+		is_infernal = yes
+	}
+
+	resources = {
+		category = planet_purge_jobs
+		produces = {
+			alloys = 2
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_foundry_1 }
+			}
+			alloys = 1
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_foundry_2 }
+			}
+			alloys = 2
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_foundry_3 }
+			}
+			alloys = 3
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { has_origin = origin_evolutionary_predators }
+		}
+		custom_tooltip = evolutionary_predators_pops_tt
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			OR = {
+				has_pop_group_flag = event_purge
+				colony.controller? = {
+					OR = {
+						is_country_type = swarm
+						is_country_type = ai_empire
+					}
+				}
+			}
+		}
+
+		modifier = {
+			factor = 9999 # u die when flagged
+			has_pop_group_flag = event_purge
+		}
+
+		modifier = {
+			factor = 9999 # u die when crisis'd
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+					# extradimensionals just bombard you
+				}
+			}
+		}
+	}
+}
+
+
+purge_processing_robot = {
+	category = purge
+#	purge = purge_processing
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+
+	tags = { }
+
+	ignores_sapience = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_robotic = yes
+		is_being_purged = yes
+	}
+
+	possible = {
+		OR = {
+			has_purge_type = { type = purge_processing country = owner }
+			has_pop_group_flag = event_purge
+		}
+		is_robotic_species = yes
+	}
+
+	resources = {
+		category = planet_purge_jobs
+		produces = {
+			alloys = 3
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_foundry_2 }
+			}
+			alloys = 1
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_foundry_3 }
+			}
+			alloys = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { has_origin = origin_evolutionary_predators }
+		}
+		custom_tooltip = evolutionary_predators_pops_tt
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			OR = {
+				has_pop_group_flag = event_purge
+				colony.controller? = {
+					OR = {
+						is_country_type = swarm
+						is_country_type = ai_empire
+					}
+				}
+			}
+		}
+
+		modifier = {
+			factor = 9999 # u die when flagged
+			has_pop_group_flag = event_purge
+		}
+
+		modifier = {
+			factor = 9999 # u die when crisis'd
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+					# extradimensionals just bombard you
+				}
+			}
+		}
+	}
+}
+
+purge_labor_camps = {
+	category = purge
+#	purge = purge_labor_camps
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+
+	tags = { }
+
+	ignores_sapience = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_being_purged = yes
+	}
+
+	possible = {
+		OR = {
+			has_purge_type = { type = purge_labor_camps country = owner }
+			has_pop_group_flag = event_purge
+		}
+	}
+
+	resources = {
+		category = planet_purge_jobs
+		produces = {
+			food = 3
+			minerals = 3
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_food_processing_facility }
+			}
+			food = 1
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_food_processing_center }
+			}
+			food = 2
+		}
+
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_mineral_purification_plant }
+			}
+			minerals = 1
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_mineral_purification_hub }
+			}
+			minerals = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { has_origin = origin_evolutionary_predators }
+		}
+		custom_tooltip = evolutionary_predators_pops_tt
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			OR = {
+				has_pop_group_flag = event_purge
+				colony.controller? = {
+					OR = {
+						is_country_type = swarm
+						is_country_type = ai_empire
+					}
+				}
+			}
+		}
+
+		modifier = {
+			factor = 9999 # u die when flagged
+			has_pop_group_flag = event_purge
+		}
+
+		modifier = {
+			factor = 9999 # u die when crisis'd
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+					# extradimensionals just bombard you
+				}
+			}
+		}
+	}
+}
+purge_matrix = {
+	category = purge
+#	purge = purge_matrix
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+
+	tags = { }
+
+	ignores_sapience = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_robotic = no
+		is_being_purged = yes
+	}
+
+	possible = {
+		OR = {
+			has_purge_type = { type = purge_matrix country = owner }
+			has_pop_group_flag = event_purge
+		}
+	}
+
+	resources = {
+		category = planet_purge_jobs
+		produces = {
+			energy = 6
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_energy_grid }
+			}
+			energy = 1
+		}
+		produces = {
+			trigger = {
+				colony = { has_active_building = building_energy_nexus }
+			}
+			energy = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner? = { has_origin = origin_evolutionary_predators }
+		}
+		custom_tooltip = evolutionary_predators_pops_tt
+	}
+
+	weight = {
+		weight = @special_job_weight
+
+		modifier = {
+			factor = 200 # brings @special_job_weight up to 2
+			OR = {
+				has_pop_group_flag = event_purge
+				colony.controller? = {
+					OR = {
+						is_country_type = swarm
+						is_country_type = ai_empire
+					}
+				}
+			}
+		}
+
+		modifier = {
+			factor = 9999 # u die when flagged
+			has_pop_group_flag = event_purge
+		}
+
+		modifier = {
+			factor = 9999 # u die when crisis'd
+			colony.controller? = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+					# extradimensionals just bombard you
+				}
+			}
+		}
+	}
+}
+
+purge_sacrifice = {
+	category = purge
+#	purge = purge_sacrifice
+	first_come_first_served = yes
+	is_capped_by_modifier = no
+
+	tags = { }
+	ignores_sapience = yes
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_being_purged = yes
+	}
+
+	possible = {
+		has_purge_type = {
+			type = purge_sacrifice
+			country = owner
+		}
+	}
+
+	resources = {
+		category = planet_purge_jobs
+		produces = {
+			unity = 2.5
+		}
+		produces = {
+			trigger = {
+				owner? = {
+					OR = {
+						has_patron_relation = { patron = the_eater_of_worlds }
+					}
+					AND = {
+						has_origin = origin_nomadic_purger
+						overlord? = {
+							has_country_flag = devour_war_active
+						}
+					}
+				}
+			}
+			sr_zro = 2
+		}
+	}
+
+	weight = {
+		weight = 9999 # Always picked
+	}
+}
+
+bio_trophy_unemployment = {
+	category = bio_trophy_unemployment
+	count_as_available_for_ai = yes
+
+	swappable_data = {
+		default = {
+			icon = unemployment
+			building_icon = building_organic_sanctuary
+		}
+	}
+	tags = { unity }
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible = {
+		has_citizenship_type = { type = citizenship_organic_trophy country = owner }
+		colony? = { NOT = { is_planet_class = pc_cosmogenesis_world } }
+		owner? = { is_hospitality_servitor_empire = no }
+	}
+
+	resources = {
+		category = unemployment_resources
+	}
+
+	weight = {
+		weight = 0
+	}
+	is_capped_by_modifier = no
+	can_set_priority = no
+	contributes_to_diplo_weight = no
+
+	inline_script = "jobs/automodding_priority_charisma"
+}
+
+slave_unemployment = {
+	category = slave_unemployment
+	is_capped_by_modifier = no
+	count_as_available_for_ai = yes
+	can_set_priority = no
+	contributes_to_diplo_weight = no
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = yes
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible = {
+		hidden_trigger = { exists = owner }
+		has_citizenship_type = { type = citizenship_slavery country = owner }
+		colony? = { NOT = { is_planet_class = pc_cosmogenesis_world }  }
+	}
+
+	swappable_data = {
+		default = {
+			condition_string = WORKER_JOB_TRIGGER
+			building_icon = building_crude_huts
+			icon = unemployment
+		}
+	}
+
+	weight = {
+		weight = 0
+	}
+}

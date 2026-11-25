@@ -1,0 +1,822 @@
+civilian = {
+	is_civilian_job = yes
+	rank = 1
+	leader_background_weight = {
+		base = @leader_background_weight_worker
+		modifier = {
+			set = @leader_background_weight_equal
+			owner? = {
+				is_equal_share_empire = yes
+			}
+		}
+	}
+	leader_background_ethic_weight = {
+		ethic_egalitarian = {
+			base = @leader_background_egalitarian_worker
+			modifier = {
+				set = 0
+				owner? = {
+					is_equal_share_empire = yes
+				}
+			}
+		}
+	}
+
+	weight = {
+		weight = 100
+	}
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs"
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = { has_civic = civic_dystopian_society }
+		}
+		planet_crime_add = 1
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			planet = { has_modifier = penal_colony }
+		}
+		planet_crime_add = 3
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			has_decadent_hedonist_growth = yes
+		}
+		founder_species_growth_mult = 1
+		mult = value:decadent_hedonist_growth
+	}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			exists = owner
+			owner = { has_modifier = paragon_origin_strengthened_government_ii }
+		}
+		pop_political_power = 0.25
+	}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			exists = owner
+			owner = { has_modifier = paragon_origin_strengthened_government_iii }
+		}
+		pop_political_power = 0.50
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			from.owner? = { is_warmongers_empire = yes }
+		}
+		planet_defense_armies_add = @warmongers_defense_armies_from_reserves
+	}
+
+	# Triggered Modifiers
+	inline_script = "pop_categories/social_classes_triggered_modifiers"
+	inline_script = "pop_categories/social_classes_triggered_modifiers_no_happiness"
+
+	swappable_data = {
+		# Reserves
+		swap_type = {
+			trigger = {
+				exists = owner
+				owner = {
+					is_warmongers_empire = yes
+				}
+			}
+			name = warmongers_reserve
+			desc = pop_cat_warmongers_reserve_desc
+			weight = 5
+		}
+	}
+
+	resources = {
+		category = pop_category_civilians
+		# Living Standard Trait Output
+		inline_script = "pop_categories/living_standard_worker_production"
+
+		produces = {
+			trigger = {
+				prosperity_gospel_check_trigger = yes
+			}
+			trade = @trade_value_prosperity_gospel
+			mult = value:pop_ethic_percentage_value|ETHIC|spiritualist|
+		}
+
+		produces = {
+			trigger = {
+				planet = {
+					has_modifier = pm_gaseous_fauna
+				}
+			}
+			exotic_gases = @gaseous_fauna_exotic_gases_production
+		}
+
+		produces = {
+			trigger = {
+				planet = {
+					has_modifier = pm_raining_corpses
+				}
+			}
+			minor_artifacts = @raining_corpses_resource_amount
+		}
+
+		produces = {
+			trigger = {
+				planet = {
+					has_modifier = pm_raining_corpses_no_ancrel
+				}
+			}
+			consumer_goods = @raining_corpses_resource_amount
+		}
+	}
+}
+
+purge = {
+	rank = 0
+	can_change_category = {
+		is_being_purged = no
+	}
+
+	weight = {
+		weight = 20
+	}
+
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs_low"
+
+	pop_group_modifier = {
+		pop_political_power = -1
+	}
+}
+
+slave_unemployment = {
+	is_unemployment_job = yes
+	rank = 2
+	change_job_threshold = 0.1
+
+
+	display_category = worker
+
+	weight = {
+		weight = 0
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs_low"
+
+	# Triggered Modifiers
+	inline_script = "pop_categories/social_classes_triggered_modifiers"
+	inline_script = "pop_categories/social_classes_triggered_modifiers_no_happiness"
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+		pop_amenities_usage_base = 1
+	}
+
+	resources = {
+		category = pop_category_workers
+		produces = {
+			trigger = {
+				owner = {
+					has_councilor = { COUNCILOR = "councilor_indentured_assets" }
+				}
+			}
+			trade = @councilor_indentured_assets_trade_value
+			mult = value:councilor_level|TYPE|councilor_indentured_assets|
+		}
+
+		produces = {
+			trigger = {
+				planet = {
+					has_modifier = pm_gaseous_fauna
+				}
+			}
+			exotic_gases = @gaseous_fauna_exotic_gases_production
+		}
+	}
+}
+
+bio_trophy = {
+	rank = 4
+	change_job_threshold = 1.14 # A pop that is 4.5% better than me will displace me (1.045^3 = 1.14)
+
+	weight = {
+		weight = 100
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs"
+
+	# Triggered Modifiers
+	inline_script = "pop_categories/social_classes_triggered_modifiers"
+	inline_script = "pop_categories/social_classes_triggered_modifiers_no_happiness"
+
+	pop_group_modifier = {
+		pop_political_power = 10
+		pop_housing_usage_base = 1
+		pop_amenities_usage_no_happiness_base = 1
+	}
+
+	resources = {
+		category = pop_category_bio_trophy
+	}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			happiness <= 0.25
+		}
+		pop_bonus_workforce_mult = -1
+	}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			always = yes
+		}
+		pop_housing_usage_add = -1
+	}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			is_unemployed = yes
+		}
+		pop_happiness = -0.80
+	}
+}
+
+bio_trophy_unemployment = {
+	is_unemployment_job = yes
+	rank = 4
+
+
+	display_category = bio_trophy
+
+	weight = {
+		weight = 50
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs"
+
+	# Triggered Modifiers
+	inline_script = "pop_categories/social_classes_triggered_modifiers"
+	inline_script = "pop_categories/social_classes_triggered_modifiers_no_happiness"
+
+	pop_group_modifier = {
+		pop_political_power = 10
+		pop_housing_usage_base = 1
+		pop_amenities_usage_no_happiness_base = 1
+		pop_happiness = -0.80
+	}
+
+	resources = {
+		category = pop_category_bio_trophy
+	}
+}
+
+cruise_passenger_display = {
+	rank = 5
+	change_job_threshold = 1.25
+
+	weight = {
+		weight = 0		# Pops should never belong to this category
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	resettlement_cost = {
+		energy = 100
+		unity = 25
+	}
+
+	# Triggered Modifiers
+	inline_script = "pop_categories/social_classes_triggered_modifiers"
+	inline_script = "pop_categories/social_classes_triggered_modifiers_no_happiness"
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+		pop_amenities_usage_base = 1
+	}
+
+	resources = {
+		category = pop_category_cruise_passenger
+		# Living Standard Trait Output
+		inline_script = "pop_categories/living_standard_cruise_passenger_production"
+	}
+}
+
+cruise_passenger = {
+	rank = 5
+	change_job_threshold = 1.25
+	display_category = cruise_passenger_display
+
+	weight = {
+		weight = 100
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	resettlement_cost = {
+		energy = 100
+		unity = 25
+	}
+
+	# Triggered Modifiers
+	inline_script = "pop_categories/social_classes_triggered_modifiers"
+	inline_script = "pop_categories/social_classes_triggered_modifiers_no_happiness"
+
+	triggered_pop_group_modifier = {
+		potential = {
+			exists = owner
+			owner = { has_country_flag = emergency_entertainment }
+		}
+		pop_amenities_usage_add = 1
+	}
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+		pop_amenities_usage_base = 1
+	}
+
+	# Forever Cruise Bio-Trophy Passengers generate Political Power like regular Bio-Trophies, so neglecting them still impacts Stability
+	triggered_pop_group_modifier = {
+		potential = {
+			has_living_standard = {
+				type = living_standard_organic_trophy
+			}
+		}
+		pop_political_power = 14
+	}
+
+	resources = {
+		category = pop_category_cruise_passenger
+		# Living Standard Trait Output
+		inline_script = "pop_categories/living_standard_cruise_passenger_production"
+	}
+}
+
+cruise_passenger_unemployment = {
+	is_unemployment_job = yes
+	rank = 5
+
+	display_category = cruise_passenger_display
+
+	weight = {
+		weight = 50
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	resettlement_cost = {
+		energy = 100
+		unity = 25
+	}
+
+	# Triggered Modifiers
+	inline_script = "pop_categories/social_classes_triggered_modifiers"
+	inline_script = "pop_categories/social_classes_triggered_modifiers_no_happiness"
+
+	triggered_pop_group_modifier = {
+		potential = {
+			exists = owner
+			owner = { has_country_flag = emergency_entertainment }
+		}
+		pop_amenities_usage_add = 1
+	}
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+		pop_amenities_usage_base = 1
+		pop_happiness = -0.25
+	}
+
+	# Forever Cruise Bio-Trophy Passengers generate Political Power like regular Bio-Trophies, so neglecting them still impacts Stability
+	triggered_pop_group_modifier = {
+		potential = {
+			has_living_standard = {
+				type = living_standard_organic_trophy
+			}
+		}
+		pop_political_power = 9
+	}
+
+	resources = {
+		category = pop_category_cruise_passenger
+		# Living Standard Trait Output
+		inline_script = "pop_categories/living_standard_cruise_passenger_production"
+	}
+}
+
+criminal = {
+	rank = 1
+	change_job_threshold = 2
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = { has_civic = civic_dystopian_society }
+			planet = {
+				OR = {
+					has_branch_office = no
+					branch_office_owner = {
+						is_criminal_syndicate = no
+					}
+				}
+			}
+		}
+		planet_crime_add = 2
+		planet_stability_add = -2
+	}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			NOT = { has_trait = trait_noxious }
+		}
+		key = trait_noxious
+		pop_happiness = 1
+		mult = modifier:pop_non_noxious_happiness
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			has_trait = trait_noxious
+		}
+		key = trait_noxious
+		pop_non_noxious_happiness = @noxious_happiness_penalty
+	}
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+		pop_amenities_usage_base = 1
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = no
+	}
+
+	resources = {
+		category = pop_category_workers
+		upkeep = {
+			trigger = {
+				exists = owner
+				owner = { is_twisted_experimenters_empire = yes }
+			}
+			trade = 5
+		}
+	}
+}
+
+assimilation = {
+	rank = 0
+	can_change_category = {
+		is_being_assimilated = no
+	}
+
+	weight = {
+		weight = 15
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs"
+
+	pop_group_modifier = {
+		pop_political_power = -1
+	}
+
+	resources = {
+		category = pop_category_assimilation
+	}
+}
+
+deviant_drone = {
+	rank = 2
+	change_job_threshold = 2
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+		pop_amenities_usage_base = 1
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = no
+	}
+
+	resources = {
+		category = pop_category_drones
+	}
+}
+
+corrupt_drone = {
+	rank = 2
+	change_job_threshold = 2
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+		pop_amenities_usage_base = 1
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = no
+	}
+
+	resources = {
+		category = pop_category_drones
+	}
+}
+
+precursor = {
+	rank = 3
+	leader_background_weight = @leader_background_weight_specialist
+	change_job_threshold = 2
+
+	weight = {
+		weight = 100
+
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+		modifier = {
+			factor = 0.01
+			is_unemployed = yes
+		}
+	}
+
+	pop_group_modifier = {
+		pop_political_power = 9
+		pop_housing_usage_base = 2
+		pop_amenities_usage_base = 2
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs"
+
+	resources = {
+		category = pop_category_precursor
+
+		# Consumer Goods Upkeep
+		upkeep = {
+			trigger = {
+				exists = owner
+				owner = {
+					is_spiritualist = no
+				}
+			}
+			consumer_goods = 2.0
+		}
+
+		upkeep = {
+			trigger = {
+				exists = owner
+				owner = {
+					is_spiritualist = yes
+				}
+			}
+			consumer_goods = 1.0
+		}
+	}
+}
+
+xeno_ward = {
+	rank = 0
+	can_change_category = no
+	change_job_threshold = 2
+
+	pop_group_modifier = {
+		pop_political_power = -1
+		pop_housing_usage_base = 1
+		pop_amenities_usage_base = 1
+	}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			NOT = { has_trait = trait_noxious }
+		}
+		key = trait_noxious
+		pop_happiness = 1
+		mult = modifier:pop_non_noxious_happiness
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			has_trait = trait_noxious
+		}
+		key = trait_noxious
+		pop_non_noxious_happiness = @noxious_happiness_penalty
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = no
+	}
+
+	resources = {
+		category = pop_category_xeno_ward
+
+		# Consumer Goods Upkeep
+		upkeep = {
+			trigger = {
+				is_robotic_species = no
+			}
+			consumer_goods = @living_standard_luxuries_very_high
+		}
+	}
+}
+
+pre_sapients = {
+	rank = 0
+	can_change_category = {
+		is_sapient = yes # uplifted pops become sapient and must be allowed to leave this stratum; genuine pre-sapients (non-sapient) stay locked
+	}
+	change_job_threshold = 1.25
+
+	weight = {
+		weight = 9000
+	}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			NOT = { has_trait = trait_noxious }
+		}
+		key = trait_noxious
+		pop_happiness = 1
+		mult = modifier:pop_non_noxious_happiness
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			has_trait = trait_noxious
+		}
+		key = trait_noxious
+		pop_non_noxious_happiness = @noxious_happiness_penalty
+	}
+
+	pop_group_modifier = {
+		pop_political_power = -1
+		pop_housing_usage_base = -1
+		pop_amenities_usage_no_happiness_base = -1
+		pop_happiness = 1
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = no
+	}
+
+	resources = {
+		category = pop_category_pre_sapients
+
+		# Organic Upkeep
+		upkeep = {
+		}
+
+	}
+}
+
+chip_slave = {
+	rank = 0
+	can_change_category = no
+	change_job_threshold = 1.25
+
+
+	weight = {
+		weight = 1000
+
+		modifier = {
+			factor = 0.001
+			planet = { NOT = { is_planet_class = pc_cosmogenesis_world }  }
+		}
+	}
+
+	pop_group_modifier = {
+		pop_political_power = -1
+		pop_housing_usage_base = 1
+		pop_amenities_usage_base = 0.5
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs_low"
+
+	resources = {
+		category = pop_category_chip_slave
+	}
+}
+
+wilderness_heart_strata = {
+	rank = 0
+	can_change_category = no
+	change_job_threshold = 1.15
+
+	pop_group_modifier = {
+		pop_amenities_usage_no_happiness_base = 1
+		pop_housing_usage_base = 1
+	}
+
+	allow_resettlement = {
+		always = yes
+	}
+
+	weight = {
+		weight = 10000
+	}
+}
+
+deep_sleep = {
+	rank = 1
+	change_job_threshold = 3
+
+	triggered_planet_modifier = {}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			NOT = { has_trait = trait_noxious }
+		}
+		key = trait_noxious
+		pop_happiness = 1
+		mult = modifier:pop_non_noxious_happiness
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			has_trait = trait_noxious
+		}
+		key = trait_noxious
+		pop_non_noxious_happiness = @noxious_happiness_penalty
+	}
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+		pop_amenities_usage_base = -1
+		planet_pops_upkeep_mult = -1
+		planet_pops_food_upkeep_mult = -1
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = no
+	}
+
+	resources = {}
+
+}

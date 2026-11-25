@@ -1,0 +1,55 @@
+professor = {
+	category = ruler
+
+	swappable_data = {
+		default = {
+			condition_string = RULER_JOB_TRIGGER
+			building_icon = building_golden_academy
+		}
+	}
+
+	tags = { unity research ethic_attraction leader }
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+	possible = {
+		hidden_trigger = { exists = owner }
+		owner = {
+			is_gestalt = no
+		}
+	}
+
+	resources = {
+		category = planet_professors
+		produces = {
+			trigger = { exists = owner }
+			unity = 4
+			society_research = 4
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_country_modifier = {
+		species_leader_exp_gain = 0.05
+	}
+
+	triggered_planet_modifier = {
+		potential = { exists = owner }
+		pop_government_ethic_attraction = 0.1
+	}
+
+	weight = {
+		weight = @high_prio_specialist_job_weight
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+}

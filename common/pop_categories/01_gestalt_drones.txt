@@ -1,0 +1,129 @@
+complex_drone = {
+	rank = 3
+	leader_background_weight = @leader_background_weight_specialist
+	change_job_threshold = 1.03 # A pop that is 1% better than me will displace me (1.01^3 = 1.03)
+	job_reshuffle_interval = 7
+
+	weight = {
+		weight = 2
+	}
+
+	automation_resources = {
+		category = planet_automated_jobs
+		upkeep = {
+			energy = @automation_upkeep_complex
+		}
+	}
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+		pop_amenities_usage_no_happiness_base = 1
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs"
+
+	triggered_planet_modifier = {
+		potential = {
+			has_trait = trait_shroud_forged
+		}
+		planet_crime_no_happiness_add = 1.5
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			has_trait = trait_redundant_module
+		}
+		planet_crime_no_happiness_mult = @trait_redundant_module_deviancy
+	}
+
+	# Triggered Modifiers
+	inline_script = "pop_categories/social_classes_triggered_modifiers_no_happiness"
+
+	resources = {
+		category = pop_category_complex_drones
+	}
+}
+
+simple_drone = {
+	rank = 2
+	leader_background_weight = @leader_background_weight_worker
+	change_job_threshold = 1.01 # A pop that is 0.33% better than me will displace me (1.0033^3 = 1.01)
+	job_reshuffle_interval = 3
+
+	weight = {
+		weight = 1
+	}
+
+	automation_resources = {
+		category = planet_automated_jobs
+		upkeep = {
+			energy = @automation_upkeep_simple
+		}
+	}
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+		pop_amenities_usage_no_happiness_base = 1
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs"
+
+	triggered_planet_modifier = {
+		potential = {
+			has_trait = trait_shroud_forged
+		}
+		planet_crime_no_happiness_add = 1.5
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			has_trait = trait_redundant_module
+		}
+		planet_crime_no_happiness_mult = @trait_redundant_module_deviancy
+	}
+
+	# Triggered Modifiers
+	inline_script = "pop_categories/social_classes_triggered_modifiers_no_happiness"
+
+	resources = {
+		category = pop_category_simple_drones
+	}
+}
+
+maintenance_drone = {
+	is_civilian_job = yes
+	rank = 1
+	leader_background_weight = @leader_background_weight_worker
+
+	weight = {
+		weight = 0
+	}
+
+	pop_group_modifier = {
+		pop_housing_usage_base = 1
+	}
+
+	# scope: pop to be resettled
+	allow_resettlement = {
+		always = yes
+	}
+
+	inline_script = "pop_categories/resettlement_costs"
+
+	# Triggered Modifiers
+	inline_script = "pop_categories/social_classes_triggered_modifiers_no_happiness"
+
+	resources = {
+		category = pop_category_maintenance_drones
+	}
+}

@@ -1,0 +1,150 @@
+##############################
+# Technologist Faction
+##############################
+
+technologist = {
+	guiding_ethic = ethic_materialist
+
+	inline_script = {
+		script = pop_faction_types/ideological_swap
+		ETHIC = materialist
+	}
+
+	unique = yes
+	support_multiplier = 1
+
+	resources = {
+		category = pop_factions
+		inline_script = {
+			script = pop_faction_types/resources/unity_trade_research
+			MAJOR_TECH = physics
+			MINOR_TECH = engineering
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			trigger = {
+				owner = {
+					is_crowdsourcing_empire = no
+				}
+			}
+			physics_research = @faction_base_output
+			mult = @faction_extortion_research_ratio
+		}
+		produces = {
+			trigger = {
+				owner = {
+					is_crowdsourcing_empire = yes
+				}
+			}
+			physics_research = @faction_major_output
+			engineering_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	is_potential = {
+		is_faction_allowed = yes
+		NOT = { has_country_flag = suppressed_technologist_destroyed }
+	}
+
+	valid = {
+		is_faction_valid = yes
+		is_ideology_leftover_faction = no
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		inline_script = pop_faction_types/can_join_faction/base
+	}
+
+	pop_attraction_tag = {
+		desc = POP_ATTRACTION_IS_ROBOT_POS
+		trigger = {
+			NOT = { exists = ideology }
+			owner? = {
+				is_individual_machine = no
+				any_owned_species = {
+					is_robotic = yes
+				}
+			}
+		}
+	}
+
+	attraction = {
+		base = 150
+
+		inline_script = pop_faction_types/attraction/ideological_attraction
+		inline_script = pop_faction_types/attraction/leader_attraction
+
+		modifier = {
+			factor = 2
+			NOT = { from? = { exists = ideology } }
+			is_robot_pop_group = yes
+			owner = { is_individual_machine = no }
+		}
+	}
+
+	leader = {
+		base = 100
+
+		modifier = {
+			factor = 0.0
+			is_event_leader = yes
+		}
+	}
+
+	on_create = {
+		pop_faction_event = { id = factions.0 }
+		owner = { remove_country_flag = suppressed_technologist_destroyed }
+	}
+
+	on_destroy = {
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = materialist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_base
+			ETHIC = materialist
+			TYPE = technologist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_all
+			ETHIC = materialist
+		}
+	}
+
+	# Demands
+	inline_script = {
+    	script = pop_faction_types/demands/technologist
+    }
+
+	# Actions
+	inline_script = {
+		script = pop_faction_types/actions/advocate_faction
+	}
+	inline_script = {
+		script = pop_faction_types/actions/embrace_faction
+		ETHIC = materialist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = materialist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = materialist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction_crowdsourcing
+		RESOURCE = physics_research
+		CROWDSOURCE_TT = crowdsourced_extortion_tt
+	}
+}

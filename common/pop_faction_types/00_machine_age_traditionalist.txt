@@ -1,0 +1,2712 @@
+##############################
+# Cybernetic Creed Factions
+##############################
+
+cyber_creed_labor = {
+	guiding_ethic = ethic_spiritualist
+	use_guiding_ethic_as_pop_filter = no
+	use_guiding_ethic_as_growth_factor = no
+
+	persistent_faction = yes
+	can_rename = no
+	unique = yes
+	support_multiplier = 0.33
+
+	resources = {
+		category = pop_factions
+		inline_script = pop_faction_types/resources/unity_trade
+		produces = {
+			minerals = @faction_base_output
+		}
+		inline_script = {
+			script = pop_faction_types/resources/research
+			MAJOR_TECH = engineering
+			MINOR_TECH = society
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			engineering_research = @faction_major_output
+			society_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	is_potential = {
+		has_origin = origin_cybernetic_creed
+		has_made_cyber_creed_faction_choice = no
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		inline_script = pop_faction_types/can_join_faction/base_shackled
+	}
+
+	inline_script = pop_faction_types/attraction/ideological_tags
+
+	attraction = {
+		base = 100
+
+		inline_script = pop_faction_types/attraction/leader_attraction
+		inline_script = pop_faction_types/attraction/ideological_attraction
+	}
+
+	leader = {
+		base = 100
+		modifier = {
+			factor = 0
+			species = {
+				has_trait = "trait_mechanical"
+			}
+			owner = {
+				is_individual_machine = no
+			}
+		}
+
+		modifier = {
+			factor = 0.0
+			is_event_leader = yes
+		}
+	}
+
+	# DEMAND: Faction Outraged (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/outraged
+		FLAG = galcom_resolution_passed_anti_traditionalist
+	}
+
+	# DEMAND: Faction Pleased (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/pleased
+		FLAG = galcom_resolution_passed_pro_traditionalist
+	}
+
+	inline_script = {
+		script = pop_faction_types/demands/cybernetic_creed
+	}
+
+	demand = { # "TRADITIONALIST_SPIRITUALIST_POPS"
+		title = "TRADITIONALIST_SPIRITUALIST_POPS"
+		unfulfilled_title = "TRADITIONALIST_FEW_SPIRITUALIST_POPS"
+		desc = "TRADITIONALIST_SPIRITUALIST_POPS_DESC"
+
+		fulfilled_effect = 10
+		unfulfilled_effect = -0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_labor
+			}
+			support >= 0.1
+		}
+
+		trigger = {
+			support >= 0.25
+		}
+	}
+
+	demand = { # "TRADITIONALIST_UNSPIRITUALIST"
+		title = "TRADITIONALIST_UNSPIRITUALIST"
+		unfulfilled_title = "TRADITIONALIST_NOT_UNSPIRITUALIST"
+		desc = "TRADITIONALIST_UNSPIRITUALIST_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_labor
+			}
+			support < 0.25
+		}
+
+		trigger = {
+			support >= 0.1
+		}
+	}
+
+	#Supported the historical Rewrite
+	demand = {
+		title = "CYBER_CREED_HISTORY_REWRITTEN_BAD"
+		unfulfilled_title = "CYBER_CREED_HISTORY_REWRITTEN_NO_BAD"
+		desc = "CYBER_CREED_HISTORY_REWRITTEN_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				OR = {
+					has_modifier = cyber_creed_history_rewritten
+					has_modifier = cyber_creed_history_repeating
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_modifier = cyber_creed_history_repeating
+			}
+		}
+	}
+
+	#Supported State Funeral - Bad
+	demand = {
+		title = "CYBER_CREED_STATE_FUNERAL_BAD"
+		unfulfilled_title = "CYBER_CREED_STATE_FUNERAL_BAD_NO"
+		desc = "CYBER_CREED_STATE_FUNERAL_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				OR = {
+					has_modifier = cyber_creed_state_funeral
+					has_modifier = cyber_creed_no_state_funeral
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_state_funeral
+			}
+		}
+	}
+
+	#Labor Relic - Good
+	demand = {
+		title = "CYBER_CREED_RELIC_FOUND"
+		unfulfilled_title = "CYBER_CREED_RELIC_FOUND_NO"
+		desc = "CYBER_CREED_RELIC_FOUND_DESC"
+
+		unfulfilled_effect = -20
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				OR = {
+					has_modifier = cyber_creed_relics_truth
+					has_modifier = cyber_creed_relics_hidden
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_relics_truth
+			}
+		}
+	}
+
+	#Resaerch Creed Politcal Demand - Bad
+	demand = {
+		title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD"
+		unfulfilled_title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_NO"
+		desc = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				OR = {
+					has_modifier = cyber_creed_no_choirmaster_funding
+					has_modifier = cyber_creed_low_choirmaster_funding
+					has_modifier = cyber_creed_high_choirmaster_funding
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_choirmaster_funding
+			}
+		}
+	}
+
+	#Constrcution Jubilee Demand - Bad
+	demand = {
+		title = "CYBER_CREED_HAMMER_JUBILEE_BAD"
+		unfulfilled_title = "CYBER_CREED_HAMMER_JUBILEE_BAD_NO"
+		desc = "CYBER_CREED_HAMMER_JUBILEE_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_pilgrimage_canceled
+					has_modifier = cyber_creed_pilgrimage_allowed
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_pilgrimage_canceled
+			}
+		}
+	}
+
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = pop_faction_types/demands/global
+		ETHIC = ethic_spiritualist
+		ETHIC_OPPOSED = ethic_materialist
+	}
+
+	# Fanatic Faction demands
+	inline_script = pop_faction_types/demands/custodian
+
+	on_create = {
+		set_pop_faction_flag = cyber_creed_faction
+	}
+
+	on_destroy = {
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = spiritualist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_all
+			ETHIC = spiritualist
+		}
+	}
+
+	# Actions
+	inline_script = {
+		script = pop_faction_types/actions/advocate_faction
+	}
+	inline_script = {
+		script = pop_faction_types/actions/embrace_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction
+		RESOURCE = engineering_research
+	}
+}
+
+cyber_creed_war = {
+	guiding_ethic = ethic_spiritualist
+	use_guiding_ethic_as_pop_filter = no
+	use_guiding_ethic_as_growth_factor = no
+
+	persistent_faction = yes
+	can_rename = no
+	unique = yes
+	support_multiplier = 0.33
+
+	resources = {
+		category = pop_factions
+		inline_script = pop_faction_types/resources/unity_trade
+		produces = {
+			alloys = @faction_minor_output
+		}
+		inline_script = {
+			script = pop_faction_types/resources/research
+			MAJOR_TECH = engineering
+			MINOR_TECH = physics
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			engineering_research = @faction_major_output
+			physics_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	is_potential = {
+		has_origin = origin_cybernetic_creed
+		has_made_cyber_creed_faction_choice = no
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		inline_script = pop_faction_types/can_join_faction/base_shackled
+	}
+
+	inline_script = pop_faction_types/attraction/ideological_tags
+
+	attraction = {
+		base = 100
+
+		inline_script = pop_faction_types/attraction/leader_attraction
+		inline_script = pop_faction_types/attraction/ideological_attraction
+	}
+
+	leader = {
+		base = 100
+		modifier = {
+			factor = 0
+			species = {
+				has_trait = "trait_mechanical"
+			}
+			owner = {
+				is_individual_machine = no
+			}
+		}
+
+		modifier = {
+			factor = 0.0
+			is_event_leader = yes
+		}
+	}
+
+	# DEMAND: Faction Outraged (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/outraged
+		FLAG = galcom_resolution_passed_anti_traditionalist
+	}
+
+	# DEMAND: Faction Pleased (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/pleased
+		FLAG = galcom_resolution_passed_pro_traditionalist
+	}
+
+	inline_script = {
+		script = pop_faction_types/demands/cybernetic_creed
+	}
+
+	demand = { # "TRADITIONALIST_SPIRITUALIST_POPS"
+		title = "TRADITIONALIST_SPIRITUALIST_POPS"
+		unfulfilled_title = "TRADITIONALIST_FEW_SPIRITUALIST_POPS"
+		desc = "TRADITIONALIST_SPIRITUALIST_POPS_DESC"
+
+		fulfilled_effect = 10
+		unfulfilled_effect = -0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_war
+			}
+			support >= 0.1
+		}
+
+		trigger = {
+			support >= 0.25
+		}
+	}
+
+	demand = { # "TRADITIONALIST_UNSPIRITUALIST"
+		title = "TRADITIONALIST_UNSPIRITUALIST"
+		unfulfilled_title = "TRADITIONALIST_NOT_UNSPIRITUALIST"
+		desc = "TRADITIONALIST_UNSPIRITUALIST_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_war
+			}
+			support < 0.25
+		}
+
+		trigger = {
+			support >= 0.1
+		}
+	}
+
+	#Supported the historical Rewrite
+	demand = {
+		title = "CYBER_CREED_HISTORY_REWRITTEN"
+		unfulfilled_title = "CYBER_CREED_HISTORY_REWRITTEN_NO"
+		desc = "CYBER_CREED_HISTORY_REWRITTEN_DESC"
+
+		unfulfilled_effect = -20
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_history_rewritten
+					has_modifier = cyber_creed_history_repeating
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_modifier = cyber_creed_history_rewritten
+			}
+		}
+	}
+
+	#Supported State Funeral
+	demand = {
+		title = "CYBER_CREED_STATE_FUNERAL_BAD"
+		unfulfilled_title = "CYBER_CREED_STATE_FUNERAL_BAD_NO"
+		desc = "CYBER_CREED_STATE_FUNERAL_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_state_funeral
+					has_modifier = cyber_creed_no_state_funeral
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_state_funeral
+			}
+		}
+	}
+
+	#Labor Relic - Bad
+	demand = {
+		title = "CYBER_CREED_RELIC_FOUND_BAD"
+		unfulfilled_title = "CYBER_CREED_RELIC_FOUND_BAD_NO"
+		desc = "CYBER_CREED_RELIC_FOUND_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_relics_truth
+					has_modifier = cyber_creed_relics_hidden
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_relics_hidden
+			}
+		}
+	}
+
+	#Resaerch Creed Politcal Demand - Bad
+	demand = {
+		title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD"
+		unfulfilled_title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_NO"
+		desc = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_no_choirmaster_funding
+					has_modifier = cyber_creed_low_choirmaster_funding
+					has_modifier = cyber_creed_high_choirmaster_funding
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_choirmaster_funding
+			}
+		}
+	}
+
+	#Constrcution Jubilee Demand - Bad
+	demand = {
+		title = "CYBER_CREED_HAMMER_JUBILEE_BAD"
+		unfulfilled_title = "CYBER_CREED_HAMMER_JUBILEE_BAD_NO"
+		desc = "CYBER_CREED_HAMMER_JUBILEE_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_pilgrimage_canceled
+					has_modifier = cyber_creed_pilgrimage_allowed
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_pilgrimage_canceled
+			}
+		}
+	}
+
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = pop_faction_types/demands/global
+		ETHIC = ethic_spiritualist
+		ETHIC_OPPOSED = ethic_materialist
+	}
+
+	# Fanatic Faction demands
+	inline_script = pop_faction_types/demands/custodian
+
+	on_create = {
+		set_pop_faction_flag = cyber_creed_faction
+	}
+
+	on_destroy = {
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = spiritualist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_all
+			ETHIC = spiritualist
+		}
+	}
+
+	# Actions
+	inline_script = {
+		script = pop_faction_types/actions/advocate_faction
+	}
+	inline_script = {
+		script = pop_faction_types/actions/embrace_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction
+		RESOURCE = engineering_research
+	}
+}
+
+cyber_creed_construction = {
+	guiding_ethic = ethic_spiritualist
+	use_guiding_ethic_as_pop_filter = no
+	use_guiding_ethic_as_growth_factor = no
+
+	persistent_faction = yes
+	can_rename = no
+	unique = yes
+	support_multiplier = 0.33
+
+	resources = {
+		category = pop_factions
+		inline_script = pop_faction_types/resources/unity_trade
+		produces = {
+			consumer_goods = @faction_major_output
+		}
+		inline_script = {
+			script = pop_faction_types/resources/research
+			MAJOR_TECH = engineering
+			MINOR_TECH = society
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			engineering_research = @faction_major_output
+			society_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	is_potential = {
+		has_origin = origin_cybernetic_creed
+		has_made_cyber_creed_faction_choice = no
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		inline_script = pop_faction_types/can_join_faction/base_shackled
+	}
+
+	inline_script = pop_faction_types/attraction/ideological_tags
+
+	attraction = {
+		base = 100
+
+		inline_script = pop_faction_types/attraction/leader_attraction
+		inline_script = pop_faction_types/attraction/ideological_attraction
+	}
+
+	leader = {
+		base = 100
+		modifier = {
+			factor = 0
+			species = {
+				has_trait = "trait_mechanical"
+			}
+			owner = {
+				is_individual_machine = no
+			}
+		}
+
+		modifier = {
+			factor = 0.0
+			is_event_leader = yes
+		}
+	}
+
+	# DEMAND: Faction Outraged (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/outraged
+		FLAG = galcom_resolution_passed_anti_traditionalist
+	}
+
+	# DEMAND: Faction Pleased (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/pleased
+		FLAG = galcom_resolution_passed_pro_traditionalist
+	}
+
+	inline_script = {
+		script = pop_faction_types/demands/cybernetic_creed
+	}
+
+	demand = { # "TRADITIONALIST_SPIRITUALIST_POPS"
+		title = "TRADITIONALIST_SPIRITUALIST_POPS"
+		unfulfilled_title = "TRADITIONALIST_FEW_SPIRITUALIST_POPS"
+		desc = "TRADITIONALIST_SPIRITUALIST_POPS_DESC"
+
+		fulfilled_effect = 10
+		unfulfilled_effect = -0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_construction
+			}
+			support >= 0.1
+		}
+
+		trigger = {
+			support >= 0.25
+		}
+	}
+
+	demand = { # "TRADITIONALIST_UNSPIRITUALIST"
+		title = "TRADITIONALIST_UNSPIRITUALIST"
+		unfulfilled_title = "TRADITIONALIST_NOT_UNSPIRITUALIST"
+		desc = "TRADITIONALIST_UNSPIRITUALIST_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_construction
+			}
+			support < 0.25
+		}
+
+		trigger = {
+			support >= 0.1
+		}
+	}
+
+	#Supported the historical Rewrite
+	demand = {
+		title = "CYBER_CREED_HISTORY_REWRITTEN_BAD"
+		unfulfilled_title = "CYBER_CREED_HISTORY_REWRITTEN_NO_BAD"
+		desc = "CYBER_CREED_HISTORY_REWRITTEN_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_history_rewritten
+					has_modifier = cyber_creed_history_repeating
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_modifier = cyber_creed_history_repeating
+			}
+		}
+	}
+
+	#Supported State Funeral
+	demand = {
+		title = "CYBER_CREED_STATE_FUNERAL"
+		unfulfilled_title = "CYBER_CREED_STATE_FUNERAL_NO"
+		desc = "CYBER_CREED_STATE_FUNERAL_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_state_funeral
+					has_modifier = cyber_creed_no_state_funeral
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_state_funeral
+			}
+		}
+	}
+
+	#Labor Relic - Bad
+	demand = {
+		title = "CYBER_CREED_RELIC_FOUND_BAD"
+		unfulfilled_title = "CYBER_CREED_RELIC_FOUND_BAD_NO"
+		desc = "CYBER_CREED_RELIC_FOUND_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_relics_truth
+					has_modifier = cyber_creed_relics_hidden
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_relics_hidden
+			}
+		}
+	}
+
+	#Resaerch Creed Politcal Demand - Bad
+	demand = {
+		title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD"
+		unfulfilled_title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_NO"
+		desc = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_no_choirmaster_funding
+					has_modifier = cyber_creed_low_choirmaster_funding
+					has_modifier = cyber_creed_high_choirmaster_funding
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_choirmaster_funding
+			}
+		}
+	}
+
+	#Construction Creed Hammer Jubilee - Good
+	demand = {
+		title = "CYBER_CREED_HAMMER_JUBILEE"
+		unfulfilled_title = "CYBER_CREED_HAMMER_JUBILEE_NO"
+		desc = "CYBER_CREED_HAMMER_JUBILEE_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_pilgrimage_canceled
+					has_modifier = cyber_creed_pilgrimage_allowed
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_pilgrimage_allowed
+			}
+		}
+	}
+
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = pop_faction_types/demands/global
+		ETHIC = ethic_spiritualist
+		ETHIC_OPPOSED = ethic_materialist
+	}
+
+	# Fanatic Faction demands
+	inline_script = pop_faction_types/demands/custodian
+
+	on_create = {
+		set_pop_faction_flag = cyber_creed_faction
+	}
+
+	on_destroy = {
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = spiritualist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_all
+			ETHIC = spiritualist
+		}
+	}
+
+	# Actions
+	inline_script = {
+		script = pop_faction_types/actions/advocate_faction
+	}
+	inline_script = {
+		script = pop_faction_types/actions/embrace_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction
+		RESOURCE = engineering_research
+	}
+}
+
+cyber_creed_research = {
+	guiding_ethic = ethic_spiritualist
+	use_guiding_ethic_as_pop_filter = no
+	use_guiding_ethic_as_growth_factor = no
+
+	persistent_faction = yes
+	can_rename = no
+	unique = yes
+	support_multiplier = 0.33
+
+	resources = {
+		category = pop_factions
+		inline_script = pop_faction_types/resources/unity_trade
+		produces = {
+			engineering_research = @faction_major_output
+		}
+		inline_script = {
+			script = pop_faction_types/resources/research
+			MAJOR_TECH = engineering
+			MINOR_TECH = physics
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			engineering_research = @faction_major_output
+			physics_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	is_potential = {
+		has_origin = origin_cybernetic_creed
+		has_made_cyber_creed_faction_choice = no
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		inline_script = pop_faction_types/can_join_faction/base_shackled
+	}
+
+	inline_script = pop_faction_types/attraction/ideological_tags
+
+	attraction = {
+		base = 100
+
+		inline_script = pop_faction_types/attraction/leader_attraction
+		inline_script = pop_faction_types/attraction/ideological_attraction
+	}
+
+	leader = {
+		base = 100
+		modifier = {
+			factor = 0
+			species = {
+				has_trait = "trait_mechanical"
+			}
+			owner = {
+				is_individual_machine = no
+			}
+		}
+
+		modifier = {
+			factor = 0.0
+			is_event_leader = yes
+		}
+	}
+
+	# DEMAND: Faction Outraged (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/outraged
+		FLAG = galcom_resolution_passed_anti_traditionalist
+	}
+
+	# DEMAND: Faction Pleased (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/pleased
+		FLAG = galcom_resolution_passed_pro_traditionalist
+	}
+
+	inline_script = {
+		script = pop_faction_types/demands/cybernetic_creed
+	}
+
+	demand = { # "TRADITIONALIST_SPIRITUALIST_POPS"
+		title = "TRADITIONALIST_SPIRITUALIST_POPS"
+		unfulfilled_title = "TRADITIONALIST_FEW_SPIRITUALIST_POPS"
+		desc = "TRADITIONALIST_SPIRITUALIST_POPS_DESC"
+
+		fulfilled_effect = 10
+		unfulfilled_effect = -0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_research
+			}
+			support >= 0.1
+		}
+
+		trigger = {
+			support >= 0.25
+		}
+	}
+
+	demand = { # "TRADITIONALIST_UNSPIRITUALIST"
+		title = "TRADITIONALIST_UNSPIRITUALIST"
+		unfulfilled_title = "TRADITIONALIST_NOT_UNSPIRITUALIST"
+		desc = "TRADITIONALIST_UNSPIRITUALIST_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_research
+			}
+			support < 0.25
+		}
+
+		trigger = {
+			support >= 0.1
+		}
+	}
+
+	#Supported the historical Rewrite
+	demand = {
+		title = "CYBER_CREED_HISTORY_REWRITTEN_BAD"
+		unfulfilled_title = "CYBER_CREED_HISTORY_REWRITTEN_NO_BAD"
+		desc = "CYBER_CREED_HISTORY_REWRITTEN_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_history_rewritten
+					has_modifier = cyber_creed_history_repeating
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_modifier = cyber_creed_history_repeating
+			}
+		}
+	}
+
+	#Supported State Funeral
+	demand = {
+		title = "CYBER_CREED_STATE_FUNERAL_BAD"
+		unfulfilled_title = "CYBER_CREED_STATE_FUNERAL_BAD_NO"
+		desc = "CYBER_CREED_STATE_FUNERAL_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_state_funeral
+					has_modifier = cyber_creed_no_state_funeral
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_state_funeral
+			}
+		}
+	}
+
+	#Labor Relic - Bad
+	demand = {
+		title = "CYBER_CREED_RELIC_FOUND_BAD"
+		unfulfilled_title = "CYBER_CREED_RELIC_FOUND_BAD_NO"
+		desc = "CYBER_CREED_RELIC_FOUND_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_relics_truth
+					has_modifier = cyber_creed_relics_hidden
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_relics_hidden
+			}
+		}
+	}
+
+	#Resaerch Creed Politcal Demand - Good
+	demand = {
+		title = "CYBER_CREED_CHOIRMASTERS_PLOY"
+		unfulfilled_title = "CYBER_CREED_CHOIRMASTERS_PLOY_NO"
+		desc = "CYBER_CREED_CHOIRMASTERS_PLOY_DESC"
+
+		unfulfilled_effect = -20
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_no_choirmaster_funding
+					has_modifier = cyber_creed_low_choirmaster_funding
+					has_modifier = cyber_creed_high_choirmaster_funding
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_low_choirmaster_funding
+					has_modifier = cyber_creed_high_choirmaster_funding
+				}
+			}
+		}
+	}
+
+	#Constrcution Jubilee Demand - Bad
+	demand = {
+		title = "CYBER_CREED_HAMMER_JUBILEE_BAD"
+		unfulfilled_title = "CYBER_CREED_HAMMER_JUBILEE_BAD_NO"
+		desc = "CYBER_CREED_HAMMER_JUBILEE_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_pilgrimage_canceled
+					has_modifier = cyber_creed_pilgrimage_allowed
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_pilgrimage_canceled
+			}
+		}
+	}
+
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = pop_faction_types/demands/global
+		ETHIC = ethic_spiritualist
+		ETHIC_OPPOSED = ethic_materialist
+	}
+
+	# Fanatic Faction demands
+	inline_script = pop_faction_types/demands/custodian
+
+	on_create = {
+		set_pop_faction_flag = cyber_creed_faction
+	}
+
+	on_destroy = {
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = spiritualist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_all
+			ETHIC = spiritualist
+		}
+	}
+
+	# Actions
+	inline_script = {
+		script = pop_faction_types/actions/advocate_faction
+	}
+	inline_script = {
+		script = pop_faction_types/actions/embrace_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction
+		RESOURCE = engineering_research
+	}
+}
+
+cyber_creed_general = {
+	guiding_ethic = ethic_spiritualist
+
+	persistent_faction = yes
+	can_rename = no
+	unique = yes
+	support_multiplier = 1
+
+	resources = {
+		category = pop_factions
+		produces = {
+			trigger = {
+				owner = {
+					is_crowdsourcing_empire = no
+				}
+			}
+			unity = @faction_improved_output
+		}
+		produces = {
+			trigger = {
+				owner = {
+					is_crowdsourcing_empire = yes
+				}
+			}
+			engineering_research = @faction_base_output
+			society_research = @faction_major_output
+			mult = @crowdsourcing_multiplier
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			engineering_research = @faction_major_output
+			society_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	is_potential = {
+		has_origin = origin_cybernetic_creed
+		has_country_flag = cybernetic_creed_general
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		inline_script = pop_faction_types/can_join_faction/base_shackled
+	}
+
+	inline_script = pop_faction_types/attraction/ideological_tags
+
+	attraction = {
+		base = 100
+
+		inline_script = pop_faction_types/attraction/leader_attraction
+		inline_script = pop_faction_types/attraction/ideological_attraction
+	}
+
+	leader = {
+		base = 100
+		modifier = {
+			factor = 0
+			species = {
+				has_trait = "trait_mechanical"
+			}
+			owner = {
+				is_individual_machine = no
+			}
+		}
+
+		modifier = {
+			factor = 0.0
+			is_event_leader = yes
+		}
+	}
+
+	# DEMAND: Faction Outraged (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/outraged
+		FLAG = galcom_resolution_passed_anti_traditionalist
+	}
+
+	# DEMAND: Faction Pleased (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/pleased
+		FLAG = galcom_resolution_passed_pro_traditionalist
+	}
+
+	inline_script = {
+		script = pop_faction_types/demands/cybernetic_creed
+	}
+
+	demand = { # "TRADITIONALIST_SPIRITUALIST_POPS"
+		title = "TRADITIONALIST_SPIRITUALIST_POPS"
+		unfulfilled_title = "TRADITIONALIST_FEW_SPIRITUALIST_POPS"
+		desc = "TRADITIONALIST_SPIRITUALIST_POPS_DESC"
+
+		fulfilled_effect = 10
+		unfulfilled_effect = -0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_general
+			}
+			support >= 0.1
+		}
+
+		trigger = {
+			support >= 0.25
+		}
+	}
+
+	demand = { # "TRADITIONALIST_UNSPIRITUALIST"
+		title = "TRADITIONALIST_UNSPIRITUALIST"
+		unfulfilled_title = "TRADITIONALIST_NOT_UNSPIRITUALIST"
+		desc = "TRADITIONALIST_UNSPIRITUALIST_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_general
+			}
+			support < 0.25
+		}
+
+		trigger = {
+			support >= 0.1
+		}
+	}
+
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = pop_faction_types/demands/global
+		ETHIC = ethic_spiritualist
+		ETHIC_OPPOSED = ethic_materialist
+	}
+
+	# Fanatic Faction demands
+	inline_script = pop_faction_types/demands/custodian
+
+	on_create = {
+		set_pop_faction_flag = cyber_creed_faction
+	}
+
+	on_destroy = {
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = spiritualist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_all
+			ETHIC = spiritualist
+		}
+	}
+
+	# Actions
+	inline_script = {
+		script = pop_faction_types/actions/advocate_faction
+	}
+	inline_script = {
+		script = pop_faction_types/actions/embrace_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction
+		RESOURCE = engineering_research
+	}
+}
+
+cyber_creed_labor_2 = {
+	guiding_ethic = ethic_spiritualist
+	can_rename = no
+	unique = yes
+	support_multiplier = 1
+
+	resources = {
+		category = pop_factions
+		inline_script = pop_faction_types/resources/unity_trade
+		produces = {
+			minerals = @faction_base_output
+		}
+		inline_script = {
+			script = pop_faction_types/resources/research
+			MAJOR_TECH = engineering
+			MINOR_TECH = society
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			engineering_research = @faction_major_output
+			society_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	is_potential = {
+		has_origin = origin_cybernetic_creed
+		has_country_flag = cybernetic_creed_labor
+	}
+
+	valid = {
+		is_faction_valid = yes
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		inline_script = pop_faction_types/can_join_faction/base_shackled
+	}
+
+	inline_script = pop_faction_types/attraction/ideological_tags
+
+	attraction = {
+		base = 100
+
+		inline_script = pop_faction_types/attraction/leader_attraction
+		inline_script = pop_faction_types/attraction/ideological_attraction
+	}
+
+	leader = {
+		base = 100
+		modifier = {
+			factor = 0
+			species = {
+				has_trait = "trait_mechanical"
+			}
+			owner = {
+				is_individual_machine = no
+			}
+		}
+
+		modifier = {
+			factor = 0.0
+			is_event_leader = yes
+		}
+	}
+
+	# DEMAND: Faction Outraged (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/outraged
+		FLAG = galcom_resolution_passed_anti_traditionalist
+	}
+
+	# DEMAND: Faction Pleased (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/pleased
+		FLAG = galcom_resolution_passed_pro_traditionalist
+	}
+
+	inline_script = {
+		script = pop_faction_types/demands/cybernetic_creed
+	}
+
+	demand = { # "TRADITIONALIST_SPIRITUALIST_POPS"
+		title = "TRADITIONALIST_SPIRITUALIST_POPS"
+		unfulfilled_title = "TRADITIONALIST_FEW_SPIRITUALIST_POPS"
+		desc = "TRADITIONALIST_SPIRITUALIST_POPS_DESC"
+
+		fulfilled_effect = 10
+		unfulfilled_effect = -0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_labor
+			}
+			support >= 0.1
+		}
+
+		trigger = {
+			support >= 0.25
+		}
+	}
+
+	demand = { # "TRADITIONALIST_UNSPIRITUALIST"
+		title = "TRADITIONALIST_UNSPIRITUALIST"
+		unfulfilled_title = "TRADITIONALIST_NOT_UNSPIRITUALIST"
+		desc = "TRADITIONALIST_UNSPIRITUALIST_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_labor
+			}
+			support < 0.25
+		}
+
+		trigger = {
+			support >= 0.1
+		}
+	}
+
+	#Supported the historical Rewrite
+	demand = {
+		title = "CYBER_CREED_HISTORY_REWRITTEN_BAD"
+		unfulfilled_title = "CYBER_CREED_HISTORY_REWRITTEN_NO_BAD"
+		desc = "CYBER_CREED_HISTORY_REWRITTEN_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				OR = {
+					has_modifier = cyber_creed_history_rewritten
+					has_modifier = cyber_creed_history_repeating
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_modifier = cyber_creed_history_repeating
+			}
+		}
+	}
+
+	#Supported State Funeral - Bad
+	demand = {
+		title = "CYBER_CREED_STATE_FUNERAL_BAD"
+		unfulfilled_title = "CYBER_CREED_STATE_FUNERAL_BAD_NO"
+		desc = "CYBER_CREED_STATE_FUNERAL_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				OR = {
+					has_modifier = cyber_creed_state_funeral
+					has_modifier = cyber_creed_no_state_funeral
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_state_funeral
+			}
+		}
+	}
+
+	#Labor Relic - Good
+	demand = {
+		title = "CYBER_CREED_RELIC_FOUND"
+		unfulfilled_title = "CYBER_CREED_RELIC_FOUND_NO"
+		desc = "CYBER_CREED_RELIC_FOUND_DESC"
+
+		unfulfilled_effect = -20
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				OR = {
+					has_modifier = cyber_creed_relics_truth
+					has_modifier = cyber_creed_relics_hidden
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_relics_truth
+			}
+		}
+	}
+
+	#Resaerch Creed Politcal Demand - Bad
+	demand = {
+		title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD"
+		unfulfilled_title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_NO"
+		desc = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				OR = {
+					has_modifier = cyber_creed_no_choirmaster_funding
+					has_modifier = cyber_creed_low_choirmaster_funding
+					has_modifier = cyber_creed_high_choirmaster_funding
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_choirmaster_funding
+			}
+		}
+	}
+
+	#Constrcution Jubilee Demand - Bad
+	demand = {
+		title = "CYBER_CREED_HAMMER_JUBILEE_BAD"
+		unfulfilled_title = "CYBER_CREED_HAMMER_JUBILEE_BAD_NO"
+		desc = "CYBER_CREED_HAMMER_JUBILEE_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_pilgrimage_canceled
+					has_modifier = cyber_creed_pilgrimage_allowed
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_pilgrimage_canceled
+			}
+		}
+	}
+
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = pop_faction_types/demands/global
+		ETHIC = ethic_spiritualist
+		ETHIC_OPPOSED = ethic_materialist
+	}
+
+	# Fanatic Faction demands
+	inline_script = pop_faction_types/demands/custodian
+
+	on_create = {
+		set_pop_faction_flag = cyber_creed_faction
+	}
+
+	on_destroy = {
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = spiritualist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_all
+			ETHIC = spiritualist
+		}
+	}
+
+	# Actions
+	inline_script = {
+		script = pop_faction_types/actions/advocate_faction
+	}
+	inline_script = {
+		script = pop_faction_types/actions/embrace_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction
+		RESOURCE = engineering_research
+	}
+}
+
+cyber_creed_war_2 = {
+	guiding_ethic = ethic_spiritualist
+	can_rename = no
+	unique = yes
+	support_multiplier = 1
+
+	resources = {
+		category = pop_factions
+		inline_script = pop_faction_types/resources/unity_trade
+		produces = {
+			alloys = @faction_minor_output
+		}
+		inline_script = {
+			script = pop_faction_types/resources/research
+			MAJOR_TECH = engineering
+			MINOR_TECH = physics
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			engineering_research = @faction_major_output
+			physics_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	is_potential = {
+		has_origin = origin_cybernetic_creed
+		has_country_flag = cybernetic_creed_war
+	}
+
+	valid = {
+		is_faction_valid = yes
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		inline_script = pop_faction_types/can_join_faction/base_shackled
+	}
+
+	inline_script = pop_faction_types/attraction/ideological_tags
+
+	attraction = {
+		base = 100
+
+		inline_script = pop_faction_types/attraction/leader_attraction
+		inline_script = pop_faction_types/attraction/ideological_attraction
+	}
+
+	leader = {
+		base = 100
+		modifier = {
+			factor = 0
+			species = {
+				has_trait = "trait_mechanical"
+			}
+			owner = {
+				is_individual_machine = no
+			}
+		}
+
+		modifier = {
+			factor = 0.0
+			is_event_leader = yes
+		}
+	}
+
+	# DEMAND: Faction Outraged (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/outraged
+		FLAG = galcom_resolution_passed_anti_traditionalist
+	}
+
+	# DEMAND: Faction Pleased (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/pleased
+		FLAG = galcom_resolution_passed_pro_traditionalist
+	}
+
+	inline_script = {
+		script = pop_faction_types/demands/cybernetic_creed
+	}
+
+	demand = { # "TRADITIONALIST_SPIRITUALIST_POPS"
+		title = "TRADITIONALIST_SPIRITUALIST_POPS"
+		unfulfilled_title = "TRADITIONALIST_FEW_SPIRITUALIST_POPS"
+		desc = "TRADITIONALIST_SPIRITUALIST_POPS_DESC"
+
+		fulfilled_effect = 10
+		unfulfilled_effect = -0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_war
+			}
+			support >= 0.1
+		}
+
+		trigger = {
+			support >= 0.25
+		}
+	}
+
+	demand = { # "TRADITIONALIST_UNSPIRITUALIST"
+		title = "TRADITIONALIST_UNSPIRITUALIST"
+		unfulfilled_title = "TRADITIONALIST_NOT_UNSPIRITUALIST"
+		desc = "TRADITIONALIST_UNSPIRITUALIST_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_war
+			}
+			support < 0.25
+		}
+
+		trigger = {
+			support >= 0.1
+		}
+	}
+
+	#Supported the historical Rewrite
+	demand = {
+		title = "CYBER_CREED_HISTORY_REWRITTEN"
+		unfulfilled_title = "CYBER_CREED_HISTORY_REWRITTEN_NO"
+		desc = "CYBER_CREED_HISTORY_REWRITTEN_DESC"
+
+		unfulfilled_effect = -20
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_history_rewritten
+					has_modifier = cyber_creed_history_repeating
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_modifier = cyber_creed_history_rewritten
+			}
+		}
+	}
+
+	#Supported State Funeral
+	demand = {
+		title = "CYBER_CREED_STATE_FUNERAL_BAD"
+		unfulfilled_title = "CYBER_CREED_STATE_FUNERAL_BAD_NO"
+		desc = "CYBER_CREED_STATE_FUNERAL_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_state_funeral
+					has_modifier = cyber_creed_no_state_funeral
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_state_funeral
+			}
+		}
+	}
+
+	#Labor Relic - Bad
+	demand = {
+		title = "CYBER_CREED_RELIC_FOUND_BAD"
+		unfulfilled_title = "CYBER_CREED_RELIC_FOUND_BAD_NO"
+		desc = "CYBER_CREED_RELIC_FOUND_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_relics_truth
+					has_modifier = cyber_creed_relics_hidden
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_relics_hidden
+			}
+		}
+	}
+
+	#Resaerch Creed Politcal Demand - Bad
+	demand = {
+		title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD"
+		unfulfilled_title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_NO"
+		desc = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_no_choirmaster_funding
+					has_modifier = cyber_creed_low_choirmaster_funding
+					has_modifier = cyber_creed_high_choirmaster_funding
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_choirmaster_funding
+			}
+		}
+	}
+
+	#Constrcution Jubilee Demand - Bad
+	demand = {
+		title = "CYBER_CREED_HAMMER_JUBILEE_BAD"
+		unfulfilled_title = "CYBER_CREED_HAMMER_JUBILEE_BAD_NO"
+		desc = "CYBER_CREED_HAMMER_JUBILEE_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_pilgrimage_canceled
+					has_modifier = cyber_creed_pilgrimage_allowed
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_pilgrimage_canceled
+			}
+		}
+	}
+
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = pop_faction_types/demands/global
+		ETHIC = ethic_spiritualist
+		ETHIC_OPPOSED = ethic_materialist
+	}
+
+	# Fanatic Faction demands
+	inline_script = pop_faction_types/demands/custodian
+
+	on_create = {
+		set_pop_faction_flag = cyber_creed_faction
+	}
+
+	on_destroy = {
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = spiritualist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_all
+			ETHIC = spiritualist
+		}
+	}
+
+	# Actions
+	inline_script = {
+		script = pop_faction_types/actions/advocate_faction
+	}
+	inline_script = {
+		script = pop_faction_types/actions/embrace_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction
+		RESOURCE = engineering_research
+	}
+}
+
+cyber_creed_construction_2 = {
+	guiding_ethic = ethic_spiritualist
+	can_rename = no
+	unique = yes
+	support_multiplier = 1
+
+	resources = {
+		category = pop_factions
+		inline_script = pop_faction_types/resources/unity_trade
+		produces = {
+			consumer_goods = @faction_major_output
+		}
+		inline_script = {
+			script = pop_faction_types/resources/research
+			MAJOR_TECH = engineering
+			MINOR_TECH = society
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			engineering_research = @faction_major_output
+			society_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	is_potential = {
+		has_origin = origin_cybernetic_creed
+		has_country_flag = cybernetic_creed_construction
+	}
+
+	valid = {
+		is_faction_valid = yes
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		inline_script = pop_faction_types/can_join_faction/base_shackled
+	}
+
+	inline_script = pop_faction_types/attraction/ideological_tags
+
+	attraction = {
+		base = 100
+
+		inline_script = pop_faction_types/attraction/leader_attraction
+		inline_script = pop_faction_types/attraction/ideological_attraction
+	}
+
+	leader = {
+		base = 100
+		modifier = {
+			factor = 0
+			species = {
+				has_trait = "trait_mechanical"
+			}
+			owner = {
+				is_individual_machine = no
+			}
+		}
+
+		modifier = {
+			factor = 0.0
+			is_event_leader = yes
+		}
+	}
+
+	# DEMAND: Faction Outraged (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/outraged
+		FLAG = galcom_resolution_passed_anti_traditionalist
+	}
+
+	# DEMAND: Faction Pleased (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/pleased
+		FLAG = galcom_resolution_passed_pro_traditionalist
+	}
+
+	inline_script = {
+		script = pop_faction_types/demands/cybernetic_creed
+	}
+
+	demand = { # "TRADITIONALIST_SPIRITUALIST_POPS"
+		title = "TRADITIONALIST_SPIRITUALIST_POPS"
+		unfulfilled_title = "TRADITIONALIST_FEW_SPIRITUALIST_POPS"
+		desc = "TRADITIONALIST_SPIRITUALIST_POPS_DESC"
+
+		fulfilled_effect = 10
+		unfulfilled_effect = -0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_construction
+			}
+			support >= 0.1
+		}
+
+		trigger = {
+			support >= 0.25
+		}
+	}
+
+	demand = { # "TRADITIONALIST_UNSPIRITUALIST"
+		title = "TRADITIONALIST_UNSPIRITUALIST"
+		unfulfilled_title = "TRADITIONALIST_NOT_UNSPIRITUALIST"
+		desc = "TRADITIONALIST_UNSPIRITUALIST_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_construction
+			}
+			support < 0.25
+		}
+
+		trigger = {
+			support >= 0.1
+		}
+	}
+
+	#Supported the historical Rewrite
+	demand = {
+		title = "CYBER_CREED_HISTORY_REWRITTEN_BAD"
+		unfulfilled_title = "CYBER_CREED_HISTORY_REWRITTEN_NO_BAD"
+		desc = "CYBER_CREED_HISTORY_REWRITTEN_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_history_rewritten
+					has_modifier = cyber_creed_history_repeating
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_modifier = cyber_creed_history_repeating
+			}
+		}
+	}
+
+	#Supported State Funeral
+	demand = {
+		title = "CYBER_CREED_STATE_FUNERAL"
+		unfulfilled_title = "CYBER_CREED_STATE_FUNERAL_NO"
+		desc = "CYBER_CREED_STATE_FUNERAL_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_state_funeral
+					has_modifier = cyber_creed_no_state_funeral
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_state_funeral
+			}
+		}
+	}
+
+	#Labor Relic - Bad
+	demand = {
+		title = "CYBER_CREED_RELIC_FOUND_BAD"
+		unfulfilled_title = "CYBER_CREED_RELIC_FOUND_BAD_NO"
+		desc = "CYBER_CREED_RELIC_FOUND_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_relics_truth
+					has_modifier = cyber_creed_relics_hidden
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_relics_hidden
+			}
+		}
+	}
+
+	#Resaerch Creed Politcal Demand - Bad
+	demand = {
+		title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD"
+		unfulfilled_title = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_NO"
+		desc = "CYBER_CREED_CHOIRMASTERS_PLOY_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_no_choirmaster_funding
+					has_modifier = cyber_creed_low_choirmaster_funding
+					has_modifier = cyber_creed_high_choirmaster_funding
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_choirmaster_funding
+			}
+		}
+	}
+
+	#Construction Creed Hammer Jubilee - Good
+	demand = {
+		title = "CYBER_CREED_HAMMER_JUBILEE"
+		unfulfilled_title = "CYBER_CREED_HAMMER_JUBILEE_NO"
+		desc = "CYBER_CREED_HAMMER_JUBILEE_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_pilgrimage_canceled
+					has_modifier = cyber_creed_pilgrimage_allowed
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_pilgrimage_allowed
+			}
+		}
+	}
+
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = pop_faction_types/demands/global
+		ETHIC = ethic_spiritualist
+		ETHIC_OPPOSED = ethic_materialist
+	}
+
+	# Fanatic Faction demands
+	inline_script = pop_faction_types/demands/custodian
+
+	on_create = {
+		set_pop_faction_flag = cyber_creed_faction
+	}
+
+	on_destroy = {
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = spiritualist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_all
+			ETHIC = spiritualist
+		}
+	}
+
+	# Actions
+	inline_script = {
+		script = pop_faction_types/actions/advocate_faction
+	}
+	inline_script = {
+		script = pop_faction_types/actions/embrace_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction
+		RESOURCE = engineering_research
+	}
+}
+
+cyber_creed_research_2 = {
+	guiding_ethic = ethic_spiritualist
+	can_rename = no
+	unique = yes
+	support_multiplier = 1
+
+	resources = {
+		category = pop_factions
+		inline_script = pop_faction_types/resources/unity_trade
+		produces = {
+			engineering_research = @faction_major_output
+		}
+		inline_script = {
+			script = pop_faction_types/resources/research
+			MAJOR_TECH = engineering
+			MINOR_TECH = physics
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			engineering_research = @faction_major_output
+			physics_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
+		}
+	}
+
+	is_potential = {
+		has_origin = origin_cybernetic_creed
+		has_country_flag = cybernetic_creed_research
+	}
+
+	valid = {
+		is_faction_valid = yes
+	}
+
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+	}
+
+	can_join_faction = {
+		inline_script = pop_faction_types/can_join_faction/base_shackled
+	}
+
+	inline_script = pop_faction_types/attraction/ideological_tags
+
+	attraction = {
+		base = 100
+
+		inline_script = pop_faction_types/attraction/leader_attraction
+		inline_script = pop_faction_types/attraction/ideological_attraction
+	}
+
+	leader = {
+		base = 100
+		modifier = {
+			factor = 0
+			species = {
+				has_trait = "trait_mechanical"
+			}
+			owner = {
+				is_individual_machine = no
+			}
+		}
+
+		modifier = {
+			factor = 0.0
+			is_event_leader = yes
+		}
+	}
+
+	# DEMAND: Faction Outraged (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/outraged
+		FLAG = galcom_resolution_passed_anti_traditionalist
+	}
+
+	# DEMAND: Faction Pleased (by a GalCom Resolution)
+	inline_script = {
+		script = pop_faction_types/demands/pleased
+		FLAG = galcom_resolution_passed_pro_traditionalist
+	}
+
+	inline_script = {
+		script = pop_faction_types/demands/cybernetic_creed
+	}
+
+	demand = { # "TRADITIONALIST_SPIRITUALIST_POPS"
+		title = "TRADITIONALIST_SPIRITUALIST_POPS"
+		unfulfilled_title = "TRADITIONALIST_FEW_SPIRITUALIST_POPS"
+		desc = "TRADITIONALIST_SPIRITUALIST_POPS_DESC"
+
+		fulfilled_effect = 10
+		unfulfilled_effect = -0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_research
+			}
+			support >= 0.1
+		}
+
+		trigger = {
+			support >= 0.25
+		}
+	}
+
+	demand = { # "TRADITIONALIST_UNSPIRITUALIST"
+		title = "TRADITIONALIST_UNSPIRITUALIST"
+		unfulfilled_title = "TRADITIONALIST_NOT_UNSPIRITUALIST"
+		desc = "TRADITIONALIST_UNSPIRITUALIST_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 0.001
+
+		potential = {
+			owner = {
+				has_country_flag = cybernetic_creed_research
+			}
+			support < 0.25
+		}
+
+		trigger = {
+			support >= 0.1
+		}
+	}
+
+	#Supported the historical Rewrite
+	demand = {
+		title = "CYBER_CREED_HISTORY_REWRITTEN_BAD"
+		unfulfilled_title = "CYBER_CREED_HISTORY_REWRITTEN_NO_BAD"
+		desc = "CYBER_CREED_HISTORY_REWRITTEN_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_history_rewritten
+					has_modifier = cyber_creed_history_repeating
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_modifier = cyber_creed_history_repeating
+			}
+		}
+	}
+
+	#Supported State Funeral
+	demand = {
+		title = "CYBER_CREED_STATE_FUNERAL_BAD"
+		unfulfilled_title = "CYBER_CREED_STATE_FUNERAL_BAD_NO"
+		desc = "CYBER_CREED_STATE_FUNERAL_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_state_funeral
+					has_modifier = cyber_creed_no_state_funeral
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_no_state_funeral
+			}
+		}
+	}
+
+	#Labor Relic - Bad
+	demand = {
+		title = "CYBER_CREED_RELIC_FOUND_BAD"
+		unfulfilled_title = "CYBER_CREED_RELIC_FOUND_BAD_NO"
+		desc = "CYBER_CREED_RELIC_FOUND_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_relics_truth
+					has_modifier = cyber_creed_relics_hidden
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_relics_hidden
+			}
+		}
+	}
+
+	#Resaerch Creed Politcal Demand - Good
+	demand = {
+		title = "CYBER_CREED_CHOIRMASTERS_PLOY"
+		unfulfilled_title = "CYBER_CREED_CHOIRMASTERS_PLOY_NO"
+		desc = "CYBER_CREED_CHOIRMASTERS_PLOY_DESC"
+
+		unfulfilled_effect = -20
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_no_choirmaster_funding
+					has_modifier = cyber_creed_low_choirmaster_funding
+					has_modifier = cyber_creed_high_choirmaster_funding
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_low_choirmaster_funding
+					has_modifier = cyber_creed_high_choirmaster_funding
+				}
+			}
+		}
+	}
+
+	#Constrcution Jubilee Demand - Bad
+	demand = {
+		title = "CYBER_CREED_HAMMER_JUBILEE_BAD"
+		unfulfilled_title = "CYBER_CREED_HAMMER_JUBILEE_BAD_NO"
+		desc = "CYBER_CREED_HAMMER_JUBILEE_BAD_DESC"
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_cybernetic_creed
+				OR = {
+					has_modifier = cyber_creed_pilgrimage_canceled
+					has_modifier = cyber_creed_pilgrimage_allowed
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+				has_modifier = cyber_creed_pilgrimage_canceled
+			}
+		}
+	}
+
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = pop_faction_types/demands/global
+		ETHIC = ethic_spiritualist
+		ETHIC_OPPOSED = ethic_materialist
+	}
+
+	# Fanatic Faction demands
+	inline_script = pop_faction_types/demands/custodian
+
+	on_create = {
+		set_pop_faction_flag = cyber_creed_faction
+	}
+
+	on_destroy = {
+		inline_script = {
+			script = pop_faction_types/effect/promote_on_destroy
+			ETHIC = spiritualist
+		}
+		inline_script = {
+			script = pop_faction_types/effect/suppress_on_destroy_all
+			ETHIC = spiritualist
+		}
+	}
+
+	# Actions
+	inline_script = {
+		script = pop_faction_types/actions/advocate_faction
+	}
+	inline_script = {
+		script = pop_faction_types/actions/embrace_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/promote_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/suppress_faction
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = pop_faction_types/actions/extort_faction
+		RESOURCE = engineering_research
+	}
+}
