@@ -1,0 +1,13 @@
+swappable_data = {
+	swap_type = {
+		trigger = { exists = ideology }
+		name = pft_ideological_faction_$ETHIC$
+		desc = pft_ideological_faction_$ETHIC$_desc
+		icon = GFX_faction_ideological_$ETHIC$
+	}
+}
+
+inline_script = pop_faction_types/attraction/ideological_tags
+
+# Fanatic Faction demands
+inline_script = pop_faction_types/demands/custodian

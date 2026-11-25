@@ -1,0 +1,12 @@
+inline_script = {
+	script = pop_faction_types/resources/unity_trade_custom
+	UNITY = $HIGH$
+	TRADE = $HIGH$
+}
+inline_script = {
+	script = pop_faction_types/resources/research_custom
+	MAJOR_TECH = $MAJOR_TECH$
+	HIGH = $MID$
+	MINOR_TECH = $MINOR_TECH$
+	LOW = $LOW$
+}

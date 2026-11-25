@@ -1,0 +1,67 @@
+inline_script = pop_faction_types/attraction/promote_suppress_tags
+
+# Ideological attraction tags
+pop_attraction_tag = {
+	desc = POP_FACTION_ATTRACTION_IDEOLOGY_REACH_POS
+	trigger = {
+		exists = ideology
+		check_variable_arithmetic = {
+			which = value:ideological_faction_attraction_from_pops
+			value > 0
+		}
+	}
+}
+pop_attraction_tag = {
+	desc = POP_FACTION_ATTRACTION_IDEOLOGY_REACH_NEG
+	trigger = {
+		exists = ideology
+		check_variable_arithmetic = {
+			which = value:ideological_faction_attraction_from_pops
+			value <= 0
+		}
+	}
+}
+pop_attraction_tag = {
+	desc = POP_FACTION_ATTRACTION_IDEOLOGY_APPROVAL_POS
+	trigger = {
+		exists = ideology
+		faction_approval < @ideological_faction_attraction_approval_threshold
+	}
+}
+pop_attraction_tag = {
+	desc = POP_FACTION_ATTRACTION_IDEOLOGY_MODIFIER_POS
+	trigger = {
+		exists = ideology
+		owner? = {
+			check_modifier_value = {
+				modifier = ideological_faction_attraction_mult
+				value > 0
+			}
+		}
+	}
+}
+pop_attraction_tag = {
+	desc = POP_FACTION_ATTRACTION_IDEOLOGY_MODIFIER_NEG
+	trigger = {
+		exists = ideology
+		owner? = {
+			check_modifier_value = {
+				modifier = ideological_faction_attraction_mult
+				value < 0
+			}
+		}
+	}
+}
+pop_attraction_tag = {
+	desc = POP_FACTION_ATTRACTION_IDEOLOGY_FOREIGN_NEG
+	trigger = {
+		ideology? = {
+			NOT = { is_same_value = prev.owner.ideology }
+		}
+		owner? = {
+			any_owned_colony = {
+				has_modifier = suppress_foreign_ideology
+			}
+		}
+	}
+}

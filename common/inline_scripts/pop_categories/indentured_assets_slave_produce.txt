@@ -1,0 +1,10 @@
+produces = {
+	trigger = {
+		is_enslaved = yes
+		owner = {
+			has_councilor = { COUNCILOR = "councilor_indentured_assets" }
+		}
+	}
+	trade = @councilor_indentured_assets_trade_value
+	mult = value:councilor_level|TYPE|councilor_indentured_assets|
+}

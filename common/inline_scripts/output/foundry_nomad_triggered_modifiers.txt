@@ -1,0 +1,6 @@
+
+triggered_planet_modifier = {
+	potential = { metallurgist_is_void_forge_trigger = yes }
+	ship_armor_mult = @arkship_zone_armor_from_metallurgists
+	ship_armor_hardening_add = @arkship_zone_hardening_from_metallurgists
+}

@@ -1,0 +1,396 @@
+###########################
+# Technologist Demands
+###########################
+
+# Global (ruler and councilor ethic, stately acclaim edict)
+inline_script = {
+	script = pop_faction_types/demands/global
+	ETHIC = ethic_materialist
+	ETHIC_OPPOSED = ethic_spiritualist
+}
+
+# Faction Outraged (by a GalCom Resolution)
+inline_script = {
+	script = pop_faction_types/demands/outraged
+	FLAG = galcom_resolution_passed_anti_technologist
+}
+
+# Faction Pleased (by a GalCom Resolution)
+inline_script = {
+	script = pop_faction_types/demands/pleased
+	FLAG = galcom_resolution_passed_pro_technologist
+}
+
+# Allow AI
+demand = {
+	title = "TECHNOLOGIST_ROBOTS_ALLOWED"
+	unfulfilled_title = "TECHNOLOGIST_ROBOTS_BANNED"
+	desc = "TECHNOLOGIST_ROBOTS_ALLOWED_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -30
+
+	potential = {
+		exists = owner
+	}
+
+	trigger = {
+		owner = {
+			NOR = {
+				has_policy_flag = robots_outlawed
+				has_policy_flag = ai_outlawed
+			}
+		}
+	}
+}
+
+# Unplugged: Cyberize
+demand = {
+	title = TECHNOLOGIST_UNPLUGGED_CYBERIZE
+	unfulfilled_title = TECHNOLOGIST_UNPLUGGED_NOT_CYBERIZE
+	desc = TECHNOLOGIST_UNPLUGGED_CYBERIZE_DESC
+
+	unfulfilled_effect = -20
+	fulfilled_effect = 10
+
+	potential = {
+		owner? = {
+			has_origin = origin_unplugged
+			any_situation = {
+				is_situation_type = situation_unplugged_identity
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			any_situation = {
+				is_situation_type = situation_unplugged_identity
+				OR = {
+					AND = { # safely in the Cyberize stage
+						current_stage = unplugged_identity_stage_3
+						situation_monthly_progress > 0
+					}
+					AND = { # trending towards Cyberization and our Approach is aligned
+						situation_monthly_progress > 0.05
+						OR = {
+							current_situation_approach = situation_unplugged_identity_discourage_change
+							current_situation_approach = situation_unplugged_identity_embrace_opinion
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# No empire with more tech
+demand = {
+	title = "TECHNOLOGIST_TECH_LEAP"
+	unfulfilled_title = "TECHNOLOGIST_TECH_LAG"
+	desc = "TECHNOLOGIST_TECH_LEAP_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -20
+
+	potential = {
+		owner? = {
+			is_subject = no
+			any_relation = {
+				has_communications = root.owner
+				is_country_type = default
+				NOT = { has_government = gov_successor_khanate }
+				root.owner = {
+					has_intel_level = {
+						who = prev
+						category = technology
+						level >= 1
+					}
+				}
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = {
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+					NOT = { has_government = gov_successor_khanate }
+					root.owner = {
+						has_intel_level = {
+							who = prev
+							category = technology
+							level >= 1
+						}
+					}
+					relative_power = {
+						who = root.owner
+						category = technology
+						value > equivalent
+					}
+				}
+			}
+		}
+	}
+}
+
+# Research with other empires (3+ treaties or Research federation)
+demand = {
+	title = "TECHNOLOGIST_RESEARCH_TREATIES"
+	unfulfilled_title = "TECHNOLOGIST_FEW_RESEARCH_TREATIES"
+	desc = "TECHNOLOGIST_RESEARCH_TREATIES_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			num_communications > 3
+			NOT = { has_valid_civic = civic_inwards_perfection }
+		}
+	}
+
+	trigger = {
+		owner = {
+			OR = {
+				AND = {
+					has_federation = yes
+					federation = {
+						has_federation_perk = research_federation_passive
+					}
+				}
+				num_research_agreements > 2
+				any_relation = {
+					is_country_type = primitive
+					OR = {
+						is_under_open_technological_enlightenment = prev
+						is_under_stratified_technological_enlightenment = prev
+					}
+				}
+			}
+		}
+	}
+}
+
+# Mechanical or cybernetic pops
+demand = {
+	title = "TECHNOLOGIST_NO_SYNTH_ENVY"
+	unfulfilled_title = "TECHNOLOGIST_SYNTH_ENVY"
+	desc = "TECHNOLOGIST_NO_SYNTH_ENVY_DESC"
+
+	unfulfilled_effect = -10
+	fulfilled_effect = 0.001
+
+	potential = {
+		years_passed >= 50 #otherwise, just a penalty for meeting Mechanists early
+		owner? = {
+			NOT = { has_ascension_perk = ap_synthetic_evolution }
+			is_individual_machine = no
+			any_relation = {
+				has_communications = root.owner
+				root.owner = {
+					has_intel_level = {
+						who = prev
+						category = economy
+						level >= 1
+					}
+				}
+				is_gestalt = no
+				any_owned_species = {
+					OR = {
+						has_trait = trait_mechanical
+						has_trait = trait_cybernetic
+					}
+				}
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			any_owned_species = {
+				OR = {
+					has_trait = trait_mechanical
+					has_trait = trait_cybernetic
+				}
+			}
+		}
+	}
+}
+
+# Secret knownledge (curators, precusors)
+demand = {
+	title = "TECHNOLOGIST_SECRET_KNOWLEDGE"
+	unfulfilled_title = "TECHNOLOGIST_NO_SECRET_KNOWLEDGE"
+	desc = "TECHNOLOGIST_SECRET_KNOWLEDGE_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			OR = {
+				has_modifier = fallen_empire_gift_databanks
+				has_modifier = curator_insight
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			OR = {
+				has_modifier = fallen_empire_gift_databanks
+				has_modifier = curator_insight
+			}
+		}
+	}
+}
+
+# Research federation
+demand = {
+	title = TECHNOLOGIST_FEDERATION
+	unfulfilled_title = TECHNOLOGIST_FEDERATION_NOT_RESEARCH
+	desc = TECHNOLOGIST_FEDERATION_DESC
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -0.001
+
+	potential = {
+		exists = owner.federation
+		has_federations_dlc = yes
+	}
+
+	trigger = {
+		owner.federation = { has_federation_type = research_federation }
+	}
+}
+
+# Arcane modifiers
+demand = {
+	title = "TECHNOLOGIST_ARCANA"
+	unfulfilled_title = "TECHNOLOGIST_NO_ARCANA"
+	desc = "TECHNOLOGIST_ARCANA_DESC"
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			OR = {
+				has_modifier = arcane_deciphering_cooldown
+				has_modifier = arcane_insight
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			OR = {
+				has_modifier = arcane_deciphering_cooldown
+				has_modifier = arcane_insight
+			}
+		}
+	}
+}
+
+# Precursor secrets
+demand = {
+	title = "TECHNOLOGIST_PRECURSOR_SECRETS"
+	unfulfilled_title = "TECHNOLOGIST_NO_PRECURSOR_SECRETS"
+	desc = "TECHNOLOGIST_PRECURSOR_SECRETS_DESC"
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -0.001
+
+	potential = {
+		host_has_dlc = "Ancient Relics Story Pack"
+		owner? = {
+			OR = {
+				has_country_flag = irassian_world_found
+				has_country_flag = yuht_world_found
+				has_country_flag = vultaum_world_found
+				has_country_flag = cybrex_world_found
+				has_country_flag = league_world_found
+				has_country_flag = last_baol_system
+				has_country_flag = last_zroni_system
+				has_country_flag = tempest_invocator_found
+				has_country_flag = weather_manipulator_found
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_completed_precursor_research = yes
+		}
+	}
+}
+
+# No research restriction policy
+demand = {
+	title = "TECHNOLOGIST_NO_RESTRICTIONS"
+	unfulfilled_title = "TECHNOLOGIST_RESTRICTIONS"
+	desc = "TECHNOLOGIST_RESTRICTIONS_DESC"
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner = {
+			NOT = { has_policy_flag = research_restriction_dangerous_encouraged }
+		}
+	}
+
+	trigger = {
+		owner? = {
+			has_policy_flag = research_restriction_no_restriction
+		}
+	}
+}
+# Encourage dangerous research
+demand = {
+	title = "TECHNOLOGIST_REFACTORED_RESTRICTIONS"
+	unfulfilled_title = "TECHNOLOGIST_RESTRICTIONS"
+	desc = "TECHNOLOGIST_RESTRICTIONS_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner = {
+			has_policy_flag = research_restriction_dangerous_encouraged
+		}
+	}
+
+	trigger = {
+		owner? = {
+			has_policy_flag = research_restriction_dangerous_encouraged
+		}
+	}
+}
+
+# Cooperative diplomatic stance
+demand = {
+	title = "COOPERATIVE_DIPLO_STANCE"
+	unfulfilled_title = "COOPERATIVE_DIPLO_STANCE"
+	desc = "COOPERATIVE_DIPLO_STANCE_DESC"
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			is_homicidal = no
+			is_country_type = default
+			has_policy_flag = diplo_stance_cooperative
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_policy_flag = diplo_stance_cooperative
+		}
+	}
+}

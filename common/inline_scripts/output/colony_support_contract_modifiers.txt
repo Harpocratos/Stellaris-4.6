@@ -1,0 +1,25 @@
+triggered_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = no
+		}
+		colony? = {
+			has_modifier = nomad_contract_colony_support_civilian
+		}
+	}
+	planet_amenities_add = 100
+	mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+}
+
+triggered_planet_modifier = {
+	potential = {
+		owner? = {
+			is_gestalt = yes
+		}
+		colony? = {
+			has_modifier = nomad_contract_colony_support_civilian
+		}
+	}
+	planet_amenities_no_happiness_add = 100
+	mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+}

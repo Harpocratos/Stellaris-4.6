@@ -1,0 +1,214 @@
+actions = {
+	 # First suppressed faction of this ethic also suppresses the empire-wide ethic attraction
+	suppress_faction = {
+		title = "SUPPRESS_FACTION"
+		description = "SUPPRESS_FACTION_DESC"
+
+		cost = {
+			unity = @promote_suppress_faction_unity_cost
+		}
+
+		potential = {
+			NOR = {
+				has_modifier = suppressed_faction
+				has_pop_faction_flag = promoted_faction
+			}
+			owner = { NOT = { has_modifier = suppressed_$ETHIC$ } }
+		}
+
+		valid = {
+			is_in_political_reorientation = no
+		}
+
+		effect = {
+			add_modifier = { modifier = suppressed_faction days = -1 }
+			owner = {
+				add_modifier = { modifier = suppressed_$ETHIC$ days = -1 }
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						is_faction_fanatic = yes
+						# No reaction when the suppression cannot be reversed (forced by the abandon ideology process)
+						NAND = {
+							owner = { has_modifier = abandoning_ideology }
+							ideology? = {
+								is_same_value = owner.ideology
+							}
+						}
+					}
+					owner = {
+						country_event = {
+							id = forceofwill.7550
+							scopes = { from = prev }
+						}
+					}
+				}
+			}
+		}
+
+		ai_weight = {
+			base = 0
+			modifier = {
+				add = 50
+				ai_should_suppress_competing_faction = yes
+			}
+			modifier = {
+				add = 20
+				ideology? = {
+					prev.owner = {
+						foreign_ideology_affinity = {
+							ideology = prev
+							value < -20
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				ai_should_promote_ideology_faction = yes
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					resource_stockpile_compare = {
+						resource = unity
+						value < @promote_suppress_faction_ai_unity_reserve
+					}
+				}
+			}
+		}
+	}
+	 # Another faction of this ethic is already suppressed
+	suppress_faction_shared = {
+		title = "SUPPRESS_FACTION"
+		description = "SUPPRESS_FACTION_SHARED_DESC"
+
+		cost = {
+			unity = @promote_suppress_faction_unity_cost
+		}
+
+		potential = {
+			NOR = {
+				has_modifier = suppressed_faction
+				has_pop_faction_flag = promoted_faction
+			}
+			owner = { has_modifier = suppressed_$ETHIC$ }
+		}
+
+		valid = {
+			is_in_political_reorientation = no
+		}
+
+		effect = {
+			add_modifier = { modifier = suppressed_faction days = -1 }
+		}
+
+		ai_weight = {
+			base = 0
+			modifier = {
+				add = 50
+				ai_should_suppress_competing_faction = yes
+			}
+			modifier = {
+				add = 20
+				ideology? = {
+					prev.owner = {
+						foreign_ideology_affinity = {
+							ideology = prev
+							value < -20
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				ai_should_promote_ideology_faction = yes
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					resource_stockpile_compare = {
+						resource = unity
+						value < @promote_suppress_faction_ai_unity_reserve
+					}
+				}
+			}
+		}
+	}
+
+	cancel_suppress_faction = {
+		title = "CANCEL_SUPPRESS_FACTION"
+		description = "CANCEL_SUPPRESS_FACTION_DESC"
+
+		potential = {
+			has_modifier = suppressed_faction
+		}
+
+		valid = {
+			is_in_political_reorientation = no
+			custom_tooltip = {
+				fail_text = cannot_stop_suppressing_ideology_recently_abandoned
+				NAND = {
+					exists = ideology
+					owner = {
+						has_country_flag = recently_abandon_ideology_@prev.ideology
+					}
+				}
+			}
+			custom_tooltip = {
+				fail_text = cannot_stop_suppressing_abandoning_ideology
+				NAND = {
+					exists = ideology
+					owner = {
+						ideology? = {
+							is_same_value = root.ideology
+						}
+						has_country_flag = abandoning_ideology
+					}
+				}
+			}
+		}
+
+		effect = {
+			remove_modifier = suppressed_faction
+			owner = {
+				if = {
+					limit = { # Only remove the modifier if no other faction with the same ethic is suppressed
+						NOT = {
+							any_pop_faction = {
+								is_$ETHIC$ = yes
+								has_modifier = suppressed_faction
+							}
+						}
+					}
+					remove_modifier = suppressed_$ETHIC$
+				}
+			}
+		}
+
+		ai_weight = {
+			base = 0
+			modifier = {
+				add = 100
+				ai_should_promote_ideology_faction = yes
+			}
+			 # Stop suppressing once the ideology is no longer disliked enough to warrant it
+			modifier = {
+				add = 20
+				ideology? = {
+					prev.owner = {
+						foreign_ideology_affinity = {
+							ideology = prev
+							value >= -20
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				ai_should_suppress_competing_faction = yes
+			}
+		}
+	}
+}

@@ -1,0 +1,111 @@
+demand = {
+	title = fanatic_faction_demand_CUSTODIAN_PEACE
+	unfulfilled_title = fanatic_faction_demand_CUSTODIAN_PEACE
+	desc = fanatic_faction_demand_CUSTODIAN_PEACE_desc
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -5
+
+	potential = {
+		ideology? = {
+			exists = owner
+			NOT = { is_ideology_custodian = root.owner }
+		}
+	}
+
+	trigger = {
+		# Condition is checked in forceofwill.7506
+		has_pop_faction_flag = fanatic_faction_demand_peace_fulfilled
+	}
+}
+
+demand = {
+	title = fanatic_faction_demand_CUSTODIAN_BORDERS
+	unfulfilled_title = fanatic_faction_demand_CUSTODIAN_BORDERS
+	desc = fanatic_faction_demand_CUSTODIAN_BORDERS_desc
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -10
+
+	potential = {
+		ideology? = {
+			exists = owner
+			NOT = { is_ideology_custodian = root.owner }
+		}
+		has_pop_faction_flag = fanatic_faction_demand_borders_unlocked
+	}
+
+	trigger = {
+		# Condition is checked in forceofwill.7506
+		has_pop_faction_flag = fanatic_faction_demand_borders_fulfilled
+	}
+}
+
+demand = {
+	title = fanatic_faction_demand_CUSTODIAN_MIGRATION
+	unfulfilled_title = fanatic_faction_demand_CUSTODIAN_MIGRATION
+	desc = fanatic_faction_demand_CUSTODIAN_MIGRATION_desc
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -15
+
+	potential = {
+		ideology? = {
+			exists = owner
+			NOT = { is_ideology_custodian = root.owner }
+		}
+		has_pop_faction_flag = fanatic_faction_demand_migration_unlocked
+	}
+
+	trigger = {
+		# Condition is checked in forceofwill.7506
+		has_pop_faction_flag = fanatic_faction_demand_migration_fulfilled
+	}
+}
+
+demand = {
+	title = fanatic_faction_demand_CUSTODIAN_ADOPT
+	unfulfilled_title = fanatic_faction_demand_CUSTODIAN_ADOPT
+	desc = fanatic_faction_demand_CUSTODIAN_ADOPT_desc
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -30
+
+	potential = {
+		ideology? = {
+			exists = owner
+			NOT = { is_ideology_custodian = root.owner }
+		}
+		has_pop_faction_flag = fanatic_faction_demand_adopt_unlocked
+	}
+
+	trigger = {
+		# Condition is checked in forceofwill.7506
+		has_pop_faction_flag = fanatic_faction_demand_adopt_fulfilled
+	}
+}
+
+demand = {
+	title = fanatic_faction_demand_CUSTODIAN_FEDERATION
+	unfulfilled_title = fanatic_faction_demand_CUSTODIAN_FEDERATION
+	desc = fanatic_faction_demand_CUSTODIAN_FEDERATION_desc
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -20
+
+	potential = {
+		ideology? = {
+			owner? = { has_federation = yes }
+			NOT = { is_ideology_custodian = root.owner }
+		}
+		has_pop_faction_flag = fanatic_faction_demand_federation_unlocked
+	}
+
+	trigger = {
+		ideology.owner = {
+			federation = {
+				any_member = { is_same_value = root.owner }
+			}
+		}
+	}
+}

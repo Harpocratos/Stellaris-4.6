@@ -1,0 +1,27 @@
+if = {
+	limit = {
+		from = {
+			has_modifier = suppressed_faction
+			NOR = {
+				exists = ideology
+				has_pop_faction_flag = created_for_ideology
+			}
+		}
+	}
+	set_timed_country_flag = {
+		flag = suppressed_$TYPE$_destroyed
+		years = @suppressed_faction_base_cooldown_years
+		random = @suppressed_faction_base_cooldown_delay
+	}
+	if = {
+		limit = {
+			NOT = {
+				ideology? = { is_$ETHIC$ = yes }
+			}
+		}
+		add_modifier = {
+			modifier = destroyed_$ETHIC$_faction
+			years = @destroyed_faction_ethic_malus_years
+		}
+	}
+}

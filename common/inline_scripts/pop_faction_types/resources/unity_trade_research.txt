@@ -1,0 +1,6 @@
+inline_script = pop_faction_types/resources/unity_trade
+inline_script = {
+	script = pop_faction_types/resources/research
+	MAJOR_TECH = $MAJOR_TECH$
+	MINOR_TECH = $MINOR_TECH$
+}

@@ -1,0 +1,19 @@
+
+# The growth is shared between the pop groups that can use it. The paired planet
+# modifier shows the undivided value in the modifier list.
+triggered_planet_pop_group_modifier_for_species = {
+	potential = {
+		can_use_bonus_pop_growth = {
+			COLONY = colony
+		}
+		$TRIGGER$
+	}
+	bonus_pop_growth = $AMOUNT$
+}
+
+triggered_planet_modifier = {
+	potential = {
+		$TRIGGER$
+	}
+	fake_pop_growth_mod = $AMOUNT$
+}

@@ -1,0 +1,754 @@
+###########################
+# Supremacist Demands
+###########################
+
+# Global (ruler and councilor ethic, stately acclaim edict)
+inline_script = {
+	script = pop_faction_types/demands/global
+	ETHIC = ethic_xenophobe
+	ETHIC_OPPOSED = ethic_xenophile
+}
+
+# Faction Outraged (by a GalCom Resolution)
+inline_script = {
+	script = pop_faction_types/demands/outraged
+	FLAG = galcom_resolution_passed_anti_supremacist
+}
+# Faction Pleased (by a GalCom Resolution)
+inline_script = {
+	script = pop_faction_types/demands/pleased
+	FLAG = galcom_resolution_passed_pro_supremacist
+}
+
+# Ruler with same species
+demand = {
+	title = "SUPREMACIST_RULER_SAME_SPECIES"
+	unfulfilled_title = "SUPREMACIST_RULER_NOT_SAME_SPECIES"
+	desc = "SUPREMACIST_RULER_NOT_SAME_SPECIES_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -30
+
+	potential = {
+		owner? = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
+	}
+
+	trigger = {
+		owner.ruler? = {
+			exists = owner_species
+			OR = {
+				is_same_species = owner_species
+				AND = {
+					owner = { has_valid_civic = civic_selective_kinship }
+					is_same_species_class = owner_species
+				}
+			}
+		}
+	}
+}
+
+# Not one xeno councilor
+demand = {
+	title = "SUPREMACIST_COUNCIL_SAME_SPECIES1"
+	unfulfilled_title = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES1"
+	desc = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES_DESC1"
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -10
+
+	potential = {
+		owner? = {
+			any_owned_leader = {
+				is_councilor = yes
+				is_same_species = owner_species
+				is_ruler = no
+			}
+			NOR = {
+				has_valid_civic = civic_fanatic_purifiers
+				OR = {
+					count_owned_leader = {
+						count <= value:count_councilors_xenos_2
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							is_same_species = owner_species
+						}
+					}
+					AND = {
+						has_valid_civic = civic_selective_kinship
+						count_owned_leader = {
+							count <= value:count_councilors_xenos_2
+							limit = {
+								is_councilor = yes
+								is_ruler = no
+								is_same_species_class = owner_species
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			OR = {
+				count_owned_leader = {
+					count = value:count_councilors
+					limit = {
+						is_councilor = yes
+						is_ruler = no
+						is_same_species = owner_species
+					}
+				}
+				AND = {
+					has_valid_civic = civic_selective_kinship
+					count_owned_leader = {
+						count = value:count_councilors
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							is_same_species_class = owner_species
+						}
+					}
+				}
+			}
+		}
+	}
+}
+# No two xeno councilors
+demand = {
+	title = "SUPREMACIST_COUNCIL_SAME_SPECIES2"
+	unfulfilled_title = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES2"
+	desc = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES_DESC2"
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -20
+
+	potential = {
+		owner? = {
+			NOT = { has_valid_civic = civic_fanatic_purifiers }
+			OR = {
+				AND = {
+					any_owned_leader = {
+						is_councilor = yes
+						is_same_species = owner_species
+						is_ruler = no
+					}
+					count_owned_leader = {
+						count = 2
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							NOT = { is_same_species = owner_species }
+						}
+					}
+				}
+				AND = {
+					has_valid_civic = civic_selective_kinship
+					any_owned_leader = {
+						is_councilor = yes
+						is_same_species_class = owner_species
+						is_ruler = no
+					}
+					count_owned_leader = {
+						count = 2
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							NOT = { is_same_species_class = owner_species }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	trigger = {
+		always = no
+	}
+}
+# No three xeno councilors
+demand = {
+	title = "SUPREMACIST_COUNCIL_SAME_SPECIES3"
+	unfulfilled_title = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES3"
+	desc = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES_DESC3"
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -30
+
+	potential = {
+		owner? = {
+			NOT = { has_valid_civic = civic_fanatic_purifiers }
+			OR = {
+				AND = {
+					any_owned_leader = {
+						is_councilor = yes
+						is_same_species = owner_species
+						is_ruler = no
+					}
+					count_owned_leader = {
+						count = 3
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							NOT = { is_same_species = owner_species }
+						}
+					}
+				}
+				AND = {
+					has_valid_civic = civic_selective_kinship
+					any_owned_leader = {
+						is_councilor = yes
+						is_same_species_class = owner_species
+						is_ruler = no
+					}
+					count_owned_leader = {
+						count = 3
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							NOT = { is_same_species_class = owner_species }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	trigger = {
+		always = no
+	}
+}
+# No four xeno councilors
+demand = {
+	title = "SUPREMACIST_COUNCIL_SAME_SPECIES4"
+	unfulfilled_title = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES4"
+	desc = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES_DESC4"
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -40
+
+	potential = {
+		owner? = {
+			NOT = { has_valid_civic = civic_fanatic_purifiers }
+			OR = {
+				AND = {
+					any_owned_leader = {
+						is_councilor = yes
+						is_same_species = owner_species
+						is_ruler = no
+					}
+					count_owned_leader = {
+						count = 4
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							NOT = { is_same_species = owner_species }
+						}
+					}
+				}
+				AND = {
+					has_valid_civic = civic_selective_kinship
+					any_owned_leader = {
+						is_councilor = yes
+						is_same_species_class = owner_species
+						is_ruler = no
+					}
+					count_owned_leader = {
+						count = 4
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							NOT = { is_same_species_class = owner_species }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	trigger = {
+		always = no
+	}
+}
+# Not only xeno councilors
+demand = {
+	title = "SUPREMACIST_COUNCIL_NOT_FULL_XENOS"
+	unfulfilled_title = "SUPREMACIST_COUNCIL_FULL_XENOS"
+	desc = "SUPREMACIST_COUNCIL_FULL_XENOS_DESC"
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -60
+
+	potential = {
+		owner? = {
+			NOT = { has_valid_civic = civic_fanatic_purifiers }
+			NOR = {
+				any_owned_leader = {
+					is_councilor = yes
+					is_same_species = owner_species
+					is_ruler = no
+				}
+				AND = {
+					has_valid_civic = civic_selective_kinship
+					any_owned_leader = {
+						is_councilor = yes
+						is_same_species_class = owner_species
+						is_ruler = no
+					}
+				}
+			}
+			OR = {
+				count_owned_leader = {
+					count >= 5
+					limit = {
+						is_councilor = yes
+						is_ruler = no
+						NOT = { is_same_species = owner_species }
+					}
+				}
+				any_owned_leader = {
+					is_councilor = yes
+					is_ruler = no
+				}
+				AND = {
+					has_valid_civic = civic_selective_kinship
+					count_owned_leader = {
+						count >= 5
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							NOT = { is_same_species_class = owner_species }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	trigger = {
+		always = no
+	}
+}
+
+# No federation
+demand = {
+	title = "SUPREMACIST_ISOLATIONIST_NO_FEDERATION"
+	unfulfilled_title = "SUPREMACIST_ISOLATIONIST_FEDERATION"
+	desc = "SUPREMACIST_ISOLATIONIST_NO_FEDERATION_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -20
+
+	potential = {
+		owner? = {
+			num_communications > 0
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_federation = no
+		}
+	}
+}
+
+# Interfer with pre-FTLs
+demand = {
+	title = "SUPREMACIST_UNRESTRICTED_STUDY"
+	unfulfilled_title = "SUPREMACIST_NO_UNRESTRICTED_STUDY"
+	desc = "SUPREMACIST_UNRESTRICTED_STUDY_DESC"
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -10
+
+	potential = {
+		owner? = {
+			NOT = { has_valid_civic = civic_fanatic_purifiers }
+			any_relation = {
+				is_country_type = primitive
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			OR = {
+				has_policy_flag = interference_active
+				has_policy_flag = interference_aggressive
+			}
+		}
+	}
+}
+
+# No free xenos in empire
+demand = {
+	title = "SUPREMACIST_NO_FREE_ALIENS"
+	unfulfilled_title = "SUPREMACIST_HAS_FREE_ALIENS"
+	desc = "SUPREMACIST_ALIEN_SLAVES_DESC"
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -10
+
+	potential = {
+		owner? = {
+			NOT = { has_valid_civic = civic_fanatic_purifiers }
+			any_owned_species = {
+				NOT = { is_same_species = prev }
+				NAND = {
+					prev = { has_valid_civic = civic_selective_kinship }
+					is_same_species_class = prev
+				}
+				is_robotic = no
+				is_sapient = yes
+				NOT = {
+					has_citizenship_type = { type = citizenship_purge country = prev }
+				}
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = {
+				any_owned_species = {
+					NOT = {
+						is_same_species = prev
+					}
+					NAND = {
+						prev = { has_valid_civic = civic_selective_kinship }
+						is_same_species_class = prev
+					}
+					is_robotic = no
+					is_sapient = yes
+					has_citizenship_type = { type = citizenship_full country = prev }
+				}
+			}
+		}
+	}
+}
+
+# No migration treaties
+demand = {
+	title = "SUPREMACIST_NO_MIGRATION_TREATIES"
+	unfulfilled_title = "SUPREMACIST_MIGRATION_TREATIES"
+	desc = "SUPREMACIST_NO_MIGRATION_TREATIES_DESC"
+
+	unfulfilled_effect = -10
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner? = {
+			NOT = { has_valid_civic = civic_fanatic_purifiers }
+			num_communications > 2
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOR = {
+				num_migration_pacts > 0
+				any_country = {
+					is_country_type = default
+					has_communications = root.owner
+					OR = {
+						has_diplo_migration_treaty = root.owner
+						root = {
+							owner = {
+								has_diplo_migration_treaty = prevprev
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Declare war
+demand = {
+	title = "SUPREMACIST_DOMINATION"
+	desc = "SUPREMACIST_DOMINATION_DESC"
+	unfulfilled_title = "SUPREMACIST_NO_DOMINATION"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			NOT = { has_valid_civic = civic_fanatic_purifiers }
+			any_relation = {
+				is_country_type = default
+				has_communications = root.owner
+				NOT = {
+					is_in_federation_with = root.owner
+				}
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_country_flag = entered_war_as_attacker
+		}
+	}
+}
+
+# Fanatic purifiers
+demand = {
+	title = "SUPREMACIST_FANATIC_PURIFIERS"
+	unfulfilled_title = "SUPREMACIST_NOT_FANATIC_PURIFIERS"
+	desc = "SUPREMACIST_FANATIC_PURIFIERS_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			has_valid_civic = civic_fanatic_purifiers
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_valid_civic = civic_fanatic_purifiers
+		}
+	}
+}
+
+# Kill guardian
+demand = {
+	title = "SUPREMACIST_GIANT_MASSACRE"
+	unfulfilled_title = "SUPREMACIST_NO_GIANT_MASSACRE"
+	desc = "SUPREMACIST_GIANT_MASSACRE_DESC"
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			OR = {
+				has_country_flag = killed_guardian
+				any_relation = { is_guardian_country = yes }
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_country_flag = killed_guardian
+		}
+	}
+}
+
+# Proclaim superiority
+demand = {
+	title = "SUPREMACIST_PROCLAIM_SUPREMACY"
+	unfulfilled_title = "SUPREMACIST_NO_PROCLAIM_SUPREMACY"
+	desc = "SUPREMACIST_PROCLAIM_SUPREMACY_DESC"
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			has_modifier = proclaim_superiority
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_modifier = proclaim_superiority
+		}
+	}
+}
+# Do not celebrate diversity
+demand = {
+	title = "SUPREMACIST_CELEBRATE_DIVERSITY"
+	unfulfilled_title = "SUPREMACIST_NO_CELEBRATE_DIVERSITY"
+	desc = "SUPREMACIST_CELEBRATE_DIVERSITY_DESC"
+
+	unfulfilled_effect = -5
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner? = {
+			has_modifier = celebrate_diversity
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = { has_modifier = celebrate_diversity }
+		}
+	}
+}
+
+# Strong diplomatic stance
+demand = {
+	title = "STRONG_DIPLO_STANCE"
+	unfulfilled_title = "STRONG_DIPLO_STANCE"
+	desc = "STRONG_DIPLO_STANCE_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			is_homicidal = no
+			is_country_type = default
+			OR = {
+				has_policy_flag = diplo_stance_belligerent
+				has_policy_flag = diplo_stance_supremacist
+				has_policy_flag = diplo_stance_animosity
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			OR = {
+				has_policy_flag = diplo_stance_belligerent
+				has_policy_flag = diplo_stance_supremacist
+				has_policy_flag = diplo_stance_animosity
+			}
+		}
+	}
+}
+# No weak diplomatic stance
+demand = {
+	title = "WEAK_DIPLO_STANCE"
+	unfulfilled_title = "WEAK_DIPLO_STANCE"
+	desc = "WEAK_DIPLO_STANCE_DESC"
+
+	fulfilled_effect = 0.01
+	unfulfilled_effect = -10
+
+	potential = {
+		owner? = {
+			is_homicidal = no
+			is_country_type = default
+			has_policy_flag = diplo_stance_cooperative
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = { has_policy_flag = diplo_stance_cooperative }
+		}
+	}
+}
+
+# Aggressive FC
+demand = {
+	title = "SUPREMACIST_AGGRESSIVE_FIRST_CONTACT_POLICY"
+	unfulfilled_title = "SUPREMACIST_NO_AGGRESSIVE_FIRST_CONTACT_POLICY"
+	desc = "SUPREMACIST_NO_AGGRESSIVE_FIRST_CONTACT_POLICY_DESC"
+
+	unfulfilled_effect = -5
+	fulfilled_effect = 10
+
+	potential = {
+		owner? = {
+			OR = {
+				years_passed <= 75
+				has_country_flag = recent_first_contact_process_started
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_policy_flag = first_contact_attack_allowed
+		}
+	}
+}
+
+# Oppressive subjugation
+demand = {
+	title = "SUPREMACIST_OPPRESSIVE_SUBJUGATION_POLICY"
+	unfulfilled_title = "SUPREMACIST_NO_OPPRESSIVE_SUBJUGATION_POLICY"
+	desc = "SUPREMACIST_NO_OPPRESSIVE_SUBJUGATION_POLICY_DESC"
+
+	unfulfilled_effect = -5
+	fulfilled_effect = 10
+
+	potential = {
+		owner? = {
+			is_subject = no
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_policy_flag = oppressive_terms
+		}
+	}
+}
+
+# Unplugged: Cyberize
+demand = {
+	title = SUPREMACIST_UNPLUGGED_CYBERIZE
+	unfulfilled_title = SUPREMACIST_UNPLUGGED_NOT_CYBERIZE
+	desc = SUPREMACIST_UNPLUGGED_CYBERIZE_DESC
+
+	unfulfilled_effect = -10
+	fulfilled_effect = 5
+
+	potential = {
+		owner? = {
+			has_origin = origin_unplugged
+			any_situation = {
+				is_situation_type = situation_unplugged_identity
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			any_situation = {
+				is_situation_type = situation_unplugged_identity
+				OR = {
+					AND = { # safely in the Cyberize stage
+						current_stage = unplugged_identity_stage_3
+						situation_monthly_progress > 0
+					}
+					AND = { # trending towards Cyberization and our Approach is aligned
+						situation_monthly_progress > 0.05
+						OR = {
+							current_situation_approach = situation_unplugged_identity_discourage_change
+							current_situation_approach = situation_unplugged_identity_embrace_opinion
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Purge Arkship crews
+demand = {
+	title = "SUPREMACIST_CULL_THE_DRIFTERS"
+	unfulfilled_title = "SUPREMACIST_NO_CULL_THE_DRIFTERS"
+	desc = "SUPREMACIST_CULL_THE_DRIFTERS_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			is_nomadic = no
+			any_country = {
+				is_nomadic = yes
+				has_communications = root.owner
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_policy_flag = arkship_raid_purge_pops
+		}
+	}
+}

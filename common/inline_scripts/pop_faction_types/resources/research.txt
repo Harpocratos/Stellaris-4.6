@@ -1,0 +1,7 @@
+inline_script = {
+	script = pop_faction_types/resources/research_custom
+	MAJOR_TECH = $MAJOR_TECH$
+	HIGH = @faction_major_output
+	MINOR_TECH = $MINOR_TECH$
+	LOW = @faction_minor_output
+}

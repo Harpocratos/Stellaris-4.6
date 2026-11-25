@@ -1,0 +1,54 @@
+actions = {
+	extort_faction = {
+		title = "EXTORT_FACTION"
+		description = "EXTORT_FACTION_DESC"
+
+		potential = {
+			exists = owner
+			owner = {
+				is_oligarchic_authority = yes
+				has_country_flag = cyber_collectivist
+			}
+			is_faction_extorted = no
+		}
+
+		valid = {
+			is_in_political_reorientation = no
+		}
+
+		effect = {
+			set_faction_extorted = yes
+			custom_tooltip = $RESOURCE$_extortion_tt
+			custom_tooltip = ONLY_ONE_EXTORTED_FACTION_TT
+		}
+
+		ai_weight = {
+			base = 0
+		}
+	}
+	cancel_extort_faction = {
+		title = "CANCEL_EXTORT_FACTION"
+		description = "CANCEL_EXTORT_FACTION_DESC"
+
+		potential = {
+			exists = owner
+			owner = {
+				is_oligarchic_authority = yes
+				has_country_flag = cyber_collectivist
+			}
+			is_faction_extorted = yes
+		}
+
+		valid = {
+			is_in_political_reorientation = no
+		}
+
+		effect = {
+			set_faction_extorted = no
+		}
+
+		ai_weight = {
+			base = 0
+		}
+	}
+}

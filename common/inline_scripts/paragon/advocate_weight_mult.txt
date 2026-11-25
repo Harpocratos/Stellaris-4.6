@@ -1,0 +1,10 @@
+modifier = {
+	has_force_of_will_dlc = yes
+	OR = {
+		exists = fleet
+		owner.advocate? = {
+			is_same_value = root
+		}
+	}
+	factor = @job_weight_mult
+}

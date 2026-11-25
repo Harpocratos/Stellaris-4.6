@@ -1,0 +1,18 @@
+# Leaders aren't an used feature anymore, commented out to avoid constant no leader malus
+#modifier = {
+#	factor = 1.25
+#	desc = FACTION_ATTRACTION_RULER_LEADER
+#	from? = {
+#		leader? = { is_ruler = yes }
+#	}
+#}
+#modifier = {
+#	factor = 0.75
+#	desc = FACTION_ATTRACTION_NO_LEADER
+#	OR = {
+#		NOT = { exists = from } # Avoid malus for potential factions
+#		from = {
+#			NOT = { exists = leader }
+#		}
+#	}
+#}

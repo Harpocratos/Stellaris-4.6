@@ -1,0 +1,10 @@
+produces = {
+	trigger = {
+		owner = {
+			is_crowdsourcing_empire = yes
+		}
+	}
+	$MAJOR_TECH$_research = $HIGH$
+	$MINOR_TECH$_research = $LOW$
+	mult = @crowdsourcing_multiplier
+}

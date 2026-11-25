@@ -1,0 +1,8 @@
+custom_tooltip_icon = {
+	fail_text = POP_CAN_THINK
+	can_think = yes
+}
+custom_tooltip_icon = {
+	fail_text = IS_NOT_INTERLINK_CYBORG_POP
+	is_interlink_cyborg_pop = no
+}

@@ -1,0 +1,30 @@
+actions = {
+	embrace_faction = {
+		title = "EMBRACE_FACTION"
+		description = "EMBRACE_FACTION_DESC"
+
+		cost = {
+			unity = @embrace_faction_cost
+		}
+
+		potential = {
+			embrace_faction_potential = yes
+		}
+
+		valid = {
+			can_embrace_faction = {
+				ETHIC = $ETHIC$
+			}
+		}
+
+		effect = {
+			embrace_faction_effect = {
+				ETHIC = $ETHIC$
+			}
+		}
+
+		ai_weight = {
+			add = value:embrace_ai_weight|ETHIC|$ETHIC$|
+		}
+	}
+}

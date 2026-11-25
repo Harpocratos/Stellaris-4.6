@@ -1,0 +1,29 @@
+produces = {
+	trigger = {
+		owner? = {
+			is_gestalt = no
+		}
+		colony? = {
+			has_modifier = nomad_contract_colony_support_civilian
+		}
+	}
+	consumer_goods = 1
+}
+produces = {
+	trigger = {
+		colony? = {
+			has_modifier = nomad_contract_colony_support_scientific
+		}
+	}
+	physics_research = 1
+	engineering_research = 1
+	society_research = 1
+}
+produces = {
+	trigger = {
+		colony? = {
+			has_modifier = nomad_contract_colony_support_military
+		}
+	}
+	alloys = 1
+}

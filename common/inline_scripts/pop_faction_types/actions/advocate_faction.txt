@@ -1,0 +1,44 @@
+actions = {
+	advocate_faction = {
+		title = "ADVOCATE_FACTION"
+		description = "ADVOCATE_FACTION_DESC"
+
+		cost = {
+			unity = @advocate_faction_unity_cost
+			influence = @advocate_faction_influence_cost
+		}
+
+		potential = {
+			has_force_of_will_dlc = yes
+			exists = owner
+			owner = {
+				OR = {
+					is_subject = no
+					NOT = {
+						any_agreement = { agreement_preset = preset_dominion }
+					}
+				}
+			}
+			is_faction_fanatic = yes
+			NOT = { exists = ideology }
+		}
+
+		valid = {
+			can_advocate_faction = yes
+		}
+
+		effect = {
+			hidden_effect = {
+				pop_faction_event = { id = forceofwill.1030 }
+			}
+		}
+
+		ai_weight = {
+			base = 0
+			modifier = {
+				add = 10
+				has_pop_faction_flag = ai_triggered_advocate
+			}
+		}
+	}
+}

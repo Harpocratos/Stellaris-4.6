@@ -1,0 +1,80 @@
+# $RESOURCE$ depends on the deposits of the target planet.
+
+# $BASE$ depends on the action and ship type:
+#	- @logistic_harvest_resources_duration for Harvest Resources from a Logistic Ship
+#	- @arkship_harvest_resources_duration for Harvest Resources from an Arkship
+#	- @arkship_strip_mine_duration for Planetary Strip Mining
+#	- @arkship_reprocess_planet_duration for Planetary Reprocessing
+
+# If the resource harvester is an Arkship:
+#	- $TARGET$ is event_target:arkship.controller
+#	- $EFFECT$ is add_resource
+
+# If the resource harvester is a Logistics Ship:
+#	- $TARGET$ is event_target:arkship, this is actually the logistic ship
+#	- $EFFECT$ is add_resource_to_local_stockpile
+
+if = {
+	limit = {
+		has_resource = { type = $RESOURCE$ amount > 0 }
+	}
+	if = {
+		limit = {
+			event_target:arkship.controller = {
+				has_contract = contract_harvest_$RESOURCE$
+			}
+			is_point_of_interest = {
+				id = harvest_poi@this
+				event_chain = contract_harvest_$RESOURCE$_chain
+				owner = event_target:arkship.controller
+			}
+		}
+		$TARGET$ = {
+			$EFFECT$ = {
+				$RESOURCE$ = 1
+				mult = root.value:arkship_harvest_resource_from_deposit_value|RESOURCE|$RESOURCE$|BASE|$BASE$|MULT|0.5|
+			}
+		}
+		# send half to issuer
+		event_target:arkship.controller = {
+			every_owned_contract = {
+				limit = {
+					is_mission_type = contract_harvest_$RESOURCE$
+				}
+				issuer = {
+					add_resource = {
+						$RESOURCE$ = 1
+						mult = root.value:arkship_harvest_resource_from_deposit_value|RESOURCE|$RESOURCE$|BASE|$BASE$|MULT|0.5|
+					}
+				}
+			}
+		}
+	}
+	# else_if = {
+	# 	limit = {
+	# 		has_harvesting_rights_trigger = {
+	# 			NOMAD = event_target:arkship.controller
+	# 		}
+	# 	}
+	# 	$TARGET$ = {
+	# 		$EFFECT$ = {
+	# 			$RESOURCE$ = 1
+	# 			mult = root.value:arkship_harvest_resource_from_deposit_value|RESOURCE|$RESOURCE$|BASE|$BASE$|MULT|value:harvesting_agreement_nomad_share_value|
+	# 		}
+	# 	}
+	# 	space_owner? = {
+	# 		add_resource = {
+	# 			$RESOURCE$ = 1
+	# 			mult = root.value:arkship_harvest_resource_from_deposit_value|RESOURCE|$RESOURCE$|BASE|$BASE$|MULT|value:harvesting_agreement_owner_share_value|
+	# 		}
+	# 	}
+	# }
+	else = {
+		$TARGET$ = {
+			$EFFECT$ = {
+				$RESOURCE$ = 1
+				mult = root.value:arkship_harvest_resource_from_deposit_value|RESOURCE|$RESOURCE$|BASE|$BASE$|MULT|1|
+			}
+		}
+	}
+}

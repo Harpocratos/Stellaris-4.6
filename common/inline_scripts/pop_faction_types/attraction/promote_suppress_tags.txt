@@ -1,0 +1,13 @@
+pop_attraction_tag = {
+	desc = POP_FACTION_ATTRACTION_PROMOTED
+	trigger = {
+		NOT = { exists = ideology }
+		has_pop_faction_flag = promoted_faction
+	}
+}
+pop_attraction_tag = {
+	desc = POP_FACTION_ATTRACTION_SUPPRESSED
+	trigger = {
+		has_modifier = suppressed_faction
+	}
+}

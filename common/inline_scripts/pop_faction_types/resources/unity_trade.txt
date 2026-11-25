@@ -1,0 +1,5 @@
+inline_script = {
+	script = pop_faction_types/resources/unity_trade_custom
+	UNITY = @faction_base_output
+	TRADE = @faction_base_output
+}

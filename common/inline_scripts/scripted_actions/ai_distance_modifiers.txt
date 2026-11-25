@@ -1,0 +1,21 @@
+# Shared AI distance prioritization modifiers.
+# $LOCAL_SYSTEM_CHECK$ - trigger to match the local system
+#   Planet scope: "any_system_planet = { is_same_value = ROOT }"
+#   System scope: "is_same_value = ROOT"
+
+modifier = {
+	factor = @ai_action_weight_factor_2 #prioritize neighbouring systems
+	distance = {
+		source = FROM
+		use_bypasses = yes
+		max_jumps = 1
+	}
+}
+modifier = {
+	factor = @ai_action_weight_factor_3 #prioritize local system
+	FROM = {
+		solar_system? = {
+			$LOCAL_SYSTEM_CHECK$
+		}
+	}
+}

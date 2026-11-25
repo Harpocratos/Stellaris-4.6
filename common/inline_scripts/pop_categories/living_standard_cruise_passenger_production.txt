@@ -1,0 +1,35 @@
+produces = {
+	trigger = {
+		has_living_standard = { type = living_standard_cruise_passenger }
+	}
+	trade = @trade_value_very_high
+}
+produces = {
+	trigger = {
+		has_living_standard = { type = living_standard_cruise_economy_passenger }
+	}
+	trade = @trade_value_shared_burden
+}
+produces = {
+	trigger = {
+		is_spiritualist = yes
+		owner = { has_valid_civic = civic_gospel_of_the_masses }
+	}
+	trade = @trade_value_prosperity_gospel
+}
+produces = {
+	trigger = {
+		is_spiritualist = yes
+		owner = { has_valid_civic = civic_gospel_of_the_masses }
+	}
+	trade = @trade_value_prosperity_gospel
+}
+
+produces = {
+	trigger = {
+		planet = {
+			has_modifier = pm_gaseous_fauna
+		}
+	}
+	exotic_gases = @gaseous_fauna_exotic_gases_production
+}

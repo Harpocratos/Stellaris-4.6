@@ -1,0 +1,434 @@
+###########################
+# Isolationist Demands
+###########################
+
+# Global (ruler and councilor ethic, stately acclaim edict)
+inline_script = {
+	script = pop_faction_types/demands/global
+	ETHIC = ethic_xenophobe
+	ETHIC_OPPOSED = ethic_xenophile
+}
+
+# Faction Outraged (by a GalCom Resolution)
+inline_script = {
+	script = pop_faction_types/demands/outraged
+	FLAG = galcom_resolution_passed_anti_isolationist
+}
+# Faction Pleased (by a GalCom Resolution)
+inline_script = {
+	script = pop_faction_types/demands/pleased
+	FLAG = galcom_resolution_passed_pro_isolationist
+}
+
+# Only Defense or Liberation wars
+demand = {
+	title = "ISOLATIONIST_PHILOSOPHY"
+	unfulfilled_title = "ISOLATIONIST_NO_PHILOSOPHY"
+	desc = "ISOLATIONIST_PHILOSOPHY_DESC"
+
+	unfulfilled_effect = -25
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner? = {
+			any_relation = {
+				has_communications = root.owner
+				is_country_type = default
+				NOT = { exists = overlord }
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = { has_policy_flag = unrestricted_wars }
+		}
+	}
+}
+
+# No attack
+demand = { # "ISOLATIONIST_NO_AGGRESSIVE_WAR"
+	title = "ISOLATIONIST_NO_AGGRESSIVE_WAR"
+	unfulfilled_title = "ISOLATIONIST_AGGRESSIVE_WAR"
+	desc = "ISOLATIONIST_NO_AGGRESSIVE_WAR_DESC"
+
+	unfulfilled_effect = -25
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner? = {
+			num_communications > 2
+			any_war = { is_war_participant = { who = prev side = attackers } }
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = { any_war = { is_war_participant = { who = prev side = attackers } } }
+		}
+	}
+}
+
+# No federation
+demand = {
+	title = "SUPREMACIST_ISOLATIONIST_NO_FEDERATION"
+	unfulfilled_title = "SUPREMACIST_ISOLATIONIST_FEDERATION"
+	desc = "SUPREMACIST_ISOLATIONIST_NO_FEDERATION_DESC"
+
+	unfulfilled_effect = -25
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner? = {
+			num_communications > 0
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_federation = no
+		}
+	}
+}
+
+# No refugees or migration treaty
+demand = {
+	title = "ISOLATIONIST_MOVEMENT_RESTRICTED"
+	unfulfilled_title = "ISOLATIONIST_MOVEMENT_UNRESTRICTED"
+	desc = "ISOLATIONIST_MOVEMENT_RESTRICTED_DESC"
+
+	unfulfilled_effect = -10
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner? = {
+			num_communications > 2
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOR = {
+				num_migration_pacts > 0 #doesn't check all the stuff below, but early exclude if it is true
+				has_policy_flag = refugees_allowed
+				any_relation = {
+					has_communications = root.owner
+					OR = {
+						has_diplo_migration_treaty = root.owner
+						root.owner = { has_diplo_migration_treaty = prevprev }
+					}
+				}
+			}
+		}
+	}
+}
+
+# One non-aggression pact
+demand = {
+	title = "ISOLATIONIST_NON_AGGRESSION1"
+	unfulfilled_title = "ISOLATIONIST_FEW_NON_AGGRESSION1"
+	desc = "ISOLATIONIST_NON_AGGRESSION_DESC1"
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			num_communications > 2
+			count_playable_country = {
+				limit = {
+					OR = {
+						has_non_aggression_pact = root.owner
+						has_association_status = root.owner
+					}
+				}
+				count < 2
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			OR = {
+				num_non_aggression_pacts > 0
+				exists = associated_federation
+			}
+		}
+	}
+}
+# Two non-aggression pacts
+demand = {
+	title = "ISOLATIONIST_NON_AGGRESSION2"
+	unfulfilled_title = "ISOLATIONIST_FEW_NON_AGGRESSION2"
+	desc = "ISOLATIONIST_NON_AGGRESSION_DESC2"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			num_communications > 2
+			count_playable_country = {
+				limit = {
+					OR = {
+						has_non_aggression_pact = root.owner
+						has_association_status = root.owner
+					}
+				}
+				count > 1
+			}
+			count_playable_country = {
+				limit = {
+					OR = {
+						has_non_aggression_pact = root.owner
+						has_association_status = root.owner
+					}
+				}
+				count < 3
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			count_playable_country = {
+				limit = {
+					OR = {
+						has_non_aggression_pact = root.owner
+						has_association_status = root.owner
+					}
+				}
+				count > 1
+			}
+		}
+	}
+}
+# Three or more non-aggression pacts
+demand = {
+	title = "ISOLATIONIST_NON_AGGRESSION3"
+	unfulfilled_title = "ISOLATIONIST_FEW_NON_AGGRESSION3"
+	desc = "ISOLATIONIST_NON_AGGRESSION_DESC3"
+
+	fulfilled_effect = 15
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			num_communications > 2
+			count_playable_country = {
+				limit = {
+					OR = {
+						has_non_aggression_pact = root.owner
+						has_association_status = root.owner
+					}
+				}
+				count > 2
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			count_playable_country = {
+				limit = {
+					OR = {
+						has_non_aggression_pact = root.owner
+						has_association_status = root.owner
+					}
+				}
+				count > 2
+			}
+		}
+	}
+}
+
+# At peace for 10-24 years
+demand = {
+	title = "ISOLATIONIST_PEACE1"
+	unfulfilled_title = "ISOLATIONIST_NO_PEACE1"
+	desc = "ISOLATIONIST_PEACE_DESC1"
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			num_communications > 0
+		}
+	}
+
+	trigger = {
+		owner = {
+			years_of_peace = {
+				value > 9
+			}
+		}
+	}
+}
+# At peace for 25-49 years
+demand = {
+	title = "ISOLATIONIST_PEACE2"
+	unfulfilled_title = "ISOLATIONIST_NO_PEACE2"
+	desc = "ISOLATIONIST_PEACE_DESC2"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			num_communications > 0
+			years_of_peace = {
+				value > 9
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			years_of_peace = {
+				value > 24
+			}
+		}
+	}
+}
+# At peace for 50+ years
+demand = {
+	title = "ISOLATIONIST_PEACE3"
+	unfulfilled_title = "ISOLATIONIST_NO_PEACE3"
+	desc = "ISOLATIONIST_PEACE_DESC3"
+
+	fulfilled_effect = 15
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			num_communications > 0
+			years_of_peace = {
+				value > 24
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			years_of_peace = {
+				value > 49
+			}
+		}
+	}
+}
+
+# Isolationist diplomatic stance
+demand = {
+	title = "ISOLATIONIST_DIPLO_STANCE"
+	unfulfilled_title = "ISOLATIONIST_DIPLO_STANCE"
+	desc = "ISOLATIONIST_DIPLO_STANCE_DESC"
+
+	fulfilled_effect = 10
+	unfulfilled_effect = -10
+
+	potential = {
+		owner? = {
+			is_homicidal = no
+			is_country_type = default
+			is_megacorp = no
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_policy_flag = diplo_stance_isolationist
+		}
+	}
+}
+
+# No proactive FC
+demand = {
+	title = "ISOLATIONIST_REPEAL_PROACTIVE_FIRST_CONTACT_POLICY"
+	unfulfilled_title = "ISOLATIONIST_NO_PROACTIVE_FIRST_CONTACT_POLICY"
+	desc = "ISOLATIONIST_REPEAL_PROACTIVE_FIRST_CONTACT_POLICY_DESC"
+
+	unfulfilled_effect = -10
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner? = {
+			OR = {
+				years_passed <= 75
+				has_country_flag = recent_first_contact_process_started
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = { has_policy_flag = first_contact_proactive }
+		}
+	}
+}
+
+# Unplugged: De-Cyberize
+demand = {
+	title = ISOLATIONIST_UNPLUGGED_DECYBERIZE
+	unfulfilled_title = ISOLATIONIST_UNPLUGGED_NOT_DECYBERIZE
+	desc = ISOLATIONIST_UNPLUGGED_DECYBERIZE_DESC
+
+	unfulfilled_effect = -10
+	fulfilled_effect = 5
+
+	potential = {
+		owner? = {
+			has_origin = origin_unplugged
+			any_situation = {
+				is_situation_type = situation_unplugged_identity
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			any_situation = {
+				is_situation_type = situation_unplugged_identity
+				OR = {
+					AND = { # safely in the De-Cyberize stage
+						current_stage = unplugged_identity_stage_1
+						situation_monthly_progress < 0
+					}
+					AND = { # trending towards De-Cyberization and our Approach is aligned
+						situation_monthly_progress < 0.05
+						OR = {
+							current_situation_approach = situation_unplugged_identity_discourage_change
+							current_situation_approach = situation_unplugged_identity_embrace_opinion
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# No nomad purge
+demand = {
+	title = "ISOLATIONIST_NO_NOMAD_ATROCITIES"
+	unfulfilled_title = "ISOLATIONIST_NOMAD_ATROCITIES"
+	desc = "ISOLATIONIST_NO_NOMAD_ATROCITIES_DESC"
+
+	fulfilled_effect = 0.001
+	unfulfilled_effect = -25
+
+	potential = {
+		owner? = {
+			is_nomadic = no
+			any_country = {
+				is_nomadic = yes
+				has_communications = root.owner
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = { has_policy_flag = arkship_raid_purge_pops }
+		}
+	}
+}

@@ -1,0 +1,73 @@
+inline_script = pop_faction_types/attraction/promote_suppress_attraction
+
+modifier = {
+	set = @ideological_faction_attraction_base
+	desc = FACTION_ATTRACTION_IDEOLOGY_BASE
+	from? = { exists = ideology }
+}
+
+# Ideological attraction modifiers
+modifier = {
+	add = from.value:ideological_faction_attraction_from_pops
+	desc = FACTION_ATTRACTION_IDEOLOGY_FOLLOWERS
+	from? = { exists = ideology }
+}
+modifier = {
+	add = from.value:attraction_from_approval
+	desc = FACTION_ATTRACTION_IDEOLOGY_APPROVAL
+	from? = {
+		exists = ideology
+		faction_approval < @ideological_faction_attraction_approval_threshold
+	}
+}
+modifier = {
+	add = @cultural_envoy_conversion_attraction
+	desc = FACTION_ATTRACTION_CULTURAL_ENVOY
+	from? = { exists = ideology }
+	planet? = {
+		has_planet_flag = recently_converted_by_ideology@from.ideology
+	}
+}
+modifier = {
+	add = @ideological_faction_suppressed_attraction
+	desc = FACTION_ATTRACTION_SUPPRESSED
+	from? = {
+		exists = ideology
+		has_modifier = suppressed_faction
+	}
+}
+modifier = {
+	min = 0
+	display_level = hide_desc
+	from? = { exists = ideology }
+}
+modifier = {
+	mult = owner.value:scripted_modifier_mult|MODIFIER|ideological_faction_attraction_mult|
+	desc = mod_ideological_faction_attraction_mult
+	from? = { exists = ideology }
+	owner? = {
+		check_modifier_value = {
+			modifier = ideological_faction_attraction_mult
+			value != 0
+		}
+	}
+}
+modifier = {
+	set = 0
+	desc = FACTION_ATTRACTION_IDEOLOGY_SUPPRESSED
+	from? = { exists = ideology }
+	planet = {
+		has_modifier = suppress_foreign_ideology
+	}
+	exists = owner
+	OR = {
+		owner = {
+			NOT = { exists = ideology }
+		}
+		from.ideology = {
+			NOT = {
+				is_same_value = prev.owner.ideology
+			}
+		}
+	}
+}

@@ -1,0 +1,96 @@
+# Shared by every Spiritualist faction: the Consecrated Worlds demand and the
+# approval penalties for losing a consecration.
+demand = {
+	title = TRADITIONALIST_CONSECRATED_WORLDS
+	unfulfilled_title = TRADITIONALIST_NO_CONSECRATED_WORLDS
+	desc = TRADITIONALIST_CONSECRATED_WORLDS_DESC
+
+	fulfilled_effect = 5
+	unfulfilled_effect = -0.001
+
+	potential = {
+		owner? = {
+			has_ascension_perk = ap_consecrated_worlds
+		}
+	}
+
+	trigger = {
+		owner? = {
+			any_planet_within_border = {
+				has_modifier = consecrated_world
+			}
+		}
+	}
+}
+
+demand = { # Consecration revoked by us
+	title = TRADITIONALIST_CONSECRATION_REVOKED
+	unfulfilled_title = TRADITIONALIST_CONSECRATION_REVOKED
+	desc = TRADITIONALIST_CONSECRATION_REVOKED_DESC
+
+	unfulfilled_effect = -10
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner? = {
+			has_country_flag = consecration_revoked
+		}
+	}
+
+	trigger = {
+		owner? = {
+			NOT = {
+				has_country_flag = consecration_revoked
+			}
+		}
+	}
+}
+
+demand = { # Consecration destroyed by someone else
+	title = TRADITIONALIST_CONSECRATION_DESECRATED
+	unfulfilled_title = TRADITIONALIST_CONSECRATION_DESECRATED
+	desc = TRADITIONALIST_CONSECRATION_DESECRATED_DESC
+
+	unfulfilled_effect = -25
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner? = {
+			has_country_flag = consecration_desecrated
+		}
+	}
+
+	trigger = {
+		owner? = {
+			NOT = {
+				has_country_flag = consecration_desecrated
+			}
+		}
+	}
+}
+
+demand = { # Lingering grief once the desecration itself has faded
+	title = TRADITIONALIST_CONSECRATION_LINGERING
+	unfulfilled_title = TRADITIONALIST_CONSECRATION_LINGERING
+	desc = TRADITIONALIST_CONSECRATION_LINGERING_DESC
+
+	unfulfilled_effect = -10
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner? = {
+			has_country_flag = consecration_desecrated_lingering
+			NOT = {
+				has_country_flag = consecration_desecrated
+			}
+		}
+	}
+
+	trigger = {
+		owner? = {
+			NOT = {
+				has_country_flag = consecration_desecrated_lingering
+			}
+		}
+	}
+}

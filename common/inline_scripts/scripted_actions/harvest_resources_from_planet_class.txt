@@ -1,0 +1,85 @@
+# $RESOURCE$ depends on the planet class the target planet.
+# $MULT$ depends on the planet class of the target planet.
+
+# $BASE$ depends on the action and ship type:
+#	- @logistic_harvest_resources_duration for Harvest Resources from a Logistic Ship
+#	- @arkship_harvest_resources_duration for Harvest Resources from an Arkship
+#	- @arkship_strip_mine_duration for Planetary Strip Mining
+#	- @arkship_reprocess_planet_duration for Planetary Reprocessing
+
+# If the resource harvester is an Arkship:
+#	- $TARGET$ is event_target:arkship.controller
+#	- $EFFECT$ is add_resource
+
+# If the resource harvester is a Logistics Ship:
+#	- $TARGET$ is event_target:arkship, this is actually the logistic ship
+#	- $EFFECT$ is add_resource_to_local_stockpile
+
+# If the target is surveyed we use the deposit size to determine resource value.
+if = {
+	limit = {
+		is_surveyed = {
+			who = from
+			status = yes
+		}
+	}
+	# Host takes their negotiated share.
+	# if = {
+	# 	limit = {
+	# 		has_harvesting_rights_trigger = {
+	# 			NOMAD = event_target:arkship.controller
+	# 		}
+	# 	}
+	# 	$TARGET$ = {
+	# 		$EFFECT$ = {
+	# 			$RESOURCE$ = 1
+	# 			mult = root.value:arkship_harvest_resource_from_planet_class_value|BASE|$BASE$|FACTOR|$FACTOR$|RESOURCE|$RESOURCE$|MULT|value:harvesting_agreement_nomad_share_value|
+	# 		}
+	# 	}
+	# 	space_owner? = {
+	# 		add_resource = {
+	# 			$RESOURCE$ = 1
+	# 			mult = root.value:arkship_harvest_resource_from_planet_class_value|BASE|$BASE$|FACTOR|$FACTOR$|RESOURCE|$RESOURCE$|MULT|value:harvesting_agreement_owner_share_value|
+	# 		}
+	# 	}
+	# }
+	# else = {
+	$TARGET$ = {
+		$EFFECT$ = {
+			$RESOURCE$ = 1
+			mult = root.value:arkship_harvest_resource_from_planet_class_value|BASE|$BASE$|FACTOR|$FACTOR$|RESOURCE|$RESOURCE$|MULT|1|
+		}
+	}
+	# }
+}
+# If the target is unsurveyed we only get the minimum reward.
+else = {
+	# Host takes their negotiated share.
+	# if = {
+	# 	limit = {
+	# 		has_harvesting_rights_trigger = {
+	# 			NOMAD = event_target:arkship.controller
+	# 		}
+	# 	}
+	# 	$TARGET$ = {
+	# 		$EFFECT$ = {
+	# 			$RESOURCE$ = 1
+	# 			mult = root.value:arkship_harvest_resource_from_unsurveyed_planet_class_value|BASE|$BASE$|FACTOR|$FACTOR$|RESOURCE|$RESOURCE$|MULT|value:harvesting_agreement_nomad_share_value|
+	# 		}
+	# 	}
+	# 	space_owner? = {
+	# 		add_resource = {
+	# 			$RESOURCE$ = 1
+	# 			mult = root.value:arkship_harvest_resource_from_unsurveyed_planet_class_value|BASE|$BASE$|FACTOR|$FACTOR$|RESOURCE|$RESOURCE$|MULT|value:harvesting_agreement_owner_share_value|
+	# 		}
+	# 	}
+	# }
+	# else = {
+	$TARGET$ = {
+		$EFFECT$ = {
+			$RESOURCE$ = 1
+			mult = root.value:arkship_harvest_resource_from_unsurveyed_planet_class_value|BASE|$BASE$|FACTOR|$FACTOR$|RESOURCE|$RESOURCE$|MULT|1|
+		}
+	}
+	# }
+}

@@ -1,0 +1,5 @@
+inline_script = pop_faction_types/can_join_faction/base_shackled
+custom_tooltip_icon = {
+	fail_text = IS_NOT_SHACKLED_ROBOT
+	is_shackled_robot = no
+}
