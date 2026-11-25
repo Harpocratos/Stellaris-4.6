@@ -1,0 +1,453 @@
+
+#############################
+### CUSTOM SCRIPT ACTIONS ###
+#############################
+# Fired by a scripted_action "possible" trigger in utility_component_template on a ship,
+# when the ship reaches its target planet, in this case.
+# Reference to this on_action is set by the scripted action "name" field.
+# This = target planet/target fleet/triggering fleet # depending on "scope" parameter on scripted_action
+# From = triggering fleet
+
+# Beholder Leader's Planetfall action
+on_beholder_target_planet_reached = {
+	events = {
+		paragon.99
+	}
+}
+
+on_azaryn_target_planet_reached = {
+	events = {
+		paragon.250
+	}
+}
+
+on_azaryn_action_cancel = {
+	events = {
+		paragon.251
+	}
+}
+
+on_cosmogenesis_exodus_planet_reached = {
+	events = {
+		crisis.7500
+		crisis.7514
+	}
+}
+
+on_cosmogenesis_exodus_fleet_reached = {
+	events = {
+		crisis.7503
+	}
+}
+
+on_behemoth_fast_egg_planet_reached = {
+	events = {
+		biocrisis.450	# Decloak Behemoth - planet scope event
+		biocrisis.300	# Behemoth lays an egg
+	}
+}
+
+on_behemoth_slow_egg_planet_reached = {
+	events = {
+		biocrisis.450	# Decloak Behemoth - planet scope event
+		biocrisis.300	# Behemoth lays an egg
+	}
+}
+
+on_behemoth_strong_egg_planet_reached = {
+	events = {
+		biocrisis.450	# Decloak Behemoth - planet scope event
+		biocrisis.300	# Behemoth lays an egg
+	}
+}
+
+on_behemoth_turbo_activated = {
+	events = {
+		biocrisis.451	# Decloak Behemoth - fleet scope event
+		biocrisis.305	# Behemoth gains modifier behemoth_turbo_modifier for 90 days
+	}
+}
+
+on_behemoth_reflexes_activated = {
+	events = {
+		biocrisis.451	# Decloak Behemoth - fleet scope event
+		biocrisis.310	# Behemoth gains modifier behemoth_reflexes_modifier for 90 days
+	}
+}
+
+on_behemoth_drain_activated = {
+	events = {
+		biocrisis.451	# Decloak Behemoth - fleet scope event
+		biocrisis.320	# Behemoth System Drain activated
+	}
+}
+
+on_behemoth_spike_activated = {
+	events = {
+		biocrisis.451	# Decloak Behemoth - fleet scope event
+		biocrisis.325	# Behemoth Damage Spike activated
+	}
+}
+
+on_behemoth_burst_activated = {
+	events = {
+		biocrisis.451	# Decloak Behemoth - fleet scope event
+		biocrisis.330	# Behemoth Damage Spike activated
+	}
+}
+
+on_behemoth_buff_activated = {
+	events = {
+		biocrisis.451	# Decloak Behemoth - fleet scope event
+		biocrisis.350	# Behemoth gains modifier behemoth_buff_modifier for 30 days
+	}
+}
+
+on_behemoth_summon_activated = {
+	events = {
+		biocrisis.451	# Decloak Behemoth - fleet scope event
+		biocrisis.360	# Behemoth summons a fleet using spawn_behemoth_summon_fleet script effect
+	}
+}
+
+on_behemoth_healing_activated = {
+	events = {
+		biocrisis.451	# Decloak Behemoth - fleet scope event
+		biocrisis.370	# Behemoth heals friendly ships in the same system
+	}
+}
+
+on_behemoth_superweapon_activated = {
+	events = {
+		biocrisis.451	# Decloak Behemoth - fleet scope event
+		biocrisis.400	# Behemoth fires activate_behemoth_superweapon script effect
+	}
+}
+
+on_behemoth_rage_triggered = {
+	events = {
+		biocrisis.451	# Decloak Behemoth - fleet scope event
+		biocrisis.95	# Behemoth fires enrage_behemoth script effect
+	}
+}
+
+on_paladin_super_shield = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.245 	# Paladin Super Shield
+	}
+}
+on_paladin_thunderclap = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.250 	# Paladin Thunderclap
+	}
+}
+on_paladin_recall = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.255 	# Paladin Recall
+	}
+}
+on_paladin_air_superiority = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.265 	# Paladin Air Superiority
+	}
+}
+on_paladin_plan_b = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.270 	# Paladin Plan B
+	}
+}
+on_paladin_sudden_strike = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.275 	# Paladin Sudden Strike
+	}
+}
+on_paladin_field_repairs = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.280 	# Paladin Field Repairs
+	}
+}
+on_paladin_taunt = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.285 	# Paladin Taunt
+	}
+}
+on_paladin_hold_the_line = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.290 	# Paladin Hold the Line
+	}
+}
+on_paladin_for_the_order = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.295 	# Paladin For the Order
+	}
+}
+on_paladin_teamwork = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.300 	# Paladin Teamwork
+	}
+}
+on_paladin_leadership = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.305 	# Paladin Leadership
+	}
+}
+on_paladin_field_testing = {
+	events = {
+		ambition.240 	# Decloak Paladin
+		ambition.310 	# Paladin Field Testing
+	}
+}
+
+on_arkship_deep_scan = {
+	events = {
+		nomads.4000		# Arkship Deep Scan
+	}
+}
+
+on_harvest_resources = {
+	events = {
+		nomads.4100		# Arkship & Logistic Ship Harvest Resources
+		nomads.4101		# Resource Harvesting Checklist Tracking
+		nomads.4105		# Notify a regular empire that a nomad is harvesting deposits in their borders
+		focus.185 		# Empire Focus
+	}
+}
+
+on_arkship_strip_mine = {
+	events = {
+		nomads.4200		# Arkship Strip Mine
+		focus.190 		# Empire Focus
+	}
+}
+
+on_arkship_subspace_image = {
+	events = {
+		nomads.4300		# Arkship Subspace Image
+	}
+}
+
+on_arkship_reprocess_planet = {
+	events = {
+		nomads.4400		# Arkship Reprocess Planet
+	}
+}
+
+on_destroy_planet_with_arkship_reprocess_planet = {
+	events = {
+		toxoids.8016 						#Destroyed knight Keep
+		crisis.5015 						# Menace Objective - Destroy World/Empire
+		planet_destruction.110				# Destroyed Earth
+		origin.3245 						# Glassing a Progenitors Nest
+		planet_destruction.600 				# frag holy world
+		awareness.150 						# Planet cracker used OR planet terraformed, chance to gain 20 awareness.
+		timeline.27         				# Milestone First Destroyed Planet
+		planet_destruction.100 				# goes last because it can kill a country, making some trigger checks impossible
+	}
+}
+
+on_arkship_reprocess_asteroid = {
+	events = {
+		awareness.150 						# Asteroid reprocessed, chance to gain 20 awareness.
+	}
+}
+
+# Called when the Stellar Ignition Arkship action is completed
+# THIS = planet
+# FROM = triggering fleet
+on_arkship_stellar_ignition = {
+	events = {
+		nomads.4500		# Arkship Stellar Ignition
+	}
+}
+
+on_destroy_planet_with_arkship_stellar_ignition = {
+	events = {
+		toxoids.8016 						#Destroyed knight Keep
+		crisis.5015 						# Menace Objective - Destroy World/Empire
+		planet_destruction.110				# Destroyed Earth
+		origin.3245 						# Glassing a Progenitors Nest
+		planet_destruction.600 				# frag holy world
+		awareness.150 						# Planet cracker used OR planet terraformed, chance to gain 20 awareness.
+		timeline.27         				# Milestone First Destroyed Planet
+		planet_destruction.100 				# goes last because it can kill a country, making some trigger checks impossible
+	}
+}
+
+# THIS = System jumping to
+# FROM = Fleet
+# Note: This executes before the specific_behavior override hijacks the order.
+on_arkship_exodus_jump = {
+	events = {
+		nomads.4600		# Arkship Exodus Jump Depature
+	}
+}
+
+# Called upon an exodus jump being finished, per ship in catapulted fleet
+# Should inherit events from on_ship_quantum_catapult
+# THIS = Ship
+# FROM = System jumping to
+# FROMFROM = System jumped from
+on_ship_arkship_exodus_jump = {
+}
+
+# Called upon an exodus jump being finished, per fleet
+# Should inherit events from on_fleet_quantum_catapult
+# THIS = Fleet
+# FROM = System jumping to
+# FROMFROM = System jumped from
+on_fleet_arkship_exodus_jump = {
+	events = {
+		nomads.4650		# Arkship Exodus Jump Arrival
+		over.30 		# Quantic Ambush modifier
+	}
+}
+
+# Called when a Lithoid Terravore Arkship consumes a world
+# THIS = planet
+# FROM = triggering fleet
+on_arkship_lithoid_consume_world = {
+	events = {
+		nomads.4750		# Arkship Lithoid Consume World - Start / Resume
+	}
+}
+
+# Called when a Lithoid Terravore Arkship consume world action is cancelled
+# THIS = planet
+# FROM = triggering fleet
+on_arkship_lithoid_consume_world_cancelled = {
+	events = {
+		nomads.4751		# Arkship Lithoid Consume World - Cancelled
+	}
+}
+
+# Called when a Nanotech Swarm Arkship consumes a world
+# THIS = planet
+# FROM = triggering fleet
+on_arkship_nanotech_consume_world = {
+	events = {
+		nomads.4800		# Arkship Nanotech Consume World - Start / Resume
+	}
+}
+
+# Called when a Nanotech Swarm Arkship consume world action is cancelled
+# THIS = planet
+# FROM = triggering fleet
+on_arkship_nanotech_consume_world_cancelled = {
+	events = {
+		nomads.4801		# Arkship Nanotech Consume World - Cancelled
+	}
+}
+
+# Called when a Knights of the Toxic God Arkship starts detoxing a world
+# THIS = planet
+# FROM = triggering fleet
+on_arkship_knights_detox_start = {
+	events = {
+		toxoids.8100	# Arkship Knights Detox - Start
+	}
+}
+
+# Called when a Knights of the Toxic God Arkship finishes detoxing a world
+# THIS = planet
+# FROM = triggering fleet
+on_arkship_knights_detox = {
+	events = {
+		toxoids.8105	# Arkship Knights Detox - Complete
+	}
+}
+
+# Called when a Knights of the Toxic God Arkship detox action is cancelled
+# THIS = planet
+# FROM = triggering fleet
+on_arkship_knights_detox_cancelled = {
+	events = {
+		toxoids.8110	# Arkship Knights Detox - Cancelled
+	}
+}
+
+# Called when an Arkship settles on a planet
+# THIS = planet
+# FROM = triggering fleet
+on_arkship_settle = {
+	events = {
+		nomads.4700		# Arkship Settlement, which destroys the Arkship
+		distar.300		# Change junkheap planetview image
+	}
+}
+
+
+# THIS = planet
+# FROM = triggering fleet
+on_arkship_drop_off_prisoners = {
+	events = {
+		nomads.3051		# Prisoners are dropped off
+	}
+}
+
+## Dyson Gun
+# THIS = Target System
+# FROM = Megastructure
+# SPACEOWNER = Target System owner
+on_dyson_shoot = {
+	events = {
+		nomads.8000 # Dyson Gun
+	}
+}
+
+on_dyson_shoot_started = {
+	events = {
+		nomads.8001 # Dyson Gun
+	}
+}
+
+# Arkship voidlure lure spawns. THIS = target system, FROM = arkship fleet.
+on_arkship_voidlure_tiyanki = {
+	events = {
+		grand_archive.7025
+	}
+}
+on_arkship_voidlure_space_amoeba = {
+	events = {
+		grand_archive.7030
+	}
+}
+on_arkship_voidlure_crystalline_entity = {
+	events = {
+		grand_archive.7035
+	}
+}
+on_arkship_voidlure_voidworm = {
+	events = {
+		grand_archive.7040
+	}
+}
+on_arkship_voidlure_cutholoid = {
+	events = {
+		grand_archive.7045
+	}
+}
+# Referenced only by the tooltip-only arkship_voidlure_generic action; never fired.
+on_arkship_voidlure_generic = {
+}
+
+## Galactic Halls
+# THIS = Target Planet
+# FROM = Megastructure
+# SPACEOWNER = Target System owner
+on_galactic_hall_relocate = {
+	events = {
+		forceofwill.4050 # Relocate Galactic Hall
+	}
+}
