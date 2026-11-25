@@ -1,0 +1,193 @@
+# Icons set here are the ones show in the actual slot. The reason is so that we can support different icons for different sizes.
+
+#############
+#	COST	#
+#############
+
+@cost_6S = 30
+@cost_6M = 60
+@cost_6L = 120
+
+#############
+#	 FTL	#
+#############
+
+@ftl1 = 5
+@ftl2 = 10
+@ftl3 = 15
+@ftl4 = 30
+
+@power1 = -5
+@power2 = -7.5
+@power3 = -10
+@power4 = -10
+
+########################
+# The Beholder
+########################
+
+utility_component_template = {
+	key = "SHROUD_SHIELD_SUPPRESSION_FIELD"
+	size = medium
+	icon = "GFX_ship_part_shroudborne_shield_suppression"
+	icon_frame = 1
+	power = 0
+
+	hostile_aura = {
+		name = "aura_shield_dampener"
+		system_wide = yes
+		#radius = 120
+		#apply_on = ships
+
+		stack_info = { # A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_inhibitor_aura
+			priority = 100
+		}
+
+		modifier = {
+			ship_shield_reduction = 1
+		}
+	}
+
+	friendly_aura = {
+		name = "aura_shield_dampener"
+		system_wide = yes
+		#radius = 120
+
+		stack_info = { # A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = friendly_inhibitor_aura
+			priority = 100
+		}
+
+		modifier = {
+			ship_shield_reduction = 1
+		}
+	}
+}
+
+utility_component_template = {
+	key = "SHIP_PLANETFALL"
+	size = large
+	icon = GFX_ship_part_bifunctional_design
+	icon_frame = 1
+	power = 0
+
+	scripted_action = { beholder_planetfall }
+
+	ai_weight = {
+		factor = 2
+	}
+}
+
+########################
+# AZARYN
+########################
+
+utility_component_template = {
+	key = "SHIP_AZARYN_TERRAFORM"
+	size = large
+	icon = GFX_ship_part_terraformation_nuclei_initiator
+	icon_frame = 1
+	power = 0
+
+	scripted_action = { azaryn_terraform }
+
+	ai_weight = {
+		factor = 2
+	}
+}
+
+########################
+# Horizon Needle
+########################
+
+utility_component_template = {
+	key = "SHIP_COSMOGENESIS_EXODUS"
+	size = large
+	icon = GFX_ship_part_aura_pd_penetration
+	icon_frame = 1
+	power = 0
+
+	scripted_action = { horizon_needle_action horizon_needle_action_nomads }
+
+	ai_weight = {
+		factor = 2
+	}
+}
+
+########################
+# Paladin Ships
+########################
+
+utility_component_template = {
+	key = "SHIP_PALADIN_CREST"
+	size = large
+	icon = GFX_ship_part_paladin_crest
+	icon_frame = 1
+	power = 0
+
+	component_set = "paladin_crest"
+
+	custom_tooltip = SHIP_PALADIN_CREST_TT
+
+	scripted_action = { paladin_super_shield paladin_thunderclap paladin_recall paladin_air_superiority paladin_plan_b paladin_sudden_strike paladin_field_repairs paladin_taunt paladin_hold_the_line paladin_for_the_order paladin_teamwork paladin_leadership paladin_field_testing }
+
+	friendly_aura = {
+		name = "PALADIN_STRATEGIST_AURA"
+		stack_info = {
+			id = paladin_strategist_aura
+			priority = 1
+		}
+		system_wide = yes
+		limit = {
+			solar_system? = {
+				any_fleet_in_system = {
+					controller = {
+						OR = {
+							is_friendly_to = root.controller
+							is_same_value = root.controller
+						}
+					}
+					exists = leader
+					leader = {
+						has_trait = leader_trait_paladin_strategist
+					}
+				}
+			}
+		}
+		modifier = {
+			ship_fire_rate_mult = 0.3
+		}
+	}
+	friendly_aura = {
+		name = "PALADIN_LOGISTICIAN_AURA"
+		stack_info = {
+			id = paladin_logistician_aura
+			priority = 1
+		}
+		system_wide = yes
+		limit = {
+			solar_system? = {
+				any_fleet_in_system = {
+					controller = {
+						OR = {
+							is_friendly_to = root.controller
+							is_same_value = root.controller
+						}
+					}
+					exists = leader
+					leader = {
+						has_trait = leader_trait_paladin_logistician
+					}
+				}
+			}
+		}
+		modifier = {
+			ships_upkeep_mult = -0.15
+		}
+	}
+
+	ai_weight = {
+		factor = 2
+	}
+}

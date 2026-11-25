@@ -1,0 +1,226 @@
+@base_agenda_cost = 7000
+
+agenda_constitutional_improvement_1 = {
+	agenda_cost = @base_agenda_cost
+	potential = {
+		is_gestalt = no
+		has_active_tenet = tenet_efficient_legislature
+		check_variable = {
+			which = efficient_legislature_tier
+			value = 1
+		}
+	}
+	allow = {
+		always = yes
+	}
+	modifier = {
+		country_society_research_produces_mult = 0.05
+	}
+	effect = {
+		add_monthly_resource_mult = {
+			resource = unity
+			value = @tier1unityreward
+			min = @tier1unitymin
+			max = @tier1unitymax
+		}
+		custom_tooltip = agenda_constitutional_improvement_1_effect_tt
+		increase_pop_political_power = { VALUE = 2 }
+	}
+}
+
+agenda_constitutional_improvement_2 = {
+	agenda_cost = @base_agenda_cost
+	potential = {
+		is_gestalt = no
+		has_active_tenet = tenet_efficient_legislature
+		check_variable = {
+			which = efficient_legislature_tier
+			value = 2
+		}
+	}
+	allow = {
+		always = yes
+	}
+	modifier = {
+		country_society_research_produces_mult = 0.1
+	}
+	effect = {
+		add_monthly_resource_mult = {
+			resource = unity
+			value = @tier2unityreward
+			min = @tier2unitymin
+			max = @tier2unitymax
+		}
+		custom_tooltip = agenda_constitutional_improvement_2_effect_tt
+		increase_pop_political_power = { VALUE = 3 }
+	}
+}
+
+agenda_constitutional_improvement_3 = {
+	agenda_cost = @base_agenda_cost
+	potential = {
+		is_gestalt = no
+		has_active_tenet = tenet_efficient_legislature
+		check_variable = {
+			which = efficient_legislature_tier
+			value = 3
+		}
+	}
+	allow = {
+		always = yes
+	}
+	modifier = {
+		country_society_research_produces_mult = 0.2
+	}
+	effect = {
+		add_monthly_resource_mult = {
+			resource = unity
+			value = @tier3unityreward
+			min = @tier3unitymin
+			max = @tier3unitymax
+		}
+		custom_tooltip = agenda_constitutional_improvement_3_effect_tt
+		increase_pop_political_power = { VALUE = 4 }
+	}
+}
+
+agenda_jubilee = {
+	agenda_cost = @base_agenda_cost
+	potential = {
+		has_active_tenet = tenet_jubilation
+		is_variable_set = jubilation_tier
+	}
+
+	init_effect = {
+		custom_tooltip = agenda_jubilee_init_effect_tt
+		hidden_effect = {
+			jubilee_random_resource_roll = yes
+			set_country_flag = has_selected_jubilee_agenda
+		}
+	}
+	on_cancel = {
+		jubilee_remove_modifiers = yes
+		remove_country_flag = has_selected_jubilee_agenda
+	}
+	effect = {
+		if = {
+			limit = { NOT = { has_country_flag = has_selected_jubilee_agenda } }
+			custom_tooltip = jubilee_finisher_tt
+		}
+		jubilee_finisher_effect = yes
+		remove_country_flag = has_selected_jubilee_agenda
+	}
+}
+
+agenda_show_of_force = {
+	agenda_cost = @base_agenda_cost
+	potential = {
+		has_active_tenet = tenet_force_projection
+	}
+
+	init_effect = {
+		if = {
+			limit = {
+				is_tenet_at_slot = {
+					TENET = tenet_force_projection
+					VALUE = 1
+				}
+			}
+			custom_tooltip = agenda_show_of_force_unity_effect_tier_1
+		}
+		else_if = {
+			limit = {
+				is_tenet_at_slot = {
+					TENET = tenet_force_projection
+					VALUE = 2
+				}
+			}
+			custom_tooltip = agenda_show_of_force_unity_effect_tier_2
+		}
+		else_if = {
+			limit = {
+				is_tenet_at_slot_or_higher = {
+					TENET = tenet_force_projection
+					VALUE = 3
+				}
+			}
+			custom_tooltip = agenda_show_of_force_unity_effect_tier_3
+		}
+	}
+	effect = {
+		add_monthly_resource_mult = {
+			resource = society_research
+			value = @tier1researchreward
+			min = @tier1researchmin
+			max = @tier1researchmax
+		}
+	}
+}
+
+inline_script = {
+	script = forceofwill/tenet_disarmament_agenda
+	TIER = "1"
+	COST = @base_agenda_cost
+}
+
+inline_script = {
+	script = forceofwill/tenet_disarmament_agenda
+	TIER = "2"
+	COST = @base_agenda_cost
+}
+
+inline_script = {
+	script = forceofwill/tenet_disarmament_agenda
+	TIER = "3"
+	COST = @base_agenda_cost
+}
+
+agenda_codify_instinct = {
+	agenda_cost = @base_agenda_cost
+	potential = {
+		is_hive_empire = yes
+		has_country_flag = ideology_initiated
+		NOR = {
+			exists = ideology
+			has_special_project = GESTALT_IDEOLOGY_PROJECT_HIVE
+			has_country_flag = cannot_codify_ideology
+		}
+	}
+	allow = {
+		can_generate_ideology = yes
+	}
+	modifier = {
+		species_leader_exp_gain = 0.15
+	}
+	finish_modifier = agenda_codify_instinct_finish
+	effect = {
+		enable_special_project = {
+			name = "GESTALT_IDEOLOGY_PROJECT_HIVE"
+		}
+	}
+}
+
+agenda_codify_directive = {
+	agenda_cost = @base_agenda_cost
+	potential = {
+		is_machine_empire = yes
+		has_country_flag = ideology_initiated
+		NOR = {
+			exists = ideology
+			has_special_project = GESTALT_IDEOLOGY_PROJECT_MACHINE
+			has_country_flag = cannot_codify_ideology
+		}
+	}
+	allow = {
+		can_generate_ideology = yes
+	}
+	modifier = {
+		species_leader_exp_gain = 0.15
+	}
+	finish_modifier = agenda_codify_directive_finish
+	effect = {
+		enable_special_project = {
+			name = "GESTALT_IDEOLOGY_PROJECT_MACHINE"
+		}
+	}
+}

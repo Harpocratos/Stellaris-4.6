@@ -1,0 +1,1280 @@
+# FOCUS CARDS
+#
+# Documentation: common\country_focus\focus_cards\99_HOW_TO_FOCUS.txt
+#
+# Note that each card ID increments by 2 instead of 5 to try to keep them within a tier
+
+###################
+# Core Focus Cards
+###################
+
+# Build a Building
+core_focus_100 = {
+	category = core_focus
+	tier = 1
+	background = "GFX_focus_card_background_core_tier_1"
+
+	name = "core.100.name"
+	desc = "core.100.desc"
+	hint = "core.100.hint"
+	lore = "core.100.lore"
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.100.fail"
+			success_text = "core.100.success"
+			has_country_flag = planet_building_built
+		}
+	}
+
+	on_success = {
+		# Don't change the order of these three, as it corresponds to the card icon order
+		add_focus_progress = { category = development amount = 10 }
+		add_focus_progress = { category = conquest amount = 10 }
+		add_focus_progress = { category = exploration amount = 10 }
+		create_focus_completed_message = { CATEGORY = CORE }
+	}
+}
+
+# Found a Colony - Settled Empires
+core_focus_102 = {
+	base = core_focus_100
+
+	name = "core.102.name"
+	desc = "core.102.desc"
+	hint = "core.102.hint"
+	lore = "core.102.lore"
+
+	possible = {
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.102.fail"
+			success_text = "core.102.success"
+			has_country_flag = first_colony_finished
+		}
+	}
+}
+
+# Build a Mining Station - Settled Empires
+core_focus_104 = {
+	base = core_focus_100
+
+	name = "core.104.name"
+	desc = "core.104.desc"
+	hint = "core.104.hint"
+	lore = "core.104.lore"
+
+	possible = {
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.104.fail"
+			success_text = "core.104.success"
+			has_country_flag = mining_station_built
+		}
+	}
+}
+
+# Build a Waystation - Nomadic Empires
+core_focus_104_1 = {
+	base = core_focus_100
+
+	name = "core.104_1.name"
+	desc = "core.104_1.desc"
+	hint = "core.104_1.hint"
+	lore = "core.104_1.lore"
+
+	possible = {
+		is_nomadic = yes
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.104_1.fail"
+			success_text = "core.104_1.success"
+			has_country_flag = waystation_built
+		}
+	}
+
+	on_success = {
+		add_focus_progress = { category = development amount = 10 }
+		add_focus_progress = { category = conquest amount = 10 }
+		add_focus_progress = { category = exploration amount = 10 }
+		create_focus_completed_message = { CATEGORY = CORE }
+		set_country_flag = core_focus_104_1_completed
+	}
+}
+
+# Set a Colony Designation - Settled Empires
+# Not on starting planet
+core_focus_106 = {
+	base = core_focus_100
+
+	name = "core.106.name"
+	desc = "core.106.desc"
+	hint = "core.106.hint"
+	lore = "core.106.lore"
+
+	possible = {
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.106.fail"
+			success_text = "core.106.success"
+			simple_progress = {
+				any_owned_colony = {
+					is_under_colonization = no
+					NOT = {	solar_system = { starting_system = yes } }
+					NOR = {
+						has_designation = col_capital
+						has_designation = col_capital_hive
+						has_designation = col_capital_machine
+						has_designation = col_wilderness_capital
+					}
+				}
+			}
+		}
+	}
+}
+
+
+# Set a Colony Designation - Nomadic Empires
+# Not on starting Arkship
+core_focus_106_1 = {
+	base = core_focus_100
+
+	name = "core.106_1.name"
+	desc = "core.106_1.desc"
+	hint = "core.106_1.hint"
+	lore = "core.106_1.lore"
+
+	possible = {
+		is_nomadic = yes
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.106_1.fail"
+			success_text = "core.106_1.success"
+			simple_progress = {
+				any_owned_colony = {
+					OR = {
+						AND = {
+							ship? = {
+								is_civilian_arkship = yes
+							}
+							owner = {
+								country_uses_consumer_goods = yes
+							}
+							NOR = {
+								has_designation = col_capital_nomad
+								has_designation = col_nomad_factory
+							}
+						}
+						AND = {
+							ship? = {
+								is_civilian_arkship = yes
+							}
+							owner = {
+								country_uses_consumer_goods = no
+							}
+							NOR = {
+								has_designation = col_capital_nomad
+								has_designation = col_nomad_foundry
+							}
+						}
+						AND = {
+							ship? = {
+								is_military_arkship = yes
+							}
+							NOR = {
+								has_designation = col_capital_nomad
+								has_designation = col_nomad_fortress
+							}
+						}
+						AND = {
+							ship? = {
+								is_science_arkship = yes
+							}
+							NOR = {
+								has_designation = col_capital_nomad
+								has_designation = col_nomad_research
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Build a Starbase Module
+core_focus_108 = {
+	base = core_focus_100
+
+	name = "core.108.name"
+	desc = "core.108.desc"
+	hint = "core.108.hint"
+	lore = "core.108.lore"
+
+	possible = {
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.108.fail"
+			success_text = "core.108.success"
+			simple_progress = {
+				any_owned_starbase = {
+					OR = {
+						AND = { # Starting system starts with modules
+							fleet.solar_system = { starting_system = yes }
+							count_starbase_modules = { count > 2 }
+						}
+						AND = { # Not starting system
+							NOT = {	fleet.solar_system = { starting_system = yes } }
+							count_starbase_modules = { count > 0 }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Build a Starbase Building
+core_focus_110 = {
+	base = core_focus_100
+
+	name = "core.110.name"
+	desc = "core.110.desc"
+	hint = "core.110.hint"
+	lore = "core.110.lore"
+
+	possible = {
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.110.fail"
+			success_text = "core.110.success"
+			simple_progress = {
+				any_owned_starbase = {
+					OR = {
+						AND = { # Starting system starts with building
+							fleet.solar_system = { starting_system = yes }
+							count_starbase_buildings = { count > 1 }
+						}
+						AND = { # Not starting system
+							NOT = {	fleet.solar_system = { starting_system = yes } }
+							count_starbase_buildings = { count > 0 }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Adopt a Tradition
+core_focus_112 = {
+	base = core_focus_100
+
+	name = "core.112.name"
+	desc = "core.112.desc"
+	hint = "core.112.hint"
+	lore = "core.112.lore"
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.112.fail"
+			success_text = "core.112.success"
+			num_tradition_categories > 0
+		}
+	}
+}
+
+# Activate an Edict
+# Fired from on_edict_activated
+# Root = Country
+core_focus_114 = {
+	base = core_focus_100
+
+	name = "core.114.name"
+	desc = "core.114.desc"
+	hint = "core.114.hint"
+	lore = "core.114.lore"
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.114.fail"
+			success_text = "core.114.success"
+			has_country_flag = has_activated_edict
+		}
+	}
+}
+
+# Complete 3 Agendas
+core_focus_116 = {
+	base = core_focus_100
+
+	name = "core.116.name"
+	desc = "core.116.desc"
+	hint = "core.116.hint"
+	lore = "core.116.lore"
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.116.fail"
+			success_text = "core.116.success"
+			check_variable = {
+				which = "focus_agendas_completed"
+				value >= @focus_goal_agendas_completed
+			}
+		}
+	}
+}
+
+# Stockpile Energy Credits, Settled Empires
+core_focus_118 = {
+	base = core_focus_100
+
+	name = "core.118.name"
+	desc = "core.118.desc"
+	hint = "core.118.hint"
+	lore = "core.118.lore"
+
+	possible = {
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.118.fail"
+			success_text = "core.118.success"
+			if = {
+				limit = {
+					has_country_flag = focus_goal_stockpile_energy
+				}
+				custom_progress = {
+					has_country_flag = focus_goal_stockpile_energy
+					current_val_coeff = @focus_goal_stockpile_energy
+					final_val_coeff = @focus_goal_stockpile_energy
+				}
+			}
+			else = {
+				custom_progress = {
+					has_resource = {
+						type = energy
+						amount >= @focus_goal_stockpile_energy
+					}
+					mode = clamped
+				}
+			}
+		}
+	}
+}
+
+# Have Less Than 10000 Operational Reserves - Nomadic Empires
+core_focus_118_1 = {
+	base = core_focus_100
+
+	name = "core.118_1.name"
+	desc = "core.118_1.desc"
+	hint = "core.118_1.hint"
+	lore = "core.118_1.lore"
+
+	possible = {
+		is_nomadic = yes
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.118_1.fail"
+			success_text = "core.118_1.success"
+			has_country_flag = operational_reserves_low
+		}
+	}
+}
+
+# Stockpile Minerals, Settled Empires
+core_focus_120 = {
+	base = core_focus_100
+
+	name = "core.120.name"
+	desc = "core.120.desc"
+	hint = "core.120.hint"
+	lore = "core.120.lore"
+
+	possible = {
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.120.fail"
+			success_text = "core.120.success"
+			if = {
+				limit = {
+					has_country_flag = focus_goal_stockpile_minerals
+				}
+				custom_progress = {
+					has_country_flag = focus_goal_stockpile_minerals
+					current_val_coeff = @focus_goal_stockpile_minerals
+					final_val_coeff = @focus_goal_stockpile_minerals
+				}
+			}
+			else = {
+				custom_progress = {
+					has_resource = {
+						type = minerals
+						amount >= @focus_goal_stockpile_minerals
+					}
+					mode = clamped
+				}
+			}
+		}
+	}
+}
+
+# Have More Than 50000 Operational Reserves - Nomadic Empires
+core_focus_120_1 = {
+	base = core_focus_100
+
+	name = "core.120_1.name"
+	desc = "core.120_1.desc"
+	hint = "core.120_1.hint"
+	lore = "core.120_1.lore"
+
+	possible = {
+		is_nomadic = yes
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.120_1.fail"
+			success_text = "core.120_1.success"
+			has_country_flag = operational_reserves_high
+		}
+	}
+}
+
+# Stockpile Food, Settled Empires
+core_focus_122 = {
+	base = core_focus_100
+
+	name = "core.122.name"
+	desc = "core.122.desc"
+	hint = "core.122.hint"
+	lore = "core.122.lore"
+
+	possible = {
+		is_nomadic = no
+		country_uses_food = yes
+		has_global_flag = game_started
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.122.fail"
+			success_text = "core.122.success"
+			if = {
+				limit = {
+					has_country_flag = focus_goal_stockpile_food
+				}
+				custom_progress = {
+					has_country_flag = focus_goal_stockpile_food
+					current_val_coeff = @focus_goal_stockpile_food
+					final_val_coeff = @focus_goal_stockpile_food
+				}
+			}
+			else = {
+				custom_progress = {
+					has_resource = {
+						type = food
+						amount >= @focus_goal_stockpile_food
+					}
+					mode = clamped
+				}
+			}
+		}
+	}
+}
+
+# Stockpile Food, Nomadic Empires
+core_focus_122_1 = {
+	base = core_focus_100
+
+	name = "core.122_1.name"
+	desc = "core.122_1.desc"
+	hint = "core.122_1.hint"
+	lore = "core.122_1.lore"
+
+	possible = {
+		is_nomadic = yes
+		country_uses_food = yes
+		has_global_flag = game_started
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.122_1.fail"
+			success_text = "core.122_1.success"
+			if = {
+				limit = {
+					has_country_flag = focus_goal_stockpile_food_nomadic
+				}
+				custom_progress = {
+					has_country_flag = focus_goal_stockpile_food_nomadic
+					current_val_coeff = @focus_goal_stockpile_food_nomadic
+					final_val_coeff = @focus_goal_stockpile_food_nomadic
+				}
+			}
+			else = {
+				custom_progress = {
+					has_resource = {
+						type = food
+						amount >= @focus_goal_stockpile_food_nomadic
+					}
+					mode = clamped
+				}
+			}
+		}
+	}
+}
+
+# Stockpile Consumer Goods, Settled Empires
+core_focus_124 = {
+	base = core_focus_100
+
+	name = "core.124.name"
+	desc = "core.124.desc"
+	hint = "core.124.hint"
+	lore = "core.124.lore"
+
+	possible = {
+		is_nomadic = no
+		country_uses_consumer_goods = yes
+		has_global_flag = game_started
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.124.fail"
+			success_text = "core.124.success"
+			if = {
+				limit = {
+					has_country_flag = focus_goal_stockpile_consumer_goods
+				}
+				custom_progress = {
+					has_country_flag = focus_goal_stockpile_consumer_goods
+					current_val_coeff = @focus_goal_stockpile_consumer_goods
+					final_val_coeff = @focus_goal_stockpile_consumer_goods
+				}
+			}
+			else = {
+				custom_progress = {
+					has_resource = {
+						type = consumer_goods
+						amount >= @focus_goal_stockpile_consumer_goods
+					}
+					mode = clamped
+				}
+			}
+		}
+	}
+}
+
+# Stockpile Consumer Goods, Nomadic Empires
+core_focus_124_1 = {
+	base = core_focus_100
+
+	name = "core.124_1.name"
+	desc = "core.124_1.desc"
+	hint = "core.124_1.hint"
+	lore = "core.124_1.lore"
+
+	possible = {
+		is_nomadic = yes
+		country_uses_consumer_goods = yes
+		has_global_flag = game_started
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.124_1.fail"
+			success_text = "core.124_1.success"
+			if = {
+				limit = {
+					has_country_flag = focus_goal_stockpile_consumer_goods_nomadic
+				}
+				custom_progress = {
+					has_country_flag = focus_goal_stockpile_consumer_goods_nomadic
+					current_val_coeff = @focus_goal_stockpile_consumer_goods_nomadic
+					final_val_coeff = @focus_goal_stockpile_consumer_goods_nomadic
+				}
+			}
+			else = {
+				custom_progress = {
+					has_resource = {
+						type = consumer_goods
+						amount >= @focus_goal_stockpile_consumer_goods_nomadic
+					}
+					mode = clamped
+				}
+			}
+		}
+	}
+}
+
+# Stockpile Alloys
+core_focus_126 = {
+	base = core_focus_100
+
+	name = "core.126.name"
+	desc = "core.126.desc"
+	hint = "core.126.hint"
+	lore = "core.126.lore"
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.126.fail"
+			success_text = "core.126.success"
+			if = {
+				limit = {
+					has_country_flag = focus_goal_stockpile_alloys
+				}
+				custom_progress = {
+					has_country_flag = focus_goal_stockpile_alloys
+					current_val_coeff = @focus_goal_stockpile_alloys
+					final_val_coeff = @focus_goal_stockpile_alloys
+				}
+			}
+			else = {
+				custom_progress = {
+					has_resource = {
+						type = alloys
+						amount >= @focus_goal_stockpile_alloys
+					}
+					mode = clamped
+				}
+			}
+		}
+	}
+}
+
+# Build a Hive District
+core_focus_127 = {
+	base = core_focus_100
+
+	name = "core.127.name"
+	desc = "core.127.desc"
+	hint = "core.127.hint"
+	lore = "core.127.lore"
+
+	possible = {
+		is_hive_empire = yes
+		is_wilderness_empire = no
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.127.fail"
+			success_text = "core.127.success"
+			has_country_flag = built_hive_district
+		}
+	}
+}
+
+# Build a Communal Biome District
+core_focus_127_1 = {
+	base = core_focus_100
+
+	name = "core.127_1.name"
+	desc = "core.127.desc"
+	hint = "core.127_1.hint"
+	lore = "core.127_1.lore"
+
+	possible = {
+		is_wilderness_empire = yes
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.127_1.fail"
+			success_text = "core.127_1.success"
+			has_country_flag = built_district_craglands
+		}
+	}
+}
+
+# Build a City District - Settled Empires
+core_focus_128 = {
+	base = core_focus_100
+
+	name = "core.128.name"
+	desc = "core.128.desc"
+	hint = "core.128.hint"
+	lore = "core.128.lore"
+
+	possible = {
+		is_hive_empire = no
+		is_machine_empire = no
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.128.fail"
+			success_text = "core.128.success"
+			has_country_flag = built_city_district
+		}
+	}
+}
+
+# Build a Habitation Decks District - Nomadic Empires
+core_focus_128_1 = {
+	base = core_focus_100
+
+	name = "core.128_1.name"
+	desc = "core.128_1.desc"
+	hint = "core.128_1.hint"
+	lore = "core.128_1.lore"
+
+	possible = {
+		is_hive_empire = no
+		is_machine_empire = no
+		is_nomadic = yes
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.128_1.fail"
+			success_text = "core.128_1.success"
+			has_country_flag = built_district_ark_city
+		}
+	}
+}
+
+# Build a Nexus District
+core_focus_129 = {
+	base = core_focus_100
+
+	name = "core.129.name"
+	desc = "core.129.desc"
+	hint = "core.129.hint"
+	lore = "core.129.lore"
+
+	possible = {
+		is_machine_empire = yes
+		is_nomadic = no
+
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.129.fail"
+			success_text = "core.129.success"
+			has_country_flag = built_nexus_district
+		}
+	}
+}
+
+# Build an Industrial District
+#core_focus_130 = {
+#	base = core_focus_100
+#
+#	name = "core.130.name"
+#	desc = "core.130.desc"
+#	hint = "core.130.hint"
+#	lore = "core.130.lore"
+#
+#	condition_for_achievement = {
+#		custom_tooltip = {
+#			fail_text = "core.130.fail"
+#			success_text = "core.130.success"
+#			has_country_flag = built_industrial_district
+#		}
+#	}
+#}
+
+# Build a Generator District - Settled Empires
+core_focus_132 = {
+	base = core_focus_100
+
+	name = "core.132.name"
+	desc = "core.132.desc"
+	hint = "core.132.hint"
+	lore = "core.132.lore"
+
+	possible = {
+		is_wilderness_empire = no
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.132.fail"
+			success_text = "core.132.success"
+			has_country_flag = built_generator_district
+		}
+	}
+}
+
+# Build a Photosynthesis Field
+core_focus_132_1 = {
+	base = core_focus_100
+
+	name = "core.132_1.name"
+	desc = "core.132.desc"
+	hint = "core.132_1.hint"
+	lore = "core.132_1.lore"
+
+	possible = {
+		is_wilderness_empire = yes
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.132_1.fail"
+			success_text = "core.132_1.success"
+			has_country_flag = built_district_photosynthesis_fields
+		}
+	}
+}
+
+# Build a Reactor Arrays District - Nomadic Empires
+core_focus_132_2 = {
+	base = core_focus_100
+
+	name = "core.132_2.name"
+	desc = "core.132_2.desc"
+	hint = "core.132_2.hint"
+	lore = "core.132_2.lore"
+
+	possible = {
+		is_wilderness_empire = no
+		is_nomadic = yes
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.132_2.fail"
+			success_text = "core.132_2.success"
+			has_country_flag = built_district_ark_generator
+		}
+	}
+}
+
+# Build a Mining District - Settled Empires
+core_focus_134 = {
+	base = core_focus_100
+
+	name = "core.134.name"
+	desc = "core.134.desc"
+	hint = "core.134.hint"
+	lore = "core.134.lore"
+
+	possible = {
+		is_wilderness_empire = no
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.134.fail"
+			success_text = "core.134.success"
+			has_country_flag = built_mining_district
+		}
+	}
+}
+
+# Build a Hollow Mountain District
+core_focus_134_1 = {
+	base = core_focus_100
+
+	name = "core.134_1.name"
+	desc = "core.134.desc"
+	hint = "core.134_1.hint"
+	lore = "core.134_1.lore"
+
+	possible = {
+		is_wilderness_empire = yes
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.134_1.fail"
+			success_text = "core.134_1.success"
+			has_country_flag = built_district_hollow_mountains
+		}
+	}
+}
+
+# Build an Ordnance Engineering District - Nomadic Empires
+core_focus_134_2 = {
+	base = core_focus_100
+
+	name = "core.134_2.name"
+	desc = "core.134_2.desc"
+	hint = "core.134_2.hint"
+	lore = "core.134_2.lore"
+
+	possible = {
+		is_wilderness_empire = no
+		is_nomadic = yes
+		NOT = { has_origin = origin_forever_cruise }
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.134_2.fail"
+			success_text = "core.134_2.success"
+			has_country_flag = built_district_ark_military
+		}
+	}
+}
+
+# Build a Service District - Nomadic Empires
+core_focus_134_3 = {
+	base = core_focus_100
+
+	name = "core.134_3.name"
+	desc = "core.134_3.desc"
+	hint = "core.134_3.hint"
+	lore = "core.134_3.lore"
+
+	possible = {
+		is_wilderness_empire = no
+		is_nomadic = yes
+		has_origin = origin_forever_cruise
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.134_3.fail"
+			success_text = "core.134_3.success"
+			has_country_flag = built_district_ark_forever_cruise
+		}
+	}
+}
+
+# Build an Agriculture District - Settled Empires
+core_focus_136 = {
+	base = core_focus_100
+
+	name = "core.136.name"
+	desc = "core.136.desc"
+	hint = "core.136.hint"
+	lore = "core.136.lore"
+
+	possible = {
+		is_wilderness_empire = no
+		is_nomadic = no
+		country_uses_food = yes
+		has_global_flag = game_started
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.136.fail"
+			success_text = "core.136.success"
+			has_country_flag = built_farming_district
+		}
+	}
+}
+
+# Build an Orchard Forest
+core_focus_136_1 = {
+	base = core_focus_100
+
+	name = "core.136_1.name"
+	desc = "core.136.desc"
+	hint = "core.136_1.hint"
+	lore = "core.136_1.lore"
+
+	possible = {
+		is_wilderness_empire = yes
+		is_nomadic = no
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.136_1.fail"
+			success_text = "core.136_1.success"
+			has_country_flag = built_district_orchard_forests
+		}
+	}
+}
+
+# Build a Hydroponic Bays District - Nomadic Empires
+core_focus_136_2 = {
+	base = core_focus_100
+
+	name = "core.136_2.name"
+	desc = "core.136_2.desc"
+	hint = "core.136_2.hint"
+	lore = "core.136_2.lore"
+
+	possible = {
+		is_wilderness_empire = no
+		is_nomadic = yes
+		country_uses_food = yes
+		has_global_flag = game_started
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.136_2.fail"
+			success_text = "core.136_2.success"
+			has_country_flag = built_district_ark_basic
+		}
+	}
+}
+
+# Enact a Planetary Decision
+core_focus_138 = {
+	base = core_focus_100
+
+	name = "core.138.name"
+	desc = "core.138.desc"
+	hint = "core.138.hint"
+	lore = "core.138.lore"
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.138.fail"
+			success_text = "core.138.success"
+			has_country_flag = planetary_decision_enacted
+		}
+	}
+}
+
+# Establish a Branch Office (MegaCorp)
+core_focus_139 = {
+	base = core_focus_100
+
+	name = "core_focus_139.name"
+	desc = "core_focus_139.desc"
+	hint = "core_focus_139.hint"
+	lore = "core_focus_139.lore"
+
+	possible = {
+		is_megacorp = yes
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = core_focus_139.fail
+			success_text = core_focus_139.success
+			has_country_flag = has_established_branch_office
+		}
+	}
+	on_success = {
+		add_focus_progress = { category = development amount = 10 }
+		add_focus_progress = { category = conquest amount = 10 }
+		add_focus_progress = { category = exploration amount = 10 }
+		create_focus_completed_message = { CATEGORY = CORE }
+		set_country_flag = core_focus_139_completed
+	}
+}
+
+# Complete a Contract - Nomadic Empires
+core_focus_140 = {
+	base = core_focus_100
+
+	name = "core.140.name"
+	desc = "core.140.desc"
+	hint = "core.140.hint"
+	lore = "core.140.lore"
+
+	possible = {
+		is_nomadic = yes
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.140.fail"
+			success_text = "core.140.success"
+			check_variable = {
+				which = "contract_completed"
+				value >= 1
+			}
+		}
+	}
+
+	on_success = {
+		add_focus_progress = { category = development amount = 10 }
+		add_focus_progress = { category = conquest amount = 10 }
+		add_focus_progress = { category = exploration amount = 10 }
+		create_focus_completed_message = { CATEGORY = CORE }
+		set_country_flag = core_focus_140_completed
+	}
+}
+
+# Complete Arkship Readiness - Nomadic Empires
+core_focus_200 = {
+	category = core_focus
+	tier = 2
+	background = "GFX_focus_card_background_core_tier_2"
+
+	name = "core.200.name"
+	desc = "core.200.desc"
+	hint = "core.200.hint"
+	lore = "core.200.lore"
+
+	possible = {
+		is_nomadic = yes
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.200.fail"
+			success_text = "core.200.success"
+			NOR = {
+				any_owned_mission = {
+					is_mission_type = NOMAD_CHECKLIST_SHIELD_REALIGNMENT
+				}
+				any_owned_mission = {
+					is_mission_type = NOMAD_CHECKLIST_SENSOR_CALIBRATION
+				}
+				any_owned_mission = {
+					is_mission_type = NOMAD_CHECKLIST_FLUSH_COOLANT
+				}
+				any_owned_mission = {
+					is_mission_type = NOMAD_CHECKLIST_CLEAR_HANGAR_BAYS
+				}
+				any_owned_mission = {
+					is_mission_type = NOMAD_CHECKLIST_DECIPHER_SIGNAL
+				}
+			}
+		}
+	}
+
+	on_success = {
+		add_focus_progress = { category = development amount = 25 }
+		add_focus_progress = { category = conquest amount = 25 }
+		add_focus_progress = { category = exploration amount = 25 }
+		create_focus_completed_message = { CATEGORY = CORE }
+	}
+}
+
+# Complete 3 Contracts - Nomadic Empires
+core_focus_300 = {
+	category = core_focus
+	tier = 3
+	background = "GFX_focus_card_background_core_tier_3"
+
+	name = "core.300.name"
+	desc = "core.300.desc"
+	hint = "core.300.hint"
+	lore = "core.300.lore"
+
+	possible = {
+		is_nomadic = yes
+		has_country_flag = core_focus_140_completed
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.300.fail"
+			success_text = "core.300.success"
+			check_variable = {
+				which = "contract_completed"
+				value >= 3
+			}
+		}
+	}
+
+	on_success = {
+		add_focus_progress = { category = development amount = 50 }
+		add_focus_progress = { category = conquest amount = 50 }
+		add_focus_progress = { category = exploration amount = 50 }
+		create_focus_completed_message = { CATEGORY = CORE }
+		set_country_flag = core_focus_300_completed
+	}
+}
+
+# Complete 7 Contracts - Nomadic Empires
+core_focus_400 = {
+	category = core_focus
+	tier = 4
+	background = "GFX_focus_card_background_core_tier_4"
+
+	name = "core.400.name"
+	desc = "core.400.desc"
+	hint = "core.400.hint"
+	lore = "core.400.lore"
+
+	possible = {
+		is_nomadic = yes
+		has_country_flag = core_focus_300_completed
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.400.fail"
+			success_text = "core.400.success"
+			check_variable = {
+				which = "contract_completed"
+				value >= 7
+			}
+		}
+	}
+
+	on_success = {
+		add_focus_progress = { category = development amount = 100 }
+		add_focus_progress = { category = conquest amount = 100 }
+		add_focus_progress = { category = exploration amount = 100 }
+		create_focus_completed_message = { CATEGORY = CORE }
+		set_country_flag = core_focus_400_completed
+	}
+}
+
+# Complete 15 Contracts - Nomadic Empires
+core_focus_500 = {
+	category = core_focus
+	tier = 5
+	background = "GFX_focus_card_background_core_tier_5"
+
+	name = "core.500.name"
+	desc = "core.500.desc"
+	hint = "core.500.hint"
+	lore = "core.500.lore"
+
+	possible = {
+		is_nomadic = yes
+		has_country_flag = core_focus_400_completed
+	}
+
+	condition_for_achievement = {
+		custom_tooltip = {
+			fail_text = "core.500.fail"
+			success_text = "core.500.success"
+			check_variable = {
+				which = "contract_completed"
+				value >= 15
+			}
+		}
+	}
+
+	on_success = {
+		add_focus_progress = { category = development amount = 200 }
+		add_focus_progress = { category = conquest amount = 200 }
+		add_focus_progress = { category = exploration amount = 200 }
+		create_focus_completed_message = { CATEGORY = CORE }
+	}
+}

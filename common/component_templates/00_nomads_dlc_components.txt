@@ -1,0 +1,49 @@
+###########################
+# Arkship Devatator Mount
+###########################
+
+weapon_component_template = {
+	key = "ARKSHIP_DEVASTATOR_WEAPON"
+	size = titanic
+	type = instant
+	prio_projectile = yes
+	hidden = yes
+
+	icon = "GFX_ship_part_arkship_devastator"
+	icon_frame = 1
+
+	potential = {
+		OR = {
+			is_ship_size = civilian_arkship_tier_3
+			is_ship_size = science_arkship_tier_3
+			is_ship_size = military_arkship_tier_3
+		}
+	}
+
+	resources = {
+		category = ship_components
+		upkeep = {
+			alloys = @titanic_t7_upkeep_alloys
+			energy = @titanic_t7_upkeep_energy
+		}
+	}
+
+	collateral_damage = @arkship_devastator_fleet_damage
+	collateral_range = @arkship_devastator_collateral_range
+
+	firing_arc = 15.0
+	min_range = 30.0
+
+	tags = {
+		weapon_type_energy
+		weapon_role_artillery
+		t_slot
+	}
+	ai_tags = {
+		weapon_role_artillery
+		artillery
+		artillery_stealth
+	}
+	component_set = "ARKSHIP_DEVASTATOR_WEAPON"
+	projectile_gfx = "arkship_01_devastator_laser"
+}

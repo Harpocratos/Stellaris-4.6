@@ -1,0 +1,184 @@
+# FOCUS REWARDS
+
+@development_reward_tech_progress = 0.20
+
+##########################
+# Development Focus Rewards
+##########################
+
+development_rewards_1 = {
+	category = development
+	cost = 40
+	mode = right
+
+	on_success = {
+		add_research_option = tech_planetary_unification
+		create_focus_reward_message = { CATEGORY = DEVELOPMENT }
+	}
+}
+
+development_rewards_2 = {
+	category = development
+	cost = 60
+	mode = left
+
+	on_success = {
+		add_research_option = tech_adaptive_bureaucracy
+		create_focus_reward_message = { CATEGORY = DEVELOPMENT }
+	}
+}
+
+development_rewards_3 = {
+	category = development
+	cost = 80
+	mode = right
+
+	on_success = {
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic = no
+					has_origin = origin_endbringers
+				}
+			}
+			add_research_option = tech_colonial_centralization
+		}
+		else = {
+			add_research_option = tech_federation_code
+		}
+		create_focus_reward_message = { CATEGORY = DEVELOPMENT }
+	}
+}
+
+development_rewards_4 = {
+	category = development
+	cost = 100
+	mode = left
+
+	on_success = {
+		if = {
+			limit = {
+				is_nomadic = yes
+			}
+			add_research_option = tech_arkship_construction
+		}
+		else = {
+			add_research_option = tech_starbase_3
+		}
+		create_focus_reward_message = { CATEGORY = DEVELOPMENT }
+	}
+}
+
+development_rewards_5 = {
+	category = development
+	cost = 120
+	mode = right
+
+	on_success = {
+		if = {
+			limit = {
+				is_diplomatic = no
+				is_gestalt = yes
+			}
+			add_research_option = tech_autonomous_agents
+		}
+		else_if = {
+			limit = {
+				is_diplomatic = no
+				is_gestalt = no
+			}
+			add_research_option = tech_artificial_moral_codes
+		}
+		else = {
+			add_research_option = tech_xeno_diplomacy
+		}
+		create_focus_reward_message = { CATEGORY = DEVELOPMENT }
+	}
+}
+
+development_rewards_6 = {
+	category = development
+	cost = 140
+	mode = left
+
+	on_success = {
+		add_research_option = tech_effective_bureaucracy
+		create_focus_reward_message = { CATEGORY = DEVELOPMENT }
+	}
+}
+
+development_rewards_7 = {
+	category = development
+	cost = 160
+	mode = right
+
+	on_success = {
+		if = {
+			limit = {
+				is_nomadic = yes
+			}
+			add_research_option = tech_arkship_tier_2
+		}
+		else = {
+			add_research_option = tech_starbase_4
+		}
+		create_focus_reward_message = { CATEGORY = DEVELOPMENT }
+	}
+}
+
+development_rewards_8 = {
+	category = development
+	cost = 180
+	mode = left
+
+	on_success = {
+		if = {
+			limit = {
+				is_diplomatic = no
+			}
+			add_research_option = tech_galactic_administration
+		}
+		else = {
+			add_research_option = tech_xeno_relations
+		}
+		create_focus_reward_message = { CATEGORY = DEVELOPMENT }
+	}
+}
+
+development_rewards_9 = {
+	category = development
+	cost = 200
+	mode = right
+
+	on_success = {
+		if = {
+			limit = {
+				is_nomadic = yes
+			}
+			add_research_option = tech_arkship_tier_3
+		}
+		else = {
+			add_research_option = tech_starbase_5
+		}
+		create_focus_reward_message = { CATEGORY = DEVELOPMENT }
+	}
+}
+
+development_rewards_10 = {
+	category = development
+	cost = 220
+	mode = end
+
+	on_success = {
+		if = {
+			limit = {
+				is_nomadic = yes
+			}
+			add_research_option = tech_arkship_planetary_refinery
+		}
+		else = {
+			add_research_option = tech_mega_engineering
+		}
+		create_focus_reward_message = { CATEGORY = DEVELOPMENT }
+	}
+}

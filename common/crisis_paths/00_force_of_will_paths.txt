@@ -1,0 +1,21 @@
+# Documentation in common/crisis_paths
+
+force_of_will_path = {
+	crisis_currency = "willpower"
+
+	levels = {
+		crisis_force_of_will_level_1
+		crisis_force_of_will_level_2
+		crisis_force_of_will_level_3
+		crisis_force_of_will_level_4
+		crisis_force_of_will_level_5
+	}
+
+	objectives = {
+		crisobj_convert_pops
+		crisobj_vassalise_empires_forceofwill
+		crisobj_have_vassals_forceofwill
+		crisobj_positive_ideological_strength_gain
+		crisobj_win_ideological_war
+	}
+}

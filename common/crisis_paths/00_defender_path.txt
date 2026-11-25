@@ -1,0 +1,23 @@
+# Documentation in common/crisis_paths
+
+defender_path = {
+	crisis_currency = "integrity"
+
+	levels = {
+		crisis_defender_level_1
+		crisis_defender_level_2
+		crisis_defender_level_3
+		crisis_defender_level_4
+		crisis_defender_level_5
+	}
+
+	objectives = {
+		crisobj_defensive_pacts
+		crisobj_federated 
+		crisobj_not_in_aggressive_war
+		
+		crisobj_galcom_activity
+		crisobj_destroy_crisis_ships
+		crisobj_destroy_crisis_countries
+	}
+}
