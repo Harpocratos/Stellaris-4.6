@@ -1,0 +1,1887 @@
+##########################
+# Nomad Special Projects #
+##########################
+
+# Arkship Debris
+special_project = {
+	key = "ARKSHIP_DEBRIS"
+	days_to_research = 90
+	timelimit = 1800
+	tech_department = engineering_technology
+	picture = GFX_evt_arkship_crisis
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+	}
+
+	on_success = {
+		controller = {
+			country_event = {
+				id = arkship.1025
+				scopes = {
+					from = root.from
+					fromfrom = root.solar_system
+				}
+			}
+		}
+	}
+
+	on_fail = {
+		fromfrom = {
+			destroy_ambient_object = this
+		}
+	}
+}
+
+# Recover a disabled Arkship or Waystation by bringing another Arkship or Logistic Ship alongside.
+# location = the disabled fleet; owner = the rescuing nomad empire
+special_project = {
+	key = "RECOVER_DISABLED_NOMAD_VESSEL"
+	days_to_research = 90
+	timelimit = 1800
+	tech_department = engineering_technology
+	picture = GFX_evt_arkship_crisis
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = yes
+
+	event_scope = ship_event
+
+	# Desc trigger scope is the disabled vessel (ship scope), so test the ship, not the fleet.
+	desc = {
+		trigger = { is_arkship_ship = yes }
+		text = RECOVER_DISABLED_NOMAD_VESSEL_ARKSHIP_DESC
+	}
+	desc = {
+		trigger = { is_arkship_ship = no }
+		text = RECOVER_DISABLED_NOMAD_VESSEL_WAYSTATION_DESC
+	}
+
+	triggered_requirement = {
+		text = CONSTRUCTOR_PROJECT_REQUIREMENTS
+		count = 1
+		trigger = {
+			OR = {
+				is_ship_class = shipclass_constructor	# Nomad Logistic Ships
+				is_arkship_fleet = yes
+			}
+		}
+	}
+
+	on_success = {
+		controller = {
+			country_event = {
+				id = arkship.1026
+				scopes = {
+					from = root.from		# the disabled fleet (location)
+				}
+			}
+		}
+	}
+
+	# Auto-cancel when the target fleet is gone or no longer holds a disabled nomad ship
+	# (covers destroyed, war-end re-enable via nomads.94, or re-enabled by other means).
+	# Scopes here follow on_fail: FROMFROM = location (the disabled fleet).
+	abort_trigger = {
+		OR = {
+			NOT = { exists = fromfrom }
+			fromfrom = {
+				NOR = {
+					any_owned_ship = { is_arkship_ship = yes is_disabled = yes }
+					any_owned_ship = { is_waystation_ship = yes is_disabled = yes }
+				}
+			}
+		}
+	}
+
+	# Clear the guard flag so the fleet can be offered a fresh recovery project later.
+	on_cancel = {
+		fromfrom? = { remove_fleet_flag = nomad_recovery_project_active }
+	}
+
+	# Running out of time must not lock the fleet out of a later offer.
+	on_fail = {
+		fromfrom? = { remove_fleet_flag = nomad_recovery_project_active }
+	}
+}
+
+# Champions Forge Enclave Projects
+special_project = {
+	key = "CHAMPIONS_FORGE_TRAVEL"
+	event_chain = "champions_forge_tournament_chain"
+	days_to_research = 10
+	timelimit = 270
+	picture = GFX_evt_gladiators
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = yes
+	remove_when_completed = yes
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_military = 1
+	}
+
+	triggered_requirement = {
+    	text = CHAMPIONS_FORGE_TRAVEL_FLEET_REQ
+   		trigger = {
+			OR = {
+				AND = {
+					event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_heavy_late }
+					fleet_size <= 500
+				}
+				AND = {
+					event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_medium_late }
+					fleet_size <= 200
+				}
+				AND = {
+					event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_medium_mid }
+					fleet_size <= 100
+				}
+				AND = {
+					event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_small_mid }
+					fleet_size <= 50
+				}
+				AND = {
+					event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_small_early }
+					fleet_size <= 25
+				}
+			}
+   		}
+	}
+
+	on_success = {
+		# Teleport fleet to the Champion's Forge system
+		fleet = {
+			if = {
+				limit = {
+					is_arkship_fleet = no
+					is_mobile = yes
+					OR = {
+						AND = {
+							event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_heavy_late }
+							fleet_size <= 500
+						}
+						AND = {
+							event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_medium_late }
+							fleet_size <= 200
+						}
+						AND = {
+							event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_medium_mid }
+							fleet_size <= 100
+						}
+						AND = {
+							event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_small_mid }
+							fleet_size <= 50
+						}
+						AND = {
+							event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_small_early }
+							fleet_size <= 25
+						}
+					}
+				}
+				save_event_target_as = champions_forge_contestant_fleet
+				set_fleet_flag = champions_forge_contestant_fleet
+				owner = {
+					remove_country_flag = champions_forge_interest
+					set_country_flag = champions_forge_contestant_country
+					create_champions_forge_contestant = yes
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { exists = event_target:champions_forge_contestant_fleet } }
+			fleet.solar_system.star = {
+				random_fleet_in_orbit = {
+					limit = {
+						is_arkship_fleet = no
+						is_mobile = yes
+						controller = {
+							is_same_value = root.controller
+						}
+						OR = {
+							AND = {
+								event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_heavy_late }
+								fleet_size <= 500
+							}
+							AND = {
+								event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_medium_late }
+								fleet_size <= 200
+							}
+							AND = {
+								event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_medium_mid }
+								fleet_size <= 100
+							}
+							AND = {
+								event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_small_mid }
+								fleet_size <= 50
+							}
+							AND = {
+								event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_small_early }
+								fleet_size <= 25
+							}
+						}
+					}
+					weights = {
+						base = 1
+						modifier = {
+							add = trigger:fleet_power
+						}
+					}
+					save_event_target_as = champions_forge_contestant_fleet
+					set_fleet_flag = champions_forge_contestant_fleet
+					owner = {
+						remove_country_flag = champions_forge_interest
+						set_country_flag = champions_forge_contestant_country
+						create_champions_forge_contestant = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { exists = event_target:champions_forge_contestant_fleet } }
+			fleet.solar_system = {
+				random_fleet_in_system = {
+					limit = {
+						is_arkship_fleet = no
+						is_mobile = yes
+						controller = {
+							is_same_value = root.controller
+						}
+						OR = {
+							AND = {
+								event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_heavy_late }
+								fleet_size <= 500
+							}
+							AND = {
+								event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_medium_late }
+								fleet_size <= 200
+							}
+							AND = {
+								event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_medium_mid }
+								fleet_size <= 100
+							}
+							AND = {
+								event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_small_mid }
+								fleet_size <= 50
+							}
+							AND = {
+								event_target:champions_forge_enclave_country = { has_country_flag = champions_of_the_forge_weight_class_small_early }
+								fleet_size <= 25
+							}
+						}
+					}
+					weights = {
+						base = 1
+						modifier = {
+							add = trigger:fleet_power
+						}
+					}
+					save_event_target_as = champions_forge_contestant_fleet
+					set_fleet_flag = champions_forge_contestant_fleet
+					owner = {
+						remove_country_flag = champions_forge_interest
+						set_country_flag = champions_forge_contestant_country
+						create_champions_forge_contestant = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { exists = event_target:champions_forge_contestant_fleet } }
+			owner = {
+				end_event_chain = "champions_forge_tournament_chain"
+			}
+		}
+	}
+	on_fail = {
+		owner = {
+			end_event_chain = "champions_forge_tournament_chain"
+		}
+	}
+
+	abort_trigger = {
+		NOT = {
+			has_country_flag = champions_forge_interest
+		}
+		event_target:champions_forge_enclave_country = { #If the battle has started you don't get to go
+			has_country_flag = champions_forge_battle_started
+		}
+	}
+	on_cancel = {
+		owner = {
+			if = {
+				limit = { has_event_chain = champions_forge_tournament_chain }
+				end_event_chain = champions_forge_tournament_chain
+			}
+		}
+	}
+}
+
+# Defender of the Galaxy Projects
+### AMBITION SPECIAL PROJECT 1 - COMPLETION UNLOCKS AMBITION LEVEL 2
+special_project = {
+	key = "DEFENDER_CRISIS_SPECIAL_PROJECT_1"
+	cost = 7500
+	days_to_research = 0
+	tech_department = society_technology
+	picture = GFX_evt_crisis_declared
+	icon = "gfx/interface/icons/situation_log/situation_log_federation.dds"
+	event_chain = defender_of_the_galaxy_chain
+	location = no
+
+	event_scope = country_event
+
+	requirements = {
+	}
+
+	on_success = {
+		set_country_flag = crisis_special_project_1_complete
+		country_event = { id = ambition.125 }
+	}
+
+	on_fail = {
+	}
+}
+
+### AMBITION SPECIAL PROJECT 2 - COMPLETION UNLOCKS AMBITION LEVEL 3
+special_project = {
+	key = "DEFENDER_CRISIS_SPECIAL_PROJECT_2"
+	cost = 10000
+	days_to_research = 0
+	tech_department = engineering_technology
+	picture = GFX_evt_defender_of_the_galaxy
+	icon = "gfx/interface/icons/situation_log/situation_log_ship.dds"
+	event_chain = defender_of_the_galaxy_chain
+	location = no
+
+	event_scope = country_event
+
+	requirements = {
+	}
+
+	on_success = {
+		set_country_flag = crisis_special_project_2_complete
+		country_event = { id = ambition.130 }
+	}
+
+	on_fail = {
+	}
+}
+
+# NO project 3, gotta become Custodian instead
+
+### AMBITION SPECIAL PROJECT 4 - Bring forth the end game crisis
+special_project = {
+	key = "DEFENDER_CRISIS_SPECIAL_PROJECT_4"
+	cost = 25000
+	days_to_research = 0
+	tech_department = physics_technology
+	picture = GFX_evt_astral_rift_vortex_eye
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+	event_chain = defender_of_the_galaxy_chain
+	location = no
+
+	event_scope = country_event
+
+	abort_trigger = {
+		has_global_flag = galactic_crisis_happened
+	}
+
+	on_cancel = {
+		set_country_flag = crisis_special_project_3_complete
+		if = {
+			limit = {
+				NOT = { has_country_flag = defender_crisis_project_5_enabled }
+				NOT = {
+					calc_true_if = {
+						amount >= 2
+						has_global_flag = prethoryn_invasion_happened
+						has_global_flag = extradimensional_invasion_happened
+						has_global_flag = ai_invasion_happened
+						has_global_flag = synth_queen_happened
+					}
+				}
+			}
+			set_country_flag = defender_crisis_project_5_enabled
+			set_global_flag = defender_of_the_galaxy_second_crisis
+			enable_special_project = {
+				name = DEFENDER_CRISIS_SPECIAL_PROJECT_5
+				owner = root
+				location = capital_scope
+			}
+		}
+	}
+
+	on_success = {
+		set_country_flag = crisis_special_project_3_complete
+		country_event = { id = ambition.135 }
+		#Also trigger an end game crisis
+		trigger_random_endgame_crisis = yes
+		if = {
+			limit = {
+				NOT = { has_country_flag = defender_crisis_project_5_enabled }
+				NOT = {
+					calc_true_if = {
+						amount >= 2
+						has_global_flag = prethoryn_invasion_happened
+						has_global_flag = extradimensional_invasion_happened
+						has_global_flag = ai_invasion_happened
+						has_global_flag = synth_queen_happened
+					}
+				}
+			}
+			set_country_flag = defender_crisis_project_5_enabled
+			set_global_flag = defender_of_the_galaxy_second_crisis
+			enable_special_project = {
+				name = DEFENDER_CRISIS_SPECIAL_PROJECT_5
+				owner = root
+				location = capital_scope
+			}
+		}
+	}
+
+	on_fail = {
+	}
+}
+
+### AMBITION SPECIAL PROJECT 5 - BRING FORTH A SECOND CRISIS
+special_project = {
+	key = "DEFENDER_CRISIS_SPECIAL_PROJECT_5"
+	cost = 30000
+	days_to_research = 0
+	tech_department = physics_technology
+	picture = GFX_evt_behemoth_engineering
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+	event_chain = defender_of_the_galaxy_chain
+	location = no
+
+	event_scope = country_event
+
+	abort_trigger = {
+		has_global_flag = prethoryn_invasion_happened
+		has_global_flag = extradimensional_invasion_happened
+		has_global_flag = ai_invasion_happened
+		has_global_flag = synth_queen_happened
+	}
+
+	on_success = {
+		set_country_flag = crisis_special_project_3_complete
+		country_event = { id = ambition.140 }
+		#Also fire an end game crisis
+		random_list = {
+			### Prethoryn Scourge (Swarm)
+			10 = {
+				modifier = {
+					factor = 3
+					allowed_crisis_type = prethoryn
+				}
+				modifier = {
+					factor = 0
+					OR = {
+						allowed_crisis_type = contingency
+						allowed_crisis_type = unbidden
+						allowed_crisis_type = synth_queen
+					}
+					NOT = { has_global_flag = defender_of_the_galaxy_second_crisis }
+				}
+				modifier = {
+					factor = 0
+					has_global_flag = prethoryn_invasion_happened
+				}
+				country_event = { id = crisis.10 days = 30 random = 30 }
+				set_global_flag = galactic_crisis_happened
+				set_timed_global_flag = {
+					flag = galactic_crisis_recently_fired
+					years = 12
+				}
+			}
+
+			### Unbidden (Extradimensionals)
+			8 = {
+				modifier = {
+					factor = 3.75
+					allowed_crisis_type = unbidden
+				}
+				modifier = {
+					factor = 0
+					OR = {
+						allowed_crisis_type = contingency
+						allowed_crisis_type = prethoryn
+						allowed_crisis_type = synth_queen
+					}
+					NOT = { has_global_flag = defender_of_the_galaxy_second_crisis }
+				}
+				modifier = {
+					factor = 0
+					has_global_flag = extradimensional_invasion_happened
+				}
+				country_event = { id = crisis.1000 days = 30 random = 30 }
+				set_global_flag = galactic_crisis_happened
+				set_timed_global_flag = {
+					flag = galactic_crisis_recently_fired
+					years = 12
+				}
+			}
+
+			### Contingency (AI)
+			10 = {
+				modifier = {
+					factor = 3
+					allowed_crisis_type = contingency
+				}
+				modifier = {
+					factor = 0
+					OR = {
+						allowed_crisis_type = prethoryn
+						allowed_crisis_type = unbidden
+						allowed_crisis_type = synth_queen
+					}
+					NOT = { has_global_flag = defender_of_the_galaxy_second_crisis }
+				}
+				modifier = {
+					factor = 0
+					has_global_flag = ai_invasion_happened
+				}
+				country_event = { id = crisis.2005 days = 30 random = 30 }
+				set_global_flag = galactic_crisis_happened
+				set_timed_global_flag = {
+					flag = galactic_crisis_recently_fired
+					years = 12
+				}
+			}
+
+			### Synth Queen
+			10 = {
+				modifier = {
+					factor = 3
+					allowed_crisis_type = synth_queen
+				}
+				modifier = {
+					factor = 0
+					OR = {
+						allowed_crisis_type = prethoryn
+						allowed_crisis_type = unbidden
+						allowed_crisis_type = contingency
+					}
+					NOT = { has_global_flag = defender_of_the_galaxy_second_crisis }
+				}
+				modifier = {
+					factor = 0
+					OR = {
+						has_global_flag = synth_queen_happened
+						has_machine_age_dlc = no
+					}
+				}
+				modifier = {
+					factor = 0
+					any_country = {
+						has_origin = origin_shroud_forged
+					}
+				}
+				country_event = { id = crisis.8005 days = 30 random = 30 }
+				set_global_flag = galactic_crisis_happened
+				set_timed_global_flag = {
+					flag = galactic_crisis_recently_fired
+					years = 12
+				}
+			}
+		}
+	}
+
+	on_fail = {
+	}
+}
+
+### Paladin Ships Projects
+special_project = {
+	key = "PALADIN_SHIP_PROJECT"
+	cost = 18000
+	days_to_research = 0
+	tech_department = engineering_technology
+	picture = GFX_evt_defender_of_the_galaxy
+	icon = "gfx/interface/icons/situation_log/situation_log_federation.dds"
+	event_chain = defender_of_the_galaxy_chain
+	location = no
+
+	event_scope = country_event
+
+	on_success = {
+		country_event = { id = ambition.205 }
+	}
+}
+
+### Contract Projects
+
+# Find Resources Internal: Energy
+special_project = {
+	inline_script = {
+		script = special_projects/find_resource_internal_project
+		RESOURCE = energy
+	}
+}
+
+# Find Resources Internal: Minerals
+special_project = {
+	inline_script = {
+		script = special_projects/find_resource_internal_project
+		RESOURCE = minerals
+	}
+}
+
+# Find Resources Internal: Alloys
+special_project = {
+	inline_script = {
+		script = special_projects/find_resource_internal_project
+		RESOURCE = alloys
+	}
+}
+
+# Scientific Observation Internal: Physics
+special_project = {
+	inline_script = {
+		script = special_projects/scientific_observation_internal_project
+		RESOURCE = physics_research
+	}
+}
+
+# Scientific Observation Internal: Engineering
+special_project = {
+	inline_script = {
+		script = special_projects/scientific_observation_internal_project
+		RESOURCE = engineering_research
+	}
+}
+
+# Passenger Sun Trip
+special_project = {
+	inline_script = {
+		script = special_projects/suntrip_cruise_project
+		ISSUER = passenger
+		VARIANT = 1
+		PICTURE = GFX_evt_space_funeral
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/suntrip_cruise_project
+		ISSUER = passenger
+		VARIANT = 2
+		PICTURE = GFX_evt_friendly_enlightenment
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/suntrip_cruise_project
+		ISSUER = passenger
+		VARIANT = 3
+		PICTURE = GFX_evt_unidentified_ship
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/suntrip_cruise_project
+		ISSUER = passenger
+		VARIANT = 4
+		PICTURE = GFX_evt_forever_cruise
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/suntrip_cruise_project
+		ISSUER = passenger
+		VARIANT = 5
+		PICTURE = GFX_evt_friendly_infiltration
+	}
+}
+
+# Crew Sun Trip
+special_project = {
+	inline_script = {
+		script = special_projects/suntrip_cruise_project
+		ISSUER = crew
+		VARIANT = 1
+		PICTURE = GFX_evt_physics_research
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/suntrip_cruise_project
+		ISSUER = crew
+		VARIANT = 2
+		PICTURE = GFX_evt_inf_science_ship
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/suntrip_cruise_project
+		ISSUER = crew
+		VARIANT = 3
+		PICTURE = GFX_evt_unknown_ships
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/suntrip_cruise_project
+		ISSUER = crew
+		VARIANT = 4
+		PICTURE = GFX_evt_deficit
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/suntrip_cruise_project
+		ISSUER = crew
+		VARIANT = 5
+		PICTURE = GFX_evt_forever_cruise
+	}
+}
+
+# Passenger Shore Leave
+special_project = {
+	inline_script = {
+		script = special_projects/shoreleave_cruise_project
+		ISSUER = passenger
+		VARIANT = 1
+		PICTURE = GFX_evt_tradestation_interior
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/shoreleave_cruise_project
+		ISSUER = passenger
+		VARIANT = 2
+		PICTURE = GFX_evt_evolutionary_predators
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/shoreleave_cruise_project
+		ISSUER = passenger
+		VARIANT = 3
+		PICTURE = GFX_evt_specimen_archive
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/shoreleave_cruise_project
+		ISSUER = passenger
+		VARIANT = 4
+		PICTURE = GFX_evt_black_market
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/shoreleave_cruise_project
+		ISSUER = passenger
+		VARIANT = 5
+		PICTURE = GFX_evt_alien_wildlife
+	}
+}
+
+# Crew Shore Leave
+special_project = {
+	inline_script = {
+		script = special_projects/shoreleave_cruise_project
+		ISSUER = crew
+		VARIANT = 1
+		PICTURE = GFX_evt_alien_city
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/shoreleave_cruise_project
+		ISSUER = crew
+		VARIANT = 2
+		PICTURE = GFX_evt_tradestation_interior
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/shoreleave_cruise_project
+		ISSUER = crew
+		VARIANT = 3
+		PICTURE = GFX_evt_gunrunning
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/shoreleave_cruise_project
+		ISSUER = crew
+		VARIANT = 4
+		PICTURE = GFX_evt_engineering_bay
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/shoreleave_cruise_project
+		ISSUER = crew
+		VARIANT = 5
+		PICTURE = GFX_evt_one_sided_deal
+	}
+}
+
+# Passenger Espionage Support
+special_project = {
+	inline_script = {
+		script = special_projects/espionage_support_cruise_project
+		ISSUER = passenger
+		VARIANT = 1
+		PICTURE = GFX_evt_satellite_in_orbit
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/espionage_support_cruise_project
+		ISSUER = passenger
+		VARIANT = 2
+		PICTURE = GFX_evt_infiltration_failure
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/espionage_support_cruise_project
+		ISSUER = passenger
+		VARIANT = 3
+		PICTURE = GFX_evt_infiltration_neutral
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/espionage_support_cruise_project
+		ISSUER = passenger
+		VARIANT = 4
+		PICTURE = GFX_evt_alien_segregation
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/espionage_support_cruise_project
+		ISSUER = passenger
+		VARIANT = 5
+		PICTURE = GFX_evt_worrying_signal
+	}
+}
+
+# Crew Espionage Support
+special_project = {
+	inline_script = {
+		script = special_projects/espionage_support_cruise_project
+		ISSUER = crew
+		VARIANT = 1
+		PICTURE = GFX_evt_satellite_in_orbit
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/espionage_support_cruise_project
+		ISSUER = crew
+		VARIANT = 2
+		PICTURE = GFX_evt_diplomatic_visit
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/espionage_support_cruise_project
+		ISSUER = crew
+		VARIANT = 3
+		PICTURE = GFX_evt_cosmic_storms_broadcast_hacking
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/espionage_support_cruise_project
+		ISSUER = crew
+		VARIANT = 4
+		PICTURE = GFX_evt_tradedeal
+	}
+}
+
+special_project = {
+	inline_script = {
+		script = special_projects/espionage_support_cruise_project
+		ISSUER = crew
+		VARIANT = 5
+		PICTURE = GFX_evt_spymaster
+	}
+}
+
+special_project = { #Spy Satellite
+	key = "CONTRACT_ESPIONAGE_SUPPORT_PROJECT_01"
+	event_chain = contract_espionage_support_chain
+	days_to_research = 30
+	project_type = project_type_contract
+	picture = GFX_evt_satellite_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = yes
+	remove_when_completed = yes
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+	on_success = {
+		# Contract Event Check
+		owner = {
+			if = {
+				limit = {
+					# This shouldn't fire for the Forever Cruise variants
+					owner = { has_event_chain = contract_espionage_support_chain }
+				}
+				country_event = { id = nomads.6000 }
+			}
+			increase_espionage_counter_effect = yes
+			if = {
+				limit = {
+					NOT = { is_variable_set = espionage_support_counter }
+				}
+				set_variable = {
+					which = espionage_support_counter
+					value = 0
+				}
+			}
+			change_variable = {
+				which = espionage_support_counter
+				value = 1
+			}
+		}
+
+		solar_system = {
+			random_system_planet = {
+				limit = {
+					has_carrier_flag = spy_support_target@root
+				}
+				remove_carrier_flag = spy_support_target@root
+			}
+		}
+	}
+	on_fail = {
+		owner = {
+			end_event_chain = contract_espionage_support_chain
+		}
+	}
+
+	abort_trigger = {
+		owner = {
+			NOR = {
+				has_event_chain = contract_espionage_support_chain
+			}
+		}
+	}
+	on_cancel = {
+		# Do nothing
+	}
+}
+
+special_project = { # Supplies Smuggling
+	key = "CONTRACT_ESPIONAGE_SUPPORT_PROJECT_02"
+	event_chain = contract_espionage_support_chain
+	days_to_research = 30
+	project_type = project_type_contract
+	picture = GFX_evt_gunrunning
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = yes
+	remove_when_completed = yes
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+	on_success = {
+		# Contract Event Check
+		owner = {
+			increase_espionage_counter_effect = yes
+			if = {
+				limit = {
+					NOT = { is_variable_set = espionage_support_counter }
+				}
+				set_variable = {
+					which = espionage_support_counter
+					value = 0
+				}
+			}
+			change_variable = {
+				which = espionage_support_counter
+				value = 1
+			}
+		}
+		solar_system = {
+			random_system_planet = {
+				limit = {
+					has_carrier_flag = spy_support_target@root
+				}
+				remove_carrier_flag = spy_support_target@root
+			}
+		}
+	}
+	on_fail = {
+		owner = { end_event_chain = contract_espionage_support_chain }
+	}
+
+	abort_trigger = {
+		NOT = {
+			owner = { has_event_chain = contract_espionage_support_chain }
+		}
+	}
+	on_cancel = {
+		# Do nothing
+	}
+}
+
+special_project = { # Starbase Infiltration
+	key = "CONTRACT_ESPIONAGE_SUPPORT_PROJECT_03"
+	event_chain = contract_espionage_support_chain
+	days_to_research = 30
+	project_type = project_type_contract
+	picture = GFX_evt_space_station
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = yes
+	remove_when_completed = yes
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+	on_success = {
+		# Contract Event Check
+		owner = {
+			increase_espionage_counter_effect = yes
+			if = {
+				limit = {
+					NOT = { is_variable_set = espionage_support_counter }
+				}
+				set_variable = {
+					which = espionage_support_counter
+					value = 0
+				}
+			}
+			change_variable = {
+				which = espionage_support_counter
+				value = 1
+			}
+		}
+		solar_system = {
+			random_ship_in_system = {
+				limit = {
+					has_ship_flag = spy_support_target@root
+				}
+				remove_ship_flag = spy_support_target@root
+			}
+		}
+	}
+	on_fail = {
+		owner = { end_event_chain = contract_espionage_support_chain }
+	}
+
+	abort_trigger = {
+		NOT = {
+			owner = { has_event_chain = contract_espionage_support_chain }
+		}
+	}
+	on_cancel = {
+		# Do nothing
+	}
+}
+
+special_project = { # Megastructure Support
+	key = "CONTRACT_MEGASTRUCTURE_SUPPORT_PROJECT"
+	event_chain = contract_megastructure_support_chain
+	days_to_research = 30
+	project_type = project_type_contract
+	picture = GFX_evt_megastructure_construction
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = yes
+	remove_when_completed = yes
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_start = {
+		solar_system = {
+			if = {
+				limit = { exists = space_owner }
+				space_owner = {
+					add_modifier = {
+						modifier = nomad_construction_assistance
+						years = 1
+					}
+				}
+			}
+		}
+	}
+
+	on_success = {
+		owner = {
+			add_mission_counter = {
+				mission = contract_megastructure_support
+				counter = contract_megastructure_support_counter
+				amount = 1
+			}
+		}
+	}
+
+	on_fail = {
+		owner = { end_event_chain = contract_megastructure_support_chain }
+	}
+
+	abort_trigger = {
+		NOT = {
+			owner = { has_event_chain = contract_megastructure_support_chain }
+		}
+	}
+}
+
+# Clear Blockers
+special_project = {
+	key = "CONTRACT_CLEAR_BLOCKERS_PROJECT"
+	event_chain = contract_clear_blockers_chain
+	days_to_research = 30
+	project_type = project_type_contract
+	picture = GFX_evt_ship_in_orbit_3
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = yes
+	remove_when_completed = yes
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		owner = {
+			add_mission_counter = {
+				mission = contract_clear_blockers
+				counter = contract_clear_blockers_counter
+				amount = 1
+			}
+		}
+		# NOTE: do NOT add clear_natural_blockers_effect here.
+		# Blocker clearing is handled by the contract's on_success after the counter triggers success.
+		# Clearing here causes the abort_trigger to fire before success is processed, cancelling the contract instead.
+	}
+
+	on_fail = {
+		owner = { end_event_chain = contract_clear_blockers_chain }
+	}
+
+	abort_trigger = {
+		NOT = {
+			owner = {
+				has_event_chain = contract_clear_blockers_chain
+			}
+		}
+	}
+
+	on_cancel = {
+		# Do nothing
+	}
+}
+
+# Colony Startup
+special_project = {
+	key = "CONTRACT_COLONY_STARTUP_PROJECT"
+	event_chain = contract_colony_startup_chain
+	days_to_research = 180
+	project_type = project_type_contract
+	picture = GFX_evt_colony_settlement
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = yes
+	remove_when_completed = yes
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		owner = {
+			add_mission_counter = {
+				mission = contract_colony_startup
+				counter = contract_progress_counter
+				amount = 1
+			}
+		}
+		if = {
+			limit = { is_science_arkship = yes }
+			from = {
+				add_modifier = {
+					modifier = nomad_contract_colony_support_scientific
+					days = 3600
+				}
+			}
+		}
+		else_if = {
+			limit = { is_military_arkship = yes }
+			from = {
+				add_modifier = {
+					modifier = nomad_contract_colony_support_military
+					days = 3600
+				}
+			}
+		}
+		else = { # is_civilian_arkship = yes
+			from = {
+				add_modifier = {
+					modifier = nomad_contract_colony_support_civilian
+					days = 3600
+				}
+			}
+		}
+	}
+
+	on_fail = {
+		owner = { end_event_chain = contract_colony_startup_chain }
+	}
+
+	abort_trigger = {
+		NOT = {
+			owner = {
+				has_event_chain = contract_colony_startup_chain
+			}
+		}
+	}
+
+	on_cancel = {
+		# Do nothing
+	}
+}
+
+# Onboard Research: Physics
+special_project = {
+	inline_script = {
+		script = special_projects/onboard_research_contract_project
+		RESEARCH = physics
+	}
+}
+
+# Onboard Research: Society
+special_project = {
+	inline_script = {
+		script = special_projects/onboard_research_contract_project
+		RESEARCH = society
+	}
+}
+
+# Onboard Research: Engineering
+special_project = {
+	inline_script = {
+		script = special_projects/onboard_research_contract_project
+		RESEARCH = engineering
+	}
+}
+
+# Onboard Resource: Minerals
+special_project = {
+	inline_script = {
+		script = special_projects/onboard_resource_contract_project
+		RESOURCE = minerals
+		RESEARCH = engineering
+		PICTURE = GFX_evt_asteroid_field
+	}
+}
+
+# Onboard Resource: Energy
+special_project = {
+	inline_script = {
+		script = special_projects/onboard_resource_contract_project
+		RESOURCE = energy
+		RESEARCH = physics
+		PICTURE = GFX_evt_drilling_for_gas
+	}
+}
+
+# Onboard Resource: Food
+special_project = {
+	inline_script = {
+		script = special_projects/onboard_resource_contract_project
+		RESOURCE = food
+		RESEARCH = society
+		PICTURE = GFX_evt_arkship_life
+	}
+}
+
+### Paragon Projects
+
+special_project = {
+	key = "NOMADIC_PRINCESS_SPECIAL_PROJECT"
+	event_chain = "nomadic_princess_chain"
+	cost = 0
+	days_to_research = 120
+	location = yes
+	tech_department = physics_technology
+	picture = GFX_evt_timeworm_transcriptions
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+
+	event_scope = ship_event
+
+	triggered_requirement = {
+		text = NOMADIC_PRINCESS_SPECIAL_PROJECT_REQUIREMENT
+		count = 1
+		trigger = {
+			OR = {
+				is_ship_class = shipclass_science_ship
+				is_arkship_fleet = yes
+			}
+			exists = leader
+		}
+	}
+
+	on_success = {
+		ship_event = { id = nomads.1620 }
+	}
+	abort_trigger = {
+		owner = {
+			has_country_flag = nomadic_princess_dismissed
+		}
+	}
+}
+
+special_project = {
+	key = "NOMADIC_PRINCESS_SPECIAL_PROJECT_2"
+	event_chain = "nomadic_princess_chain"
+	cost = 0
+	days_to_research = @arkship_build_time_720
+	location = yes
+	tech_department = engineering_technology
+	picture = GFX_evt_timeworm_transcriptions
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = nomads.1625 }
+	}
+	abort_trigger = {
+		owner = {
+			has_country_flag = nomadic_princess_dismissed
+		}
+	}
+}
+
+#### Sacred Path Origin Special Projects
+
+# Emergence
+special_project = {
+	key = "SACRED_SITE_ONE_PROJECT"
+	event_chain = sacred_sites_visited_chain
+	cost = 0
+	days_to_research = 180
+	location = yes
+	tech_department = engineering_technology
+	picture = GFX_evt_sacred_path
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = nomads.2050 }
+	}
+}
+
+# The Eye
+special_project = {
+	key = "SACRED_SITE_TWO_PROJECT"
+	event_chain = sacred_sites_visited_chain
+	cost = 0
+	days_to_research = 180
+	location = yes
+	tech_department = engineering_technology
+	picture = GFX_evt_sacred_path
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = nomads.2055 }
+	}
+}
+
+# The Monastery
+special_project = {
+	key = "SACRED_SITE_THREE_PROJECT"
+	event_chain = sacred_sites_visited_chain
+	cost = 0
+	days_to_research = 180
+	location = yes
+	tech_department = engineering_technology
+	picture = GFX_evt_sacred_path
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = nomads.2060 }
+	}
+}
+
+# The Cradle
+special_project = {
+	key = "SACRED_SITE_FOUR_PROJECT"
+	event_chain = sacred_sites_visited_chain
+	cost = 0
+	days_to_research = 180
+	location = yes
+	tech_department = engineering_technology
+	picture = GFX_evt_sacred_path
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = nomads.2065 }
+	}
+}
+
+# The Intelligence
+special_project = {
+	key = "SACRED_SITE_FIVE_PROJECT"
+	event_chain = sacred_sites_visited_chain
+	cost = 0
+	days_to_research = 180
+	location = yes
+	tech_department = engineering_technology
+	picture = GFX_evt_sacred_path
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = nomads.2070 }
+	}
+}
+
+# The Breathvault
+special_project = {
+	key = "SACRED_SITE_SIX_PROJECT"
+	event_chain = sacred_sites_visited_chain
+	cost = 0
+	days_to_research = 180
+	location = yes
+	tech_department = engineering_technology
+	picture = GFX_evt_sacred_path
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = nomads.2075 }
+	}
+}
+
+# The Chasm
+special_project = {
+	key = "SACRED_SITE_SEVEN_PROJECT"
+	event_chain = sacred_sites_visited_chain
+	cost = 0
+	days_to_research = 180
+	location = yes
+	tech_department = engineering_technology
+	picture = GFX_evt_sacred_path
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = nomads.2080 }
+	}
+}
+
+# The Mirror
+special_project = {
+	key = "SACRED_SITE_EIGHT_PROJECT"
+	event_chain = sacred_sites_visited_chain
+	cost = 0
+	days_to_research = 180
+	location = yes
+	tech_department = engineering_technology
+	picture = GFX_evt_sacred_path
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = nomads.2085 }
+	}
+}
+
+# The Skin of a Giant
+special_project = {
+	key = "THE_SKIN_OF_A_GIANT_PROJECT"
+	cost = 0
+	days_to_research = 180
+	tech_department = engineering_technology
+	picture = GFX_evt_hive
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = carrier_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = arkship.1175 }
+	}
+}
+
+# Spinal Fracture
+special_project = {
+	key = "ARKSHIP_SPINAL_FRACTURE_PROJECT"
+	cost = 0
+	days_to_research = 720
+	picture = GFX_evt_megastructure_construction
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = carrier_event
+
+	triggered_requirement = {
+		text = ARKSHIP_SPINAL_FRACTURE_PROJECT_REQUIREMENT
+		count = 1
+		trigger = {
+			is_ship_class = shipclass_constructor
+		}
+	}
+
+	on_success = {
+		carrier_event = { id = arkship.100 }
+	}
+}
+
+# The Forgetting
+special_project = {
+	key = "ARKSHIP_NEBULA_MEMORY_PROJECT"
+	event_chain = "the_forgetting_chain"
+	cost = 0
+	days_to_research = 360
+	picture = GFX_evt_astral_rift_microverse
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = carrier_event
+
+	requirements = {
+		shipclass_science_ship = 1
+	}
+
+	on_success = {
+		carrier_event = { id = arkship.130 }
+	}
+}
+
+# Contaminated Fungus
+special_project = {
+	key = "ARKSHIP_FUNGAL_CONTAMINATION_PROJECT"
+	event_chain = "fungal_contamination_chain"
+	cost = 0
+	days_to_research = 720
+	tech_department = society_technology
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	event_chain = fungal_contamination_chain
+
+	event_scope = carrier_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		carrier_event = { id = arkship.1225 }
+	}
+}
+
+special_project = {
+	key = "ARKSHIP_FUNGAL_COMMUNICATION_PROJECT"
+	event_chain = "fungal_contamination_chain"
+	cost = 0
+	days_to_research = 720
+	tech_department = society_technology
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	event_chain = fungal_contamination_chain
+
+	event_scope = carrier_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		carrier_event = { id = arkship.1235 }
+	}
+}
+
+special_project = {
+	key = "ARKSHIP_ETERNAL_CHORUS_PROJECT"
+	event_chain = "arkship_eternal_chorus_chain"
+	cost = 0
+	days_to_research = 90
+	project_type = project_type_contract
+	location = yes
+	tech_department = society_technology
+	picture = GFX_evt_black_hole
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+	remove_when_completed = yes
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		ship_event = { id = arkship.145 }
+	}
+
+	on_fail = {
+		owner = { end_event_chain = arkship_eternal_chorus_chain }
+	}
+
+	abort_trigger = {
+		NOT = {
+			owner = {
+				has_event_chain = arkship_eternal_chorus_chain
+			}
+		}
+	}
+
+	on_cancel = {
+	}
+}
+
+special_project = {
+	key = "A_MYSTERIOUS_SICKNESS_PROJECT"
+	event_chain = "a_mysterious_sickness_chain"
+	cost = 1500
+	tech_department = society_technology
+	picture = GFX_evt_arkship_life
+
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		from = { carrier_event = { id = arkship.1055 } }
+	}
+
+	on_fail = {
+	}
+}
+
+# Unknown Resource Usage
+special_project = {
+	key = "UNKNOWN_RESOURCE_USAGE_PROJECT"
+	event_chain = "unknown_resource_usage_chain"
+	cost = 0
+	days_to_research = 180
+	tech_department = engineering_technology
+	picture = GFX_evt_nomad_default
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = carrier_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		random_list = {
+			1 = {
+				modifier = {
+					factor = 0
+					owner = { is_gestalt = yes }
+				}
+				carrier_event = { id = arkship.1245 }
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					owner = { is_gestalt = yes }
+				}
+				carrier_event = { id = arkship.1255 }
+			}
+			1 = {
+				modifier = {
+					factor = 0
+					owner = { is_gestalt = yes }
+				}
+				carrier_event = { id = arkship.1265 }
+			}
+			1 = { carrier_event = { id = arkship.1270 } }
+			1 = {
+				modifier = {
+					factor = 0
+					owner = { is_gestalt = yes }
+				}
+				carrier_event = { id = arkship.1275 }
+			}
+			5 = {
+				modifier = {
+					factor = 0
+					owner = { is_individual_machine = no }
+				}
+				carrier_event = { id = arkship.1250 }
+			}
+			5 = {
+				modifier = {
+					factor = 0
+					owner = { founder_species_is_lithoid = no }
+				}
+				carrier_event = { id = arkship.1260 }
+			}
+		}
+	}
+}
+
+# Star-Crossed Lovers - Scan the Pod
+special_project = {
+	key = "STAR_CROSSED_POD_PROJECT"
+	cost = 0
+	days_to_research = 180
+	tech_department = physics_technology
+	picture = GFX_evt_asteroid_field
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = carrier_event
+
+	triggered_requirement = {
+		text = STAR_CROSSED_POD_PROJECT_REQUIREMENT
+		count = 1
+		trigger = {
+			OR = {
+				is_arkship_fleet = yes
+				is_ship_class = shipclass_science_ship
+			}
+		}
+	}
+
+	on_success = {
+		carrier_event = { id = arkship.1390 }
+	}
+}
+
+# Star-Crossed Lovers - Scan the Survivor Pod
+special_project = {
+	key = "STAR_CROSSED_SURVIVOR_POD_PROJECT"
+	cost = 0
+	days_to_research = 180
+	tech_department = physics_technology
+	picture = GFX_evt_space_funeral
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = carrier_event
+
+	triggered_requirement = {
+		text = STAR_CROSSED_POD_PROJECT_REQUIREMENT
+		count = 1
+		trigger = {
+			OR = {
+				is_arkship_fleet = yes
+				is_ship_class = shipclass_science_ship
+			}
+		}
+	}
+
+	on_success = {
+		carrier_event = { id = arkship.1395 }
+	}
+}
+
+### Contract Travel Projects
+# These projects are spawned on contract acceptance to direct the AI to travel to the contract system.
+
+# Diplomatic Support
+special_project = {
+	inline_script = {
+		script = special_projects/contract_travel_project
+		KEY = DIPLOMATIC_SUPPORT
+		CHAIN_ID = diplomatic_support
+	}
+}
+
+# Prisoner Disposal
+special_project = {
+	inline_script = {
+		script = special_projects/contract_travel_project
+		KEY = PRISONER_DISPOSAL
+		CHAIN_ID = prisoner_disposal
+	}
+}
+
+# Sightseeing Tour
+special_project = {
+	inline_script = {
+		script = special_projects/contract_travel_project
+		KEY = SIGHTSEEING_TOUR
+		CHAIN_ID = sightseeing_tour
+	}
+}

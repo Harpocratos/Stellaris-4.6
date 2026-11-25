@@ -1,0 +1,189 @@
+living_standard_native_supremacy = {
+	potential = {
+		has_force_of_will_dlc = yes
+		from? = {
+			has_ethic = ethic_absolute_xenophobe
+		}
+	}
+
+	allow = {
+		hidden_trigger = { exists = from }
+		custom_tooltip = {
+			fail_text = too_alien
+			is_same_species = from.species
+		}
+		custom_tooltip = {
+			fail_text = SPECIES_MUST_NOT_BE_ASSIMILATING
+			NOT = {
+				has_citizenship_type = {
+					type = citizenship_assimilation
+					country = from
+				}
+			}
+		}
+	}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			NAND = {
+				exists = owner
+				owner = { has_deficit = consumer_goods }
+			}
+		}
+		pop_cat_ruler_happiness = @living_standard_happiness_native_supremacy
+		pop_cat_specialist_happiness = @living_standard_happiness_native_supremacy
+		pop_cat_worker_happiness = @living_standard_happiness_native_supremacy
+		pop_cat_civilian_happiness = @living_standard_happiness_native_supremacy
+		pop_happiness = 0.1
+	}
+
+	pop_group_modifier = {
+		pop_category_rulers_consumer_goods_upkeep_add = 1.5
+		pop_category_specialists_consumer_goods_upkeep_add = 0.75
+		pop_category_workers_consumer_goods_upkeep_add = 0.5
+		pop_category_civilians_consumer_goods_upkeep_add = 0.5
+
+		pop_cat_ruler_political_power = 10
+		pop_cat_specialist_political_power = 5
+		pop_cat_worker_political_power = 3
+		pop_cat_civilian_political_power = 3
+
+		pop_bonus_workforce_mult = 0.1
+		bonus_pop_growth = 0.1
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+living_standard_crushing = {
+	potential = {
+		has_force_of_will_dlc = yes
+		from? = {
+			has_ethic = ethic_absolute_authoritarian
+		}
+	}
+
+	allow = {
+		hidden_trigger = { exists = from }
+		custom_tooltip = {
+			fail_text = SPECIES_MUST_NOT_BE_ASSIMILATING
+			NOT = {
+				has_citizenship_type = {
+					type = citizenship_assimilation
+					country = from
+				}
+			}
+		}
+	}
+
+	triggered_pop_group_modifier = {
+		potential = {
+			NAND = {
+				exists = owner
+				owner = { has_deficit = consumer_goods }
+			}
+		}
+		pop_cat_ruler_happiness = 0.20
+		pop_cat_specialist_happiness = 0.05
+		pop_cat_worker_happiness = -0.1
+		pop_cat_civilian_happiness = -0.1
+		pop_slave_happiness = -0.1
+	}
+
+	pop_group_modifier = {
+		pop_category_rulers_consumer_goods_upkeep_add = 1
+		pop_category_specialists_consumer_goods_upkeep_add = 0.3
+		pop_category_workers_consumer_goods_upkeep_add = 0.05
+		pop_category_civilians_consumer_goods_upkeep_add = 0.05
+
+		pop_cat_ruler_political_power = 8
+		pop_cat_specialist_political_power = 1.25
+		pop_cat_worker_political_power = -0.25
+		pop_cat_civilian_political_power = -0.25
+
+		pop_cat_worker_bonus_workforce_mult = 0.25
+		pop_slave_bonus_workforce_mult = 0.25
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+living_standard_united_effort = {
+	potential = {
+		has_force_of_will_dlc = yes
+		from? = {
+			is_gestalt = no
+			has_active_tenet = tenet_participation
+		}
+	}
+
+	allow = {
+		hidden_trigger = { exists = from }
+		custom_tooltip = {
+			fail_text = SPECIES_MUST_NOT_BE_ASSIMILATING
+			NOT = {
+				has_citizenship_type = {
+					type = citizenship_assimilation
+					country = from
+				}
+			}
+		}
+	}
+
+	triggered_pop_group_modifier = {
+		potential = { exists = owner }
+		pop_cat_worker_bonus_workforce_mult = @living_standard_united_effort_workforce
+		pop_cat_ruler_bonus_workforce_mult = @living_standard_united_effort_workforce
+		mult = owner.value:tenet_tier_as_exponent_of_factor|FACTOR|2|TENET_KEY|tenet_participation|
+	}
+
+	pop_group_modifier = {
+		pop_category_rulers_consumer_goods_upkeep_add = @living_standard_luxuries_high
+		pop_category_specialists_consumer_goods_upkeep_add = @living_standard_luxuries_high
+		pop_category_workers_consumer_goods_upkeep_add = @living_standard_luxuries_high
+		pop_cat_ruler_happiness = @living_standard_united_effort_happiness
+		pop_cat_specialist_happiness = @living_standard_united_effort_happiness
+		pop_cat_worker_happiness = @living_standard_united_effort_happiness
+		pop_cat_ruler_political_power = @living_standard_united_effort_power
+		pop_cat_specialist_political_power = @living_standard_united_effort_power
+		pop_cat_worker_political_power = @living_standard_united_effort_power
+	}
+}
+
+living_standard_humility = {
+	potential = {
+		has_force_of_will_dlc = yes
+		from? = {
+			has_active_tenet = tenet_humility
+		}
+	}
+
+	allow = {
+		hidden_trigger = { exists = from }
+		custom_tooltip = {
+			fail_text = SPECIES_MUST_NOT_BE_ASSIMILATING
+			NOT = {
+				has_citizenship_type = {
+					type = citizenship_assimilation
+					country = from
+				}
+			}
+		}
+	}
+
+	pop_group_modifier = {
+		pop_category_rulers_consumer_goods_upkeep_add = @humility_rulers_upkeep
+		pop_category_specialists_consumer_goods_upkeep_add = @humility_specialists_upkeep
+		pop_category_workers_consumer_goods_upkeep_add = @humility_workers_upkeep
+		pop_category_civilians_consumer_goods_upkeep_add = @humility_civilians_upkeep
+
+		pop_cat_ruler_political_power = @humility_ruler_power
+		pop_cat_specialist_political_power = @humility_specialist_power
+		pop_cat_worker_political_power = @humility_worker_power
+		pop_cat_civilian_political_power = @humility_civilian_power
+	}
+}

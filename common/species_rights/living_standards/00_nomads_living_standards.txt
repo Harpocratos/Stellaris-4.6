@@ -1,0 +1,68 @@
+
+living_standard_cruise_passenger = {
+	triggered_pop_group_modifier = {
+		potential = {
+			NAND = {
+				exists = owner
+				owner = { has_deficit = consumer_goods }
+			}
+		}
+		pop_happiness = 0.2
+	}
+
+	pop_group_modifier = {
+		pop_category_cruise_passenger_consumer_goods_upkeep_add = @living_standard_luxuries_very_high_passenger
+		pop_cat_cruise_passenger_political_power = 14
+		pop_cat_cruise_passenger_unemployment_political_power = 9
+	}
+
+	triggered_pop_group_modifier = {
+		# Triggered to hide from the auto-generated tooltip
+		potential = {
+			always = yes
+		}
+
+	}
+
+	potential = {
+		has_nomads_dlc = yes
+		exists = from
+		from = {
+			has_origin = origin_forever_cruise
+			NOT = { has_valid_civic = civic_machine_servitor }
+		}
+		has_citizenship_type = {
+			type = citizenship_cruise_passenger
+			country = from
+		}
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+}
+
+living_standard_cruise_economy_passenger = {
+	pop_group_modifier = {
+		pop_category_cruise_passenger_consumer_goods_upkeep_add = @living_standard_luxuries_high_passenger
+		pop_cat_cruise_passenger_political_power = 9
+		pop_cat_cruise_passenger_unemployment_political_power = 9
+	}
+
+	potential = {
+		has_nomads_dlc = yes
+		exists = from
+		from = {
+			has_origin = origin_forever_cruise
+			NOT = { has_valid_civic = civic_machine_servitor }
+		}
+		has_citizenship_type = {
+			type = citizenship_cruise_passenger
+			country = from
+		}
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+}

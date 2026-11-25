@@ -1,0 +1,579 @@
+############################################
+# Force of Will - Special Projects #
+############################################
+
+special_project = {
+	key = "GESTALT_IDEOLOGY_PROJECT_HIVE"
+	cost = 2000
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_hive_ideology
+	icon = "gfx/interface/icons/situation_log/situation_log_tick.dds"
+	location = no
+
+	desc = {
+		trigger = { owner = { is_homicidal = yes } }
+		text = GESTALT_IDEOLOGY_PROJECT_HIVE_DESC_GENOCIDAL
+	}
+	desc = {
+		trigger = {
+			owner = {
+				is_homicidal = no
+				is_nomadic = yes
+			}
+		}
+		text = GESTALT_IDEOLOGY_PROJECT_HIVE_DESC_NOMADIC
+	}
+	desc = {
+		trigger = {
+			owner = {
+				is_homicidal = no
+				is_nomadic = no
+			}
+		}
+		text = GESTALT_IDEOLOGY_PROJECT_HIVE_DESC
+	}
+
+	event_scope = country_event
+
+	on_success = {
+		if = {
+			limit = { is_ai = no }
+			country_event = { id = forceofwill.1210 }
+		}
+		else = {
+			country_event = { id = forceofwill.1211 }
+		}
+	}
+
+	abort_trigger = {
+		can_generate_ideology = no
+	}
+}
+special_project = {
+	key = "GESTALT_IDEOLOGY_PROJECT_MACHINE"
+	cost = 2000
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_machine_ideology
+	icon = "gfx/interface/icons/situation_log/situation_log_tick.dds"
+	location = no
+
+	desc = {
+		trigger = { owner = { is_homicidal = yes } }
+		text = GESTALT_IDEOLOGY_PROJECT_MACHINE_DESC_GENOCIDAL
+	}
+	desc = {
+		trigger = {
+			owner = {
+				is_homicidal = no
+				is_nomadic = yes
+			}
+		}
+		text = GESTALT_IDEOLOGY_PROJECT_MACHINE_DESC_NOMADIC
+	}
+	desc = {
+		trigger = {
+			owner = {
+				is_homicidal = no
+				is_nomadic = no
+			}
+		}
+		text = GESTALT_IDEOLOGY_PROJECT_MACHINE_DESC
+	}
+
+	event_scope = country_event
+
+	on_success = {
+		if = {
+			limit = { is_ai = no }
+			country_event = { id = forceofwill.1210 }
+		}
+		else = {
+			country_event = { id = forceofwill.1211 }
+		}
+	}
+
+	abort_trigger = {
+		can_generate_ideology = no
+	}
+}
+
+special_project = {
+	key = "LOST_MAKERS_UNEARTH_MEMORIES_1"
+	event_chain = "chain_lost_makers"
+	cost = 2000
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_lost_makers_analyze
+	icon = "gfx/interface/icons/situation_log/situation_log_ai.dds"
+
+	event_scope = country_event
+
+	desc = {
+		trigger = {
+			lost_makers_has_met_base_game_precursor = yes
+		}
+		text = "LOST_MAKERS_UNEARTH_MEMORIES_DESC_BASE"
+	}
+
+	desc = {
+		trigger = {
+			lost_makers_has_met_base_game_precursor = no
+		}
+		text = "LOST_MAKERS_UNEARTH_MEMORIES_DESC_DLC"
+	}
+
+	on_success = {
+		lost_makers_update_counter = yes
+		if = {
+			limit = {
+				check_variable = {
+					which = lost_makers_project_counter
+					value = 1
+				}
+			}
+			country_event = {
+				id = forceofwill.3150
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = lost_makers_project_counter
+					value = 2
+				}
+			}
+			country_event = {
+				id = forceofwill.3250
+			}
+		}
+		else = {
+			country_event = {
+				id = forceofwill.3350
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "LOST_MAKERS_UNEARTH_MEMORIES_2"
+	event_chain = "chain_lost_makers"
+	cost = 2000
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_lost_makers_analyze
+	icon = "gfx/interface/icons/situation_log/situation_log_ai.dds"
+
+	event_scope = country_event
+
+	desc = {
+		trigger = {
+			lost_makers_has_met_base_game_precursor = yes
+		}
+		text = "LOST_MAKERS_UNEARTH_MEMORIES_DESC_BASE"
+	}
+
+	desc = {
+		trigger = {
+			lost_makers_has_met_base_game_precursor = no
+		}
+		text = "LOST_MAKERS_UNEARTH_MEMORIES_DESC_DLC"
+	}
+
+	on_success = {
+		lost_makers_update_counter = yes
+		if = {
+			limit = {
+				check_variable = {
+					which = lost_makers_project_counter
+					value = 1
+				}
+			}
+			country_event = {
+				id = forceofwill.3150
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = lost_makers_project_counter
+					value = 2
+				}
+			}
+			country_event = {
+				id = forceofwill.3250
+			}
+		}
+		else = {
+			country_event = {
+				id = forceofwill.3350
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "LOST_MAKERS_UNEARTH_MEMORIES_3"
+	event_chain = "chain_lost_makers"
+	cost = 2000
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_lost_makers_analyze
+	icon = "gfx/interface/icons/situation_log/situation_log_ai.dds"
+
+	event_scope = country_event
+
+	desc = {
+		trigger = {
+			lost_makers_has_met_base_game_precursor = yes
+		}
+		text = "LOST_MAKERS_UNEARTH_MEMORIES_DESC_BASE"
+	}
+
+	desc = {
+		trigger = {
+			lost_makers_has_met_base_game_precursor = no
+		}
+		text = "LOST_MAKERS_UNEARTH_MEMORIES_DESC_DLC"
+	}
+
+	on_success = {
+		lost_makers_update_counter = yes
+		if = {
+			limit = {
+				check_variable = {
+					which = lost_makers_project_counter
+					value = 1
+				}
+			}
+			country_event = {
+				id = forceofwill.3150
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = lost_makers_project_counter
+					value = 2
+				}
+			}
+			country_event = {
+				id = forceofwill.3250
+			}
+		}
+		else = {
+			country_event = {
+				id = forceofwill.3350
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "LOST_MAKERS_RECOVER_LOST_DIRECTIVE"
+	event_chain = "chain_lost_makers"
+	cost = 5000
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_lost_makers
+	icon = "gfx/interface/icons/situation_log/situation_log_ai.dds"
+
+	event_scope = country_event
+
+	on_success = {
+		country_event = {
+			id = forceofwill.3500
+			days = 1
+		}
+	}
+}
+
+
+### Force of Will Ambition
+
+### SPECIAL PROJECT 1 - COMPLETION UNLOCKS LEVEL 2
+# Regular
+special_project = {
+	key = "FORCE_OF_WILL_SPECIAL_PROJECT_1"
+	cost = 3000
+	days_to_research = 0
+	tech_department = society_technology
+	picture = GFX_evt_spiritualist_ideology
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	event_chain = force_of_will_chain
+	location = no
+
+	event_scope = country_event
+
+	requirements = {
+	}
+
+	on_success = {
+		set_country_flag = ambition_special_project_1_complete
+		country_event = { id = forceofwill.6005 }
+	}
+
+	on_fail = {
+	}
+}
+
+### SPECIAL PROJECT 2 - COMPLETION UNLOCKS LEVEL 3
+# Regular
+special_project = {
+	key = "FORCE_OF_WILL_SPECIAL_PROJECT_2"
+	cost = 6000
+	days_to_research = 0
+	tech_department = society_technology
+	picture = GFX_evt_cultural_envoy
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	event_chain = force_of_will_chain
+	location = no
+
+	event_scope = country_event
+
+	requirements = {
+	}
+
+	on_success = {
+		set_country_flag = ambition_special_project_2_complete
+		country_event = { id = forceofwill.6010 }
+	}
+
+	on_fail = {
+	}
+}
+
+### SPECIAL PROJECT 3 - COMPLETION UNLOCKS LEVEL 4
+# Regular
+special_project = {
+	key = "FORCE_OF_WILL_SPECIAL_PROJECT_3"
+	cost = 12000
+	days_to_research = 0
+	tech_department = society_technology
+	picture = GFX_evt_spiritualist_ideology
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	event_chain = force_of_will_chain
+	location = no
+
+	event_scope = country_event
+
+	requirements = {
+	}
+
+	on_success = {
+		set_country_flag = ambition_special_project_3_complete
+		country_event = { id = forceofwill.6015 }
+	}
+
+	on_fail = {
+	}
+}
+
+### SPECIAL PROJECT 4 - COMPLETION UNLOCKS LEVEL 5
+# Regular
+special_project = {
+	key = "FORCE_OF_WILL_SPECIAL_PROJECT_4"
+	cost = 20000
+	days_to_research = 0
+	tech_department = society_technology
+	picture = GFX_evt_spiritualist_ideology
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	event_chain = force_of_will_chain
+	location = no
+
+	event_scope = country_event
+
+	requirements = {
+	}
+
+	on_success = {
+		set_country_flag = ambition_special_project_4_complete
+		country_event = { id = forceofwill.6020 }
+	}
+
+	on_fail = {
+	}
+}
+
+# Adopt Ideology / Shift Ethics
+special_project = {
+	key = "ADOPT_IDEOLOGY_SPECIAL_PROJECT"
+	cost = {
+		base = 0
+		# ideology still has to be adopted
+		modifier = {
+			add = 5000
+			has_country_flag = adopt_ideology_yourself
+			desc = "ADOPT_IDEOLOGY"
+		}
+		# an ethic shift is needed
+		modifier = {
+			add = 2500
+			has_country_flag = adopt_ideology_needs_ethic_shift
+			has_country_flag = adopt_ideology_yourself
+			desc = "SHIFT_ETHICS"
+		}
+	}
+
+	days_to_research = 180
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_ideological_council
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	location = no
+	sound = yes
+
+	event_scope = country_event
+
+	on_success = {
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = ideology }
+					ideology = { NOT = { is_same_value = event_target:ideology_target } }
+				}
+			}
+			if = {
+				limit = { has_country_flag = adopting_ideology_from_invitation_@event_target:ideology_target }
+				remove_country_flag = adopting_ideology_from_invitation_@event_target:ideology_target
+				every_playable_country = {
+					limit = {
+						has_country_flag = invited_to_our_ideology_@prev
+						ideology? = { is_same_value = event_target:ideology_target }
+					}
+					remove_country_flag = invited_to_our_ideology_@prev
+					set_country_flag = achievement_invite_ideology
+				}
+			}
+			adopt_ideology = event_target:ideology_target
+
+			country_event = {
+				id = forceofwill.1045
+				scopes = { from = event_target:ideology_target }
+			}
+		}
+		if = {
+			limit = {
+				is_gestalt = no
+				NOT = {
+					has_same_ethic_as_ideology = event_target:ideology_target
+				}
+			}
+			event_target:ideology_target = {
+				switch = {
+					trigger = has_ethic
+					ethic_militarist = { root = { shift_ethic_from_adopt_ideology = { ETHIC = militarist OPPOSITE = pacifist } } }
+					ethic_pacifist = { root = { shift_ethic_from_adopt_ideology = { ETHIC = pacifist OPPOSITE = militarist } } }
+					ethic_xenophobe = { root = { shift_ethic_from_adopt_ideology = { ETHIC = xenophobe OPPOSITE = xenophile } } }
+					ethic_xenophile = { root = { shift_ethic_from_adopt_ideology = { ETHIC = xenophile OPPOSITE = xenophobe } } }
+					ethic_materialist = { root = { shift_ethic_from_adopt_ideology = { ETHIC = materialist OPPOSITE = spiritualist } } }
+					ethic_spiritualist = { root = { shift_ethic_from_adopt_ideology = { ETHIC = spiritualist OPPOSITE = materialist } } }
+					ethic_authoritarian = { root = { shift_ethic_from_adopt_ideology = { ETHIC = authoritarian OPPOSITE = egalitarian } } }
+					ethic_egalitarian = { root = { shift_ethic_from_adopt_ideology = { ETHIC = egalitarian OPPOSITE = authoritarian } } }
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = unified_ideology_not_accomplished
+				has_overlord_ideology = yes
+			}
+			remove_modifier = unified_ideology_not_accomplished
+		}
+		if = {
+			limit = {
+				has_modifier = imposed_ideology_not_accomplished
+				has_country_flag = imposed_ideology_@event_target:ideology_target
+			}
+			remove_modifier = imposed_ideology_not_accomplished
+			every_ideology = {
+				prev = { remove_country_flag = imposed_ideology_@prev }
+			}
+		}
+		remove_country_flag = adopt_ideology_needs_adoption
+		remove_country_flag = adopt_ideology_needs_ethic_shift
+		remove_country_flag = adopt_ideology_yourself
+	}
+
+	# Delayed because the aborted project is still listed while this runs
+	on_cancel = {
+		country_event = { id = forceofwill.1050 days = 1 }
+	}
+
+	on_fail = {
+		remove_modifier = imposed_ideology_not_accomplished
+		remove_country_flag = imposed_ideology_@event_target:ideology_target
+		remove_country_flag = adopt_ideology_yourself
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = event_target:ideology_target }
+			AND = {
+				ideology? = { is_same_value = event_target:ideology_target }
+				has_same_ethic_as_ideology = event_target:ideology_target
+			}
+		}
+	}
+
+	fail_trigger = {
+		OR = {
+			has_country_flag = under_ideological_ban_law
+			AND = {
+				has_country_flag = under_unified_ideology_law
+				NOT = {
+					overlord.ideology? = {
+						is_same_value = event_target:ideology_target
+					}
+				}
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "ABSOLUTE_ETHIC_PROJECT"
+	situation_log_category = empire_concerns
+	days_to_research = 180
+	timelimit = -1
+	picture = GFX_evt_raised_fist
+	icon = "gfx/interface/icons/situation_log/situation_log_tick.dds"
+	location = no
+
+	event_scope = country_event
+
+	on_success = {
+		country_event = { id = forceofwill.2015 }
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = ideology }
+			is_absolute = yes
+		}
+	}
+}
+
+special_project = {
+	key = "ABSOLUTE_ETHIC_PROJECT_SPIRITUALIST"
+	situation_log_category = empire_concerns
+	days_to_research = 180
+	timelimit = -1
+	picture = GFX_evt_spiritualist_ideology
+	icon = "gfx/interface/icons/situation_log/situation_log_tick.dds"
+	location = no
+
+	event_scope = country_event
+
+	on_success = {
+		country_event = { id = forceofwill.2015 }
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = ideology }
+			is_absolute = yes
+		}
+	}
+}
