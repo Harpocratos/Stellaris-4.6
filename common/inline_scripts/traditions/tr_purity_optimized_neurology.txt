@@ -1,0 +1,24 @@
+on_enabled = {
+    hidden_effect = {
+        every_owned_leader = {
+            limit = {
+                is_leader_tier = leader_tier_default
+            }
+            add_trait = {
+				trait = random_common
+				show_message = no
+			}
+        }
+        every_pool_leader = {
+			add_trait = {
+				trait = random_common
+				show_message = no
+			}
+        }
+    }
+}
+modifier = {
+    leader_initial_traits_add = 1
+    leader_starting_age_mult = -0.25
+    negative_traits_country = -1
+}

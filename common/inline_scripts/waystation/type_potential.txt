@@ -1,0 +1,27 @@
+# Potential block for economy waystation types (energy, mining, research)
+# Parameters:
+#   DEPOSIT_TRIGGER - scripted trigger to check for relevant deposits (e.g. has_orbital_energy_deposit)
+#   MODULE         - starbase module to check for player empires (e.g. waystation_energy_module)
+
+OR = {
+	# AI: system has relevant deposits
+	AND = {
+		owner = {
+			is_ai = yes
+		}
+		fleet = {
+			solar_system? = {
+				any_system_planet = {
+					$DEPOSIT_TRIGGER$ = yes
+				}
+			}
+		}
+	}
+	# Player: relevant module is present
+	AND = {
+		owner = {
+			is_ai = no
+		}
+		has_starbase_module = $MODULE$
+	}
+}

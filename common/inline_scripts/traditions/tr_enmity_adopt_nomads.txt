@@ -1,0 +1,15 @@
+custom_tooltip = $TOOLTIP$
+modifier = {
+	max_rivalries = 1
+}
+triggered_modifier = {
+	potential = {
+		has_force_of_will_dlc = yes
+	}
+	max_ideological_rivalries = 1
+}
+triggered_modifier = {
+	logistic_growth_mult = @enmity_rival_growth
+	planet_pop_assembly_mult = @enmity_rival_growth
+	mult = value:enmity_rival_count
+}

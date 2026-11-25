@@ -1,0 +1,26 @@
+custom_tooltip = $TOOLTIP$
+triggered_modifier = {
+	potential = {
+		is_rival_superior_in_category = {
+			CATEGORY = fleet
+		}
+	}
+	starbase_shipyard_build_speed_mult = @enmity_match_ship_build_speed
+	starbase_shipyard_build_cost_mult = @enmity_match_ship_build_cost
+}
+triggered_modifier = {
+	potential = {
+		is_rival_superior_in_category = {
+			CATEGORY = technology
+		}
+	}
+	planet_researchers_upkeep_mult = @enmity_match_researcher_upkeep
+}
+triggered_modifier = {
+	potential = {
+		is_rival_superior_in_category = {
+			CATEGORY = economy
+		}
+	}
+	worker_and_simple_drone_cat_bonus_workforce_mult = @enmity_match_worker_job_efficiency
+}

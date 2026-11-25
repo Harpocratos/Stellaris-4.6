@@ -1,0 +1,4 @@
+remove_trait = trait_latent_psionic
+remove_trait = trait_robot_latent_psionic
+remove_trait = trait_psionic
+remove_trait = trait_robot_psionic

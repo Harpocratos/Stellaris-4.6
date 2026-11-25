@@ -1,0 +1,35 @@
+# Weight modifier block for economy waystation types (energy, mining, research)
+# AI weight scales with the number of planets with relevant deposits
+# Player weight is a flat BASE_WEIGHT
+# Parameters:
+#   DEPOSIT_TRIGGER - scripted trigger to count relevant deposits (e.g. has_orbital_energy_deposit)
+#   BASE_WEIGHT     - base weight for the type (e.g. 200)
+
+weight_modifier = {
+	base = $BASE_WEIGHT$
+	# AI: increase weight by number of relevant deposits in system
+	complex_trigger_modifier = {
+		trigger = count_system_planet
+		trigger_scope = solar_system
+		parameters = {
+			limit = {
+				$DEPOSIT_TRIGGER$ = yes
+			}
+		}
+		mode = add
+		mult = 50
+	}
+	modifier = {
+		factor = 0
+		owner = {
+			is_ai = no
+		}
+	}
+	# Player: flat weight
+	modifier = {
+		add = $BASE_WEIGHT$
+		owner = {
+			is_ai = no
+		}
+	}
+}
