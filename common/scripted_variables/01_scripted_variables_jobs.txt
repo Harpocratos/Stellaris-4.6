@@ -1,0 +1,21 @@
+@automation_upkeep_worker			= 4
+@automation_upkeep_specialist		= 8
+@automation_upkeep_elite			= 12
+@automation_upkeep_simple			= 4
+@automation_upkeep_complex			= 8
+
+@fe_automation_worker_1				= 0.75
+@fe_automation_worker_2				= 1.00
+@fe_automation_specialist_1			= 0.25
+@fe_automation_specialist_2			= 0.50
+
+@leader_background_class_match				= 100
+@leader_background_ethic_match				= 25
+@leader_background_civic_match				= 50
+@leader_background_weight_ruler				= 10
+@leader_background_weight_specialist		= 5
+@leader_background_weight_worker			= 1
+@leader_background_weight_equal				= 10
+@leader_background_authoritarian_ruler		= 40
+@leader_background_egalitarian_specialist	= 10
+@leader_background_egalitarian_worker		= 14

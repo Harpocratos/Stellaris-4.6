@@ -1,0 +1,143 @@
+# Modifiers used for tooltips
+
+colony_ideological_reach_mult = {
+	icon = mod_ideological_push_mult
+	good = yes
+	percentage = yes
+	category = colony
+}
+
+hall_ideological_reach_mult = {
+	icon = mod_ideological_push_mult
+	good = yes
+	percentage = yes
+	category = country
+}
+
+hall_colony_effect_mult = {
+	icon = mod_hall_colony_effect_mult
+	good = yes
+	percentage = yes
+	category = country
+}
+
+hall_relocate_cost = {
+	icon = mod_energy_cost_mult
+	good = no
+	category = country
+	percentage = yes
+}
+
+non_gestalt_memorials_species_growth_mult = {
+	icon = mod_bonus_pop_growth
+	good = yes
+	category = country
+	percentage = yes
+}
+
+ideological_strength_bonus_mult = {
+	icon = mod_ideological_strength_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+advocate_ideological_strength_mult = {
+	icon = mod_ideological_strength_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+advocate_matching_ideological_strength_mult = {
+	icon = mod_ideological_strength_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+ideological_strength_malus_mult = {
+	icon = mod_ideological_strength_add_negative
+	good = no
+	category = country
+	percentage = yes
+}
+
+ideological_strength_from_clashes_mult = {
+	icon = mod_ideological_strength_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+ideological_resistance_from_closed_borders_mult = {
+	icon = mod_ideological_resistance_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+ideological_resistance_vs_rival_mult = {
+	icon = mod_ideological_resistance_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+arcology_project_cost_mult = {
+	icon = mod_alloys_cost_mult
+	good = no
+	category = country
+	percentage = yes
+}
+
+ideological_faction_attraction_mult = {
+	icon = mod_ideological_strength_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+cultural_envoy_opinion_loss_mult = {
+	icon = mod_ideological_push_mult
+	good = no
+	category = fleet
+	percentage = yes
+}
+
+cultural_envoy_conversion_rate_add = {
+	icon = mod_ideological_push_mult
+	good = yes
+	category = fleet
+	percentage = no
+}
+
+# Civic modifiers
+
+civic_dystopian_society_ideological_reach = {
+	icon = mod_ideological_push_mult
+	good = yes
+	category = country
+	percentage = no
+}
+
+civic_shared_burden_ideological_reach = {
+	icon = mod_ideological_push_mult
+	good = yes
+	category = country
+	percentage = no
+}
+
+civic_megacity_architects_ideological_reach_mult = {
+	icon = mod_ideological_push_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+tenet_environmentalist_nomad_pops_upkeep_mult = {
+	icon = mod_planet_pops_upkeep_mult
+	good = no
+	category = country
+	percentage = yes
+}

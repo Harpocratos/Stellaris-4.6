@@ -1,0 +1,512 @@
+######################################
+# Scripted Variables - Force of Will #
+######################################
+
+@embrace_faction_cost = 5000
+@unlock_fanatic_faction_demand_chance = 10
+@fanatic_faction_approval_threshold = 0.75	# Approval (0-1) a faction needs before it can turn fanatic
+@fanatic_faction_approval_window = 12		# Monthly pulses a faction must hold that threshold before it can turn fanatic
+
+# Ideological Faction attraction
+@ideological_faction_attraction_base = 50					# Flat base
+@ideological_faction_attraction_per_pop = 0.01				# Per pop from your empire within the Ideology's reach
+@ideological_faction_attraction_approval_threshold = 0.4	# Approval (0-1) under which the faction gains attraction (40%)
+@ideological_faction_attraction_per_approval_point = 5		# Per approval point below the threshold
+@ideological_faction_attraction_approval_max = 250			# Cap on the approval-based attraction
+@ideological_faction_suppressed_attraction = -300			# Applied while the faction is suppressed
+@cultural_envoy_conversion_attraction = 550					# Applied while a Cultural Envoy is converting the empire
+@cultural_envoy_conversion_attraction_days = 3600			# Kept for this long after the last pops were converted
+
+@adopted_ideology_ethic_attraction = 0.5
+
+# Nomadic Reach - waystation ideology array
+@waystation_reach_output_ratio = 0.2	# Waystation emits this fraction of the combined arkship reach
+@waystation_reach_network_bonus = 0.1	# +10% reach area per waystation in the connected network
+
+# Warmongers
+@warmongers_pop_upkeep_penalty = 0.25
+@warmongers_at_war_modifier_duration = 720
+@warmongers_defense_armies_from_reserves = 1
+@warmongers_foundry_output_from_enlisted = 0.005
+@warmongers_stability_from_officers = 0.25
+@warmongers_naval_cap_from_high_command = 3
+
+# Path of the self
+@path_of_the_self_unity_roll_max = 10
+@path_of_the_self_happiness_roll_max = 5
+@path_of_the_self_stability_roll_max = 5
+@path_of_the_self_councilor_roll_max = 1
+@path_of_the_self_leader_upkeep_roll_max = 5
+@path_of_the_self_death_cult_roll_max = 5
+@path_of_the_self_ascensionist_roll_max = 3
+@path_of_the_self_dimensional_worship_roll_max = 3
+@path_of_the_self_exalted_priesthood_roll_max = 3
+@path_of_the_self_gospel_masses_roll_max = 3
+@path_of_the_self_unity_per_roll = 0.03
+@path_of_the_self_happiness_per_roll = 0.03
+@path_of_the_self_stability_per_roll = 3
+@path_of_the_self_leader_upkeep_per_roll = -0.05
+@path_of_the_self_leader_lifespan_per_roll = 0.05
+@path_of_the_self_ascensionist_per_roll = 0.05
+@path_of_the_self_dimensional_worship_per_roll = 0.25
+@path_of_the_self_exalted_priesthood_per_roll = 0.5
+@path_of_the_self_exalted_priesthood_high_priest_per_roll = 1
+@path_of_the_self_meditation_attraction = 0.25
+@path_of_the_self_ideological_reach = 0.15
+@path_of_the_self_meditation_situation_progress = 0.03
+@path_of_the_self_council_situation_progress = 0.03
+@path_of_the_self_council_pop_upkeep = -0.02
+@path_of_the_self_miracle_child_age = 10	# Age at which the miracle child can be assigned and dismissed
+
+# Lost Makers
+@origin_lost_makers_multiplier = 1000 # We REALLY want 'Lost Makers' empires which rolled the Precursor to get it
+@trait_redundant_module_deviancy = 0.05
+
+# Golden Generation
+@stewardism_upkeep_funeral_large = -0.1
+@stewardism_upkeep_funeral_small = -0.05
+@golden_commemoration_unity_mult = 0.1
+@golden_commemoration_happiness = 0.05
+@golden_memories_unity_mult = 0.05
+@golden_memories_happiness = -0.025
+@golden_memories_leader_gain = 0.1
+@mixed_legacy_factions_mult = 0.15
+@mixed_legacy_happiness = 0.05
+@mixed_legacy_upkeep_mult = 0.2
+@golden_memorial_ethics_attraction = 0.1
+@golden_memorial_materialist_researchers = 0.05
+@golden_memorial_materialist_physics = 0.15
+@golden_memorial_spiritualist_unity = 0.15
+@golden_memorial_spiritualist_goods = -0.15
+@golden_memorial_militarist_unity = 0.05
+@golden_memorial_militarist_build = 0.15
+@golden_memorial_pacifist_society = 0.1
+@golden_memorial_pacifist_unity = 0.1
+@golden_memorial_xenophobe_unity = 0.15
+@golden_memorial_xenophobe_stability = 5
+@golden_memorial_xenophile_survey = 0.2
+@golden_memorial_xenophile_society = 0.15
+@golden_memorial_authoritarian_worker = 0.05
+@golden_memorial_authoritarian_unity = 0.05
+@golden_memorial_egalitarian_unity = 0.15
+@golden_memorial_egalitarian_stability = 5
+@golden_memorial_corporate_trade = 0.15
+@golden_memorial_corporate_energy = 0.05
+
+# Social Concord
+@social_concord_not_at_war_unity = 0.10
+@social_concord_not_at_war_influence = 0.05
+@social_concord_galcom_planet_stability = 10
+@social_concord_galcom_pop_ethic_pacifist_attraction_mult = 0.75
+@social_concord_galcom_all_technology_research_speed = 0.25
+@social_concord_starting_opinion = 25
+@social_concord_ideological_strength = 0.5
+
+@sow_peace_stack_influence_cost = 50
+@sow_peace_stack_intel_requirement = 40
+@sow_peace_max_stacks_counter = 5
+@sow_peace_ai_min_stockpile = 100
+
+# Jubilee Agenda
+@jubilee_resource_produces_mult = 0.2
+
+# Open Stars Sovereignty
+@open_stars_happiness_per_species_planet = 0.05
+@open_stars_happiness_per_species_planet_cap = 6					# Max amount of species used
+@open_stars_max_happiness_per_species_planet = 0.3					# @open_stars_happiness_per_species_planet * @open_stars_happiness_per_species_planet_cap
+
+@immigration_bureau_pops_per_month = 1								# Amount of pops created each month by the starbase building
+@immigration_bureau_closed_borders_mult = 0.25
+@immigration_bureau_closed_borders_mult_loc = 0.75                  # Should be 1 - non loc version
+
+# Megacity Architects
+@urban_frame_build_queue_capacity_add = 1
+@urban_frame_max_city_districts_add = 3
+
+@fanatic_purifiers_ideological_strength_per_pop_purged = 0.0001
+
+# Native Supremacy Living Standards
+@living_standard_happiness_native_supremacy = 0.2
+
+# Ideology Momentum Thresholds
+@ideology_momentum_surging = 200
+@ideology_momentum_very_positive = 100
+@ideology_momentum_low = 0						# Sync with IDEOLOGICAL_MOMENTUM_LOW_THRESHOLD define
+@ideology_momentum_moderately_low = -100		# Sync with IDEOLOGICAL_MOMENTUM_MODERATELY_LOW_THRESHOLD define
+@ideology_momentum_dangerously_low = -200		# Sync with IDEOLOGICAL_MOMENTUM_DANGEROUSLY_LOW_THRESHOLD define
+
+# Ideological Disruption
+# Non-capital colony stability penalties (per tier)
+@ideological_disruption_planet_stability = -5
+@moderate_ideological_disruption_planet_stability = -25
+@severe_ideological_disruption_planet_stability = -50
+# Gestalt variation
+@ideological_disruption_planet_unity = 0.005
+@moderate_ideological_disruption_planet_unity = 0.0075
+@severe_ideological_disruption_planet_unity = 0.01
+
+# Unity upkeep for pops following the ideology
+@ideological_disruption_unity_upkeep = 0.5
+
+# Ideology Momentum Event Effects (Positive)
+@propaganda_clubs_upkeep_mult = -0.3
+@propaganda_clubs_ethic_attraction = 0.3
+@doctrinal_funding_upkeep_mult = 0.3
+@doctrinal_funding_ethic_attraction = 0.3
+@government_recognition_ethic_attraction = 0.1
+@citizen_parade_happiness = 0.1
+@citizen_parade_amenities = 0.1
+@propaganda_success_upkeep_mult = -0.4
+@propaganda_success_ethic_attraction = 0.2
+@recruitment_boom_leader_pool_size = 2
+@recruitment_boom_leaders_cost_mult = -0.2
+@idealistic_civil_servants_agenda_speed = 0.1
+@idealistic_civil_servants_bureaucrats_mult = 0.1
+@loyalty_rewarded_upkeep_mult = -0.4
+@loyalty_rewarded_ethic_attraction = 0.2
+@golden_age_society_unity_mult = 0.1
+@golden_age_society_happiness = 0.1
+@golden_age_economy_trade_mult = 0.15
+@golden_age_economy_energy_mult = 0.15
+@golden_age_politics_agenda_speed = 0.2
+@golden_age_politics_agenda_effect = 0.15
+@golden_age_politics_exp_gain = 0.1
+
+# Ideology Momentum Event Effects (Negative)
+@radical_nonconformity_unity_mult = -0.05
+@radical_nonconformity_stability_add = -5
+@radicalism_suppressed_researchers_mult = -0.05
+@radicalism_suppressed_happiness = -0.05
+@demonstrations_proscribed_happiness = -0.05
+@anti_elite_demonstrations_jobs_mult = -0.05
+@economic_stagnation_trade_mult = -0.15
+@economic_stagnation_jobs_mult = -0.05
+@terror_activity_stability_mult = -0.05
+@terror_activity_upkeep_mult = 0.1
+@government_corruption_agenda_speed = -0.1
+@government_corruption_upkeep_mult = 0.1
+@increased_ideological_investment_upkeep_mult = 0.5
+
+# Fanatic Faction Consequence Event Effects
+@fanatic_intelligence_leak_encryption = -3
+@fanatical_obstruction_stability = -3
+@fanatical_obstruction_enforcer_upkeep = 0.1
+@coup_vigilance_building_upkeep = 0.05
+@coup_vigilance_enforcer_upkeep = 0.05
+@fanatic_leader_kidnapped_days = 250
+
+# Ideological Strength
+@ideological_strength_max_value = 1000
+@ideology_strength_malus_abandoning = -10
+
+# From Galactic Strength
+@ideology_strength_per_galactic_strength_share = 0.1
+@ideology_strength_per_galactic_strength_share_gestalt = 0.0333
+@ideology_strength_population_share_mult = 2
+
+# From Ideological Cohesion
+@ideology_strength_per_clash = 0.25
+@ideology_strength_per_rival_clash = 0.5
+@ideology_strength_per_galactic_hall = 0.5
+@ideology_strength_advocate_per_skill = 0.2
+@ideology_strength_advocate_ideologue_mult = 0.5
+@ideology_strength_advocate_delegate_mult = 0.25
+@ideology_strength_per_100_celebrating_pops = 0.005
+@ideology_strength_per_100_pops_low_deviancy = 0.005
+@ideology_strength_per_fanatic_faction_approval = 0.01
+@ideology_strength_max_fanatic_faction_approval_mult = 1.5
+
+# From Ideological Friction
+@ideology_strength_malus_level_rate = 0.005
+@ideology_strength_malus_per_size = 0.01
+@ideology_strength_malus_per_foreign_pop_percent = 0.1
+@ideology_strength_malus_low_fanatic_faction = 3.5
+@ideology_strength_per_100_pops_per_high_deviancy = 0.0002
+
+# Ideological Leverage
+@ideological_leverage_strength_spent = -250
+@ideological_leverage_duration = 3
+@ideological_leverage_follower_share = 0.3
+@ideological_leverage_favors = 1
+
+# Gestalt
+@foreign_ideology_deviancy_monthly_increase = 1
+@max_foreign_ideology_deviancy = 50
+@ideology_low_deviancy_threshold = 10
+@ideology_high_deviancy_threshold = 9
+@ai_abandon_ideology_min_strength_change = -0.5
+@ai_abandon_ideology_deviancy = 40
+
+# Tenets
+@spectacle_of_authority_edict_fund_1 = 1
+@spectacle_of_authority_edict_fund_2 = 2
+@spectacle_of_authority_edict_fund_3 = 4
+@spectacle_of_authority_society_1 = 0.5
+@spectacle_of_authority_society_2 = 1
+@spectacle_of_authority_society_3 = 2
+
+@tenet_surveillance_upkeep_1 = -0.01
+@tenet_surveillance_upkeep_2 = -0.02
+@tenet_surveillance_upkeep_3 = -0.04
+
+@tenet_readiness_naval_1 = 1
+@tenet_readiness_naval_2 = 2
+@tenet_readiness_naval_3 = 4
+
+@tenet_strategism_agenda_speed_1 = 0.10
+@tenet_strategism_agenda_speed_2 = 0.20
+@tenet_strategism_agenda_speed_3 = 0.40
+@tenet_strategism_agenda_cooldown_1 = -0.05
+@tenet_strategism_agenda_cooldown_2 = -0.10
+@tenet_strategism_agenda_cooldown_3 = -0.20
+@tenet_strategism_agenda_strength_1 = 0.10
+@tenet_strategism_agenda_strength_2 = 0.20
+@tenet_strategism_agenda_strength_3 = 0.40
+
+@tenet_propagandism_edict_fund_1 = 25
+@tenet_propagandism_edict_fund_2 = 50
+@tenet_propagandism_edict_fund_3 = 100
+@tenet_propagandism_advocate_strength_1 = 0.10
+@tenet_propagandism_advocate_strength_2 = 0.20
+@tenet_propagandism_advocate_strength_3 = 0.30
+
+@edict_broadcasting_cost = 5
+@edict_broadcasting_cost_gestalt = 10
+@edict_broadcasting_reach = 0.1
+@edict_broadcasting_push = 0.1
+@edict_broadcasting_pop_happiness = 0.1
+@edict_broadcasting_deviancy = -5
+
+@decision_ideology_authority_jobs_count = 200
+@decision_ideology_authority_gestalt_jobs_count = 100
+@decision_celebration_of_ideals_ethic_attraction = 0.05
+@decision_celebration_of_ideals_ethic_attraction_max = 0.5
+@decision_celebration_of_ideals_reach_from_entertainer = 0.01
+
+@tenet_laterality_specialist_output_1 = 0.001
+@tenet_laterality_specialist_output_2 = 0.002
+@tenet_laterality_specialist_output_3 = 0.003
+
+@tenet_harmonicism_vote_strength_mult_1 = 0.15
+@tenet_harmonicism_vote_strength_mult_2 = 0.30
+@tenet_harmonicism_vote_strength_mult_3 = 0.45
+
+@tenet_militia_conscription_defense_army = 1
+@tenet_militia_conscription_arkship_hull = 0.01
+
+@tenet_crucible_principle_research_1 = 25
+@tenet_crucible_principle_research_2 = 50
+@tenet_crucible_principle_research_3 = 100
+
+@tenet_force_projection_unity_1 = 0.2
+@tenet_force_projection_unity_2 = 0.4
+@tenet_force_projection_unity_3 = 0.8
+
+@tenet_disarmament_stability_max_1 = 5
+@tenet_disarmament_stability_max_2 = 10
+@tenet_disarmament_stability_max_3 = 15
+@tenet_disarmament_stability_base = 1
+@tenet_disarmament_opinion_max_1 = 50
+@tenet_disarmament_opinion_max_2 = 100
+@tenet_disarmament_opinion_max_3 = 150
+@tenet_disarmament_opinion_base = 0.1
+@agenda_disarmament_mult_1 = -0.12
+@agenda_disarmament_mult_2 = -0.25
+@agenda_disarmament_mult_3 = -0.5
+
+@tenet_sacrifism_sacrifice_pops_1 = 600
+@tenet_sacrifism_sacrifice_pops_2 = 1200
+@tenet_sacrifism_sacrifice_pops_3 = 1800
+@tenet_sacrifism_ideological_strength_1 = 0.5
+@tenet_sacrifism_ideological_strength_2 = 1
+@tenet_sacrifism_ideological_strength_3 = 1.5
+
+@tenet_chosen_positive_opinion = 25
+@tenet_chosen_negative_opinion = -25
+
+@tenet_peacekeeping_cost_1 = -0.00125
+@tenet_peacekeeping_cost_2 = -0.0025
+@tenet_peacekeeping_cost_3 = -0.005
+
+@tenet_lost_makers_adakkaria_research = 0.01
+
+# Ideology Intel
+@max_ideology_intel = 100
+
+# Situations
+@ideological_recovery_mult = 0.1
+
+# Galactic Hall
+@galactic_hall_base_reach = 150
+@galactic_hall_max_reach = 200
+
+# Galactic Hall modules
+@galactic_hall_module_information_research = 0.75
+@galactic_hall_module_culture_unity = 0.5
+@galactic_hall_module_welfare_trade = 1
+@galactic_hall_module_propagation_assembly = 1.5
+
+# Ideological Buildings
+@building_ideological_strength = 0.2
+@building_ideological_ethic_1_ethic_attraction = 0.1
+@building_ideological_ethic_2_ethic_attraction = 0.15
+@building_ideological_ethic_3_ethic_attraction = 0.2
+@building_ideological_ethic_1_culture_workers = 200
+@building_ideological_ethic_2_culture_workers = 400
+@building_ideological_ethic_3_culture_workers = 600
+
+@galactic_halls_relocate_cooldown = 1800 # 5 years
+
+@advocate_faction_unity_cost = 1000
+@advocate_faction_influence_cost = 100
+@promote_suppress_faction_unity_cost = 1000
+@promote_suppress_faction_ai_unity_reserve = 3000
+@destroyed_faction_ethic_malus_years = 10
+@suppressed_faction_base_cooldown_years = 15
+@suppressed_faction_base_cooldown_delay = 3600 # Up to 10 more years
+
+@living_standard_united_effort_workforce = 0.05
+@living_standard_united_effort_happiness = 0.2
+@living_standard_united_effort_power = 4
+
+@martyr_ideological_strength_mult = 0.25
+
+@holding_propaganda_office_ideological_resistance = -0.2
+
+# Golden Generation
+
+@reputation_damage_upkeep = 0.1
+@reputation_damage_exp_gain = -0.1
+
+@golden_indulgence_exp_gain = 0.25
+@golden_indulgence_upkeep = 0.25
+
+@dissatisfied_elite_exp_gain = -0.1
+
+# Cultural Envoy build cost, also read by the AI's build gate in 09_script_values_forceofwill.txt
+@cultural_envoy_cost_influence = 50
+@cultural_envoy_cost_alloys = 250
+@cultural_envoy_cost_consumer_goods = 500
+@cultural_envoy_conversion_upkeep = 10
+
+# Cultural Envoy specialist trait values
+@cultural_envoy_indoctrinator_envoy_conversion_rate = 25
+@cultural_envoy_indoctrinator_council_ethic_attraction = 0.25
+
+@cultural_envoy_zealot_envoy_ship_speed = 0.5
+@cultural_envoy_zealot_envoy_leader_xp = 0.25
+@cultural_envoy_zealot_council_agenda_speed = 0.25
+
+@cultural_envoy_persuasive_luminary_envoy_opinion_loss = -0.5
+@cultural_envoy_persuasive_luminary_envoy_conversion_upkeep = -0.25
+@cultural_envoy_persuasive_luminary_council_diplo_weight = 0.1
+
+@cultural_envoy_negotiator_envoy_conversion_trade = 0.1
+@cultural_envoy_negotiator_council_build_cost = -0.1
+@cultural_envoy_negotiator_council_conversion_upkeep = -0.1
+
+@resolution_council_ideology_denouncement_resistance = 0.35
+@denounced_ideology_diplo_weight = -0.25
+@denounced_ideology_malus_value = 0.5
+
+@resolution_ideology_act_attraction = 0.3
+@resolution_ideology_act_deviancy = -10
+@resolution_ideology_act_diplo_weight = 0.1
+@resolution_ideology_act_strength = 0.25
+@resolution_ideology_act_strength_authority = 0.5
+@resolution_ideology_act_resistance = -0.35
+
+@proselytization_cultural_envoy_speed = 50
+@delegate_trait_cultural_envoy_speed = 10
+@cultural_envoy_inside_ideological_reach_conversion_mult = 2
+
+@federal_negotiator_advocate_strength_1		= 0.05
+@federal_negotiator_advocate_strength_2		= 0.1
+@federal_negotiator_advocate_strength_3		= 0.15
+
+@federal_greeter_envoy_conversion_1		= 2
+@federal_greeter_envoy_conversion_2		= 5
+@federal_greeter_envoy_conversion_3		= 10
+
+@federal_greeter_advocate_attraction_1		= 0.025
+@federal_greeter_advocate_attraction_2		= 0.05
+@federal_greeter_advocate_attraction_3		= 0.075
+
+@federal_sweet_talker_advocate_friction_1	= -0.05
+@federal_sweet_talker_advocate_friction_2	= -0.1
+@federal_sweet_talker_advocate_friction_3	= -0.15
+
+@federal_sweet_talker_envoy_opinion_loss_1	= -0.05
+@federal_sweet_talker_envoy_opinion_loss_2	= -0.1
+@federal_sweet_talker_envoy_opinion_loss_3	= -0.15
+
+@federal_joint_navy_envoy_durability_1		= 0.1
+@federal_joint_navy_envoy_durability_2		= 0.2
+@federal_joint_navy_envoy_durability_3		= 0.3
+
+@unitary_admin_offices_build_cost_reduction = -0.2
+@unitary_admin_offices_build_cost_reduction_sector = -0.1
+
+# The Last Word destiny trait (Frulin)
+@burden_of_proof_unity_per_pop = 0.5
+@burden_of_proof_cooldown_days = 1800
+
+@awakening_cooldown_days = 1800
+
+# Reach resistance vs incoming Spiritualist ideologies, in a system Frulin governs
+@the_last_word_planet_spiritualist_resistance = 0.5
+@the_last_word_sector_spiritualist_resistance = 0.25
+
+# Consecrated Worlds
+@consecrated_world_ideological_push = 0.25
+@consecrated_world_foreign_resistance = 0.25
+
+# Espionage
+@ideological_doubt_strength = 0.5
+@ideological_doubt_attraction = -0.25
+@ideological_doubt_ruler_exp = -0.1
+@ideological_doubt_deviancy = -15
+@information_manipulation_stability = -5
+@information_manipulation_reach_malus = -0.25
+@information_manipulation_reach_bonus = 0.35
+
+@abduction_protocol_unity_per_fleetsize = 0.01
+
+# Harkaloid Organ (Tahqeq destiny trait)
+@harkaloid_lifespan_days_per_kill = 10			# Extra lifespan (in days) per enemy ship destroyed
+@harkaloid_lifespan_years_cap = 200				# Max accumulated lifespan bonus from kills
+@harkaloid_at_war_exp_gain = 0.5
+@harkaloid_ideological_reach_per_war = 0.5
+
+@leader_trait_tranquil_steward_strength = 0.5
+@leader_trait_tranquil_steward_crime_planet = -4
+@leader_trait_tranquil_steward_crime_sector = -2
+
+# Tradition
+@prosperity_interstellar_franchising_ideological_empire_size = -0.15
+
+# Edict
+@relay_network_movement_hyper_relay_ideological_push_mult = 0.05
+
+@political_reorientation_time = 10
+
+@imposed_ideology_not_accomplished_stability_add = -30
+@imposed_ideology_not_accomplished_produces_add = -5
+
+@unified_ideology_stability_add = -30
+@unified_ideology_influence_produces_add = -5
+
+@ideological_ban_stability_add = -30
+@ideological_ban_influence_produces_add = -5
+
+# Humility Living Standard
+@humility_rulers_upkeep = 0.5
+@humility_specialists_upkeep = 0.25
+@humility_workers_upkeep = 0.1
+@humility_civilians_upkeep = 0.1
+@humility_ruler_power = 5
+@humility_specialist_power = 2.5
+@humility_worker_power = 1.5
+@humility_civilian_power = 1.5
+
+@fow_ambition_win_galactic_strength_needed = 0.5

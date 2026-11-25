@@ -1,0 +1,3103 @@
+defined_text = {
+	name = GetSpiritCultivationFinishEffects
+	text = {
+		trigger = {
+			has_modifier = spirit_cultivation
+		}
+		localization_key = situation_spirit_cultivation_finish_modifiers
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCouncilorSpiritCultivationSituationBonus
+	value = value:spirit_cultivation_councilor_speed_bonus|TYPE|councilor_civic_path_of_the_self|
+}
+
+defined_text = {
+	name = GetSpiritCultivationUnityBonus
+	value = value:spirit_cultivation_unity_bonus_percent
+}
+
+defined_text = {
+	name = GetSpiritCultivationUnityModifier
+	text = {
+		trigger = {
+			check_variable = { which = spirit_cultivation_unity_roll_count value > 0 }
+		}
+		localization_key = meditation_unity_bonus
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationHappinessBonus
+	value = value:spirit_cultivation_happiness_bonus_percent
+}
+
+defined_text = {
+	name = GetSpiritCultivationStabilityBonus
+	value = value:spirit_cultivation_stability_bonus
+}
+
+defined_text = {
+	name = GetSpiritCultivationHappinessModifier
+	text = {
+		trigger = {
+			check_variable = { which = spirit_cultivation_happiness_roll_count value > 0 }
+		}
+		localization_key = meditation_happiness_bonus
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationStabilityModifier
+	text = {
+		trigger = {
+			check_variable = { which = spirit_cultivation_stability_roll_count value > 0 }
+		}
+		localization_key = meditation_stability_bonus
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationCouncilorModifier
+	text = {
+		trigger = {
+			check_variable = { which = spirit_cultivation_councilor_roll_count value > 0 }
+		}
+		localization_key = meditation_councilor_bonus
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationLeaderUpkeepBonus
+	value = value:spirit_cultivation_leader_upkeep_bonus_percent
+}
+
+defined_text = {
+	name = GetSpiritCultivationLeaderUpkeepModifier
+	text = {
+		trigger = {
+			check_variable = { which = spirit_cultivation_leader_upkeep_roll_count value > 0 }
+		}
+		localization_key = meditation_leader_upkeep_bonus
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationLeaderLifespanBonus
+	value = value:spirit_cultivation_leader_lifespan_bonus_percent
+}
+
+defined_text = {
+	name = GetSpiritCultivationLeaderLifespanModifier
+	text = {
+		trigger = {
+			check_variable = { which = spirit_cultivation_leader_lifespan_roll_count value > 0 }
+		}
+		localization_key = meditation_leader_lifespan_bonus
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationDeathCultBonus
+	value = value:spirit_cultivation_death_cult_bonus_percent
+}
+
+defined_text = {
+	name = GetSpiritCultivationDeathCultModifier
+	text = {
+		trigger = {
+			is_death_cult_empire = yes
+			check_variable = { which = spirit_cultivation_death_cult_roll_count value > 0 }
+		}
+		localization_key = meditation_death_cult_tt
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationDeathCultPoolDesc
+	text = {
+		trigger = {
+			is_death_cult_empire = yes
+		}
+		localization_key = meditation_death_cult_pool_desc
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationAscensionistBonus
+	value = value:spirit_cultivation_ascensionist_bonus_percent
+}
+
+defined_text = {
+	name = GetSpiritCultivationAscensionistModifier
+	text = {
+		trigger = {
+			AND = {
+				is_ascensionist_empire = yes
+				check_variable = { which = spirit_cultivation_ascensionist_roll_count value > 0 }
+			}
+		}
+		localization_key = meditation_ascensionist_bonus
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationAscensionistsPoolDesc
+	text = {
+		trigger = {
+			is_ascensionist_empire = yes
+		}
+		localization_key = meditation_ascensionist_pool_desc
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationDimensionalWorshipBonus
+	value = value:spirit_cultivation_dimensional_worship_bonus
+}
+
+defined_text = {
+	name = GetSpiritCultivationDimensionalWorshipModifier
+	text = {
+		trigger = {
+			is_dimensional_worship_empire = yes
+			check_variable = { which = spirit_cultivation_dimensional_worship_roll_count value > 0 }
+		}
+		localization_key = meditation_dimensional_worship_bonus
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationDimensionalWorshipPoolDesc
+	text = {
+		trigger = {
+			is_dimensional_worship_empire = yes
+		}
+		localization_key = meditation_dimensional_worship_pool_desc
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationExaltedPriesthoodBonus
+	value = value:spirit_cultivation_exalted_priesthood_bonus
+}
+
+defined_text = {
+	name = GetSpiritCultivationExaltedPriesthoodHighPriestBonus
+	value = value:spirit_cultivation_exalted_priesthood_high_priest_bonus
+}
+
+defined_text = {
+	name = GetSpiritCultivationExaltedPriesthoodModifier
+	text = {
+		trigger = {
+			check_variable = { which = spirit_cultivation_exalted_priesthood_roll_count value > 0 }
+		}
+		localization_key = meditation_exalted_priesthood_bonus
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationExaltedPriesthoodPoolDesc
+	text = {
+		trigger = {
+			has_civic = civic_exalted_priesthood
+		}
+		localization_key = meditation_exalted_priesthood_pool_desc
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationGospelMassesBonus
+	value = value:spirit_cultivation_gospel_masses_bonus
+}
+
+defined_text = {
+	name = GetSpiritCultivationGospelMassesModifier
+	text = {
+		trigger = {
+			has_civic = civic_gospel_of_the_masses
+			check_variable = { which = spirit_cultivation_gospel_masses_roll_count value > 0 }
+		}
+		localization_key = meditation_gospel_masses_bonus
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetSpiritCultivationGospelMassesPoolDesc
+	text = {
+		trigger = {
+			has_civic = civic_gospel_of_the_masses
+		}
+		localization_key = meditation_gospel_masses_pool_desc
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetMeditatingPlanetsSituationBonus
+	value = value:spirit_cultivation_bonus_per_planet_meditation
+}
+
+defined_text = {
+	name = GetCouncilorSpiritCultivationSituationBonusCorporate
+	value = value:spirit_cultivation_councilor_speed_bonus|TYPE|councilor_civic_path_of_the_self_corporate|
+}
+
+defined_text = {
+	name = GetSpectacleOfAuthorityJobType
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = job_coordinator_plural_with_icon
+	}
+	default = entertainer_type_plural_with_icon
+}
+
+defined_text = {
+	name = GetIdeologyAuthorityDecisionName
+	text = {
+		trigger = {
+			OR = {
+				is_hive_empire = yes
+				is_machine_empire = yes
+			}
+		}
+		localization_key = decision_ideology_authority_hive
+	}
+	default = decision_ideology_authority_default
+}
+
+defined_text = {
+	name = GetIdeologyAuthorityDecisionDesc
+	text = {
+		trigger = { is_hive_empire = yes }
+		localization_key = decision_ideology_authority_hive_desc
+	}
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = decision_ideology_authority_machine_desc
+	}
+	default = decision_ideology_authority_default_desc
+}
+
+defined_text = {
+	name = GetIdeologyAuthorityDecisionConcept
+	text = {
+		trigger = { is_hive_empire = yes }
+		localization_key = get_concept_decision_ideology_authority_hive
+	}
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = get_concept_decision_ideology_authority_machine
+	}
+	default = get_concept_decision_ideology_authority
+}
+
+defined_text = {
+	name = GetAbsXenophileInsightGain
+	text = {
+		trigger = {
+			has_first_contact_dlc = yes
+		}
+		localization_key = abs_xenophile_insight_gain_has_dlc
+	}
+	text = {
+		trigger = {
+			has_first_contact_dlc = no
+		}
+		localization_key = BLANK_STRING
+	}
+}
+
+defined_text = {
+	name = GetAbsXenophileCouncilorSkillFromSpecies
+	value = value:species_on_council
+}
+
+defined_text = {
+	name = GetGestaltIdeologyProjectName
+	text = {
+		trigger = { is_hive_empire = yes }
+		localization_key = GESTALT_IDEOLOGY_PROJECT_HIVE
+	}
+	text = {
+		trigger = {
+			founder_species = { is_archetype = MACHINE }
+		}
+		localization_key = GESTALT_IDEOLOGY_PROJECT_MACHINE
+	}
+	default = GESTALT_IDEOLOGY_PROJECT_HIVE
+}
+
+defined_text = {
+	name = GetGestaltIdeologyAgendaName
+	text = {
+		trigger = { is_hive_empire = yes }
+		localization_key = council_agenda_agenda_codify_instinct_name
+	}
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = council_agenda_agenda_codify_directive_name
+	}
+	default = council_agenda_agenda_codify_instinct_name
+}
+
+# General term for ideologies based on country type
+# Scope = country
+defined_text = {
+	name = GetIdeologyType
+	text = {
+		trigger = { is_hive_empire = yes }
+		localization_key = IDEOLOGY_TYPE_HIVE
+	}
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = IDEOLOGY_TYPE_MACHINE
+	}
+	text = {
+		trigger = { is_fanatic_spiritualist = yes }
+		localization_key = IDEOLOGY_TYPE_SPIRITUALIST
+	}
+	default = IDEOLOGY_TYPE_DEFAULT
+}
+
+defined_text = {
+	name = GetIdeologyTypePlural
+	text = {
+		trigger = { is_hive_empire = yes }
+		localization_key = IDEOLOGY_TYPE_HIVE_PLURAL
+	}
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = IDEOLOGY_TYPE_MACHINE_PLURAL
+	}
+	text = {
+		trigger = { is_fanatic_spiritualist = yes }
+		localization_key = IDEOLOGY_TYPE_SPIRITUALIST_PLURAL
+	}
+	default = IDEOLOGY_TYPE_DEFAULT_PLURAL
+}
+
+defined_text = {
+	name = GetIdeologyTypeCap
+	text = {
+		trigger = { is_hive_empire = yes }
+		localization_key = IDEOLOGY_TYPE_HIVE_CAP
+	}
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = IDEOLOGY_TYPE_MACHINE_CAP
+	}
+	text = {
+		trigger = { is_fanatic_spiritualist = yes }
+		localization_key = IDEOLOGY_TYPE_SPIRITUALIST_CAP
+	}
+	default = IDEOLOGY_TYPE_DEFAULT_CAP
+}
+
+defined_text = {
+	name = GetIdeologyTypeCapPlural
+	text = {
+		trigger = { is_hive_empire = yes }
+		localization_key = IDEOLOGY_TYPE_HIVE_CAP_PLURAL
+	}
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = IDEOLOGY_TYPE_MACHINE_CAP_PLURAL
+	}
+	text = {
+		trigger = { is_fanatic_spiritualist = yes }
+		localization_key = IDEOLOGY_TYPE_SPIRITUALIST_CAP_PLURAL
+	}
+	default = IDEOLOGY_TYPE_DEFAULT_CAP_PLURAL
+}
+
+# General term for ideologies based on a specific ideology (if existent)
+# Scopes = country, ideology
+defined_text = {
+	name = GetSpecificIdeologyType
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_scope_type = country
+					OR = {
+						ideology? = { is_spiritualist = yes }
+						AND = {
+							NOT = { exists = ideology }
+							is_spiritualist = yes
+						}
+					}
+				}
+				AND = {
+					is_scope_type = ideology
+					is_spiritualist = yes
+				}
+			}
+		}
+		localization_key = IDEOLOGY_TYPE_SPIRITUALIST
+	}
+	text = {
+		trigger = {
+			AND = {
+				is_scope_type = country
+				is_hive_empire = yes
+				OR = {
+					ideology? = { is_spiritualist = no }
+					NOT = { exists = ideology }
+				}
+			}
+		}
+		localization_key = IDEOLOGY_TYPE_HIVE
+	}
+	text = {
+		trigger = {
+			AND = {
+				is_scope_type = country
+				is_machine_empire = yes
+				OR = {
+					ideology? = { is_spiritualist = no }
+					NOT = { exists = ideology }
+				}
+			}
+		}
+		localization_key = IDEOLOGY_TYPE_MACHINE
+	}
+	text = {
+		trigger = {
+			is_scope_type = ideology
+			is_spiritualist = no
+		}
+		localization_key = IDEOLOGY_LOWER
+	}
+	default = IDEOLOGY_TYPE_DEFAULT
+}
+
+defined_text = {
+	name = GetSpecificIdeologyTypeCap
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_scope_type = country
+					OR = {
+						ideology? = { is_spiritualist = yes }
+						AND = {
+							NOT = { exists = ideology }
+							is_spiritualist = yes
+						}
+					}
+				}
+				AND = {
+					is_scope_type = ideology
+					is_spiritualist = yes
+				}
+			}
+		}
+		localization_key = IDEOLOGY_TYPE_SPIRITUALIST_CAP
+	}
+	text = {
+		trigger = {
+			AND = {
+				is_scope_type = country
+				is_hive_empire = yes
+				OR = {
+					ideology? = { is_spiritualist = no }
+					NOT = { exists = ideology }
+				}
+			}
+		}
+		localization_key = IDEOLOGY_TYPE_HIVE_CAP
+	}
+	text = {
+		trigger = {
+			AND = {
+				is_scope_type = country
+				is_machine_empire = yes
+				OR = {
+					ideology? = { is_spiritualist = no }
+					NOT = { exists = ideology }
+				}
+			}
+		}
+		localization_key = IDEOLOGY_TYPE_MACHINE_CAP
+	}
+	text = {
+		trigger = {
+			is_scope_type = ideology
+			is_spiritualist = no
+		}
+		localization_key = IDEOLOGY_CAP
+	}
+	default = IDEOLOGY_TYPE_DEFAULT_CAP
+}
+
+defined_text = {
+	name = GetAdoptIdeologyProjectDesc
+	text = {
+		trigger = { is_gestalt = yes }
+		localization_key = ADOPT_IDEOLOGY_SPECIAL_PROJECT_DESC_GESTALT
+	}
+	default = ADOPT_IDEOLOGY_SPECIAL_PROJECT_DESC_DEFAULT
+}
+
+defined_text = {
+	name = GetIdeologyConvertFollowersText
+	text = {
+		trigger = { is_gestalt = yes }
+		localization_key = IDEOLOGY_CONVERT_FOLLOWERS_GESTALT_TT
+	}
+	default = IDEOLOGY_CONVERT_FOLLOWERS_DEFAULT_TT
+}
+
+defined_text = {
+	name = GetAdoptIdeologyProjectType
+	text = {
+		trigger = {
+			event_target:ideology_target = { is_spiritualist = yes }
+		}
+		localization_key = IDEOLOGY_TYPE_SPIRITUALIST
+	}
+	default = IDEOLOGY_TYPE_LOWER
+}
+
+defined_text = {
+	name = GetImmigrationBureauGeneratedPopsPerMonths
+	value = value:calc_immigration_bureau_pops_loc|OWNER|root|
+}
+
+defined_text = {
+	name = GetImmigrationBureauEstimateText
+	text = {
+		trigger = {
+			from.solar_system? = {
+				any_country_neighbor_to_system = {
+					is_immigration_bureau_neighbor_valid = {
+						OWNER = root
+					}
+					any_owned_pop_group = {
+						can_pop_group_generate = yes
+					}
+				}
+			}
+		}
+		localization_key = sm_immigration_bureau_estimate
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetDeathCultCivicName
+	text = {
+		trigger = {
+			has_civic = civic_death_cult
+		}
+		localization_key = civic_death_cult
+	}
+	text = {
+		trigger = {
+			has_civic = civic_death_cult_corporate
+		}
+		localization_key = civic_death_cult_corporate
+	}
+	default = civic_death_cult
+}
+
+defined_text = {
+	name = GetAscensionistsCivicName
+	text = {
+		trigger = {
+			has_civic = civic_ascensionists
+		}
+		localization_key = civic_ascensionists
+	}
+	text = {
+		trigger = {
+			has_civic = civic_corporate_ascensionists
+		}
+		localization_key = civic_corporate_ascensionists
+	}
+	default = civic_ascensionists
+}
+
+defined_text = {
+	name = GetDimensionalWorshipCivicName
+	text = {
+		trigger = {
+			has_civic = civic_dimensional_worship
+		}
+		localization_key = civic_dimensional_worship
+	}
+	text = {
+		trigger = {
+			has_civic = civic_corporate_dimensional_worship
+		}
+		localization_key = civic_corporate_dimensional_worship
+	}
+	default = civic_dimensional_worship
+}
+
+defined_text = {
+	name = GetFoW1100Name
+	text = {
+		trigger = { is_fanatic_spiritualist = yes }
+		localization_key = forceofwill.1100.name.spirit
+	}
+	default = forceofwill.1100.name.default
+}
+
+defined_text = {
+	name = GetPrecursorDetail
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_vultaum }
+		localization_key = lost_makers_prec_detail_vultraum
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_yuht }
+		localization_key = lost_makers_prec_detail_yuht
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_first_league }
+		localization_key = lost_makers_prec_detail_first_league
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_irassian }
+		localization_key = lost_makers_prec_detail_irassian
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_cybrex }
+		localization_key = lost_makers_prec_detail_cybrex
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_zroni }
+		localization_key = lost_makers_prec_detail_zroni
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_baol }
+		localization_key = lost_makers_prec_detail_baol
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_inetian }
+		localization_key = lost_makers_prec_detail_inetian
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_adakkaria }
+		localization_key = lost_makers_prec_detail_adakkaria
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetPrecursorEmpire # Full names of the precursor empires
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_vultaum }
+		localization_key = vultaum_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_yuht }
+		localization_key = yuht_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_first_league }
+		localization_key = first_league_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_irassian }
+		localization_key = irassian_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_cybrex }
+		localization_key = cybrex_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_zroni }
+		localization_key = zroni_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_baol }
+		localization_key = baol_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_inetian }
+		localization_key = inetian_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_adakkaria }
+		localization_key = adakkaria_precursor_empire
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetPrecursorName # Short names of the precursor empires
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_vultaum }
+		localization_key = vultaum_precursor_name
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_yuht }
+		localization_key = yuht_precursor_name
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_first_league }
+		localization_key = first_league_precursor_name
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_irassian }
+		localization_key = irassian_precursor_name
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_cybrex }
+		localization_key = cybrex_precursor_name
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_zroni }
+		localization_key = zroni_precursor_name
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_baol }
+		localization_key = baol_precursor_name
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_inetian }
+		localization_key = inetian_precursor_name
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_adakkaria }
+		localization_key = adakkaria_precursor_name
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetLostMakersCiv # Adjectives for the precursors mentioned in Lost Makers event forceofwill.3000
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_vultaum }
+		localization_key = vultaum_precursor_civ
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_yuht }
+		localization_key = yuht_precursor_civ
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_first_league }
+		localization_key = first_league_precursor_civ
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_irassian }
+		localization_key = irassian_precursor_civ
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_cybrex }
+		localization_key = cybrex_precursor_civ
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_zroni }
+		localization_key = zroni_precursor_civ
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_baol }
+		localization_key = baol_lost_makers_civ
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_inetian }
+		localization_key = inetian_precursor_civ
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_adakkaria }
+		localization_key = adakkaria_precursor_civ
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetLostMakersEmpire # Full names of the precursors mentioned in Lost Makers event forceofwill.3000
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_vultaum }
+		localization_key = vultaum_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_yuht }
+		localization_key = yuht_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_first_league }
+		localization_key = first_league_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_irassian }
+		localization_key = irassian_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_cybrex }
+		localization_key = cybrex_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_zroni }
+		localization_key = zroni_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_baol }
+		localization_key = baol_lost_makers_civ
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_inetian }
+		localization_key = inetian_precursor_empire
+	}
+	text = {
+		trigger = { has_country_flag = lost_maker_precursor_adakkaria }
+		localization_key = adakkaria_precursor_empire
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetPrecursorCivLostMakers # Adjectives for precursor empires - an expanded version of "GetPrecursorCiv" for the Lost Makers origin. We separate this from the pre-existing "GetPrecursorCiv" as the flags it uses may not be present when this loc is needed
+	text = {
+		trigger = {
+			has_country_flag = lost_maker_precursor_vultaum
+		}
+		localization_key = vultaum_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = lost_maker_precursor_yuht
+		}
+		localization_key = yuht_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = lost_maker_precursor_first_league
+		}
+		localization_key = first_league_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = lost_maker_precursor_irassian
+		}
+		localization_key = irassian_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = lost_maker_precursor_cybrex
+		}
+		localization_key = cybrex_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = lost_maker_precursor_baol
+		}
+		localization_key = baol_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = lost_maker_precursor_zroni
+		}
+		localization_key = zroni_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = lost_maker_precursor_inetian
+		}
+		localization_key = inetian_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = lost_maker_precursor_adakkaria
+		}
+		localization_key = adakkaria_precursor_civ
+	}
+}
+
+defined_text = {
+	name = GetLostMakersPOIDesc
+	text = {
+		trigger = {
+			has_country_flag = lost_makers_precursor_wormhole
+			NOT = { has_technology = tech_wormhole_stabilization }
+		}
+		localization_key = pre_chain_lost_makers_desc_extra
+	}
+	text = {
+		trigger = {
+			has_country_flag = lost_makers_precursor_wormhole
+			has_technology = tech_wormhole_stabilization
+		}
+		localization_key = precursor_system_2_poi_desc
+	}
+	default = precursor_system_1_poi_desc
+}
+
+defined_text = {
+	name = GetLeaderAdj
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_ruler = yes
+					exists = owner
+					owner = { is_imperial_authority = yes }
+				}
+				AND = { # For cloned leaders in death events
+					has_leader_flag = was_ruler_before_death
+					exists = root
+					root = { is_imperial_authority = yes }
+				}
+			}
+		}
+		localization_key = leader_adj_imperial_ruler
+	}
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_ruler = yes
+					exists = owner
+					owner = { is_imperial_authority = no }
+				}
+				AND = { # For cloned leaders in death events
+					has_leader_flag = was_ruler_before_death
+					exists = root
+					root = { is_imperial_authority = no }
+				}
+			}
+		}
+		localization_key = leader_adj_ruler
+	}
+	text = {
+		trigger = {
+			is_ruler = no
+			leader_class = official
+		}
+		localization_key = leader_adj_official
+	}
+	text = {
+		trigger = {
+			is_ruler = no
+			leader_class = scientist
+		}
+		localization_key = leader_adj_scientist
+	}
+	text = {
+		trigger = {
+			is_ruler = no
+			leader_class = commander
+		}
+		localization_key = leader_adj_commander
+	}
+}
+defined_text = {
+	name = GetLeaderAdjCap
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_ruler = yes
+					exists = owner
+					owner = { is_imperial_authority = yes }
+				}
+				AND = { # For cloned leaders in death events
+					has_leader_flag = was_ruler_before_death
+					exists = root
+					root = { is_imperial_authority = yes }
+				}
+			}
+		}
+		localization_key = leader_adj_imperial_ruler_cap
+	}
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_ruler = yes
+					exists = owner
+					owner = { is_imperial_authority = no }
+				}
+				AND = { # For cloned leaders in death events
+					has_leader_flag = was_ruler_before_death
+					exists = root
+					root = { is_imperial_authority = no }
+				}
+			}
+		}
+		localization_key = leader_adj_ruler_cap
+	}
+	text = {
+		trigger = {
+			is_ruler = no
+			leader_class = official
+		}
+		localization_key = leader_adj_official_cap
+	}
+	text = {
+		trigger = {
+			is_ruler = no
+			leader_class = scientist
+		}
+		localization_key = leader_adj_scientist_cap
+	}
+	text = {
+		trigger = {
+			is_ruler = no
+			leader_class = commander
+		}
+		localization_key = leader_adj_commander_cap
+	}
+}
+
+defined_text = {
+	name = GetCasusBelliIdeologyName
+	text = {
+		trigger = { has_force_of_will_dlc = yes }
+		localization_key = cb_overthrow_government
+	}
+	default = cb_ideology_name
+}
+
+defined_text = {
+	name = GetWarGoalIdeologyName
+	text = {
+		trigger = { has_force_of_will_dlc = yes }
+		localization_key = wg_overthrow_government
+	}
+	default = wg_force_ideology
+}
+
+defined_text = {
+	name = GetWarGoalIdeologyAdj
+	text = {
+		trigger = { has_force_of_will_dlc = yes }
+		localization_key = wg_overthrow_government_adj
+	}
+	default = wg_force_ideology_adj
+}
+
+defined_text = {
+	name = GetClubName
+	text = {
+		trigger = { is_militarist = yes }
+		localization_key = militarist_club
+	}
+	text = {
+		trigger = { is_pacifist = yes }
+		localization_key = pacifist_club
+	}
+	text = {
+		trigger = { is_xenophile = yes }
+		localization_key = xenophile_club
+	}
+	text = {
+		trigger = { is_xenophobe = yes }
+		localization_key = xenophobe_club
+	}
+	text = {
+		trigger = { is_materialist = yes }
+		localization_key = materialist_club
+	}
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = spiritualist_club
+	}
+	text = {
+		trigger = { is_authoritarian = yes }
+		localization_key = authoritarian_club
+	}
+	text = {
+		trigger = { is_egalitarian = yes }
+		localization_key = egalitarian_club
+	}
+}
+
+defined_text = {
+	name = GetClubNameCap
+	text = {
+		trigger = { is_militarist = yes }
+		localization_key = militarist_club_cap
+	}
+	text = {
+		trigger = { is_pacifist = yes }
+		localization_key = pacifist_club_cap
+	}
+	text = {
+		trigger = { is_xenophile = yes }
+		localization_key = xenophile_club_cap
+	}
+	text = {
+		trigger = { is_xenophobe = yes }
+		localization_key = xenophobe_club_cap
+	}
+	text = {
+		trigger = { is_materialist = yes }
+		localization_key = materialist_club_cap
+	}
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = spiritualist_club_cap
+	}
+	text = {
+		trigger = { is_authoritarian = yes }
+		localization_key = authoritarian_club_cap
+	}
+	text = {
+		trigger = { is_egalitarian = yes }
+		localization_key = egalitarian_club_cap
+	}
+}
+
+defined_text = {
+	name = GetDevotion
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = devotion_key
+	}
+	default = dedication_key
+}
+
+defined_text = {
+	name = GetIdeologyDefection
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = IDEOLOGY_DEFECTION_WORD_SPIRITUALIST
+	}
+	default = IDEOLOGY_DEFECTION_WORD_DEFAULT
+}
+
+defined_text = {
+	name = GetEthic # Intended for use with Ideology scopes
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = ethic_spiritualist
+	}
+	text = {
+		trigger = { is_materialist = yes }
+		localization_key = ethic_materialist
+	}
+	text = {
+		trigger = { is_militarist = yes }
+		localization_key = ethic_militarist
+	}
+	text = {
+		trigger = { is_pacifist = yes }
+		localization_key = ethic_pacifist
+	}
+	text = {
+		trigger = { is_authoritarian = yes }
+		localization_key = ethic_authoritarian
+	}
+	text = {
+		trigger = { is_egalitarian = yes }
+		localization_key = ethic_egalitarian
+	}
+	text = {
+		trigger = { is_xenophobe = yes }
+		localization_key = ethic_xenophobe
+	}
+	text = {
+		trigger = { is_xenophile = yes }
+		localization_key = ethic_xenophile
+	}
+}
+
+defined_text = {
+	name = GetEthicLower # Intended for use with Ideology scopes
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = spiritualist_lower
+	}
+	text = {
+		trigger = { is_materialist = yes }
+		localization_key = materialist_lower
+	}
+	text = {
+		trigger = { is_militarist = yes }
+		localization_key = militarist_lower
+	}
+	text = {
+		trigger = { is_pacifist = yes }
+		localization_key = pacifist_lower
+	}
+	text = {
+		trigger = { is_authoritarian = yes }
+		localization_key = authoritarian_lower
+	}
+	text = {
+		trigger = { is_egalitarian = yes }
+		localization_key = egalitarian_lower
+	}
+	text = {
+		trigger = { is_xenophobe = yes }
+		localization_key = xenophobe_lower
+	}
+	text = {
+		trigger = { is_xenophile = yes }
+		localization_key = xenophile_lower
+	}
+}
+
+defined_text = {
+	name = GetEthicNoun
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = spiritualism_cap
+	}
+	text = {
+		trigger = { is_materialist = yes }
+		localization_key = materialism_cap
+	}
+	text = {
+		trigger = { is_militarist = yes }
+		localization_key = militarism_cap
+	}
+	text = {
+		trigger = { is_pacifist = yes }
+		localization_key = pacifism_cap
+	}
+	text = {
+		trigger = { is_authoritarian = yes }
+		localization_key = authoritarianism_cap
+	}
+	text = {
+		trigger = { is_egalitarian = yes }
+		localization_key = egalitarianism_cap
+	}
+	text = {
+		trigger = { is_xenophobe = yes }
+		localization_key = xenophobia_cap
+	}
+	text = {
+		trigger = { is_xenophile = yes }
+		localization_key = xenophilia_cap
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetEthicNounLower
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = spiritualism_lower
+	}
+	text = {
+		trigger = { is_materialist = yes }
+		localization_key = materialism_lower
+	}
+	text = {
+		trigger = { is_militarist = yes }
+		localization_key = militarism_lower
+	}
+	text = {
+		trigger = { is_pacifist = yes }
+		localization_key = pacifism_lower
+	}
+	text = {
+		trigger = { is_authoritarian = yes }
+		localization_key = authoritarianism_lower
+	}
+	text = {
+		trigger = { is_egalitarian = yes }
+		localization_key = egalitarianism_lower
+	}
+	text = {
+		trigger = { is_xenophobe = yes }
+		localization_key = xenophobia_lower
+	}
+	text = {
+		trigger = { is_xenophile = yes }
+		localization_key = xenophilia_lower
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetGalacticHallsScopedName
+	random = no
+	text = {
+		trigger = {
+			exists = ideology
+			ideology = { is_spiritualist = yes }
+		}
+		localization_key = GALACTIC_HALLS_SPIRITUALIST
+	}
+	text = {
+		trigger = {
+			exists = ideology
+			ideology = { is_spiritualist = no }
+		}
+		localization_key = GALACTIC_HALLS_DEFAULT
+	}
+	default = galactic_halls
+}
+
+defined_text = {
+	name = GetMeditationDecisionName
+	random = no
+	text = {
+		trigger = { is_megacorp = yes }
+		localization_key = decision_meditation_name_megacorp
+	}
+	default = decision_meditation_name_default
+}
+
+defined_text = {
+	name = GetMeditationDecisionDesc
+	random = no
+	text = {
+		trigger = { is_megacorp = yes }
+		localization_key = decision_meditation_desc_megacorp
+	}
+	default = decision_meditation_desc_default
+}
+
+# Galactic Halls Relocate Cooldown
+defined_text = {
+	name = GetGalacticHallRelocateCooldown
+	value = value:galactic_hall_relocate_cooldown
+}
+
+defined_text = {
+	name = GetLastBaolRelicExtra
+	text = {
+		trigger = {
+			has_origin = origin_lost_makers
+		}
+		localization_key = r_the_last_baol_desc_extra_lost_makers
+	}
+	default = r_the_last_baol_desc_extra_default
+}
+
+# scope = ideology
+defined_text = {
+	name = GetIdeologicalCustodianName
+	random = no
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = ideological_custodian_spiritual
+	}
+	default = ideological_custodian_default
+}
+
+defined_text = {
+	name = GetMegastructureModulesText
+	random = no
+	text = {
+		trigger = { is_megastructure_galactic_halls = yes }
+		localization_key = MEGASTRUCTURE_MODULES_CHAMBERS
+	}
+	default = MEGASTRUCTURE_MODULES_DEFAULT
+}
+
+defined_text = {
+	name = GetMegastructureModuleText
+	random = no
+	text = {
+		trigger = { is_megastructure_galactic_halls = yes }
+		localization_key = MEGASTRUCTURE_MODULE_CHAMBERS
+	}
+	default = MEGASTRUCTURE_MODULE_DEFAULT
+}
+
+defined_text = {
+	name = GetBirthNoun
+	text = {
+		trigger = {
+			OR = {
+				is_species_class = REP
+				is_species_class = AVI
+				is_species_class = ART
+				is_species_class = MOL
+				is_species_class = AQUATIC
+			}
+		}
+		localization_key = birth_noun_hatching
+	}
+	text = {
+		trigger = {
+			OR = {
+				is_species_class = PLANT
+				is_species_class = FUN
+			}
+		}
+		localization_key = birth_noun_sprouting
+	}
+	text = {
+		trigger = {
+			OR = {
+				is_species_class = ROBOT
+				is_species_class = MACHINE
+			}
+		}
+		localization_key = birth_noun_activation
+	}
+	text = {
+		trigger = {
+			is_species_class = LITHOID
+		}
+		localization_key = birth_noun_formation
+	}
+	text = {
+		trigger = {
+			is_species_class = NECROID
+		}
+		localization_key = birth_noun_animation
+	}
+	text = {
+		trigger = {
+			OR = {
+				is_species_class = TOX
+				is_species_class = MINDWARDEN
+			}
+		}
+		localization_key = birth_noun_nascency
+	}
+	text = {
+		trigger = {
+			is_species_class = INF
+		}
+		localization_key = birth_noun_kindling
+	}
+	default = birth_noun_default
+}
+
+defined_text = {
+	name = GetMiracleChildBaby
+	text = {
+		trigger = {
+			NOT = { is_species_class = HUM }
+		}
+		localization_key = miracle_child_baby_nonhuman
+	}
+	default = Human_spawn
+}
+
+defined_text = {
+	name = GetHallCathedral
+	random = no
+	text = {
+		trigger = {
+			is_scope_valid = yes
+			OR = {
+				AND = {
+					NOT = { is_scope_type = megastructure }
+					is_spiritualist = yes
+				}
+				AND = {
+					is_scope_type = megastructure
+					is_megastructure_type = galactic_halls_0_spiritualist
+				}
+			}
+		}
+		localization_key = galactic_hall_short_spiritualist
+	}
+	default = galactic_hall_short_default
+}
+
+defined_text = {
+	name = GetMegacityArchitectsEffectsExtra
+	text = {
+		trigger = {
+			has_megacorp_dlc = no
+		}
+		localization_key = civic_megacity_architects_effects_no_megacorp_dlc
+	}
+	default = civic_megacity_architects_effects_with_megacorp_dlc
+}
+
+defined_text = {
+	name = GetIdeologicalAdj
+	random = no
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_scope_type = ideology
+					is_spiritualist = yes
+				}
+				AND = {
+					is_scope_type = country
+					is_fanatic_spiritualist = yes
+				}
+			}
+		}
+		localization_key = ideological_adj_spiritualist
+	}
+	default = ideological_adj_default
+}
+
+defined_text = {
+	name = GetIdeologicalAdjCap
+	random = no
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_scope_type = ideology
+					is_spiritualist = yes
+				}
+				AND = {
+					is_scope_type = country
+					is_fanatic_spiritualist = yes
+				}
+			}
+		}
+		localization_key = ideological_adj_cap_spiritualist
+	}
+	default = ideological_adj_cap_default
+}
+
+defined_text = {
+	name = GetChamberOfInformationDesc
+	random = no
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_gestalt = yes }
+		}
+		localization_key = galactic_hall_module_information_gestalt_desc
+	}
+	default = galactic_hall_module_information_default_desc
+}
+
+defined_text = {
+	name = GetChamberOfCultureDesc
+	random = no
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_hive_empire = yes }
+		}
+		localization_key = galactic_hall_module_culture_hive_desc
+	}
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_machine_empire = yes }
+		}
+		localization_key = galactic_hall_module_culture_machine_desc
+	}
+	default = galactic_hall_module_culture_default_desc
+}
+
+defined_text = {
+	name = GetChamberOfDefenseDesc
+	random = no
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_gestalt = yes }
+		}
+		localization_key = galactic_hall_module_defense_gestalt_desc
+	}
+	default = galactic_hall_module_defense_default_desc
+}
+
+defined_text = {
+	name = GetChamberOfPeaceDesc
+	random = no
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_gestalt = yes }
+		}
+		localization_key = galactic_hall_module_peace_gestalt_desc
+	}
+	default = galactic_hall_module_peace_default_desc
+}
+
+defined_text = {
+	name = GetChamberOfTruthDesc
+	random = no
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_gestalt = yes }
+		}
+		localization_key = galactic_hall_module_truth_gestalt_desc
+	}
+	default = galactic_hall_module_truth_default_desc
+}
+
+defined_text = {
+	name = GetChamberOfWelfareDesc
+	random = no
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_hive_empire = yes }
+		}
+		localization_key = galactic_hall_module_welfare_hive_desc
+	}
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_machine_empire = yes }
+		}
+		localization_key = galactic_hall_module_welfare_machine_desc
+	}
+	default = galactic_hall_module_welfare_default_desc
+}
+
+defined_text = {
+	name = GetChamberOfPropagationDesc
+	random = no
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_gestalt = yes }
+		}
+		localization_key = galactic_hall_module_propagation_gestalt_desc
+	}
+	default = galactic_hall_module_propagation_default_desc
+}
+
+defined_text = {
+	name = GetChamberOfIntegrationDesc
+	random = no
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_hive_empire = yes }
+		}
+		localization_key = galactic_hall_module_integration_hive_desc
+	}
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_machine_empire = yes }
+		}
+		localization_key = galactic_hall_module_integration_machine_desc
+	}
+	default = galactic_hall_module_integration_default_desc
+}
+
+defined_text = {
+	name = GetChamberOfCommerceDesc
+	random = no
+	text = {
+		trigger = {
+			exists = owner
+			owner = { is_gestalt = yes }
+		}
+		localization_key = galactic_hall_module_commerce_gestalt_desc
+	}
+	default = galactic_hall_module_commerce_default_desc
+}
+
+defined_text = {
+	name = GetIdeologyTheoretical
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = theoretical_spiritualist
+	}
+	default = theoretical_default
+}
+
+defined_text = {
+	name = GetUnitedEffortWorkforceValue
+	value = value:united_effort_workforce_value
+}
+
+defined_text = {
+	name = GetStrengthFromDeviancyLoc
+	random = no
+	text = {
+		trigger = {
+			is_variable_set = ideological_strength_mult
+			check_variable = {
+				which = ideological_strength_mult
+				value > 0
+			}
+		}
+		localization_key = STRENGTH_FROM_LOW_DEVIANCY
+	}
+	text = {
+		trigger = {
+			is_variable_set = ideological_strength_mult
+			check_variable = {
+				which = ideological_strength_mult
+				value < 0
+			}
+		}
+		localization_key = STRENGTH_FROM_HIGH_DEVIANCY
+	}
+	default = STRENGTH_FROM_DEFAULT_DEVIANCY
+}
+
+defined_text = {
+	name = GetHabitatDesc
+	random = no
+	text = {
+		trigger = { ideal_planet_class = pc_ocean }
+		localization_key = habitat_desc_pc_ocean
+	}
+	text = {
+		trigger = { ideal_planet_class = pc_tropical }
+		localization_key = habitat_desc_pc_tropical
+	}
+	text = {
+		trigger = { ideal_planet_class = pc_desert }
+		localization_key = habitat_desc_pc_desert
+	}
+	text = {
+		trigger = { ideal_planet_class = pc_arid }
+		localization_key = habitat_desc_pc_arid
+	}
+	text = {
+		trigger = { ideal_planet_class = pc_tundra }
+		localization_key = habitat_desc_pc_tundra
+	}
+	text = {
+		trigger = { ideal_planet_class = pc_arctic }
+		localization_key = habitat_desc_pc_arctic
+	}
+	text = {
+		trigger = { ideal_planet_class = pc_continental }
+		localization_key = habitat_desc_pc_continental
+	}
+	text = {
+		trigger = { ideal_planet_class = pc_savannah }
+		localization_key = habitat_desc_pc_savannah
+	}
+	text = {
+		trigger = { ideal_planet_class = pc_alpine }
+		localization_key = habitat_desc_pc_alpine
+	}
+	text = {
+		trigger = { ideal_planet_class = pc_volcanic }
+		localization_key = habitat_desc_pc_volcanic
+	}
+	text = {
+		trigger = { ideal_planet_class = pc_gaia }
+		localization_key = habitat_desc_pc_gaia
+	}
+	default = habitat_desc_default
+}
+
+defined_text = {
+	name = GetGoldenGenerationChainDesc
+	text = {
+		trigger = { has_country_flag = golden_generation_graduation }
+		localization_key = chain_golden_generation_desc_post_graduation
+	}
+	default = chain_golden_generation_desc_pre_graduation
+}
+
+defined_text = {
+	name = GetFoW5700TooltipExtra
+	text = {
+		trigger = { exists = ideology }
+		localization_key = forceofwill.5700.a.tt.extra
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetChampionTraitEffects
+	text = {
+		trigger = { has_civic = civic_dystopian_society }
+		localization_key = champion_trait_effects_dystopian
+	}
+	default = champion_trait_effects_default
+}
+
+defined_text = {
+	name = GetRoamerTraitEffects
+	text = {
+		trigger = { is_nomadic = yes }
+		localization_key = roamer_trait_effects_nomads
+	}
+	default = roamer_trait_effects_default
+}
+
+defined_text = {
+	name = GetTenetDisarmamentOpinionLevel
+	value = value:tenet_disarmament_opinion_per_level
+}
+defined_text = {
+	name = GetTenetHomogeneityFounderSpeciesGrowthMult
+	value = modifier:non_gestalt_memorials_species_growth_mult
+}
+
+defined_text = {
+	name = GetTenetHomogeneityAssemblerAdd
+	value = modifier:capital_buildings_assembler_add
+}
+
+defined_text = {
+	name = GetNonGestaltMemorialConcept
+
+	text = {
+		trigger = {
+			exists = owner
+			NOT = { has_modifier = slave_colony }
+			owner = {
+				is_megacorp = yes
+				can_have_default_memorial = yes
+			}
+		}
+		localization_key = concept_building_memorial_corporate
+	}
+
+	text = {
+		trigger = {
+			exists = owner
+			NOT = { has_modifier = slave_colony }
+			owner = {
+				is_memorialist_empire = yes
+			}
+		}
+		localization_key = concept_building_memorial_memorialist
+	}
+
+	text = {
+		trigger = {
+			exists = owner
+			owner = {
+				has_civic = civic_entropy_drinkers
+			}
+		}
+		localization_key = concept_building_memorial_entropy_drinkers_default
+	}
+
+	text = {
+		trigger = {
+			exists = owner
+			owner = {
+				has_civic = civic_entropy_drinkers_corporate
+			}
+		}
+		localization_key = concept_building_memorial_entropy_drinkers_corporate
+	}
+
+	default = concept_building_memorial_default
+}
+
+defined_text = {
+	name = GetAAnEthic
+	text = {
+		trigger = {
+			OR = {
+				is_authoritarian = yes
+				is_egalitarian = yes
+			}
+		}
+		localization_key = string_an
+	}
+	default = string_a
+}
+
+defined_text = {
+	name = GetAAnLeaderClass
+	text = {
+		trigger = { leader_class = official }
+		localization_key = string_an
+	}
+	default = string_a
+}
+
+defined_text = {
+	name = GetEnforcerPluralCap
+	text = {
+		trigger = {
+			has_valid_civic = civic_civil_education
+		}
+		localization_key = job_educator_plural
+	}
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = patrol_drone_plural
+	}
+	default = enforcer_plural
+}
+
+defined_text = {
+	name = GetCulturalEnvoyMartyrIdeologicalStrengthBonus
+	value = value:martyr_ideological_strength_bonus_loc
+}
+
+defined_text = {
+	name = GetShroudAgeDesc
+	text = {
+		trigger = {
+			has_trait = leader_trait_golden_generation
+		}
+		localization_key = leader_trait_shroud_age_desc_golden_generation
+	}
+	default = leader_trait_shroud_age_desc_default
+}
+
+defined_text = {
+	name = GetCulturalEnvoySubclass
+	text = {
+		trigger = {
+			has_leader_flag = cultural_envoy_indoctrinator
+		}
+		localization_key = leader_trait_cultural_envoy_indoctrinator
+	}
+	text = {
+		trigger = {
+			has_leader_flag = cultural_envoy_zealot
+		}
+		localization_key = leader_trait_cultural_envoy_zealot
+	}
+	text = {
+		trigger = {
+			has_leader_flag = cultural_envoy_persuasive_luminary
+		}
+		localization_key = leader_trait_cultural_envoy_persuasive_luminary
+	}
+	text = {
+		trigger = {
+			has_leader_flag = cultural_envoy_negotiator
+		}
+		localization_key = leader_trait_cultural_envoy_negotiator
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetFoWChainTitle
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = ap_force_of_will_spiritual
+	}
+	default = ap_force_of_will
+}
+
+defined_text = {
+	name = GetFoWChainDesc
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = force_of_will_chain_desc_spiritualist
+	}
+	default = force_of_will_chain_desc_default
+}
+
+defined_text = {
+	name = GetFoWIdeal
+	text = {
+		trigger = { is_militarist = yes }
+		localization_key = fow_ideal_militarist
+	}
+	text = {
+		trigger = { is_pacifist = yes }
+		localization_key = fow_ideal_pacifist
+	}
+	text = {
+		trigger = { is_xenophobe = yes }
+		localization_key = fow_ideal_xenophobe
+	}
+	text = {
+		trigger = { is_xenophile = yes }
+		localization_key = fow_ideal_xenophile
+	}
+	text = {
+		trigger = { is_spiritualist = yes }
+		localization_key = fow_ideal_spiritualist
+	}
+	text = {
+		trigger = { is_materialist = yes }
+		localization_key = fow_ideal_materialist
+	}
+	text = {
+		trigger = { is_authoritarian = yes }
+		localization_key = fow_ideal_authoritarian
+	}
+	text = {
+		trigger = { is_egalitarian = yes }
+		localization_key = fow_ideal_egalitarian
+	}
+}
+
+defined_text = {
+	name = GetFoWProject1Desc
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = FORCE_OF_WILL_SPECIAL_PROJECT_1_DESC_SPIRITUALIST
+	}
+	default = FORCE_OF_WILL_SPECIAL_PROJECT_1_DESC_DEFAULT
+}
+
+defined_text = {
+	name = GetFoWProject2Name
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = FORCE_OF_WILL_SPECIAL_PROJECT_2_SPIRITUALIST
+	}
+	default = FORCE_OF_WILL_SPECIAL_PROJECT_2_DEFAULT
+}
+
+defined_text = {
+	name = GetFoWProject2Desc
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = FORCE_OF_WILL_SPECIAL_PROJECT_2_DESC_SPIRITUALIST
+	}
+	default = FORCE_OF_WILL_SPECIAL_PROJECT_2_DESC_DEFAULT
+}
+
+defined_text = {
+	name = GetFoWProject4Name
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = FORCE_OF_WILL_SPECIAL_PROJECT_4_SPIRITUALIST
+	}
+	default = FORCE_OF_WILL_SPECIAL_PROJECT_4_DEFAULT
+}
+
+defined_text = {
+	name = GetFoWProject4Desc
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = FORCE_OF_WILL_SPECIAL_PROJECT_4_DESC_SPIRITUALIST
+	}
+	default = FORCE_OF_WILL_SPECIAL_PROJECT_4_DESC_DEFAULT
+}
+
+defined_text = {
+	name = GetFoW6025Name
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = forceofwill.6025.name.spiritualist
+	}
+	default = forceofwill.6025.name.default
+}
+
+defined_text = {
+	name = GetFoW6070Name
+	text = {
+		trigger = {
+			count_country = {
+				count > 1
+				limit = { is_fallen_empire = yes }
+			}
+		}
+		localization_key = forceofwill.6070.name.multiple_fe
+	}
+	default = forceofwill.6070.name.single_fe
+}
+
+defined_text = {
+	name = GetFoW6070FallenEmpireDesc
+	text = {
+		trigger = {
+			count_country = {
+				count > 1
+				limit = {
+					is_fallen_empire = yes
+				}
+			}
+		}
+		localization_key = forceofwill.6070.fallen_empire_name_plural
+	}
+	default = forceofwill.6070.fallen_empire_name
+}
+
+defined_text = {
+	name = GetFoW6070FallenEmpire
+	text = {
+		trigger = {
+			count_country = {
+				count > 1
+				limit = {
+					is_fallen_empire = yes
+				}
+			}
+		}
+		localization_key = concept_fallen_empires
+	}
+	default = concept_fallen_empire
+}
+
+defined_text = {
+	name = GetFoW6090Name
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = forceofwill.6090.name.spiritualist
+	}
+	default = forceofwill.6090.name.default
+}
+
+defined_text = {
+	name = GetFoW1710LeaderClass
+	text = {
+		trigger = {
+			has_paragon_dlc = yes
+			event_target:replacement_leader = { has_base_skill >= 4 }
+		}
+		localization_key = forceofwill_1710_leader_class_paragons
+	}
+	default = forceofwill_1710_leader_class_default
+}
+
+defined_text = {
+	name = GetFoW1730Name
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = forceofwill.1730.name.machine
+	}
+	default = forceofwill.1730.name.hive
+}
+
+defined_text = {
+	name = GetFoW1760Name
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = forceofwill.1760.name.machine
+	}
+	default = forceofwill.1760.name.hive
+}
+
+defined_text = {
+	name = GetFoW1790Name
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = forceofwill.1790.name.machine
+	}
+	default = forceofwill.1790.name.hive
+}
+
+defined_text = {
+	name = GetFoW2060Name
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = forceofwill.2060.name.machine
+	}
+	default = forceofwill.2060.name.hive
+}
+
+defined_text = {
+	name = GetIdeologicalRivalCasusBelliEffect
+	text = {
+		trigger = {
+			is_pacifist = yes
+		}
+		localization_key = ideological_rival_pacifist_modifier
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetFanaticPurifiersForceOfWillEffect
+	text = {
+		trigger = {
+			has_force_of_will_dlc = yes
+		}
+		localization_key = civic_fanatic_purifiers_additional_ideological_effects
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetFoWUtopianDesc
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = menp_force_of_will_utopian_desc_spiritualist
+	}
+	text = {
+		trigger = { ideology? = { is_materialist = yes } }
+		localization_key = menp_force_of_will_utopian_desc_materialist
+	}
+	text = {
+		trigger = { ideology? = { is_xenophile = yes } }
+		localization_key = menp_force_of_will_utopian_desc_xenophile
+	}
+	text = {
+		trigger = { ideology? = { is_pacifist = yes } }
+		localization_key = menp_force_of_will_utopian_desc_pacifist
+	}
+	default = menp_force_of_will_utopian_desc_egalitarian
+}
+
+defined_text = {
+	name = GetFoWConvertPopsDesc
+	text = {
+		trigger = { ideology? = { is_spiritualist = yes } }
+		localization_key = crisobj_convert_pops_desc_spiritualist
+	}
+	default = crisobj_convert_pops_desc_default
+}
+
+defined_text = {
+	name = GetFoW7100Name
+	text = {
+		trigger = { target = { is_gestalt = yes } }
+		localization_key = forceofwill.7100.name.gestalt
+	}
+	default = forceofwill.7100.name.default
+}
+
+defined_text = {
+	name = GetTeamNamePlural
+	text = {
+		trigger = { is_hive_empire = yes }
+		localization_key = team_name_plural_hive
+	}
+	text = {
+		trigger = { founder_species_is_robotic = yes }
+		localization_key = team_name_plural_robotic
+	}
+	default = team_name_plural_default
+}
+
+defined_text = {
+	name = GetIdeologicalDoubtName
+	text = {
+		trigger = { is_gestalt = yes }
+		localization_key = modifier_sow_ideological_doubt_gestalt
+	}
+	default = modifier_sow_ideological_doubt
+}
+
+defined_text = {
+	name = GetIdeaWordPlural
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = idea_word_plural_machine
+	}
+	default = idea_word_plural_default
+}
+
+defined_text = {
+	name = GetThoughtWordPlural
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = thought_word_plural_machine
+	}
+	default = thought_word_plural_default
+}
+
+defined_text = {
+	name = GetPopGrowth
+	text = {
+		trigger = {
+			OR = {
+				is_individual_machine = yes
+				is_machine_empire = yes
+			}
+		}
+		localization_key = MOD_PLANET_POP_ASSEMBLY_MULT
+	}
+	default = MOD_LOGISTIC_GROWTH_MULT
+}
+
+defined_text = {
+	name = GetDelegateSubclassSubtitle
+	text = {
+		trigger = {
+			has_force_of_will_dlc = yes
+		}
+		localization_key = delegate_subclass_forceofwill_tt
+	}
+	default = delegate_subclass_base_tt
+}
+
+GetDatabankWillpowerDlc = {
+	name = GetDatabankWillpowerDlc
+	text = {
+		trigger = {
+			has_force_of_will_dlc = yes
+		}
+		localization_key = "REQUIRES_WILLPOWER_DLC_OWNED"
+	}
+	text = {
+		trigger = {
+			has_force_of_will_dlc = no
+		}
+		localization_key = "REQUIRES_WILLPOWER_DLC_NOT_OWNED"
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetDisarmamentAgendaConcept
+	text = {
+		trigger = {
+			check_variable = {
+				which = disarmament_tier
+				value = 2
+			}
+		}
+		localization_key = concept_agenda_disarmament_2
+	}
+	text = {
+		trigger = {
+			check_variable = {
+				which = disarmament_tier
+				value = 3
+			}
+		}
+		localization_key = concept_agenda_disarmament_3
+	}
+	default =  concept_agenda_disarmament_1
+}
+
+defined_text = {
+	name = GetIdeologicalRebelType
+	text = {
+		trigger = {
+			has_situation_flag = schism_revolt
+			NOT = { exists = event_target:new_owner_empire }
+		}
+		localization_key = ideological_rebel_type_schism
+	}
+	text = {
+		trigger = {
+			NOR = {
+				has_situation_flag = schism_revolt
+				exists = event_target:new_owner_empire
+			}
+		}
+		localization_key = ideological_rebel_type_secede
+	}
+	default = ideological_rebel_type_default
+}
+
+defined_text = {
+	name = GetFoW7335Name
+	text = {
+		trigger = {
+			ideological_revolt_creates_vassal_trigger = {
+				BACKER = event_target:new_owner_empire
+				TARGET = target
+			}
+		}
+		localization_key = forceofwill.7335.name.nomadic
+	}
+	default = forceofwill.7335.name.default
+}
+
+defined_text = {
+	name = GetUnrest4220Name
+	text = {
+		trigger = {
+			ideological_revolt_creates_vassal_trigger = {
+				BACKER = this
+				TARGET = event_target:rebel_planet
+			}
+		}
+		localization_key = unrest.4220.name.nomadic
+	}
+	default = unrest.4220.name.default
+}
+
+defined_text = {
+	name = GetFoW7130Motivation
+	text = {
+		trigger = { has_espionage_operation_flag = forceofwill_7130_motivation_1 }
+		localization_key = forceofwill_7130_motivation_1
+	}
+	text = {
+		trigger = { has_espionage_operation_flag = forceofwill_7130_motivation_2 }
+		localization_key = forceofwill_7130_motivation_2
+	}
+	text = {
+		trigger = { has_espionage_operation_flag = forceofwill_7130_motivation_3 }
+		localization_key = forceofwill_7130_motivation_3
+	}
+	default = forceofwill_7130_motivation_gestalt
+}
+
+defined_text = {
+	name = GetDimensionalShrineType
+	text = {
+		trigger = { is_nomadic = yes }
+		localization_key = dimensional_shrine_type_nomads
+	}
+	default = dimensional_shrine_type_default
+}
+
+#######################################################################
+# Empire-specific lines for the ideological strength sources concept.
+# Scope = country
+#######################################################################
+defined_text = {
+	name = GetIdeologySourceAdvocate
+	text = {
+		trigger = { is_gestalt = no }
+		localization_key = ideology_source_advocate
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetIdeologySourceGalacticStrength
+	text = {
+		trigger = { is_gestalt = yes }
+		localization_key = ideology_source_galactic_strength_gestalt
+	}
+	default = ideology_source_galactic_strength
+}
+
+defined_text = {
+	name = GetIdeologySourceLowDeviancy
+	text = {
+		trigger = { is_gestalt = yes }
+		localization_key = ideology_source_low_deviancy
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetIdeologySourceHighDeviancy
+	text = {
+		trigger = { is_gestalt = yes }
+		localization_key = ideology_source_high_deviancy
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetIdeologySourceFanaticFaction
+	text = {
+		trigger = { is_gestalt = no }
+		localization_key = ideology_source_fanatic_faction
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetIdeologySourceSocialConcord
+	text = {
+		trigger = { has_valid_civic = civic_social_concord }
+		localization_key = ideology_source_social_concord
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetIdeologySourceFanaticPurifiers
+	text = {
+		trigger = { has_valid_civic = civic_fanatic_purifiers }
+		localization_key = ideology_source_fanatic_purifiers
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetIdeologySourceOpenStars
+	text = {
+		trigger = { is_open_stars_sovereignty_empire = yes }
+		localization_key = ideology_source_open_stars
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetIdeologySourceEmpireSize
+	text = {
+		trigger = { is_gestalt = no }
+		localization_key = ideology_source_empire_size
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetIdeologySourceForeignPop
+	text = {
+		trigger = { is_gestalt = no }
+		localization_key = ideology_source_foreign_pop
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetIdeologySourceLowFanaticFaction
+	text = {
+		trigger = { is_gestalt = no }
+		localization_key = ideology_source_low_fanatic_faction
+	}
+	default = BLANK_STRING
+}
+
+# Ideology Clash event - the description is one flowing paragraph, so its variants are picked here
+# Scope = country
+defined_text = {
+	name = GetIdeologyClashEthicRelation
+	random = no
+	text = {
+		trigger = {
+			ideology? = { has_same_ethic_as_ideology = event_target:ideology_clash_ideology }
+		}
+		localization_key = forceofwill.1095.desc.same_ethic
+	}
+	text = {
+		trigger = {
+			ideology? = { has_opposite_ethic_as_ideology = event_target:ideology_clash_ideology }
+		}
+		localization_key = forceofwill.1095.desc.opposite_ethic
+	}
+	default = forceofwill.1095.desc.other_ethic
+}
+
+defined_text = {
+	name = GetIdeologyClashSystems
+	random = no
+	text = {
+		trigger = {
+			check_variable = {
+				which = ideology_clash_systems
+				value = 1
+			}
+		}
+		localization_key = forceofwill.1095.desc.one_system
+	}
+	default = forceofwill.1095.desc.several_systems
+}
+
+defined_text = {
+	name = GetIdeologyClashThreat
+	random = no
+	text = {
+		trigger = {
+			check_variable = {
+				which = ideology_clash_owned_systems
+				value > 0
+			}
+			is_gestalt = yes
+		}
+		localization_key = forceofwill.1095.desc.within_borders_gestalt
+	}
+	text = {
+		trigger = {
+			check_variable = {
+				which = ideology_clash_owned_systems
+				value > 0
+			}
+		}
+		localization_key = forceofwill.1095.desc.within_borders
+	}
+	default = forceofwill.1095.desc.beyond_borders
+}
+
+defined_text = {
+	name = GetUsOrCollective
+	text = {
+		trigger = { is_gestalt = yes }
+		localization_key = fow_our_collective
+	}
+	default = fow_us
+}
+
+defined_text = {
+	name = GetBabilSpeciesQuestion
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = forceofwill.8060.c_machine
+	}
+	default = forceofwill.8060.c_organic
+}
+
+defined_text = {
+	name = GetHoxLeadershipPraise
+	text = {
+		trigger = { is_gestalt = yes }
+		localization_key = forceofwill.8070.b.praise_gestalt
+	}
+	default = forceofwill.8070.b.praise_default
+}
+
+defined_text = {
+	name = GetHoxEnlistQuestion
+	text = {
+		trigger = {
+			OR = {
+				is_hive_empire = yes
+				is_xenophobe = yes
+			}
+		}
+		localization_key = forceofwill.8070.d_outsider
+	}
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = forceofwill.8070.d_organic
+	}
+	default = forceofwill.8070.d_self
+}
+
+defined_text = {
+	name = GetEphariCommsAssistant
+	text = {
+		trigger = { is_gestalt = yes }
+		localization_key = forceofwill.8080.comms_drone
+	}
+	default = forceofwill.8080.comms_assistant
+}
+
+defined_text = {
+	name = GetGestaltIdeologyProject
+	text = {
+		trigger = { is_machine_empire = yes }
+		localization_key = GESTALT_IDEOLOGY_PROJECT_MACHINE
+	}
+	default = GESTALT_IDEOLOGY_PROJECT_HIVE
+}
+
+defined_text = {
+	name = GetTutorialIdeologyTabSection
+	text = {
+		trigger = { is_gestalt = yes }
+		localization_key = TUTORIAL_IDEOLOGY_TAB_TITLE_gestalt_section
+	}
+	default = TUTORIAL_IDEOLOGY_TAB_TITLE_default_section
+}
+
+defined_text = {
+	name = GetTutorialIdeologicalReachSection
+	text = {
+		trigger = { is_fanatic_egalitarian = yes }
+		localization_key = EMPTY_STRING
+	}
+	default = TUTORIAL_IDEOLOGICAL_REACH_default_section
+}
+
+defined_text = {
+	name = GetTranquilStewardDesc
+	text = {
+		trigger = {
+			owner? = { is_gestalt = yes }
+		}
+		localization_key = leader_trait_tranquil_steward_desc_gestalt
+	}
+	default = leader_trait_tranquil_steward_desc_default
+}
+
+#######################################################################
+# Computed rates for the Ideological Strength sources concept.
+# Scope = country
+#######################################################################
+
+# Scope = Country, From = Adopted ideology
+defined_text = {
+	name = GetAdoptedIdeologyGalacticStrength
+	value = value:adopted_ideology_galactic_strength_percentage
+}
+
+# Scope = Country, From = Adopted ideology
+defined_text = {
+	name = GetIdeologyPopulationShare
+	value = value:ideology_population_share_percent
+}
+
+defined_text = {
+	name = GetIdeologyRivalClashBonus
+	value = value:ideology_rival_clash_bonus_percent
+}
+
+defined_text = {
+	name = GetIdeologyActAuthorityBonus
+	value = value:ideology_act_authority_bonus_percent
+}
+
+defined_text = {
+	name = GetIdeologyFanaticFactionStrength
+	value = value:ideology_fanatic_faction_approval_percent
+}
+
+defined_text = {
+	name = GetIdeologyClashCount
+	value = value:clashing_ideologies_count
+}
+
+defined_text = {
+	name = GetIdeologyClashCountDesc
+	text = {
+		trigger = {
+			from = {
+				count_clashing_ideologies = {
+					value = 1
+					is_ideology_rival = no
+				}
+			}
+		}
+		localization_key = STRENGTH_FROM_CLASHES_ONE
+	}
+	default = STRENGTH_FROM_CLASHES_MANY
+}
+
+defined_text = {
+	name = GetIdeologyRivalClashCount
+	value = value:clashing_rival_ideologies_count
+}
+
+defined_text = {
+	name = GetIdeologyRivalClashCountDesc
+	text = {
+		trigger = {
+			from = {
+				count_clashing_ideologies = {
+					value = 1
+					is_ideology_rival = yes
+				}
+			}
+		}
+		localization_key = STRENGTH_FROM_RIVAL_CLASHES_ONE
+	}
+	default = STRENGTH_FROM_RIVAL_CLASHES_MANY
+}
+
+defined_text = {
+	name = GetSowPeaceIntelRequirement
+	value = value:sow_peace_next_intel_requirement
+}
+
+# Galactic Halls tech unlock title: arkship module for nomads, megastructure for everyone else.
+defined_text = {
+	name = GetGalacticHallsUnlockTitle
+	text = {
+		trigger = {
+			is_nomadic = yes
+		}
+		localization_key = tech_galactic_halls_arkship_module_tt
+	}
+	default = tech_galactic_halls_megastructure_tt
+}
+
+defined_text = {
+	name = GetIdeologyAbandonDays
+	value = value:ideology_abandon_days
+}
+
+defined_text = {
+	name = GetIdeologyAbandonFlagDaysLeft
+	value = owner.value:flag_cooldown_days_left|FLAG|recently_abandon_ideology|
+}
+
+defined_text = {
+	name = GetStartAbandonIdeologyExtra
+	text = {
+		trigger = {
+			any_pop_faction = {
+				ideology? = { is_same_value = prevprev.ideology }
+			}
+		}
+		localization_key = start_abandon_ideology_extra
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetStopAbandonIdeologyExtra
+	text = {
+		trigger = {
+			any_pop_faction = {
+				ideology? = { is_same_value = prevprev.ideology }
+			}
+		}
+		localization_key = stop_abandon_ideology_extra
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetIdeologicalDisruptionTT
+	text = {
+		trigger = {
+			owner? = {
+				is_gestalt = yes
+			}
+		}
+		localization_key = ideological_disruption_unity_tt
+	}
+	default = ideological_disruption_stability_tt
+}
+
+defined_text = {
+	name = GetIdeologicalDisruptionUnityUpkeep
+	value = owner.value:calc_ideological_disruption_unity_upkeep
+}
+
+defined_text = {
+	name = GetIdeologicalDisruptionStability
+	value = owner.value:calc_ideological_disruption_stability
+}
+
+defined_text = {
+	name = GetBurdenOfProofDecisionCooldown
+	value = root.value:leader_cooldown_for_planet|FLAG|burden_of_proof_cooldown|
+}
+
+defined_text = {
+	name = GetAwakeningDecisionCooldown
+	value = root.value:leader_cooldown_for_planet|FLAG|awakening_cooldown|
+}
+
+defined_text = {
+	name = GetSacrifismEffect
+	text = {
+		trigger = {
+			has_active_tenet = tenet_sacrifism
+		}
+		localization_key = tenet_sacrifism_additional_bonus_tt
+	}
+	default = BLANK_STRING
+}
+
+# This = country without an adopted ideology
+defined_text = {
+	name = GetNoIdeologyGestaltHint
+	random = no
+	text = {
+		trigger = {
+			OR = {
+				has_special_project = GESTALT_IDEOLOGY_PROJECT_HIVE
+				has_special_project = GESTALT_IDEOLOGY_PROJECT_MACHINE
+			}
+		}
+		localization_key = NO_ADOPTED_IDEOLOGY_HINT_GESTALT_PROJECT
+	}
+	text = {
+		trigger = {
+			has_country_flag = ideology_initiated
+		}
+		localization_key = NO_ADOPTED_IDEOLOGY_HINT_GESTALT_AGENDA
+	}
+	default = NO_ADOPTED_IDEOLOGY_HINT_GESTALT_BASE
+}
+
+defined_text = {
+	name = GetCulturalEnvoyName
+	text = {
+		trigger = {
+			owner.ideology? = {
+				is_egalitarian = yes
+			}
+		}
+		localization_key = cultural_envoy_egalitarian
+	}
+	text = {
+		trigger = {
+			owner.ideology? = {
+				is_materialist = yes
+			}
+		}
+		localization_key = cultural_envoy_materialist
+	}
+	text = {
+		trigger = {
+			owner.ideology? = {
+				is_spiritualist = yes
+			}
+		}
+		localization_key = cultural_envoy_spiritualist
+	}
+	default = cultural_envoy_default
+}
+
+defined_text = {
+	name = GetCulturalEnvoyNamePlural
+	text = {
+		trigger = {
+			owner.ideology? = {
+				is_egalitarian = yes
+			}
+		}
+		localization_key = cultural_envoy_egalitarian_plural
+	}
+	text = {
+		trigger = {
+			owner.ideology? = {
+				is_materialist = yes
+			}
+		}
+		localization_key = cultural_envoy_materialist_plural
+	}
+	text = {
+		trigger = {
+			owner.ideology? = {
+				is_spiritualist = yes
+			}
+		}
+		localization_key = cultural_envoy_spiritualist_plural
+	}
+	default = cultural_envoy_default_plural
+}
+
+defined_text = {
+	name = GetIdeologyCulturalEnvoyName
+	text = {
+		trigger = {
+			is_egalitarian = yes
+		}
+		localization_key = cultural_envoy_egalitarian
+	}
+	text = {
+		trigger = {
+			is_materialist = yes
+		}
+		localization_key = cultural_envoy_materialist
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = cultural_envoy_spiritualist
+	}
+	default = cultural_envoy_default
+}
+
+defined_text = {
+	name = GetIdeologyInvitationAbandonment
+	text = {
+		trigger = {
+			exists = ideology
+		}
+		localization_key = INVITE_ADOPT_IDEOLOGY_ABANDON_FIRST
+	}
+	default = EMPTY_STRING
+}
+
+defined_text = {
+	name = GetInviteIdeologyExtra
+	text = {
+		trigger = { is_pacifist = yes }
+		localization_key = grants_impose_ideology_cb
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetImposeIdeologyCasusBelli
+	text = {
+		trigger = {
+			has_country_flag = ideological_subjugation_casus_belli_unlock
+		}
+		localization_key = casus_belli_cb_ideological_subjugation
+	}
+	default = casus_belli_cb_impose_ideology
+}
+
+defined_text = {
+	name = GetMegacityArchitectsName
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = civic_megacity_architects_corporate
+	}
+	default = civic_megacity_architects
+}
+
+defined_text = {
+	name = GetOpenStarsSovereigntyCivicName
+	text = {
+		trigger = {
+			has_corporate_government = yes
+		}
+		localization_key = civic_corporate_open_stars_sovereignty
+	}
+	default = civic_open_stars_sovereignty
+}
+
+defined_text = {
+	name = GetSocialConcordCivicName
+	text = {
+		trigger = {
+			has_corporate_government = yes
+		}
+		localization_key = civic_social_concord_corporate
+	}
+	default = civic_social_concord
+}
+
+# scope = country
+# from = dead ruler
+defined_text = {
+	name = GetFoW1250RulerTitle
+	text = {
+		trigger = {
+			from = { gender = female }
+		}
+		localization_key = "[this.GetFemaleRulerTitle]"
+	}
+	default = "[this.GetMaleRulerTitle]"
+}
+
+# scope = country
+defined_text = {
+	name = GetJubileeResourceCount
+	random = no
+	text = {
+		trigger = {
+			is_tenet_at_slot_or_higher = {
+				TENET = tenet_jubilation
+				VALUE = 3
+			}
+		}
+		localization_key = jubilee_resource_count_3
+	}
+	text = {
+		trigger = {
+			is_tenet_at_slot = {
+				TENET = tenet_jubilation
+				VALUE = 2
+			}
+		}
+		localization_key = jubilee_resource_count_2
+	}
+	default = jubilee_resource_count_1
+}
+
+defined_text = {
+	name = GetJubileePoolEnergy
+	text = {
+		trigger = {
+			is_nomadic = no
+		}
+		localization_key = jubilee_pool_energy
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetJubileePoolMinerals
+	text = {
+		trigger = {
+			is_nomadic = no
+		}
+		localization_key = jubilee_pool_minerals
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetJubileePoolFood
+	text = {
+		trigger = {
+			is_lithoid_empire = no
+		}
+		localization_key = jubilee_pool_food
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetJubileePoolConsumerGoods
+	text = {
+		trigger = {
+			is_gestalt = no
+		}
+		localization_key = jubilee_pool_consumer_goods
+	}
+	default = BLANK_STRING
+}

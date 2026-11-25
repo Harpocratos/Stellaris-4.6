@@ -1,0 +1,231 @@
+is_enslaved = {
+	hidden_trigger = {
+		OR = {
+			is_pop_category = slave_unemployment
+			AND = {
+				exists = owner
+				has_citizenship_type = {
+					country = owner
+					type = citizenship_slavery
+				}
+			}
+		}
+	}
+}
+
+is_robot_servant = {
+	hidden_trigger = {
+		exists = owner
+		has_citizenship_type = {
+			country = owner
+			type = citizenship_robot_servitude
+		}
+	}
+}
+
+has_resource_slavery_type = {
+	OR = {
+		has_slavery_type = {
+			country = from
+			type = slavery_livestock
+		}
+		has_slavery_type = {
+			country = from
+			type = slavery_matrix
+		}
+		has_slavery_type = {
+			country = from
+			type = slavery_matrix_guided_sapience
+		}
+	}
+}
+
+is_being_purged = {
+	hidden_trigger = {
+		exists = owner
+		OR = {
+			has_citizenship_type = {
+				type = citizenship_purge
+				country = owner
+			}
+			has_citizenship_type = {
+				type = citizenship_purge_machine
+				country = owner
+			}
+		}
+	}
+}
+
+pop_amount = {
+	count_owned_pop_amount = { }
+}
+
+sapient_pop_amount = {
+	count_owned_pop_amount = {
+		limit = {
+			is_sapient = yes
+		}
+	}
+}
+
+psionic_pop_amount = {
+	count_owned_pop_amount = {
+		limit = { has_psionic_species_trait = yes }
+	}
+}
+
+is_elite_category = {
+	OR = {
+		is_pop_category = ruler
+	}
+}
+
+has_cyborg_assimilation_living_standard = {
+	OR = {
+		has_living_standard = {
+			type = living_standard_cyborg_ego_assimilation
+			country = $COUNTRY$
+		}
+		has_living_standard = {
+			type = living_standard_cyborg_ego_assimilation_psionic
+			country = $COUNTRY$
+		}
+		has_living_standard = {
+			type = living_standard_cyborg_assimilation
+			country = $COUNTRY$
+		}
+		has_living_standard = {
+			type = living_standard_cyborg_assimilation_psionic
+			country = $COUNTRY$
+		}
+	}
+}
+
+has_psionic_assimilation_living_standard = {
+	OR = {
+		has_living_standard = {
+			type = living_standard_psi_assimilation
+			country = $COUNTRY$
+		}
+		has_living_standard = {
+			type = living_standard_psi_assimilation_cyborg
+			country = $COUNTRY$
+		}
+	}
+}
+
+has_synthetic_assimilation_living_standard = {
+	has_living_standard = {
+		type = living_standard_tech_assimilation
+		country = $COUNTRY$
+	}
+}
+
+has_dissociation_assimilation_living_standard = {
+	has_living_standard = {
+		type = living_standard_deassimilation
+		country = $COUNTRY$
+	}
+}
+
+has_anti_psionic_assimilation_living_standard = {
+	has_living_standard = {
+		type = living_standard_shroud_inoculation
+		country = $COUNTRY$
+	}
+}
+
+
+has_ego_assimilation_living_standard = {
+	OR = {
+		has_living_standard = {
+			type = living_standard_ego_assimilation
+			country = $COUNTRY$
+		}
+		has_living_standard = {
+			type = living_standard_ego_assimilation_psionic
+			country = $COUNTRY$
+		}
+	}
+}
+
+# This = species or pop group, COLONY = the colony scope from here
+citizenship_allows_species_growth = {
+	NAND = {
+		$COLONY$ = {
+			has_modifier = slave_colony
+		}
+		NOT = {
+			has_citizenship_type = {
+				type = citizenship_slavery
+				country = $COLONY$.owner
+			}
+		}
+	}
+	NOR = {
+		has_citizenship_type = {
+			type = citizenship_protected_drone
+			country = $COLONY$.owner
+		}
+		has_citizenship_type = {
+			type = citizenship_symbiotic_drone
+			country = $COLONY$.owner
+		}
+		has_citizenship_type = {
+			type = citizenship_exploited_drone
+			country = $COLONY$.owner
+		}
+	}
+}
+
+# This = species or pop group, COLONY = the colony scope from here
+can_necrophage_species_grow = {
+	if = {
+		limit = {
+			has_trait = trait_necrophage
+		}
+		NOT = {
+			$COLONY$ = {
+				OR = {
+					has_active_building = building_necrophage_elevation_chamber
+					has_active_building = building_necrophage_house_of_apotheosis
+				}
+			}
+		}
+	}
+}
+
+# This = species or pop group, COLONY = the colony scope from here
+species_can_grow_on_colony = {
+	is_sapient = yes
+	species = {
+		is_robotic = no
+		NOT = {
+			has_species_flag = nivlac_no_procreation
+		}
+	}
+	citizenship_allows_species_growth = {
+		COLONY = $COLONY$
+	}
+	can_necrophage_species_grow = {
+		COLONY = $COLONY$
+	}
+}
+
+# This = species or pop group, COLONY = the colony scope from here
+can_use_bonus_pop_growth = {
+	species_can_grow_on_colony = {
+		COLONY = $COLONY$
+	}
+	if = {
+		limit = {
+			has_infertile_clone_soldier_trait = yes
+		}
+		$COLONY$ = {
+			check_variable = {
+				which = clone_pops_missing_per_vat
+				value > 0
+			}
+		}
+	}
+}

@@ -1,0 +1,2246 @@
+defined_text = {
+	name = GetArkshipHunterLoot
+	text = {
+		trigger = {
+			is_arkship_tier_1 = yes
+		}
+		localization_key = arkship_hunter_loot_tier_1
+	}
+	text = {
+		trigger = {
+			is_arkship_tier_2 = yes
+		}
+		localization_key = arkship_hunter_loot_tier_2
+	}
+	text = {
+		trigger = {
+			is_arkship_tier_3 = yes
+		}
+		localization_key = arkship_hunter_loot_tier_3
+	}
+	default = arkship_hunter_loot_tier_1
+}
+
+defined_text = {
+	name = GetPaladinSubclass
+	text = {
+		trigger = {
+			has_leader_flag = paladin_ace
+		}
+		localization_key = leader_trait_paladin_ace
+	}
+	text = {
+		trigger = {
+			has_leader_flag = paladin_strategist
+		}
+		localization_key = leader_trait_paladin_strategist
+	}
+	text = {
+		trigger = {
+			has_leader_flag = paladin_ambusher
+		}
+		localization_key = leader_trait_paladin_ambusher
+	}
+	text = {
+		trigger = {
+			has_leader_flag = paladin_logistician
+		}
+		localization_key = leader_trait_paladin_logistician
+	}
+	text = {
+		trigger = {
+			has_leader_flag = paladin_defender
+		}
+		localization_key = leader_trait_paladin_defender
+	}
+	text = {
+		trigger = {
+			has_leader_flag = paladin_spearhead
+		}
+		localization_key = leader_trait_paladin_spearhead
+	}
+	text = {
+		trigger = {
+			has_leader_flag = paladin_knight
+		}
+		localization_key = leader_trait_paladin_knight
+	}
+	default = leader_trait_paladin
+}
+
+defined_text = {
+	name = GetCLFWinner1
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_1
+		}
+		localization_key = cfl_winner_1
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_1 }
+			has_global_flag = cfl_winner_1_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner2
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_2
+		}
+		localization_key = cfl_winner_2
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_2 }
+			has_global_flag = cfl_winner_2_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner3
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_3
+		}
+		localization_key = cfl_winner_3
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_3 }
+			has_global_flag = cfl_winner_3_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner4
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_4
+		}
+		localization_key = cfl_winner_4
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_4 }
+			has_global_flag = cfl_winner_4_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner5
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_5
+		}
+		localization_key = cfl_winner_5
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_5 }
+			has_global_flag = cfl_winner_5_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner6
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_6
+		}
+		localization_key = cfl_winner_6
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_6 }
+			has_global_flag = cfl_winner_6_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner7
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_7
+		}
+		localization_key = cfl_winner_7
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_7 }
+			has_global_flag = cfl_winner_7_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner8
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_8
+		}
+		localization_key = cfl_winner_8
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_8 }
+			has_global_flag = cfl_winner_8_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner9
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_9
+		}
+		localization_key = cfl_winner_9
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_9 }
+			has_global_flag = cfl_winner_9_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner10
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_10
+		}
+		localization_key = cfl_winner_10
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_10 }
+			has_global_flag = cfl_winner_10_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner11
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_11
+		}
+		localization_key = cfl_winner_11
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_11 }
+			has_global_flag = cfl_winner_11_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetCLFWinner12
+	text = {
+		trigger = {
+			exists = event_target:cfl_winner_12
+		}
+		localization_key = cfl_winner_12
+	}
+	text = {
+		trigger = {
+			NOT = { exists = event_target:cfl_winner_12 }
+			has_global_flag = cfl_winner_12_set
+		}
+		localization_key = cfl_winner_lost
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetPassengerSatisfactionIndex
+	text = {
+		trigger = {
+			is_scope_valid = yes
+			owner? = {
+				has_country_flag = forever_cruise_planetfall
+			}
+		}
+		localization_key = passenger_satisfaction_index_planetfall
+	}
+	text = {
+		trigger = {
+			is_scope_valid = yes
+			check_variable = {
+				which = passenger_satisfaction_index
+				value <= -3
+			}
+		}
+		localization_key = passenger_satisfaction_index_very_bored
+	}
+	text = {
+		trigger = {
+			is_scope_valid = yes
+			AND = {
+				check_variable = {
+					which = passenger_satisfaction_index
+					value < 0
+				}
+				check_variable = {
+					which = passenger_satisfaction_index
+					value > -3
+				}
+			}
+		}
+		localization_key = passenger_satisfaction_index_somewhat_bored
+	}
+	text = {
+		trigger = {
+			is_scope_valid = yes
+			AND = {
+				check_variable = {
+					which = passenger_satisfaction_index
+					value > 0
+				}
+				check_variable = {
+					which = passenger_satisfaction_index
+					value < 3
+				}
+			}
+		}
+		localization_key = passenger_satisfaction_index_somewhat_happy
+	}
+	text = {
+		trigger = {
+			is_scope_valid = yes
+			check_variable = {
+				which = passenger_satisfaction_index
+				value >= 3
+			}
+		}
+		localization_key = passenger_satisfaction_index_very_happy
+	}
+	text = {
+		trigger = {
+			is_scope_valid = yes
+			owner? = {
+				has_country_flag = forever_cruise_mutiny
+			}
+		}
+		localization_key = passenger_satisfaction_index_mutiny
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetPassengerSatisfactionMonthlyChange
+	text = {
+		trigger = {
+			owner? = {
+				has_country_flag = forever_cruise_planetfall
+			}
+		}
+		localization_key = situation_passenger_satisfaction_blocked_planetfall
+	}
+	text = {
+		trigger = {
+			owner? = {
+				NOR = {
+					has_country_flag = forever_cruise_planetfall
+					has_country_flag = forever_cruise_mutiny
+				}
+			}
+			check_variable = {
+				which = passenger_satisfaction_index
+				value < 0
+			}
+		}
+		localization_key = passenger_satisfaction_monthly_change_passengers_contracts
+	}
+	text = {
+		trigger = {
+			owner? = {
+				NOR = {
+					has_country_flag = forever_cruise_planetfall
+					has_country_flag = forever_cruise_mutiny
+				}
+			}
+			check_variable = {
+				which = passenger_satisfaction_index
+				value > 0
+			}
+		}
+		localization_key = passenger_satisfaction_monthly_change_crew_contracts
+	}
+	text = {
+		trigger = {
+			owner? = {
+				has_country_flag = forever_cruise_mutiny
+			}
+		}
+		localization_key = situation_passenger_satisfaction_blocked_mutiny
+	}
+}
+
+defined_text = {
+	name = GetPassengerWorkforce
+	value = value:passenger_workforce_value
+}
+
+defined_text = {
+	name = GetEconomyPassengerWorkforce
+	value = value:economy_passenger_workforce_value
+}
+
+defined_text = {
+	name = GetCitizenOrCrew
+	text = {
+		trigger = {
+			is_scope_valid = yes
+			is_nomadic = yes
+			has_origin = origin_forever_cruise
+			NOT = { has_country_flag = forever_cruise_over }
+		}
+		localization_key = citizenship_cruise_crew
+	}
+	default = citizen_cap
+}
+
+defined_text = {
+	name = GetPassengerSatisfactionPlanetfallOutcome
+	text = {
+		trigger = {
+			owner? = {
+				has_country_flag = forever_cruise_planetfall
+			}
+		}
+		localization_key = situation_passenger_satisfaction_blocked_planetfall
+	}
+	default = situation_passenger_satisfaction_outcome_planetfall_before
+}
+
+defined_text = {
+	name = GetPassengerSatisfactionMutinyOutcome
+	text = {
+		trigger = {
+			owner? = {
+				has_country_flag = forever_cruise_mutiny
+			}
+		}
+		localization_key = situation_passenger_satisfaction_blocked_mutiny
+	}
+	default = situation_passenger_satisfaction_outcome_mutiny_before
+}
+
+defined_text = {
+	name = GetAbortedPenalty
+	value = value:aborted_contract_penalty|BASE|20|
+}
+
+defined_text = {
+	name = GetHeirsBargain
+	text = {
+		trigger = {
+			has_country_flag = heirs_option_before_1
+		}
+		localization_key = nomads.570.bargain.1
+	}
+	text = {
+		trigger = {
+			has_country_flag = heirs_option_before_2
+		}
+		localization_key = nomads.570.bargain.2
+	}
+	text = {
+		trigger = {
+			has_country_flag = heirs_option_before_3
+		}
+		localization_key = nomads.570.bargain.3
+	}
+}
+
+defined_text = {
+	name = GetPogGrowthOrAssembly
+	text = {
+		trigger = {
+			from = {
+				is_machine_empire = no
+			}
+		}
+		localization_key = nomads.1530.trait.1
+	}
+	text = {
+		trigger = {
+			from = {
+				is_machine_empire = yes
+			}
+		}
+		localization_key = nomads.1530.trait.2
+	}
+}
+
+defined_text = {
+	name = GetSettlingEmbarkationFinish
+	text = {
+		trigger = {
+			has_nomads_dlc = yes
+			is_nomadic = yes
+			NOR = {
+				has_origin = origin_heirs_of_the_khan
+				has_origin = origin_forever_cruise
+				has_origin = origin_sacred_path
+				AND = {
+					has_origin = origin_toxic_knights
+					NOT = {
+						has_country_flag = toxic_knights_destroyed_keep
+					}
+				}
+				has_country_flag = embarked_as_settled_empire
+			}
+		}
+		localization_key = tr_adaptability_finish_nomad_tt
+	}
+	text = {
+		trigger = {
+			has_nomads_dlc = yes
+			can_embark_no_tradition_check_trigger = yes
+		}
+		localization_key = tr_adaptability_finish_settled_tt
+	}
+	default = BLANK_STRING
+}
+
+#########################
+# STARBASE / WAYSTATION #
+#########################
+
+defined_text = {
+	name = GetStarbaseOrWayStation
+	text = {
+		trigger = {
+			is_nomadic = no
+		}
+		localization_key = station_generic_01
+	}
+	text = {
+		trigger = {
+			is_nomadic = Yes
+		}
+		localization_key = starbase_waystation_1
+	}
+	default = station_generic_01
+}
+
+defined_text = {
+	name = GetStarbaseOrWayStationPlural
+	text = {
+		trigger = {
+			is_nomadic = no
+		}
+		localization_key = station_generic_01_plural
+	}
+	text = {
+		trigger = {
+			is_nomadic = Yes
+		}
+		localization_key = starbase_waystation_1_plural
+	}
+	default = station_generic_01_plural
+}
+
+# Cloaking requires the First Contact DLC, so without it the Waystation can
+# never be cloaked and the opinion penalty always applies.
+defined_text = {
+	name = GetPirateHideoutPiracyDesc
+	text = {
+		trigger = {
+			has_first_contact_dlc = yes
+		}
+		localization_key = waystation_pirate_hideout_piracy_cloaked_tt
+	}
+	default = waystation_pirate_hideout_piracy_tt
+}
+
+# Cloaking requires the First Contact DLC, so without it the Waystation can
+# never be cloaked and the opinion penalty always applies.
+defined_text = {
+	name = GetPirateHideoutPiracyDesc
+	text = {
+		trigger = {
+			has_first_contact_dlc = yes
+		}
+		localization_key = waystation_pirate_hideout_piracy_cloaked_tt
+	}
+	default = waystation_pirate_hideout_piracy_tt
+}
+
+####################
+# CONTRACTS QUOTES #
+####################
+
+# Contract Lore Text (on_issued, on_completion, on_failure)
+
+# Harvest Resources Contracts
+defined_text = {
+	name = GetContractIssuedLoreHarvest
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_harvest_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_harvest_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_harvest_lore_issued"
+	}
+	default = "contract_harvest_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreHarvest
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_harvest_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_harvest_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_harvest_lore_completed"
+	}
+	default = "contract_harvest_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreHarvest
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_harvest_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_harvest_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_harvest_lore_failed"
+	}
+	default = "contract_harvest_lore_failed"
+}
+
+# Deep Scan Contract
+
+defined_text = {
+	name = GetContractIssuedLoreDeepScan
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_deep_scan_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_deep_scan_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_deep_scan_lore_issued"
+	}
+	default = "contract_deep_scan_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreDeepScan
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_deep_scan_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_deep_scan_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_deep_scan_lore_completed"
+	}
+	default = "contract_deep_scan_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreDeepScan
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_deep_scan_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_deep_scan_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_deep_scan_lore_failed"
+	}
+	default = "contract_deep_scan_lore_failed"
+}
+
+# Espionage Support Contracts
+
+defined_text = {
+	name = GetContractIssuedLoreEspionage
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_espionage_support_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_espionage_support_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_espionage_support_lore_issued"
+	}
+	default = "contract_espionage_support_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreEspionage
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_espionage_support_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_espionage_support_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_espionage_support_lore_completed"
+	}
+	default = "contract_espionage_support_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreEspionage
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_espionage_support_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_espionage_support_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_espionage_support_lore_failed"
+	}
+	default = "contract_espionage_support_lore_failed"
+}
+
+# Join Wars Contract
+
+defined_text = {
+	name = GetContractIssuedLoreJoinWars
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_join_wars_support_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_join_wars_support_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_join_wars_support_lore_issued"
+	}
+	default = "contract_join_wars_support_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreJoinWars
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_join_wars_support_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_join_wars_support_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_join_wars_support_lore_completed"
+	}
+	default = "contract_join_wars_support_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreJoinWars
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_join_wars_support_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_join_wars_support_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_join_wars_support_lore_failed"
+	}
+	default = "contract_join_wars_support_lore_failed"
+}
+
+# Raid Planet Contract
+
+defined_text = {
+	name = GetContractIssuedLoreRaidPlanet
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_raid_planet_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_raid_planet_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_raid_planet_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_raid_planet_lore_issued"
+	}
+	default = "contract_raid_planet_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreRaidPlanet
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_raid_planet_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_raid_planet_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_raid_planet_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_raid_planet_lore_completed"
+	}
+	default = "contract_raid_planet_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreRaidPlanet
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_raid_planet_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_raid_planet_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_raid_planet_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_raid_planet_lore_failed"
+	}
+	default = "contract_raid_planet_lore_failed"
+}
+
+# Megastructure Support Contract
+
+defined_text = {
+	name = GetContractIssuedLoreMegastructureSupport
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_megastructure_support_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_megastructure_support_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_megastructure_support_lore_issued"
+	}
+	default = "contract_megastructure_support_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreMegastructureSupport
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_megastructure_support_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_megastructure_support_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_megastructure_support_lore_completed"
+	}
+	default = "contract_megastructure_support_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreMegastructureSupport
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_megastructure_support_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_megastructure_support_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_megastructure_support_lore_failed"
+	}
+	default = "contract_megastructure_support_lore_failed"
+}
+
+# Diplomatic Support Contract
+
+defined_text = {
+	name = GetContractIssuedLoreDiplomaticSupport
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_diplomatic_support_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_diplomatic_support_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_diplomatic_support_lore_issued"
+	}
+	default = "contract_diplomatic_support_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreDiplomaticSupport
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_diplomatic_support_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_diplomatic_support_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_diplomatic_support_lore_completed"
+	}
+	default = "contract_diplomatic_support_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreDiplomaticSupport
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_diplomatic_support_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_diplomatic_support_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_diplomatic_support_lore_failed"
+	}
+	default = "contract_diplomatic_support_lore_failed"
+}
+
+# Scan Debris Contract
+
+defined_text = {
+	name = GetContractIssuedLoreScanDebris
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_scan_debris_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_scan_debris_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_scan_debris_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_scan_debris_lore_issued"
+	}
+	default = "contract_scan_debris_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreScanDebris
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_scan_debris_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_scan_debris_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_scan_debris_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_scan_debris_lore_completed"
+	}
+	default = "contract_scan_debris_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreScanDebris
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_scan_debris_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_scan_debris_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_scan_debris_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_scan_debris_lore_failed"
+	}
+	default = "contract_scan_debris_lore_failed"
+}
+
+# Clear Blockers Contract
+
+defined_text = {
+	name = GetContractIssuedLoreClearBlockers
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_clear_blockers_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_clear_blockers_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_clear_blockers_lore_issued"
+	}
+	default = "contract_clear_blockers_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreClearBlockers
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_clear_blockers_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_clear_blockers_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_clear_blockers_lore_completed"
+	}
+	default = "contract_clear_blockers_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreClearBlockers
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_clear_blockers_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_clear_blockers_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_clear_blockers_lore_failed"
+	}
+	default = "contract_clear_blockers_lore_failed"
+}
+
+# Build Waystation Contract
+
+defined_text = {
+	name = GetContractIssuedLoreBuildWaystation
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_build_waystation_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_build_waystation_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_build_waystation_lore_issued"
+	}
+	default = "contract_build_waystation_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreBuildWaystation
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_build_waystation_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_build_waystation_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_build_waystation_lore_completed"
+	}
+	default = "contract_build_waystation_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreBuildWaystation
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_build_waystation_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_build_waystation_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_build_waystation_lore_failed"
+	}
+	default = "contract_build_waystation_lore_failed"
+}
+
+# Pest Control Contract
+
+defined_text = {
+	name = GetContractIssuedLorePestControl
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_pest_control_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_pest_control_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_pest_control_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_pest_control_lore_issued"
+	}
+	default = "contract_pest_control_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLorePestControl
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_pest_control_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_pest_control_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_pest_control_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_pest_control_lore_completed"
+	}
+	default = "contract_pest_control_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLorePestControl
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "gestalt_contract_pest_control_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_pest_control_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_pest_control_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_pest_control_lore_failed"
+	}
+	default = "contract_pest_control_lore_failed"
+}
+
+# Sightseeing Tour Contract
+
+defined_text = {
+	name = GetContractIssuedLoreSightseeingTour
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_sightseeing_tour_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_sightseeing_tour_lore_issued"
+	}
+	default = "contract_sightseeing_tour_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedSightseeingTour
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_sightseeing_tour_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_sightseeing_tour_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_sightseeing_tour_lore_completed"
+	}
+	default = "contract_sightseeing_tour_support_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedSightseeingTour
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_sightseeing_tour_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_sightseeing_tour_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_sightseeing_tour_lore_failed"
+	}
+	default = "contract_sightseeing_tour_lore_failed"
+}
+
+# Colony Startup Contract
+
+defined_text = {
+	name = GetContractIssuedLoreColonyStartup
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_colony_startup_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_colony_startup_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_colony_startup_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_machine_empire = yes
+		}
+		localization_key = "machine_contract_colony_startup_lore_issued"
+	}
+	default = "contract_colony_startup_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreColonyStartup
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_colony_startup_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_colony_startup_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_colony_startup_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_machine_empire = yes
+		}
+		localization_key = "machine_contract_colony_startup_lore_completed"
+	}
+	default = "contract_colony_startup_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreColonyStartup
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_colony_startup_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_colony_startup_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_colony_startup_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_machine_empire = yes
+		}
+		localization_key = "machine_contract_colony_startup_lore_failed"
+	}
+	default = "contract_colony_startup_lore_failed"
+}
+
+# Stellar Ignition Contract
+
+defined_text = {
+	name = GetContractIssuedLoreStellarIgnition
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_stellar_ignition_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_stellar_ignition_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_stellar_ignition_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_machine_empire = yes
+		}
+		localization_key = "machine_contract_stellar_ignition_lore_issued"
+	}
+	default = "contract_stellar_ignition_lore_issued"
+}
+
+defined_text = {
+	name = GetContractCompletedLoreStellarIgnition
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_stellar_ignition_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_stellar_ignition_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_stellar_ignition_lore_completed"
+	}
+	text = {
+		trigger = {
+			is_machine_empire = yes
+		}
+		localization_key = "machine_contract_stellar_ignition_lore_completed"
+	}
+	default = "contract_stellar_ignition_lore_completed"
+}
+
+defined_text = {
+	name = GetContractFailedLoreStellarIgnition
+	text = {
+		trigger = {
+			is_spiritualist = yes
+		}
+		localization_key = "spiritualist_contract_stellar_ignition_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_megacorp = yes
+		}
+		localization_key = "megacorp_contract_stellar_ignition_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_militarist = yes
+		}
+		localization_key = "militarist_contract_stellar_ignition_lore_failed"
+	}
+	text = {
+		trigger = {
+			is_machine_empire = yes
+		}
+		localization_key = "machine_contract_stellar_ignition_lore_failed"
+	}
+	default = "contract_stellar_ignition_lore_failed"
+}
+
+defined_text = {
+	name = GetColonySupportCivilianTT
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "nomad_contract_colony_support_civilian_gestalt_tt"
+	}
+	default = "nomad_contract_colony_support_civilian_regular_tt"
+}
+
+defined_text = {
+	name = GetColonySupportScientificTT
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "nomad_contract_colony_support_scientific_gestalt_tt"
+	}
+	default = "nomad_contract_colony_support_scientific_regular_tt"
+}
+
+defined_text = {
+	name = GetColonySupportMilitaryTT
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "nomad_contract_colony_support_military_gestalt_tt"
+	}
+	default = "nomad_contract_colony_support_military_regular_tt"
+}
+
+defined_text = {
+	name = GetEspionageSupportPassenger2
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_espionage_support_passenger_2_gestalt_desc"
+	}
+	default = "contract_espionage_support_passenger_2_regular_desc"
+}
+
+####################
+# Shore Leave Crew gestalt variants #
+####################
+
+defined_text = {
+	name = GetShoreleaveCrewDesc1
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_1_gestalt_desc"
+	}
+	default = "contract_shoreleave_crew_1_regular_desc"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreIssued1
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_1_gestalt_lore_issued"
+	}
+	default = "contract_shoreleave_crew_1_regular_lore_issued"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreCompleted1
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_1_gestalt_lore_completed"
+	}
+	default = "contract_shoreleave_crew_1_regular_lore_completed"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreFailed1
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_1_gestalt_lore_failed"
+	}
+	default = "contract_shoreleave_crew_1_regular_lore_failed"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewDesc2
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_2_gestalt_desc"
+	}
+	default = "contract_shoreleave_crew_2_regular_desc"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreIssued2
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_2_gestalt_lore_issued"
+	}
+	default = "contract_shoreleave_crew_2_regular_lore_issued"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreCompleted2
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_2_gestalt_lore_completed"
+	}
+	default = "contract_shoreleave_crew_2_regular_lore_completed"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreFailed2
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_2_gestalt_lore_failed"
+	}
+	default = "contract_shoreleave_crew_2_regular_lore_failed"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreIssued3
+	text = {
+		trigger = {
+			is_machine_empire = yes
+		}
+		localization_key = "contract_shoreleave_crew_3_machine_lore_issued"
+	}
+	default = "contract_shoreleave_crew_3_regular_lore_issued"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreCompleted3
+	text = {
+		trigger = {
+			is_machine_empire = yes
+		}
+		localization_key = "contract_shoreleave_crew_3_machine_lore_completed"
+	}
+	default = "contract_shoreleave_crew_3_regular_lore_completed"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreIssued4
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_4_gestalt_lore_issued"
+	}
+	default = "contract_shoreleave_crew_4_regular_lore_issued"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreCompleted4
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_4_gestalt_lore_completed"
+	}
+	default = "contract_shoreleave_crew_4_regular_lore_completed"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreFailed4
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_4_gestalt_lore_failed"
+	}
+	default = "contract_shoreleave_crew_4_regular_lore_failed"
+}
+
+# Crew Shoreleave 5 - Crew Showcase
+
+defined_text = {
+	name = GetShoreleaveCrewDesc5
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_5_gestalt_desc"
+	}
+	default = "contract_shoreleave_crew_5_regular_desc"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreIssued5
+	text = {
+		trigger = {
+			is_machine_empire = yes
+		}
+		localization_key = "contract_shoreleave_crew_5_machine_lore_issued"
+	}
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_5_hive_lore_issued"
+	}
+	default = "contract_shoreleave_crew_5_regular_lore_issued"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreCompleted5
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_5_gestalt_lore_completed"
+	}
+	default = "contract_shoreleave_crew_5_regular_lore_completed"
+}
+
+defined_text = {
+	name = GetShoreleaveCrewLoreFailed5
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_shoreleave_crew_5_gestalt_lore_failed"
+	}
+	default = "contract_shoreleave_crew_5_regular_lore_failed"
+}
+
+####################
+# Suntrip Crew Contracts #
+####################
+
+defined_text = {
+	name = GetSuntripCrewLoreFailed1
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_1_gestalt_lore_failed"
+	}
+	default = "contract_suntrip_crew_1_regular_lore_failed"
+}
+
+defined_text = {
+	name = GetSuntripCrewLoreIssued2
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_2_gestalt_lore_issued"
+	}
+	default = "contract_suntrip_crew_2_regular_lore_issued"
+}
+
+defined_text = {
+	name = GetSuntripCrewLoreCompleted2
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_2_gestalt_lore_completed"
+	}
+	default = "contract_suntrip_crew_2_regular_lore_completed"
+}
+
+defined_text = {
+	name = GetSuntripCrewLoreFailed2
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_2_gestalt_lore_failed"
+	}
+	default = "contract_suntrip_crew_2_regular_lore_failed"
+}
+
+defined_text = {
+	name = GetSuntripCrewLoreIssued3
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_3_gestalt_lore_issued"
+	}
+	default = "contract_suntrip_crew_3_regular_lore_issued"
+}
+
+defined_text = {
+	name = GetSuntripCrewLoreFailed3
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_3_gestalt_lore_failed"
+	}
+	default = "contract_suntrip_crew_3_regular_lore_failed"
+}
+
+defined_text = {
+	name = GetSuntripCrewLoreIssued4
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_4_gestalt_lore_issued"
+	}
+	default = "contract_suntrip_crew_4_regular_lore_issued"
+}
+
+defined_text = {
+	name = GetSuntripCrewLoreFailed4
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_4_gestalt_lore_failed"
+	}
+	default = "contract_suntrip_crew_4_regular_lore_failed"
+}
+
+defined_text = {
+	name = GetSuntripCrewLoreIssued5
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_5_gestalt_lore_issued"
+	}
+	default = "contract_suntrip_crew_5_regular_lore_issued"
+}
+
+defined_text = {
+	name = GetSuntripCrewLoreCompleted5
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_5_gestalt_lore_completed"
+	}
+	default = "contract_suntrip_crew_5_regular_lore_completed"
+}
+
+defined_text = {
+	name = GetSuntripCrewLoreFailed5
+	text = {
+		trigger = {
+			is_gestalt = yes
+		}
+		localization_key = "contract_suntrip_crew_5_gestalt_lore_failed"
+	}
+	default = "contract_suntrip_crew_5_regular_lore_failed"
+}
+
+####################
+# Stars visited for Journey #
+####################
+
+defined_text = {
+	name = GetSystemsVisited
+	text = {
+		trigger = {
+			is_star_seeker_empire = yes
+			check_variable = {
+				which = visited_systems_nomad
+				value >= 50
+			}
+		}
+		localization_key = "nomad_systems_visited_requirement_success"
+	}
+	text = {
+		trigger = {
+			is_star_seeker_empire = yes
+			check_variable = {
+				which = visited_systems_nomad
+				value < 50
+			}
+		}
+		localization_key = "nomad_systems_visited_requirement_fail"
+	}
+	text = {
+		trigger = {
+			NOT = { is_star_seeker_empire = yes }
+		}
+		localization_key = "BLANK_STRING"
+	}
+}
+
+defined_text = {
+	name = GetSystemsVisitedLeft
+	value = value:nomad_visited_systems_left
+}
+
+defined_text = {
+	name = GetFestivalCooldownYears
+	value = value:festival_cooldown_years_left
+}
+
+defined_text = {
+	name = GetFestivalCooldownMonths
+	value = value:festival_cooldown_months_left
+}
+
+defined_text = {
+	name = GetPlanetArkship
+	text = {
+		trigger = {
+			is_nomadic = no
+		}
+		localization_key = "concept_planet"
+	}
+	text = {
+		trigger = {
+			is_nomadic = yes
+		}
+		localization_key = "arkship"
+	}
+	default = "concept_planet"
+}
+
+defined_text = {
+	name = GetConstructorShipAndArkshipPluralType
+	text = {
+		trigger = {
+			is_nomadic = no
+		}
+		localization_key = "constructor_plural_parentheses"
+	}
+	text = {
+		trigger = {
+			is_nomadic = yes
+		}
+		localization_key = "arkship_or_logistic_ship_plural_parentheses"
+	}
+	default = "constructor_plural_parentheses"
+}
+
+GetDatabankNomadsDlc = {
+	name = GetDatabankNomadsDlc
+	text = {
+		trigger = {
+			has_nomads_dlc = yes
+		}
+		localization_key = "REQUIRES_NOMADS_DLC_OWNED"
+	}
+	text = {
+		trigger = {
+			has_nomads_dlc = no
+		}
+		localization_key = "REQUIRES_NOMADS_DLC_NOT_OWNED"
+	}
+	default = BLANK_STRING
+}
+
+GetDatabankNomadsDlc = {
+	name = GetDatabankNomadsDlcNomadicEmpire
+	text = {
+		trigger = {
+			has_nomads_dlc = yes
+			is_nomadic = yes
+		}
+		localization_key = "REQUIRES_NOMADS_DLC_OWNED"
+	}
+	default = BLANK_STRING
+}
+
+defined_text = {
+	name = GetMarketFoundingChainEnd
+	text = {
+		trigger = {
+			is_nomadic = no
+		}
+		localization_key = "market_founding_end_regular"
+	}
+	text = {
+		trigger = {
+			is_nomadic = yes
+		}
+		localization_key = "market_founding_end_nomadic"
+	}
+	default = "market_founding_end_regular"
+}
+
+defined_text = {
+	name = GetCFLFleetSizeRequirement
+	text = {
+		trigger = {
+			has_country_flag = champions_of_the_forge_weight_class_heavy_late
+		}
+		localization_key = cfl_fleet_size_heavy_late
+	}
+	text = {
+		trigger = {
+			has_country_flag = champions_of_the_forge_weight_class_medium_late
+		}
+		localization_key = cfl_fleet_size_medium_late
+	}
+	text = {
+		trigger = {
+			has_country_flag = champions_of_the_forge_weight_class_medium_mid
+		}
+		localization_key = cfl_fleet_size_medium_mid
+	}
+	text = {
+		trigger = {
+			has_country_flag = champions_of_the_forge_weight_class_small_mid
+		}
+		localization_key = cfl_fleet_size_small_mid
+	}
+	text = {
+		trigger = {
+			has_country_flag = champions_of_the_forge_weight_class_small_early
+		}
+		localization_key = cfl_fleet_size_small_early
+	}
+	default = BLANK_STRING
+}
+
+# Wayline Pacts are a Nomads mechanic, so the Trade League perk only advertises the free Wayline Pact
+# benefit when the Nomads DLC is active. Falls back to an empty string otherwise.
+defined_text = {
+	name = GetTradeFederationWaylineEffect
+	random = no
+	text = {
+		trigger = { has_nomads_dlc = yes }
+		localization_key = trade_federation_passive_wayline_effect
+	}
+	default = BLANK_STRING
+}
+
+# Wayline Pacts are a Nomads mechanic, so the Separate Treaties law only lists them among the
+# prohibited treaties when the Nomads DLC is active. Otherwise the list ends with Commercial Pacts.
+defined_text = {
+	name = GetSeparateTreatiesProhibitedPacts
+	random = no
+	text = {
+		trigger = { has_nomads_dlc = yes }
+		localization_key = treaties_separate_no_desc_pacts_nomads
+	}
+	default = treaties_separate_no_desc_pacts
+}
+
+defined_text = {
+	name = GetHarvestResourcesDuration
+	value = value:arkship_harvest_resources_duration_calc
+}

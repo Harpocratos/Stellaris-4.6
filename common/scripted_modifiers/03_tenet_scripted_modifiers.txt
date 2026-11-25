@@ -1,0 +1,106 @@
+# Modifiers used for tooltips
+
+tenet_diaspora_opinion_bonus = {
+	icon = mod_cat_diplomacy
+	good = yes
+	category = country
+	percentage = no
+}
+
+tenet_sacred_union_modifier = {
+	icon = mod_logistic_growth_mult
+	good = yes
+	category = colony
+	percentage = yes
+}
+
+tenet_homogeneity_modifier = {
+    icon = mod_logistic_growth_mult
+	good = yes
+	category = colony
+	percentage = yes
+}
+
+tenet_higher_law_edict_modifier = {
+	icon = mod_country_edict_fund_add
+	good = yes
+	category = country
+	percentage = no
+	max_decimals = -1
+}
+
+tenet_spectacle_of_authority_edict_modifier = {
+	icon = mod_country_edict_fund_add
+	good = yes
+	category = country
+	percentage = no
+}
+
+tenet_militia_conscription_defense_army_modifier = {
+	icon = mod_planet_defense_armies_add
+	good = yes
+	category = country
+	percentage = no
+}
+
+tenet_militia_conscription_arkship_hull_modifier = {
+	icon = mod_ship_hull_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+tenet_autonomy_amenities_modifier = {
+	icon = mod_planet_amenities_add
+	good = yes
+	category = country
+	percentage = no
+}
+
+tenet_higher_law_agenda_modifier = {
+	icon = mod_council_agenda_finishing_effect_duration_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+tenet_hedonism_logistic_growth_modifier = {
+	icon = mod_logistic_growth_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+tenet_hedonism_roboticist_workforce_modifier = {
+	icon = mod_pop_bonus_workforce_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+tenet_dimensionalism_nomad_unity_mult = {
+	icon = mod_resource_unity_mult
+	good = yes
+	category = country
+	percentage = yes
+}
+
+tenet_supreme_upkeep_mult = {
+	icon = mod_upkeep_add
+	good = no
+	category = country
+	percentage = yes
+}
+
+tenet_sacrifism_ideological_strength_add = { # Used for tenet tooltip + modifier multiplier
+	icon = mod_ideological_strength_mult
+	good = yes
+	category = country
+	percentage = no
+}
+sacrifice_ideological_strength_add = { # Used to apply Ideological Strength in ideology_common_data.txt
+	icon = mod_ideological_strength_mult
+	good = yes
+	category = country
+	percentage = no
+}
