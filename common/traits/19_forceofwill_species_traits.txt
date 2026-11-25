@@ -1,0 +1,167 @@
+# Lost Maker Traits
+trait_redundant_module = {
+	cost = 0
+	category = robotic
+	initial = no
+	randomized = no
+	advanced_trait = no
+	hidden = yes
+	species_potential_add = {
+		always = no
+	}
+	species_possible_add = {
+		always = no
+	}
+	species_possible_remove = {
+		always = no
+	}
+	species_possible_merge_add = {
+		always = no
+	}
+	allowed_archetypes = { MACHINE ROBOT }
+	tags = { machine negative }
+	custom_tooltip = trait_redundant_module_deviancy_modifier
+}
+
+trait_restored_module_military = {
+	icon = "gfx/interface/icons/traits/trait_restored_module.dds"
+	cost = 0
+	category = robotic
+	initial = no
+	randomized = no
+	advanced_trait = no
+	hidden = yes
+	species_potential_add = {
+		always = no
+	}
+	species_possible_add = {
+		always = no
+	}
+	species_possible_remove = {
+		always = no
+	}
+	species_possible_merge_add = {
+		always = no
+	}
+	allowed_archetypes = { MACHINE ROBOT }
+	tags = { machine positive pop_output alloys army }
+	custom_tooltip_with_modifiers = trait_restored_module_military_effect_tt
+	modifier = {
+		foundry_jobs_bonus_workforce_mult = 0.10
+		soldier_jobs_bonus_workforce_mult = 0.10
+	}
+}
+
+trait_restored_module_research = {
+	icon = "gfx/interface/icons/traits/trait_restored_module.dds"
+	cost = 0
+	category = robotic
+	initial = no
+	randomized = no
+	advanced_trait = no
+	hidden = yes
+	species_potential_add = {
+		always = no
+	}
+	species_possible_add = {
+		always = no
+	}
+	species_possible_remove = {
+		always = no
+	}
+	species_possible_merge_add = {
+		always = no
+	}
+	allowed_archetypes = { MACHINE ROBOT }
+	tags = { machine positive pop_output research energy }
+	modifier = {
+		researcher_jobs_bonus_workforce_mult = 0.05
+		technician_jobs_bonus_workforce_mult = 0.15
+	}
+}
+
+trait_restored_module_learning = {
+	icon = "gfx/interface/icons/traits/trait_restored_module.dds"
+	cost = 0
+	category = robotic
+	initial = no
+	randomized = no
+	advanced_trait = no
+	hidden = yes
+	species_potential_add = {
+		always = no
+	}
+	species_possible_add = {
+		always = no
+	}
+	species_possible_remove = {
+		always = no
+	}
+	species_possible_merge_add = {
+		always = no
+	}
+	allowed_archetypes = { MACHINE ROBOT }
+	tags = { machine positive pop_output  }
+	custom_tooltip = trait_restored_module_learning_effect
+	triggered_pop_group_modifier = {
+		potential = { exists = colony }
+		pop_cat_complex_drone_bonus_workforce_mult = 0.0015
+		mult = colony.value:genetic_memory_mult # Gives same values (max 0.0015 * 50 = 0.075 or +7.5%)
+	}
+}
+
+trait_restored_module_admin = {
+	icon = "gfx/interface/icons/traits/trait_restored_module.dds"
+	cost = 0
+	category = robotic
+	initial = no
+	randomized = no
+	advanced_trait = no
+	hidden = yes
+	species_potential_add = {
+		always = no
+	}
+	species_possible_add = {
+		always = no
+	}
+	species_possible_remove = {
+		always = no
+	}
+	species_possible_merge_add = {
+		always = no
+	}
+	allowed_archetypes = { MACHINE ROBOT }
+	tags = { machine positive pop_output upkeep unity }
+	modifier = {
+		planet_pops_robotics_upkeep_mult = -0.15
+		bureaucrat_jobs_bonus_workforce_mult = 0.1
+	}
+}
+
+trait_restored_module_environment = {
+	icon = "gfx/interface/icons/traits/trait_restored_module.dds"
+	cost = 0
+	category = robotic
+	initial = no
+	randomized = no
+	advanced_trait = no
+	hidden = yes
+	species_potential_add = {
+		always = no
+	}
+	species_possible_add = {
+		always = no
+	}
+	species_possible_remove = {
+		always = no
+	}
+	species_possible_merge_add = {
+		always = no
+	}
+	allowed_archetypes = { MACHINE ROBOT }
+	tags = { machine positive pop_output habitability amenities }
+	modifier = {
+		habitability_floor_add = 0.1
+		pop_amenities_usage_mult = -0.15
+	}
+}

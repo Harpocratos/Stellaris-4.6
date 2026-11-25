@@ -1,0 +1,536 @@
+# Planet District Zones
+#
+# Documentation: ./99_HOW_TO_ZONE.txt
+
+slot_city_government = {
+	start = zone_default
+
+	included_zone_sets = {
+		default
+	}
+
+	exclude = {
+	}
+
+	potential = { # planet scope
+		always = yes
+	}
+
+	unlock = { # planet scope
+		always = yes
+	}
+}
+
+slot_city_01 = {
+	included_zone_sets = {
+		urban
+		ark_forever_cruise_city
+		knights_settled_world
+	}
+
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = d_collapsed_spire_blocks_zone
+			NOT = {
+				has_deposit = d_collapsed_spire
+			}
+		}
+	}
+}
+
+slot_city_02 = {
+	included_zone_sets = {
+		urban
+		ark_forever_cruise_city
+		knights_settled_world
+	}
+
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_city_02_prereq
+			if = {
+				limit = {
+					exists = owner
+					owner = {
+						is_primitive = yes
+					}
+				}
+				always = yes
+			}
+			else = {
+				has_upgraded_capital = yes
+			}
+		}
+	}
+}
+
+slot_minerals = {
+	included_zone_sets = {
+		minerals
+	}
+ 	potential = {
+		owner? = { is_megacity_architects_empire = no }
+ 	}
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_unavailable_tech_mineral_purification_1
+			owner = {
+				has_tech_or_functional_civic = {
+					TECH = tech_mineral_purification_1
+				}
+			}
+		}
+	}
+}
+
+slot_minerals_urban = {
+ 	included_zone_sets = {
+ 		minerals
+ 		urban
+ 	}
+ 	potential = {
+		owner? = { is_megacity_architects_empire = yes }
+ 	}
+ 	unlock = { # planet scope
+ 		custom_tooltip = {
+ 			fail_text = zone_unavailable_tech_mineral_purification_1
+ 			owner = {
+ 				has_tech_or_functional_civic = {
+ 					TECH = tech_mineral_purification_1
+ 				}
+ 			}
+ 		}
+ 	}
+ }
+
+slot_energy = {
+	included_zone_sets = {
+		energy
+	}
+	potential = {
+		owner? = { is_megacity_architects_empire = no }
+	}
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_unavailable_tech_power_hub_1
+			owner = {
+				has_tech_or_functional_civic = {
+					TECH = tech_power_hub_1
+				}
+			}
+		}
+	}
+}
+
+slot_energy_urban = {
+	included_zone_sets = {
+		energy
+		urban
+	}
+	potential = {
+		owner? = { is_megacity_architects_empire = yes }
+	}
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_unavailable_tech_power_hub_1
+			owner = {
+				has_tech_or_functional_civic = {
+					TECH = tech_power_hub_1
+				}
+			}
+		}
+	}
+}
+
+slot_food = {
+	included_zone_sets = {
+		food
+	}
+	potential = {
+		owner? = { is_megacity_architects_empire = no }
+	}
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_unavailable_tech_food_processing_1
+			OR = {
+				AND = {
+					owner = { is_anglers_empire = yes }
+					is_wet = yes
+				}
+				AND = {
+					owner = {
+						has_valid_civic = civic_agrarian_idyll
+					}
+				}
+				AND = {
+					owner = {
+						has_tech_or_functional_civic = {
+							TECH = tech_food_processing_1
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+slot_food_urban = {
+	included_zone_sets = {
+		food
+		urban
+	}
+	potential = {
+		owner? = { is_megacity_architects_empire = yes }
+	}
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_unavailable_tech_food_processing_1
+			OR = {
+				AND = {
+					owner = { is_anglers_empire = yes }
+					is_wet = yes
+				}
+				AND = {
+					owner = {
+						has_tech_or_functional_civic = {
+							TECH = tech_food_processing_1
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+##shattered ring
+slot_city_04 = {
+	included_zone_sets = {
+		urban
+	}
+
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_city_03_prereq
+			OR = {
+				AND = {
+					is_capital = yes
+					exists = owner
+					owner = {
+						has_technology = tech_planetary_unification
+					}
+					has_upgraded_capital = yes
+				}
+				AND = {
+					is_capital = no
+					exists = owner
+					owner = {
+						has_tech_or_functional_civic = {
+							TECH = tech_colonial_bureaucracy
+						}
+					}
+					has_upgraded_capital = yes
+				}
+			}
+		}
+	}
+}
+##shattered ring
+slot_city_05 = {
+	included_zone_sets = {
+		urban
+	}
+
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_city_03_prereq
+			OR = {
+				AND = {
+					is_capital = yes
+					exists = owner
+					owner = {
+						has_technology = tech_planetary_unification
+					}
+					has_upgraded_capital = yes
+				}
+				AND = {
+					is_capital = no
+					exists = owner
+					owner = {
+						has_tech_or_functional_civic = {
+							TECH = tech_colonial_bureaucracy
+						}
+					}
+					has_upgraded_capital = yes
+				}
+			}
+		}
+	}
+}
+##Ringworld
+slot_rw_urban_01 = {
+	included_zone_sets = {
+		ring_world
+	}
+
+	unlock = { # planet scope
+		uses_district_set = ring_world
+	}
+}
+slot_rw_urban_02 = {
+	included_zone_sets = {
+		ring_world
+	}
+
+	unlock = { # planet scope
+		uses_district_set = ring_world
+	}
+}
+slot_rw_urban_03 = {
+	included_zone_sets = {
+		ring_world
+	}
+
+	unlock = { # planet scope
+		uses_district_set = ring_world
+	}
+}
+##Arcology
+slot_arcology_urban_01 = {
+	included_zone_sets = {
+		arcology
+	}
+
+	unlock = { # planet scope
+		uses_district_set = city_world
+	}
+}
+slot_arcology_urban_02 = {
+	included_zone_sets = {
+		arcology
+	}
+
+	unlock = { # planet scope
+		uses_district_set = city_world
+	}
+}
+slot_arcology_urban_03 = {
+	included_zone_sets = {
+		arcology
+	}
+
+	unlock = { # planet scope
+		uses_district_set = city_world
+	}
+}
+##Machine
+slot_nexus = {
+	included_zone_sets = {
+		nexus
+	}
+
+	unlock = { # planet scope
+		uses_district_set = machine_world
+	}
+}
+
+##Hive
+slot_hive = {
+	included_zone_sets = {
+		hive
+	}
+
+	unlock = { # planet scope
+		uses_district_set = hive_world
+	}
+}
+
+#Synaptic Lathe
+slot_cosmogenesis_government = {
+	start = zone_cosmogenesis_default
+
+	include = {
+		zone_cosmogenesis_default
+	}
+
+	potential = { # planet scope
+		always = yes
+	}
+
+	unlock = { # planet scope
+		always = yes
+	}
+}
+slot_empty = { #A dummy zone to prevent building into a district that should not have any.
+	include = {
+	}
+
+	potential = { # planet scope
+		always = no
+	}
+
+	unlock = { # planet scope
+		always = no
+	}
+}
+#Resort World
+slot_resort_01 = {
+	included_zone_sets = {
+		resort
+	}
+
+	unlock = { # planet scope
+		always = yes
+	}
+}
+slot_resort_02 = {
+	included_zone_sets = {
+		resort
+	}
+
+	unlock = { # planet scope
+
+	custom_tooltip = {
+		fail_text = zone_city_02_prereq
+		OR = {
+			is_capital = yes
+			AND = {
+				is_capital = no
+				exists = owner
+				owner = {
+					has_tech_or_functional_civic = {
+						TECH = tech_colonial_centralization
+					}
+				}
+				has_upgraded_capital = yes
+				}
+			}
+		}
+	}
+}
+slot_resort_attraction_01 = {
+	included_zone_sets = {
+		resort_attraction
+	}
+
+	unlock = { # planet scope
+		always = yes
+	}
+}
+
+# Volcanic World
+
+slot_polytechnic = {
+	included_zone_sets = {
+		polytechnic
+	}
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_unavailable_tech_planetary_unification
+			exists = owner
+			owner = {
+				has_tech_or_functional_civic = {
+					TECH = tech_planetary_unification
+				}
+			}
+		}
+	}
+}
+
+slot_ark_military = {
+	included_zone_sets = {
+		ark_military
+	}
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_unavailable_tech_doctrine_navy_size_1
+			OR = {
+				is_capital = yes
+				owner? = {
+					has_tech_or_functional_civic = {
+						TECH = tech_doctrine_navy_size_1
+					}
+				}
+			}
+		}
+	}
+}
+
+slot_ark_basic = {
+	included_zone_sets = {
+		ark_basic
+	}
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_unavailable_tech_planetary_unification
+			exists = owner
+			owner = {
+				has_tech_or_functional_civic = {
+					TECH = tech_planetary_unification
+				}
+			}
+		}
+	}
+}
+
+slot_ark_reactor = {
+	included_zone_sets = {
+		ark_reactor
+	}
+	unlock = { # planet scope
+		custom_tooltip = {
+			fail_text = zone_unavailable_tech_power_hub_1
+			OR = {
+				is_capital = yes
+				owner? = {
+					has_tech_or_functional_civic = {
+						TECH = tech_power_hub_1
+					}
+				}
+			}
+		}
+	}
+}
+
+slot_ark_forever_cruise = {
+	included_zone_sets = {
+		ark_forever_cruise
+	}
+	unlock = { # planet scope
+		OR = {
+			custom_tooltip = {
+				fail_text = zone_unavailable_tech_hyper_entertainment_forum
+				OR = {
+					is_capital = yes
+					owner? = {
+						has_tech_or_functional_civic = {
+							TECH = tech_hyper_entertainment_forum
+						}
+					}
+				}
+			}
+			owner? = { is_gestalt = yes }
+		}
+	}
+}
+
+slot_ark_city_01 = {
+	included_zone_sets = {
+		urban
+		ark_urban
+		ark_forever_cruise_city
+	}
+	unlock = { # planet scope
+		always = yes
+	}
+}
+
+slot_ark_city_02 = {
+	included_zone_sets = {
+		urban
+		ark_urban
+		ark_forever_cruise_city
+	}
+	unlock = { # planet scope
+		always = yes
+	}
+}

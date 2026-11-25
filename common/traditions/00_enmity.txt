@@ -1,0 +1,163 @@
+tr_enmity_adopt = {
+	unlocks_agenda = agenda_second_strike
+	modifier = {
+		max_rivalries = 1
+	}
+	triggered_modifier = {
+		potential = {
+			has_force_of_will_dlc = yes
+		}
+		max_ideological_rivalries = 1
+	}
+	on_enabled = {
+		if = {
+			limit = {
+				has_force_of_will_dlc = yes
+			}
+			custom_tooltip = tr_enmity_adopt_desc_willpower
+		}
+		else = {
+			custom_tooltip = tr_enmity_adopt_desc
+		}
+	}
+	tradition_swap = {
+		inherit_name = yes
+		inherit_effects = no
+		inherit_icon = yes
+		trigger = {
+			is_nomadic = yes
+			has_force_of_will_dlc = no
+		}
+		inline_script = {
+			script = traditions/tr_enmity_adopt_nomads
+			TOOLTIP = tr_enmity_adopt_nomads_desc
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	tradition_swap = {
+		inherit_name = yes
+		inherit_effects = no
+		inherit_icon = yes
+		trigger = {
+			is_nomadic = yes
+			has_force_of_will_dlc = yes
+		}
+		inline_script = {
+			script = traditions/tr_enmity_adopt_nomads
+			TOOLTIP = tr_enmity_adopt_nomads_desc_willpower
+		}
+		weight = {
+			factor = 1
+		}
+	}
+}
+
+tr_enmity_finish = {
+	custom_tooltip_with_modifiers = tr_enmity_finish_desc
+	modifier = {
+		envoys_add = 1
+		ascension_perks_add = 1
+	}
+}
+
+tr_enmity_rise_to_the_occasion = {
+	inline_script = {
+		script = traditions/tr_enmity_rise_to_the_occasion
+		TOOLTIP = tr_enmity_rise_to_the_occasion_effect
+	}
+	ai_weight = { factor = 1 }
+	tradition_swap = {
+		inherit_name = yes
+		inherit_effects = no
+		inherit_icon = yes
+		trigger = {
+			has_force_of_will_dlc = yes
+		}
+		inline_script = {
+			script = traditions/tr_enmity_rise_to_the_occasion
+			TOOLTIP = tr_enmity_rise_to_the_occasion_effect_willpower
+		}
+		weight = {
+			factor = 1
+		}
+	}
+}
+
+tr_enmity_consumate_contrarian = {
+	possible = { has_tradition = tr_enmity_rise_to_the_occasion }
+	ai_weight = { factor = 1 }
+	modifier = {
+		diplo_weight_opposing_mult = @enmity_consumate_contrarian_diplo_weight_opposing
+	}
+	tradition_swap = {
+		inherit_name = yes
+		inherit_effects = no
+		inherit_icon = yes
+		trigger = {
+			has_force_of_will_dlc = yes
+		}
+		custom_tooltip = tr_enmity_consumate_contrarian_willpower
+		modifier = {
+			diplo_weight_opposing_mult = @enmity_consumate_contrarian_diplo_weight_opposing
+			ideological_resistance_mult = @enmity_consumate_contrarian_ideological_resistance
+			ideological_resistance_vs_rival_mult = @enmity_consumate_contrarian_rival_ideology_resistance
+		}
+		weight = {
+			factor = 1
+		}
+	}
+}
+tr_enmity_match = {
+	ai_weight = { factor = 1 }
+	inline_script = {
+		script = traditions/tr_enmity_match
+		TOOLTIP = tr_enmity_match_effect
+	}
+	tradition_swap = {
+		inherit_name = yes
+		inherit_effects = no
+		inherit_icon = yes
+		trigger = {
+			has_force_of_will_dlc = yes
+		}
+		inline_script = {
+			script = traditions/tr_enmity_match
+			TOOLTIP = tr_enmity_match_effect_willpower
+		}
+		weight = {
+			factor = 1
+		}
+	}
+}
+
+tr_enmity_outpace = {
+	possible = { has_tradition = tr_enmity_match }
+	ai_weight = { factor = 1 }
+	modifier = {
+		damage_vs_rival_mult = 0.15
+	}
+	triggered_modifier = {
+		potential = {
+			has_force_of_will_dlc = yes
+		}
+		damage_vs_ideological_rival_mult = 0.15
+	}
+}
+
+tr_enmity_eclipse = {
+	possible = { has_tradition = tr_enmity_outpace }
+	ai_weight = { factor = 1 }
+	on_enabled = {
+		if = {
+			limit = {
+				has_force_of_will_dlc = yes
+			}
+			custom_tooltip = tr_enmity_eclipse_effect_willpower
+		}
+		else = {
+			custom_tooltip = tr_enmity_eclipse_effect
+		}
+	}
+}

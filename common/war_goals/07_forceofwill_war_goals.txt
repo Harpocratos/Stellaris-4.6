@@ -1,0 +1,302 @@
+wg_impose_ideology = {
+	casus_belli = cb_impose_ideology
+	release_occupied_systems_on_status_quo = yes
+
+	surrender_acceptance = -50
+	war_exhaustion = 0.75
+
+	potential = {
+		exists = ideology
+		from = {
+			is_fallen_empire = no
+		}
+		NOT = { has_country_flag = ideological_subjugation_casus_belli_unlock }
+	}
+	possible = {
+		custom_tooltip = {
+			text = cannot_impose_same_ideology
+			NOT = {
+				from.ideology? = { is_same_value = root.ideology }
+			}
+		}
+		custom_tooltip = {
+			text = cannot_impose_ideology_fow_ambition
+			NOT = {
+				from = { has_ascension_perk = ap_force_of_will }
+			}
+		}
+	}
+
+	on_status_quo = {
+		if = {
+			limit = {
+				exists = last_created_country
+				last_created_country = {
+					has_country_flag = released_empire
+				}
+			}
+
+			last_created_country = { add_modifier = { modifier = recently_liberated days = 7200 } }
+
+			root = { add_opinion_modifier = { modifier = opinion_we_liberated who = last_created_country } }
+			last_created_country = { add_opinion_modifier = { modifier = opinion_liberated_us who = root } }
+
+			last_created_country = {
+				set_origin_effect = { SOURCE_COUNTRY = from }
+			}
+
+			if = {
+				limit = {
+					root = { is_megacorp = yes }
+					last_created_country = { is_megacorp = yes }
+				}
+				last_created_country = {
+					set_merchant_government_effect = yes
+				}
+			}
+
+			last_created_country = {
+				adopt_ideology = from.ideology
+			}
+
+			every_country = {
+				limit = {
+					OR = {
+						is_in_federation_with = root
+						AND = {
+							is_subject = yes
+							exists = overlord
+							overlord = { is_same_value = root }
+						}
+					}
+				}
+
+				add_opinion_modifier = { modifier = opinion_we_liberated who = last_created_country }
+				last_created_country = { add_opinion_modifier = { modifier = opinion_liberated_us who = prev } }
+			}
+			from = {
+				add_threat = {
+					who = root
+					amount = 0.10
+				}
+			}
+			if = {
+				limit = {
+					has_valid_civic = civic_crusader_spirit
+				}
+				change_variable = {
+					which = we_bring_peace_achievement_count
+					value = 1
+				}
+			}
+		}
+	}
+	on_accept = {
+		if = {
+			limit = {
+				from = {
+					NOT = { has_ascension_perk = ap_force_of_will }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = achievement_cb_impose_ideology_opposed_fanatic_ethic }
+						has_opposite_fanatic_ethic = yes
+					}
+					set_country_flag = achievement_cb_impose_ideology_opposed_fanatic_ethic
+				}
+				from = {
+					set_timed_country_flag = {
+						flag = ideology_cannot_abandon_imposed
+						days = 3600
+					}
+					no_faction_management = yes
+				}
+			}
+
+			impose_ideology_ethic_shift = yes
+
+			from = {
+				adopt_ideology = root.ideology
+				no_faction_management_tooltip = yes
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 5
+		modifier = {
+			add = 5
+			ideological_strength_percent >= 0.25
+		}
+		modifier = {
+			add = 5
+			ideological_strength_percent >= 0.5
+		}
+		modifier = {
+			add = 10
+			ideological_strength_percent >= 0.75
+		}
+		modifier = {
+			factor = 2
+			is_absolute = yes
+		}
+		modifier = {
+			add = 5
+			from = {
+				ideology? = {
+					has_same_ethic_as_ideology = root.ideology
+				}
+			}
+		}
+		modifier = {
+			add = 10
+			from = {
+				ideology? = {
+					NOT = { has_same_ethic_as_ideology = root.ideology }
+				}
+			}
+		}
+		modifier = {
+			add = 10
+			from = {
+				ideology? = {
+					has_opposite_ethic_as_ideology = root.ideology
+				}
+			}
+		}
+	}
+}
+
+wg_ideological_subjugation = {
+	casus_belli = cb_ideological_subjugation
+	release_occupied_systems_on_status_quo = yes
+
+	surrender_acceptance = -50
+	war_exhaustion = 0.75
+
+	potential = {
+		exists = ideology
+		from = { is_fallen_empire = no }
+		has_country_flag = ideological_subjugation_casus_belli_unlock
+	}
+	possible = {
+		custom_tooltip = {
+			text = cannot_impose_same_ideology
+			NOT = {
+				from.ideology? = { is_same_value = root.ideology }
+			}
+		}
+		custom_tooltip = {
+			text = cannot_impose_ideology_fow_ambition
+			NOT = {
+				from = { has_ascension_perk = ap_force_of_will }
+			}
+		}
+	}
+
+	on_status_quo = {
+		if = {
+			last_created_country = { save_event_target_as = created_country }
+			limit = {
+				exists = event_target:created_country
+				event_target:created_country = {
+					has_country_flag = released_empire
+				}
+			}
+
+			event_target:created_country = {
+				add_modifier = { modifier = recently_liberated days = 7200 }
+				add_opinion_modifier = { modifier = opinion_liberated_us who = root }
+				set_origin_effect = { SOURCE_COUNTRY = from }
+				adopt_ideology = from.ideology
+			}
+
+			root = { add_opinion_modifier = { modifier = opinion_we_liberated who = last_created_country } }
+
+			if = {
+				limit = {
+					root = { is_megacorp = yes }
+					event_target:created_country = { is_megacorp = yes }
+				}
+				event_target:created_country = {
+					set_merchant_government_effect = yes
+				}
+			}
+
+			every_country = {
+				limit = {
+					OR = {
+						is_in_federation_with = root
+						AND = {
+							is_subject = yes
+							exists = overlord
+							overlord = { is_same_value = root }
+						}
+					}
+				}
+
+				add_opinion_modifier = { modifier = opinion_we_liberated who = last_created_country }
+				event_target:created_country = { add_opinion_modifier = { modifier = opinion_liberated_us who = prev } }
+			}
+			from = {
+				add_threat = {
+					who = root
+					amount = 0.10
+				}
+			}
+			if = {
+				limit = {
+					has_valid_civic = civic_crusader_spirit
+				}
+				change_variable = {
+					which = we_bring_peace_achievement_count
+					value = 1
+				}
+			}
+		}
+	}
+	on_accept = {
+		if = {
+			limit = {
+				from = {
+					NOT = { has_ascension_perk = ap_force_of_will }
+				}
+			}
+			hidden_effect = {
+				from = {
+					set_timed_country_flag = {
+						flag = ideology_cannot_abandon_imposed
+						days = 3600
+					}
+					no_faction_management = yes
+
+					add_threat = {
+						who = root
+						amount = 0.5
+					}
+				}
+			}
+
+			impose_ideology_ethic_shift = yes
+
+			from = {
+				adopt_ideology = root.ideology
+				add_modifier = {
+					modifier = newly_subjugated_loyalty
+					years = 5
+				}
+				set_subject_of = {
+					who = ROOT
+					preset = preset_doctrinal_proxy
+				}
+				no_faction_management_tooltip = yes
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 100
+	}
+}

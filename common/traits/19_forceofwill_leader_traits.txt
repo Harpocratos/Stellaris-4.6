@@ -1,0 +1,840 @@
+leader_trait_spiritual_prodigy = {
+	leader_trait_type = destiny
+	force_councilor_trait = yes
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_spiritual_prodigy"
+		RARITY = paragon
+		COUNCIL = no
+		TIER = none
+	}
+	leader_class = { official }
+	self_modifier = {
+		leader_lifespan_mult = 0.33
+	}
+
+	planet_modifier = {
+		planet_jobs_unity_produces_mult = 0.33
+		pop_citizen_happiness = 0.33
+	}
+
+	sector_modifier = {
+		planet_jobs_unity_produces_mult = 0.33
+		pop_citizen_happiness = 0.33
+	}
+
+	triggered_councilor_modifier = {
+		council_agenda_progress_speed = 0.33
+		councilor_skill_add = 3
+	}
+
+	initial = no
+	randomized = no
+}
+
+leader_trait_golden_generation = {
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_golden_generation"
+		RARITY = paragon
+		COUNCIL = no
+		TIER = 1
+	}
+	leader_class = { commander scientist official }
+
+	custom_tooltip_with_modifiers = "leader_trait_ignore_leader_cap_tt"
+	triggered_self_modifier = {
+		leader_skill_add = 3
+	}
+	triggered_self_modifier = {
+		potential = {
+			owner? = {
+				has_modifier = golden_generation_reputation_damage
+			}
+		}
+		leaders_upkeep_mult = @reputation_damage_upkeep
+		species_leader_exp_gain = @reputation_damage_exp_gain
+	}
+	triggered_self_modifier = {
+		potential = {
+			owner? = {
+				has_modifier = golden_indulgence_modifier
+			}
+		}
+		species_leader_exp_gain = @golden_indulgence_exp_gain
+		leaders_upkeep_mult = @golden_indulgence_upkeep
+	}
+	triggered_self_modifier = {
+		potential = {
+			owner? = {
+				has_modifier = dissatisfied_elite_modifier
+			}
+		}
+		species_leader_exp_gain = @dissatisfied_elite_exp_gain
+	}
+
+	triggered_self_modifier = {
+		potential = {
+			owner? = {
+				OR = {
+					has_country_flag  = has_golden_memories_with_ideology
+					has_country_flag  = has_golden_memories_no_ideology
+				}
+			}
+		}
+		species_leader_exp_gain = @golden_memories_leader_gain
+		custom_tooltip = golden_memories_leader_gain_tt
+	}
+
+	initial = no
+	randomized = no
+}
+
+leader_trait_elite_alumnus = {
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_elite_alumnus"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = 1
+	}
+	leader_class = { commander scientist official }
+
+	triggered_self_modifier = {
+		leader_skill_add = 1
+	}
+
+	initial = no
+	randomized = no
+}
+
+leader_trait_dissident = {
+	leader_trait_type = negative
+	inline_script = {
+		script = trait/icon_negative
+		CLASS = leader
+		ICON = "GFX_leader_trait_dissident"
+		RARITY = common
+		COUNCIL = no
+		TIER = none
+	}
+	planet_modifier = {
+		planet_stability_add = -10
+	}
+	sector_modifier = {
+		planet_stability_add = -5
+	}
+	triggered_councilor_modifier = {
+		council_agenda_progress_speed = -0.1
+	}
+	leader_class = { commander scientist official }
+	initial = no
+	randomized = no
+}
+
+# Ideologue Traits
+
+inline_script = {
+	script = "forceofwill/leader_trait_ideologue"
+	ETHIC = "pacifist"
+}
+
+inline_script = {
+	script = "forceofwill/leader_trait_ideologue"
+	ETHIC = "militarist"
+}
+
+inline_script = {
+	script = "forceofwill/leader_trait_ideologue"
+	ETHIC = "spiritualist"
+}
+
+inline_script = {
+	script = "forceofwill/leader_trait_ideologue"
+	ETHIC = "materialist"
+}
+
+inline_script = {
+	script = "forceofwill/leader_trait_ideologue"
+	ETHIC = "egalitarian"
+}
+
+inline_script = {
+	script = "forceofwill/leader_trait_ideologue"
+	ETHIC = "authoritarian"
+}
+
+inline_script = {
+	script = "forceofwill/leader_trait_ideologue"
+	ETHIC = "xenophile"
+}
+
+inline_script = {
+	script = "forceofwill/leader_trait_ideologue"
+	ETHIC = "xenophobe"
+}
+
+# Cross-Functional Learning Traits
+
+leader_trait_spark_of_genius_other_classes = {
+	inline_script = "forceofwill/duplicated_traits/leader_trait_spark_of_genius"
+	leader_class = { commander official }
+	# This trait can only be given via events
+	initial = no
+	randomized = no
+}
+
+leader_trait_spycraft_commander = {
+	inline_script = "forceofwill/duplicated_traits/leader_trait_spycraft"
+	leader_class = { commander }
+	# This trait can only be given via events
+	initial = no
+	randomized = no
+}
+
+leader_trait_shipwright_scientist = {
+	inline_script = "forceofwill/duplicated_traits/leader_trait_shipwright"
+	leader_class = { scientist }
+	# This trait can only be given via events
+	initial = no
+	randomized = no
+}
+
+leader_trait_fleet_organizer_official = {
+	inline_script = "forceofwill/duplicated_traits/leader_trait_fleet_organizer"
+	leader_class = { official }
+	# This trait can only be given via events
+	initial = no
+	randomized = no
+}
+
+leader_trait_defence_engineer_scientist = {
+	inline_script = "forceofwill/duplicated_traits/leader_trait_defence_engineer"
+	leader_class = { scientist }
+	# This trait can only be given via events
+	initial = no
+	randomized = no
+}
+
+trait_ruler_warlike_all_classes = {
+	inline_script = "forceofwill/duplicated_traits/trait_ruler_warlike"
+	leader_class = { commander official scientist }
+	# This trait can only be given via events
+	initial = no
+	randomized = no
+}
+
+leader_trait_golden_exclusivist = {
+	force_councilor_trait = yes
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_golden_exclusivist"
+		RARITY = common
+		COUNCIL = yes
+		TIER = 1
+	}
+	leader_class = { commander scientist official }
+
+	triggered_councilor_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				count_owned_leader = {
+					count = 1
+					limit = {
+						is_councilor = yes
+						has_trait = leader_trait_golden_generation
+					}
+				}
+			}
+		}
+		council_agenda_progress_speed = 0.3
+		show_if_trigger_false = yes
+		trigger_false_key_override = golden_exclusivist_only_council
+	}
+
+	initial = no
+	randomized = no
+}
+
+leader_trait_golden_cooperator = {
+	force_councilor_trait = yes
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_golden_cooperator"
+		RARITY = common
+		COUNCIL = yes
+		TIER = 1
+	}
+	leader_class = { commander scientist official }
+
+	triggered_councilor_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				count_owned_leader = {
+					count > 1
+					limit = {
+						is_councilor = yes
+						has_trait = leader_trait_golden_generation
+					}
+				}
+			}
+		}
+		council_agenda_progress_speed = 0.05
+		mult = owner.value:count_golden_generation_councilors|OFFSET|1|
+		fix_key = per_golden_generation_councilor
+		should_mult_desc = no
+		show_if_trigger_false = yes
+	}
+
+	initial = no
+	randomized = no
+}
+
+leader_trait_organ_transplant = {
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_organ_transplant"
+		RARITY = common
+		COUNCIL = yes
+		TIER = 1
+	}
+	leader_class = { commander scientist official }
+
+	self_modifier = {
+		leader_lifespan_add = 30
+	}
+
+	initial = no
+	randomized = no
+}
+
+# Paragon leader Destiny Traits
+
+leader_trait_abduction_protocol = {
+	leader_trait_type = destiny
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_abduction_protocol"
+		RARITY = paragon
+		COUNCIL = no
+		TIER = none
+	}
+	leader_class = { commander }
+	triggered_fleet_modifier = {
+		custom_tooltip = leader_trait_abduction_protocol_tt
+		show_only_custom_tooltip = no
+		ship_orbital_bombardment_army_damage_mult = 0.25
+		ship_orbital_bombardment_planet_damage_mult = 0.25
+	}
+	initial = no
+	randomized = no
+}
+
+leader_trait_harmonist = {
+	leader_trait_type = destiny
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_harmonist"
+		RARITY = paragon
+		COUNCIL = no
+		TIER = none
+	}
+	leader_class = { official }
+	# As colony governor
+	triggered_planet_modifier = {
+		potential = { exists = planet }
+		planet_stability_add = 2
+		mult = planet.value:additional_species_on_planet_capped|MAX|5|
+	}
+	triggered_planet_modifier = {
+		potential = { exists = planet }
+		pop_bonus_workforce_mult = 0.02
+		mult = planet.value:additional_species_on_planet_capped|MAX|5|
+	}
+	triggered_planet_modifier = {
+		potential = { exists = planet }
+		colony_ideological_reach_mult = 0.10
+		mult = planet.value:additional_species_on_planet_capped|MAX|5|
+	}
+	# As sector governor
+	triggered_sector_modifier = {
+		potential = { exists = planet }
+		planet_stability_add = 1
+		mult = planet.sector.value:additional_species_on_sector_capped|MAX|5|
+	}
+	triggered_sector_modifier = {
+		potential = { exists = planet }
+		pop_bonus_workforce_mult = 0.01
+		mult = planet.sector.value:additional_species_on_sector_capped|MAX|5|
+	}
+	triggered_sector_modifier = {
+		potential = { exists = planet }
+		colony_ideological_reach_mult = 0.05
+		mult = planet.sector.value:additional_species_on_sector_capped|MAX|5|
+	}
+	custom_tooltip = leader_trait_harmonist_effect
+	initial = no
+	randomized = no
+}
+
+leader_trait_unitary_admin = {
+	leader_trait_type = destiny
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_unitary_admin"
+		RARITY = paragon
+		COUNCIL = no
+		TIER = none
+	}
+	leader_class = { official }
+	# Planet modifiers
+	triggered_planet_modifier = {
+		bureaucrat_jobs_bonus_workforce_mult = 0.2
+		planet_bureaucrats_upkeep_mult = -0.2
+	}
+	triggered_planet_modifier = {
+		potential = { trait_is_gestalt_check = no }
+		planet_crime_add = -5
+	}
+	triggered_planet_modifier = {
+		potential = { trait_is_gestalt_check = yes }
+		planet_crime_no_happiness_add = -5
+	}
+	# Sector modifiers
+	triggered_sector_modifier = {
+		bureaucrat_jobs_bonus_workforce_mult = 0.1
+		planet_bureaucrats_upkeep_mult = -0.1
+	}
+	triggered_sector_modifier = {
+		potential = { trait_is_gestalt_check = no }
+		planet_crime_add = -2.5
+	}
+	triggered_sector_modifier = {
+		potential = { trait_is_gestalt_check = yes }
+		planet_crime_no_happiness_add = -2.5
+	}
+	custom_tooltip = leader_trait_unitary_admin_effect
+	initial = no
+	randomized = no
+}
+
+leader_trait_harkaloid_organ = {
+	leader_trait_type = destiny
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_harkaloid_organ"
+		RARITY = paragon
+		COUNCIL = no
+		TIER = none
+	}
+	leader_class = { commander }
+	triggered_self_modifier = {
+		potential = {
+			owner? = { is_at_war = yes }
+			exists = fleet
+		}
+		species_leader_exp_gain = @harkaloid_at_war_exp_gain
+	}
+	self_modifier = {
+		leader_lifespan_min = 600
+	}
+	triggered_self_modifier = {
+		potential = {
+			is_variable_set = harkaloid_lifespan_bonus
+		}
+		leader_lifespan_add = 1
+		mult = value:harkaloid_organ_lifespan_bonus
+	}
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+		}
+		colony_ideological_reach_mult = @harkaloid_ideological_reach_per_war
+		mult = owner.value:num_active_wars
+	}
+	custom_tooltip = leader_trait_harkaloid_organ_effect
+	initial = no
+	randomized = no
+}
+
+leader_trait_citizen_advocate = {
+	leader_trait_type = destiny
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_citizen_advocate"
+		RARITY = paragon
+		COUNCIL = no
+		TIER = none
+	}
+	leader_class = { official }
+	triggered_planet_modifier = {
+		colony_ideological_reach_mult = 0.20
+	}
+	triggered_sector_modifier = {
+		colony_ideological_reach_mult = 0.05
+	}
+	custom_tooltip = leader_trait_citizen_advocate_effect
+	initial = no
+	randomized = no
+}
+
+leader_trait_the_last_word = {
+	leader_trait_type = destiny
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_the_last_word"
+		RARITY = paragon
+		COUNCIL = no
+		TIER = none
+	}
+	leader_class = { scientist }
+	planet_modifier = {
+		planet_pops_materialist_ideology_physics_research_produces_add = 0.1
+		planet_pops_materialist_ideology_society_research_produces_add = 0.1
+		planet_pops_materialist_ideology_engineering_research_produces_add = 0.1
+	}
+	sector_modifier = {
+		planet_pops_materialist_ideology_physics_research_produces_add = 0.05
+		planet_pops_materialist_ideology_society_research_produces_add = 0.05
+		planet_pops_materialist_ideology_engineering_research_produces_add = 0.05
+	}
+	custom_tooltip = leader_trait_the_last_word_effect
+	initial = no
+	randomized = no
+}
+
+leader_trait_tranquil_steward = {
+	leader_trait_type = destiny
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_tranquil_steward"
+		RARITY = paragon
+		COUNCIL = no
+		TIER = none
+	}
+	leader_class = { official }
+	triggered_councilor_modifier = {
+		custom_tooltip = leader_trait_tranquil_steward_council_effect
+	}
+	# Colony Modifiers
+	planet_modifier = {
+		pop_government_ethic_attraction = 0.1
+	}
+	triggered_planet_modifier = {
+		potential = {
+			OR = {
+				NOT = { exists = owner } # initial tooltip
+				owner? = { is_at_war = no }
+				from? = {
+					is_scope_type = country
+					is_at_war = no
+				}
+			}
+		}
+		custom_tooltip = leader_trait_tranquil_steward_crime_planet
+		show_only_custom_tooltip = no
+		planet_stability_add = 4
+		planet_jobs_unity_produces_mult = 0.1
+		show_if_trigger_false = yes
+		trigger_true_key_override = leader_trait_tranquil_steward_modifier_condition
+		trigger_false_key_override = leader_trait_tranquil_steward_modifier_condition
+	}
+	triggered_planet_modifier = {
+		potential = {
+			OR = {
+				owner? = {
+					is_at_war = no
+					is_gestalt = no
+				}
+				from? = {
+					is_scope_type = country
+					is_at_war = no
+					is_gestalt = no
+				}
+			}
+		}
+		custom_tooltip = EMPTY_STRING
+		planet_crime_add = @leader_trait_tranquil_steward_crime_planet
+	}
+	triggered_planet_modifier = {
+		potential = {
+			OR = {
+				owner? = {
+					is_at_war = no
+					is_gestalt = yes
+				}
+				from? = {
+					is_scope_type = country
+					is_at_war = no
+					is_gestalt = yes
+				}
+			}
+		}
+		custom_tooltip = EMPTY_STRING
+		planet_crime_no_happiness_add = @leader_trait_tranquil_steward_crime_planet
+	}
+	# Sector Modifiers
+	sector_modifier = {
+		pop_government_ethic_attraction = 0.05
+	}
+	triggered_sector_modifier = {
+		potential = {
+			OR = {
+				NOT = { exists = owner } # initial tooltip
+				owner? = { is_at_war = no }
+				from? = {
+					is_scope_type = country
+					is_at_war = no
+				}
+			}
+		}
+		custom_tooltip = leader_trait_tranquil_steward_crime_sector
+		show_only_custom_tooltip = no
+		planet_stability_add = 4
+		planet_jobs_unity_produces_mult = 0.1
+		show_if_trigger_false = yes
+		trigger_true_key_override = leader_trait_tranquil_steward_modifier_condition
+		trigger_false_key_override = leader_trait_tranquil_steward_modifier_condition
+	}
+	triggered_sector_modifier = {
+		potential = {
+			OR = {
+				owner? = {
+					is_at_war = no
+					is_gestalt = no
+				}
+				from? = {
+					is_scope_type = country
+					is_at_war = no
+					is_gestalt = no
+				}
+			}
+		}
+		custom_tooltip = EMPTY_STRING
+		planet_crime_add = @leader_trait_tranquil_steward_crime_sector
+	}
+	triggered_sector_modifier = {
+		potential = {
+			OR = {
+				owner? = {
+					is_at_war = no
+					is_gestalt = yes
+				}
+				from? = {
+					is_scope_type = country
+					is_at_war = no
+					is_gestalt = yes
+				}
+			}
+		}
+		custom_tooltip = EMPTY_STRING
+		planet_crime_no_happiness_add = @leader_trait_tranquil_steward_crime_sector
+	}
+	initial = no
+	randomized = no
+}
+
+leader_trait_awakener = {
+	leader_trait_type = destiny
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_leader_trait_awakener"
+		RARITY = paragon
+		COUNCIL = no
+		TIER = none
+	}
+	leader_class = { scientist }
+	triggered_self_modifier = {
+		custom_tooltip = leader_trait_awakener_decision_effect
+	}
+	# Colony Modifiers
+	triggered_planet_modifier = {
+		potential = { trait_is_gestalt_check = no }
+		job_bureaucrat_add = 25
+		mult = trigger:has_total_skill
+	}
+	triggered_planet_modifier = {
+		potential = { trait_is_gestalt_check = yes }
+		job_coordinator_add = 25
+		mult = trigger:has_total_skill
+	}
+	triggered_planet_modifier = {
+		planet_bureaucrats_unity_produces_mult = 0.1
+		planet_bureaucrats_society_research_produces_add = 2
+		planet_buildings_temples_cost_mult = -0.25
+	}
+	# Sector Modifiers
+	triggered_sector_modifier = {
+		potential = { trait_is_gestalt_check = no }
+		job_bureaucrat_add = 15
+		mult = trigger:has_total_skill
+	}
+	triggered_sector_modifier = {
+		potential = { trait_is_gestalt_check = yes }
+		job_coordinator_add = 15
+		mult = trigger:has_total_skill
+	}
+	triggered_sector_modifier = {
+		planet_bureaucrats_unity_produces_mult = 0.05
+		planet_bureaucrats_society_research_produces_add = 1
+		planet_buildings_temples_cost_mult = -0.15
+	}
+	initial = no
+	randomized = no
+}
+
+leader_trait_disillusioned = {
+	leader_trait_type = negative
+	inline_script = {
+		script = trait/icon_negative
+		CLASS = leader
+		ICON = "GFX_leader_trait_disillusioned"
+		RARITY = common
+		COUNCIL = no
+		TIER = none
+	}
+	inline_script = {
+		script = "traits/disillusioned_ethic_effects"
+		ETHIC = militarist
+	}
+	inline_script = {
+		script = "traits/disillusioned_ethic_effects"
+		ETHIC = pacifist
+	}
+	inline_script = {
+		script = "traits/disillusioned_ethic_effects"
+		ETHIC = spiritualist
+	}
+	inline_script = {
+		script = "traits/disillusioned_ethic_effects"
+		ETHIC = materialist
+	}
+	inline_script = {
+		script = "traits/disillusioned_ethic_effects"
+		ETHIC = xenophobe
+	}
+	inline_script = {
+		script = "traits/disillusioned_ethic_effects"
+		ETHIC = xenophile
+	}
+	inline_script = {
+		script = "traits/disillusioned_ethic_effects"
+		ETHIC = authoritarian
+	}
+	inline_script = {
+		script = "traits/disillusioned_ethic_effects"
+		ETHIC = egalitarian
+	}
+	custom_tooltip_with_modifiers = leader_trait_disillusioned_ethic_effect
+	leader_class = { commander scientist official }
+	initial = no
+	randomized = no
+}
+
+# Cultural Envoy specialist traits - assigned to Officials when occupying a Cultural Envoy.
+
+leader_trait_cultural_envoy_indoctrinator = {
+	inline_script = {
+		script = trait/icon_specialist
+		CLASS = official
+		ICON = "GFX_leader_trait_cultural_envoy_indoctrinator"
+		RARITY = veteran
+		COUNCIL = yes
+		TIER = none
+	}
+	councilor_modifier = {
+		pop_government_ethic_attraction = @cultural_envoy_indoctrinator_council_ethic_attraction
+	}
+	modifier = {
+		cultural_envoy_conversion_rate_add = @cultural_envoy_indoctrinator_envoy_conversion_rate
+	}
+	leader_class = { official }
+	initial = no
+	randomized = no
+}
+
+leader_trait_cultural_envoy_zealot = {
+	inline_script = {
+		script = trait/icon_specialist
+		CLASS = official
+		ICON = "GFX_leader_trait_cultural_envoy_zealot"
+		RARITY = veteran
+		COUNCIL = yes
+		TIER = none
+	}
+	self_modifier = {
+		cultural_envoy_leader_exp_gain_mult = @cultural_envoy_zealot_envoy_leader_xp
+	}
+	modifier = {
+		ship_speed_mult = @cultural_envoy_zealot_envoy_ship_speed
+	}
+	councilor_modifier = {
+		council_agenda_progress_speed = @cultural_envoy_zealot_council_agenda_speed
+	}
+	leader_class = { official }
+	initial = no
+	randomized = no
+}
+
+leader_trait_cultural_envoy_persuasive_luminary = {
+	inline_script = {
+		script = trait/icon_specialist
+		CLASS = official
+		ICON = "GFX_leader_trait_cultural_envoy_persuasive_luminary"
+		RARITY = veteran
+		COUNCIL = yes
+		TIER = none
+	}
+	councilor_modifier = {
+		diplo_weight_mult = @cultural_envoy_persuasive_luminary_council_diplo_weight
+	}
+	modifier = {
+		cultural_envoy_opinion_loss_mult = @cultural_envoy_persuasive_luminary_envoy_opinion_loss
+		ship_cultural_envoy_consumer_goods_upkeep_mult = @cultural_envoy_persuasive_luminary_envoy_conversion_upkeep
+	}
+	leader_class = { official }
+	initial = no
+	randomized = no
+}
+
+leader_trait_cultural_envoy_negotiator = {
+	inline_script = {
+		script = trait/icon_specialist
+		CLASS = official
+		ICON = "GFX_leader_trait_cultural_envoy_negotiator"
+		RARITY = veteran
+		COUNCIL = yes
+		TIER = none
+	}
+	triggered_country_modifier = {
+		potential = {
+			exists = fleet
+			fleet = { has_fleet_flag = cultural_envoy_fleet_converting }
+		}
+		country_trade_produces_mult = @cultural_envoy_negotiator_envoy_conversion_trade
+	}
+	councilor_modifier = {
+		ship_cultural_envoy_ship_cost_mult = @cultural_envoy_negotiator_council_build_cost
+		ship_cultural_envoy_consumer_goods_upkeep_mult = @cultural_envoy_negotiator_council_conversion_upkeep
+	}
+	custom_tooltip = "leader_trait_cultural_envoy_negotiator_effect"
+	leader_class = { official }
+	initial = no
+	randomized = no
+}
